@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+
+.columns {
+    float: left;
+    width: 33.3%;
+    padding: 8px;
+}
+
+.price {
+    list-style-type: none;
+    border: 1px solid #eee;
+    margin: 0;
+    padding: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #3333;
+}
+
+    .price:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    }
+
+    .price .header {
+        background-color: #eee;
+        color: #888888;
+        font-size: 25px;
+    }
+
+    .price li {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .price .grey {
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+.button {
+    background-color: #607D8B;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 9px;
+    font-family: fantasy;
+}
+
+    .button:hover {
+        color: #fff;
+    }
+
+@media only screen and (max-width: 600px) {
+    .columns {
+        width: 100%;
+    }
+}
