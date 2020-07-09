@@ -4,7 +4,6 @@ const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
 require('dotenv').config({ path: '/app/exp.env' });
-console.log(resolve(__dirname+'/exp.env'),resolve('exp.env'),process.env.STRIPE_PUBLISHABLE_KEY );
 if (
   !process.env.STRIPE_SECRET_KEY ||
   !process.env.STRIPE_PUBLISHABLE_KEY ||
@@ -47,7 +46,7 @@ if (
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.use(express.static(resolve(__dirname, '/'+process.env.STATIC_DIR)));
+app.use(express.static('/app/frontend'));
 // Use JSON parser for all non-webhook routes.
 app.use((req, res, next) => {
   if (req.originalUrl === '/stripe-webhook') {
@@ -59,7 +58,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   
-  const path = resolve(__dirname, '/frontend/index.html');
+  const path = '/app/frontend/index.html';
     res.sendFile(path);
 });
 
