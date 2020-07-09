@@ -256,5 +256,6 @@ app.post(
     res.sendStatus(200);
   }
 );
-
+var server_port = 4242 || 3000 || 80;
+var server_host = 'localhost' || '0.0.0.0';
 app.listen(3000, () => console.log(`Node server listening on port ${80}!`));
