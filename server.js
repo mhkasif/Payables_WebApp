@@ -4,7 +4,7 @@ const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
 
-require('dotenv').config({ path: resolve('exp.env') });
+require('dotenv').config({ path: './exp.env' });
 
 if (
   !process.env.STRIPE_SECRET_KEY ||
@@ -48,7 +48,7 @@ if (
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.use(express.static(resolve('/'+process.env.STATIC_DIR)));
+app.use(express.static(resolve('./'+process.env.STATIC_DIR)));
 
 // Use JSON parser for all non-webhook routes.
 app.use((req, res, next) => {
