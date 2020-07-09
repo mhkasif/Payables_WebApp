@@ -48,7 +48,7 @@ if (
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.use(express.static(resolve('./'+process.env.STATIC_DIR)));
+app.use(express.static('./'+process.env.STATIC_DIR));
 
 // Use JSON parser for all non-webhook routes.
 app.use((req, res, next) => {
@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   const path = './frontend/index.html';
-    res.sendFile(path, { root: __dirname });
+    res.sendFile(path);
 });
 
 app.get('/config', async (req, res) => {
