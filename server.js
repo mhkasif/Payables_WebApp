@@ -3,7 +3,7 @@ const app = express();
 const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
-require('dotenv').config({ path: '/exp.env' });
+require('dotenv').config({ path: resolve('exp.env') });
 
 if (
   !process.env.STRIPE_SECRET_KEY ||
