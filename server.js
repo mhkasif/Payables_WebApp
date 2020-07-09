@@ -258,4 +258,4 @@ app.post(
 );
 var server_port = 4242 || process.env.PORT || 80;
 var server_host = 'localhost' || '0.0.0.0';
-app.listen(3000, () => console.log(`Node server listening on port ${80}!`));
+app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
