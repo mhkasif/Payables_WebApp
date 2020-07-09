@@ -117,23 +117,25 @@
                    placeholder="Search data within all transactions"
                    type="text"/> &nbsp;
 
-            <b style="background: #f3f3f3; padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">
+
+
+            <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">
                 <i class="fas fa-filter"></i> &nbsp; Filters
-                <a style="color: #ffffff;background: #19c9a0;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
                    title="Money paid and is now cleared">
-                    <input checked class="1 clearchk" name="clearPaymentCheckbox"
-                           onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
+                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
+                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                           type="checkbox" checked
                            value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
                 </a>
-                <a style="color: #ffffff;background: #f46083;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
                    title="Money that is paid but un-clear">
                     <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                            style="width: 27px; height: 20px; vertical-align: text-bottom;"
                            type="checkbox"
                            value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
                 </a>
-                <a style="color: #ffffff;background: #f7be39;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
                    title="Money that is to be paid">
                     <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                            style="width: 27px; height: 20px; vertical-align: text-bottom;"
