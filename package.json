@@ -1,6 +1,9 @@
 {
   "name": "subscriptions-with-fixed-prices",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
   "description": "A Stripe sample implementing cards for subscriptions with fixed prices.",
   "main": "server.js",
   "scripts": {
