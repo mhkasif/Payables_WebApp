@@ -100,7 +100,7 @@ app.post('/create-subscription', async (req, res) => {
       },
     }
   );
-  console.log(process.env[req.body.priceId]);
+  console.log(process.env[req.body.priceId],req.body.priceId,process.env["basic"],process.env["BASIC"]);
   // Create the subscription
   const subscription = await stripe.subscriptions.create({
     customer: req.body.customerId,
