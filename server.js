@@ -4,7 +4,7 @@ const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
 
-require('dotenv').config({ path: 'exp.env' });
+require('dotenv').config({ path: __dirname+'/exp.env' });
 
 if (
   !process.env.STRIPE_SECRET_KEY ||
@@ -48,7 +48,7 @@ if (
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.use(express.static(process.env.STATIC_DIR));
+app.use(express.static('/frontend', { root: __dirname }));
 
 // Use JSON parser for all non-webhook routes.
 app.use((req, res, next) => {
@@ -60,8 +60,8 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  const path = 'frontend/index.html';
-    res.sendFile(path);
+  const path = '/frontend/index.html';
+  res.sendFile(path, { root: __dirname });
 });
 
 app.get('/config', async (req, res) => {
