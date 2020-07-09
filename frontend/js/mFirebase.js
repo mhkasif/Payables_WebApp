@@ -34,13 +34,13 @@ var liTemplate = '<li class="timelinePart">' +
     '                <p class="timeline-date">23/04/19</p>' +
     '                <div class="timeline-content">' +
     '                    <h3 style="font-weight: 300;">Wednesday' +
-    '                        <a class="totalBalance" style="float:right;color: #737373;">Balance Left:' +
+    '                        <a class="totalBalance" title="This is the balance that is after deduction and to be carry forward to the next payment day" style="float:right;color: #737373;">Balance left after today :' +
     '                            2,00,000</a>' +
     '                        <a class="alert_notification_tag" style="display:none"> <i' +
     '                                class="fas fa-exclamation-circle"></i>' +
     '                            &nbsp;' +
     '                            Alert : Balance Shortage</a>' +
-    '                        <a class="Collection_date"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+    '                        <a class=" Collection_date"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
     '                    </h3>' +
     '                    <div class="responsive-table">' +
     '                        <table class="nowTable" id="t_draggable1">' +
@@ -130,7 +130,7 @@ function getAccountsAll() {
                     '    <input placeholder="Enter Balance" type="number" ' +
                     '           onblur="updateAccount(\'' + doc.id + '\', \'' + doc.data().title + '\', this.value)"' +
                     '           value="' + doc.data().init_balance + '"/>' +
-                    '<a onclick="deleteAccount(\'' + doc.id + '\')">Delete Account</a>' +
+                    '<a style="display: inherit;" onclick="deleteAccount(\'' + doc.id + '\')"> <i class="fas fa-minus-circle"></i> &nbsp; Delete Account</a>' +
                     '</button>';
             }
             var accTab = '  <div class="tabcontent" id="'+doc.id+'">\n' +
@@ -276,9 +276,11 @@ function sortByKey(array, key,isAsc) {
 }
 
 function getTrasactionsAll() {
-    $(".clearchk").prop("checked", true);
-    $(".clearchk").prop("disabled", true);
-   
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        console.log(resp.docs[0].data().collectionDays);
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+    });
     clearTransactionFields();
 if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".tablinks.active").attr("data-accid").toLowerCase()!="add-account"){
     getTrasactionsByAccount($(".tablinks.active").attr("data-accid"));
@@ -316,14 +318,12 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 // console.log(record);
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
-                if (myRecord.status != "Cleared") {
                     trCount++;
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
-                }
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
@@ -342,22 +342,22 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
-            totalAmount = totalAmount - sumOfAmount;
+            totalAmount = totalAmount + sumOfAmount;
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records '+weekday[new Date(key).getDay()]+'">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
                 '                <div class="timeline-content">' +
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
-                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span>  <a class="totalBalance" style="float:right;color: #737373;">'+
-                'Balance Left:' +
-                '                            ' + (totalAmount) + '</a>' +
+                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">'+
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") +'"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
@@ -379,7 +379,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7"></th>' +
+                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
                 '                                    <th></th>'+
                 '                                </tr>'+
@@ -435,12 +435,6 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
 
         }
     });
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        filterbyCollectionDay(resp.docs[0].data().collectionDays);
-        $(".collectionDays").val(resp.docs[0].data().collectionDays);
-        $(".collectionDays").change();
-    });
 }
 
 
@@ -448,7 +442,11 @@ function getTrasactionsByAccount(id) {
     clearTransactionFields();
     
     tblAccountCheques = db.collection("tbl_account_cheques");
-    
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        console.log(resp.docs[0].data().collectionDays);
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+    });
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
@@ -518,7 +516,7 @@ function getTrasactionsByAccount(id) {
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
@@ -551,8 +549,6 @@ function getTrasactionsByAccount(id) {
                 '            </li>';
             $('#acc-li-' + id).append(myLi);
 
-            $(".clearchk").prop("checked", true);
-            $(".clearchk").prop("disabled", true);
             if (totalAmount < sumOfAmount) {
                 $("alert_notification_" + accountid).show();
             } else {
@@ -596,13 +592,6 @@ function getTrasactionsByAccount(id) {
             tblRecordsHtml = '';
 
         }
-    });
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        filterbyCollectionDaytab(filterbyCollectionDaytab, id);
-
-        $(".collectionDays").val(resp.docs[0].data().collectionDays);
-        $(".collectionDays").change();
     });
 }
 
