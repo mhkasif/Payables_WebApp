@@ -83,7 +83,7 @@ app.post('/create-customer', async (req, res) => {
 
 app.post('/create-subscription', async (req, res) => {
   // Set the default payment method on the customer
-  console.log(req,res);
+ 
   try {
     await stripe.paymentMethods.attach(req.body.paymentMethodId, {
       customer: req.body.customerId,
@@ -100,7 +100,7 @@ app.post('/create-subscription', async (req, res) => {
       },
     }
   );
-
+  console.log(process.env[req.body.priceId]);
   // Create the subscription
   const subscription = await stripe.subscriptions.create({
     customer: req.body.customerId,
