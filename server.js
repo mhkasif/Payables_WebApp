@@ -100,11 +100,11 @@ app.post('/create-subscription', async (req, res) => {
       },
     }
   );
-  console.log(process.env[req.body.priceId],req.body.priceId,process.env["basic"],process.env["BASIC"]);
+  console.log(process.env[req.body.priceId.toUpperCase()],process.env["BASIC"]);
   // Create the subscription
   const subscription = await stripe.subscriptions.create({
     customer: req.body.customerId,
-    items: [{ price: process.env[req.body.priceId] }],
+    items: [{ price: process.env[req.body.priceId.toUpperCase()] }],
     expand: ['latest_invoice.payment_intent'],
   });
 
@@ -151,7 +151,7 @@ app.post('/retrieve-upcoming-invoice', async (req, res) => {
         deleted: true,
       },
       {
-        price: process.env[req.body.newPriceId],
+        price: process.env[req.body.newPriceId.toUpperCase()],
         deleted: false,
       },
     ],
@@ -178,7 +178,7 @@ app.post('/update-subscription', async (req, res) => {
       items: [
         {
           id: subscription.items.data[0].id,
-          price: process.env[req.body.newPriceId],
+          price: process.env[req.body.newPriceId.toUpperCase()],
         },
       ],
     }
