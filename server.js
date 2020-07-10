@@ -57,12 +57,13 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  console.log(__dirname);
+ 
   const path = '/app/frontend/index.html';
     res.sendFile(path);
 });
 
 app.get('/config', async (req, res) => {
+ 
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
     packages: [process.env.BASIC,process.env.PREMIUM,process.env.GOLD],
@@ -296,4 +297,4 @@ app.post(
 );
 var server_port = 4242 || process.env.PORT || 80;
 var server_host = 'localhost' || '0.0.0.0';
-app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
+app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`,__dirname));
