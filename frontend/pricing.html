@@ -108,11 +108,18 @@
                     <li><i class="fas fa-dollar-sign"></i> &nbsp; Last payment: <span id="amtpaid">-</span></li>
                     <li><i class="far fa-calendar-check"></i> &nbsp; Last payment date: <span id="trandate">-</span></li>
                     <li><i class="far fa-calendar-times"></i> &nbsp; Plan Expiry Date: <span id="expdate">-</span></li>
-               	   <li style="display:none;" id="billingdetailLink">Billing & Subscription Details: <span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"><a>click here!</a></span></li>
                 </ul>
             </div>
             <div class="col-md-4"></div>
         </div>
+        <div>
+            <b>Manage your AP Subscription on Stripe :</b>               	   
+            <li style="display:none;" id="billingdetailLink"><span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"><a>Upgrade Plan</a></span></li>
+            <li style="display:none;" id="billingdetailLink"><span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"><a>Transactions</a></span></li>
+            <li style="display:none;" id="billingdetailLink"><span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"><a>Manage Cards</a></span></li>
+            <li style="display:none;" id="billingdetailLink"><span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"><a>Cancel Subscription</a></span></li>
+         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <h2 style="text-align:center">Packages</h2>
