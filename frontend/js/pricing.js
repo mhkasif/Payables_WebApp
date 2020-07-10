@@ -1,6 +1,7 @@
 $(document).ready(function () {
     getFirebaseConfig().then(function(){
     initializeFirebase();
+    getFirebaseConfig().then(function(){
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             UserObject = user;
@@ -9,7 +10,7 @@ $(document).ready(function () {
         } else {
             location.href = url + "/signin.html";
         }
-    });
+    });});
 });
 });
 

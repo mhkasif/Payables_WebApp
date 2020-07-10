@@ -195,12 +195,13 @@
             });});
         }
         $(document).ready(function () {
+            initializeFirebase1();
             getFirebaseConfig().then(function(){
             firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     UserObject = user;
-                    initializeFirebase1();
+                   
                 } else {
                     location.href = url + "/signin.html";
                 }
