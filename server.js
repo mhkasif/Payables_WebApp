@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  
+  console.log(__dirname);
   const path = '/app/frontend/index.html';
     res.sendFile(path);
 });
