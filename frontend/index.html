@@ -250,6 +250,7 @@
 
     $(document).ready(function () {
         $("body").hide();
+        getFirebaseConfig().then(function(){
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 UserObject = user;
@@ -307,6 +308,7 @@
         $('.selectpicker').select2({
             placeholder: 'Select Collection day'
         });
+    });
     });
 
     function GotoPricing() {
