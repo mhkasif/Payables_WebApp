@@ -90,6 +90,7 @@ function getFirebaseConfig() {
 }
 function initializeFirebase() {
     getFirebaseConfig().then(function(){
+        console.log("came here first");
     var firebaseConfig = fireBaseConfigInfo;
     //initialize firebase
     if (!firebase.apps.length) {

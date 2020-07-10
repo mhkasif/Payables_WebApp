@@ -4,7 +4,6 @@ const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
 require('dotenv').config({ path: __dirname+'/exp.env' });
-console.log(process.env.STRIPE_SECRET_KEY);
 if (
   !process.env.STRIPE_SECRET_KEY ||
   !process.env.STRIPE_PUBLISHABLE_KEY ||
