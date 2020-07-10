@@ -3,7 +3,7 @@ var UserObject;
 var tblAccounts/* = db.collection("tbl_accounts")*/;
 var tblAccountCheques/* = db.collection("tbl_account_cheques")*/;
 var tblUsers;
-var fireBaseConfigInfo;
+
 var weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -71,7 +71,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                    </div>' +
     '                </div>' +
     '            </li>';
-
+    var fireBaseConfigInfo;
 function getFirebaseConfig() {
         return fetch('/firebaseConfig', {
           method: 'get',

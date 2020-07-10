@@ -1,22 +1,32 @@
 $(document).ready(function () {
     initializeFirebase();
 });
-
+var fireBaseConfigInfo;
+function getFirebaseConfig() {
+        return fetch('/firebaseConfig', {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            fireBaseConfigInfo=response;
+            console.log(fireBaseConfigInfo);
+      
+          });
+}
 function initializeFirebase() {
-    var firebaseConfig = {
-        apiKey: "AIzaSyCtH9KgxZjcSUAXo2Z75LyzRe0WO4mwg7g",
-        authDomain: "fiver-1-safeer.firebaseapp.com",
-        databaseURL: "https://fiver-1-safeer.firebaseio.com",
-        projectId: "fiver-1-safeer",
-        storageBucket: "fiver-1-safeer.appspot.com",
-        messagingSenderId: "410280896300",
-        appId: "1:410280896300:web:91495e0238d6558979ae89"
-    };
+    getFirebaseConfig().then(function(){
+    var firebaseConfig = fireBaseConfigInfo;
     //initialize firebase
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
     }
+});
 }
 
 function SignOutFirebase() {

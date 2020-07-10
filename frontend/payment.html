@@ -161,6 +161,7 @@
 <script src="js/payment.js"></script>
 <script>
     $(document).ready(function () {
+        getFirebaseConfig().then(function(){
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 UserObject = user;
@@ -180,6 +181,7 @@
                 location.href = url + "/signin.html";
             }
         });
+    });
     });
 </script>
     <style>
