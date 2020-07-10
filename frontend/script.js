@@ -20,7 +20,7 @@ let priceInfo = {
         currency: 'USD',
     }
 };
-
+let GlobalCouponResult;
 function stripeElements(publishableKey) {
   stripe = Stripe(publishableKey);
 
@@ -66,9 +66,13 @@ function stripeElements(publishableKey) {
  
 
   let paymentForm = document.getElementById('payment-form');
-  if (paymentForm) {
+    if (paymentForm) {
     paymentForm.addEventListener('submit', function (evt) {
-      evt.preventDefault();
+        evt.preventDefault();
+        GlobalCouponResult = null;
+        getDiscountCoupon().then((result) => {
+            if (result.result) {
+                GlobalCouponResult = result;
       changeLoadingStatePrices(true);
 
       // If a previous payment was attempted, get the lastest invoice
@@ -89,6 +93,8 @@ function stripeElements(publishableKey) {
         // create new payment method & create subscription
         createPaymentMethod({ card });
       }
+            }
+        });
     });
   }
 }
@@ -227,6 +233,9 @@ function confirmPriceChange() {
   );
 }
 
+
+
+
 function createCustomer() {
   let billingEmail = document.querySelector('#email').value;
 
@@ -246,6 +255,49 @@ function createCustomer() {
       return result;
     });
 }
+
+function getDiscountCoupon() {
+    let discountCoupon = document.querySelector('#coupon').value;
+    $("#error-message-coupon").hide();
+        return fetch('/get-discount-coupon', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                coupon: discountCoupon,
+            }),
+        })
+            .then((response) => {
+                console.log(response);
+                return response.json();
+
+            })
+            .then((result) => {
+                console.log(result);
+                if (discountCoupon) {
+                    if (result.coupon) {
+                        if (result.coupon.valid) {
+                            $("#error-message-coupon").hide();
+                            return { result: true, coupon: discountCoupon };
+                        } else {
+                            $("#error-message-coupon").text("Coupon expired");
+                            $("#error-message-coupon").show();
+                            return { result: false, coupon: null };
+                        }
+                    } else {
+                        $("#error-message-coupon").show();
+                        $("#error-message-coupon").text("Invalid Coupon");
+                        return { result: false, coupon: null };
+                    }
+                } else {
+                    return { result: true, coupon: null };
+                }
+
+            });
+   
+}
+
 
 function handleCustomerActionRequired({
   subscription,
@@ -326,7 +378,7 @@ function handlePaymentMethodRequired({
 }
 
 
-var db, UserObject, tblUsers;
+var db, UserObject, tblUsers,tblStripeCustomers;
 function initializeFirebase1() {
     var firebaseConfig = {
         apiKey: "AIzaSyCtH9KgxZjcSUAXo2Z75LyzRe0WO4mwg7g",
@@ -344,7 +396,29 @@ function initializeFirebase1() {
 
         db = firebase.firestore();
         tblUsers = db.collection("tbl_users");
+     
+
     }
+
+    tblStripeCustomers = db.collection("tbl_stripecustomers");
+    tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) { 
+        if (querySnapshot.docs.length > 0) {
+            $('#customerid').val(querySnapshot.docs[0].data().customerid);
+        } else {
+            createCustomer().then((result) => {
+                console.log('customer created');
+                console.log(result);
+                customer = result.customer;
+                tblStripeCustomers.add({
+                    CustomerEmail: UserObject.email,
+                    customerid: customer.id
+                });
+                $('#customerid').val(customer.id);
+            });
+        }
+    });
+   
+
 }
 
 
@@ -372,7 +446,8 @@ function createSubscription({ customerId, paymentMethodId, priceId }) {
       body: JSON.stringify({
         customerId: customerId,
         paymentMethodId: paymentMethodId,
-        priceId: priceId,
+          priceId: priceId,
+          coupon: (GlobalCouponResult.coupon ? GlobalCouponResult.coupon:"no-coupon-added")
       }),
     })
           .then((response) => {

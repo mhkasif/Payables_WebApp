@@ -13,7 +13,7 @@ weekday[5] = "Friday";
 weekday[6] = "Saturday";
 var liRecords = '<tr>' +
     '                                <td><i class="fa fa-bars"></i></td>' +
-    '                                <td class="active_flag flag">🚩</td>' +
+    '                                <td class="active_flag flag">??</td>' +
     '                                <td>#100457</td>' +
     '                                <td>John</td>' +
     '                                <td>Cheque</td>' +
@@ -34,7 +34,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                <p class="timeline-date">23/04/19</p>' +
     '                <div class="timeline-content">' +
     '                    <h3 style="font-weight: 300;">Wednesday' +
-    '                        <a class="totalBalance" style="float:right;color: #737373;">Balance Left:' +
+    '                        <a class="totalBalance" title="This is the balance that is after deduction and to be carry forward to the next payment day" style="float:right;color: #737373;">Balance left after today :' +
     '                            2,00,000</a>' +
     '                        <a class="alert_notification_tag" style="display:none"> <i' +
     '                                class="fas fa-exclamation-circle"></i>' +
@@ -130,30 +130,30 @@ function getAccountsAll() {
                     '    <input placeholder="Enter Balance" type="number" ' +
                     '           onblur="updateAccount(\'' + doc.id + '\', \'' + doc.data().title + '\', this.value)"' +
                     '           value="' + doc.data().init_balance + '"/>' +
-                    '<a onclick="deleteAccount(\'' + doc.id + '\')">Delete Account</a>' +
+                    '<a style="display: inherit;" onclick="deleteAccount(\'' + doc.id + '\')"> <i class="fas fa-minus-circle"></i> &nbsp; Delete Account</a>' +
                     '</button>';
             }
             var accTab = '  <div class="tabcontent" id="'+doc.id+'">\n' +
                 '            <div class="balance_in_account_bar">\n' +
                 '        <input class="balance_input" placeholder="Search data within all transactions" onkeyup="advance_search_recordtab($(this).val(),\'' + doc.id +'\')"            '
         +'            type="text" />                                                                                                                  '
-        +'    <b style="background: #f3f3f3; padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;"><i class="fas fa-filter"></i> &nbsp; Filters        '
-        +'        <a style="color: #ffffff;background: #19c9a0;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;">                                           '
+        +'    <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;"><i class="fas fa-filter"></i> &nbsp; Filters        '
+        +'        <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques paid and are now deducted from your bank">           '
         +'            <input                                                                                                                                  '
                 + '                class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                    '
         +'                style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                     '
-        +'                value="Cleared"    checked                                                                                                                 '
-        +'                type="checkbox">Cleared</a>                                                                                                         '
-        +'            <a style="color: #ffffff;background: #f46083;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"><input                                 '
+        +'                value="Cleared"                                                                                                                   '
+        +'                type="checkbox">&nbsp; Cleared &nbsp; <i class="fas fa-check"></i></a>                                                                                                 '
+        +'            <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that are paid but un-clear"><input              '
                 + '                class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                     '
         +'                style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                     '
         +'                value="Un Clear"                                                                                                                    '
-        +'                type="checkbox">Un Clear</a>                                                                                                        '
-        +'                <a style="color: #ffffff;background: #f7be39;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"><input                             '
+        +'                type="checkbox">&nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i></a>                                                                                                        '
+        +'                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that is still to be paid"><input      '
                 + '                    class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                 '
         +'                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
         +'                    value="To Pay"                                                                                                                  '
-        +'                    type="checkbox">To Pay</a>                                                                                                      '
+        +'                    type="checkbox">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
         +'    </b>                                                                                                                                            '
                 + '                <select class="select collectionDays" multiple id="selectbox_'+doc.id+'" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id +'\');" style="float: right; margin: -7px 11px;">                   '
         +'                                                                                         '
@@ -327,8 +327,8 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td class="active_flag flag '+(myRecord.flag ? "" : "disable_flag")+'" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
-                    '                                <td>#<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -342,7 +342,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount - sumOfAmount;
@@ -350,9 +350,9 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
                 '                <div class="timeline-content">' +
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
-                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span>  <a class="totalBalance" style="float:right;color: #737373;">'+
-                'Balance Left:' +
-                '                            ' + (totalAmount) + '</a>' +
+                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">'+
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") +'"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
@@ -379,7 +379,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7"></th>' +
+                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
                 '                                    <th></th>'+
                 '                                </tr>'+
@@ -488,8 +488,8 @@ function getTrasactionsByAccount(id) {
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared"?"style=\'display:none;\'":"") + '>'  +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td class="active_flag flag '+(myRecord.flag ? "" : "disable_flag")+'" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
-                    '                                <td>#<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -608,7 +608,7 @@ function getTrasactionsByAccount(id) {
 
 function addupdatetransaction(isUpdate) {
     var errorCount = 0;
-    var InputsAll = $("#all-transaction-fields").find("input");
+    var InputsAll = $("#all-transaction-fields").find("input.mandatory-field");
     $(InputsAll).each(function (i, v) {
         if ($(v).attr("id") == "transaction_id") {
 
@@ -633,7 +633,6 @@ function addupdatetransaction(isUpdate) {
         $("#account-list").addClass("invalidSelect");
         errorCount = errorCount + 1;
     }
-    debugger;
     if (errorCount == 0) {
 
         if (isUpdate) {
@@ -748,8 +747,8 @@ function updateTrasaction(id) {
     var targetTr = $("#" + id);
     var tblRecordsHtml = '<tr id="' + id + '">' +
         '                                <td><i class="fa fa-bars"></i></td>' +
-        '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
-        '                                <td>#<span>' + myRecord.cheque_no + '</span></td>' +
+        '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+        '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
         '                                <td><span>' + myRecord.payee + '</span></td>' +
         '                                <td><span>' + myRecord.mode + '</span></td>' +
         '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -806,12 +805,12 @@ console.log(id,order);
 
 }
 function updateTrasactionFlag(evt, id, flag) {
-    console.log(evt);
-    if ($(evt).hasClass("disable_flag")) {
+   
+    if ($("#flag-" + id).hasClass("disable_flag")) {
         flag = true;
-        $(evt).removeClass("disable_flag");
+        $("#flag-"+id).removeClass("disable_flag");
     } else {
-        $(evt).addClass("disable_flag");
+        $("#flag-" + id).addClass("disable_flag");
         flag = false;
     }
     // console.log(id);
