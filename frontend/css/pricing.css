@@ -11,7 +11,7 @@
 .price {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 3% 25%;
     -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 10px;
@@ -19,6 +19,7 @@
     background: #ffffff;
     box-shadow: 0px 0px 8px 2px #3333;
     min-height: 311px;
+    text-align: center;
 }
 
     .price:hover {
@@ -30,25 +31,32 @@
     }
 
     .price li {
-        padding: 20px;
-        text-align: center;
+     padding: 10px;
     }
 
+.price-box__list{
+    text-align: center;
+    color: #676767;
+    list-style: none;
+    padding: 0;
+}
+
     .price .grey {
-        font-weight: 500;
-        font-size: 20px;
+    font-weight: 800;
+    font-size: 31px;
     }
 
 .button {
-    background-color: #607D8B;
+    background-color: #f37f16;
     border: none;
     color: white;
     padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     font-size: 18px;
-    border-radius: 9px;
+    border-radius: 33px;
     font-family: fantasy;
+    box-shadow: 6px 4px #eaeaea;
 }
 
     .button:hover {
