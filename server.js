@@ -3,7 +3,8 @@ const app = express();
 const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
-require('dotenv').config({ path: '/app/exp.env' });
+require('dotenv').config({ path: __dirname+'/exp.env' });
+console.log(process.env.STRIPE_SECRET_KEY);
 if (
   !process.env.STRIPE_SECRET_KEY ||
   !process.env.STRIPE_PUBLISHABLE_KEY ||
@@ -297,4 +298,4 @@ app.post(
 );
 var server_port = 4242 || process.env.PORT || 80;
 var server_host = 'localhost' || '0.0.0.0';
-app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`,__dirname));
+app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
