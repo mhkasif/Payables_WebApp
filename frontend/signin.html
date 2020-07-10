@@ -82,7 +82,7 @@
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
             console.log("came here first");
-            initializeFirebase().then(function(){
+            getFirebaseConfig().then(function(){
               firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 location.href = url + "/index.html";
@@ -99,7 +99,7 @@
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
             console.log("came here first");
-            initializeFirebase().then(function(){
+            getFirebaseConfig().then(function(){
         ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             callbacks: {
