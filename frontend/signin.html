@@ -81,6 +81,7 @@
 <script>
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
+            console.log("came here first");
         initializeFirebase();
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -95,6 +96,7 @@
     var ui;
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
+            console.log("came here first");
         ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             callbacks: {
