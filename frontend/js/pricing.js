@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {
-        location.href = "http://localhost/fiver01/signin.html";
+        location.href = url + "/signin.html";
     }).catch(function (error) {
         // An error happened.
     });
@@ -38,7 +38,7 @@ function createCustomerPortalSession() {
         })
         .then((result) => {
             console.log(result);
-            var win = window.open(result.sess, '_blank');
+            var win = window.open(result.session.url, '_blank');
             if (win) {
                 //Browser has allowed it to be opened
                 win.focus();
