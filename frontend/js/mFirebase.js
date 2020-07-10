@@ -84,6 +84,7 @@ function getFirebaseConfig() {
           })
           .then((response) => {
             fireBaseConfigInfo=response;
+            console.log(fireBaseConfigInfo);
       
           });
 }
