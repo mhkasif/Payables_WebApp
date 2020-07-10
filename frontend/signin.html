@@ -82,14 +82,16 @@
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
             console.log("came here first");
-        initializeFirebase();
-        firebase.auth().onAuthStateChanged(function (user) {
+            initializeFirebase().then(function(){
+              firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 location.href = url + "/index.html";
             } else {
                 $("body").show();
             }
-        });});
+        });
+    });
+    });
     })
 </script>
 <script>
@@ -97,6 +99,7 @@
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
             console.log("came here first");
+            initializeFirebase().then(function(){
         ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             callbacks: {
@@ -126,6 +129,7 @@
 
         ui.start('#google-signin', uiConfig);
     });
+});
     });
 </script>
 </body>
