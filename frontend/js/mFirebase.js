@@ -3,6 +3,7 @@ var UserObject;
 var tblAccounts/* = db.collection("tbl_accounts")*/;
 var tblAccountCheques/* = db.collection("tbl_account_cheques")*/;
 var tblUsers;
+var fireBaseConfigInfo;
 var weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -71,16 +72,26 @@ var liTemplate = '<li class="timelinePart">' +
     '                </div>' +
     '            </li>';
 
+function getFirebaseConfig() {
+        return fetch('/firebaseConfig', {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            fireBaseConfigInfo=response;
+            console.log(fireBaseConfigInfo);
+      
+          });
+}
+getFirebaseConfig();
 function initializeFirebase() {
-    var firebaseConfig = {
-        apiKey: "AIzaSyCtH9KgxZjcSUAXo2Z75LyzRe0WO4mwg7g",
-        authDomain: "fiver-1-safeer.firebaseapp.com",
-        databaseURL: "https://fiver-1-safeer.firebaseio.com",
-        projectId: "fiver-1-safeer",
-        storageBucket: "fiver-1-safeer.appspot.com",
-        messagingSenderId: "410280896300",
-        appId: "1:410280896300:web:91495e0238d6558979ae89"
-    };
+    console.log("now came in initialize");
+    var firebaseConfig = fireBaseConfigInfo;
     //initialize firebase
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
