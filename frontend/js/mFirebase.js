@@ -84,19 +84,18 @@ function getFirebaseConfig() {
           })
           .then((response) => {
             fireBaseConfigInfo=response;
-            console.log(fireBaseConfigInfo);
       
           });
 }
-getFirebaseConfig();
 function initializeFirebase() {
-    console.log("now came in initialize");
+    getFirebaseConfig().then(function(){
     var firebaseConfig = fireBaseConfigInfo;
     //initialize firebase
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
     }
+});
 }
 
 function addAccountActual() {
