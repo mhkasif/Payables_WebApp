@@ -94,7 +94,7 @@
 <script>
     var ui;
     $(document).ready(function () {
-
+        getFirebaseConfig().then(function(){
         ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             callbacks: {
@@ -123,6 +123,7 @@
         };
 
         ui.start('#google-signin', uiConfig);
+    });
     });
 </script>
 </body>
