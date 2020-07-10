@@ -82,6 +82,7 @@
     $(document).ready(function () {
         getFirebaseConfig().then(function(){
             console.log("came here first");
+            initializeFirebase();
             getFirebaseConfig().then(function(){
               firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
