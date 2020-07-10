@@ -40,7 +40,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                                class="fas fa-exclamation-circle"></i>' +
     '                            &nbsp;' +
     '                            Alert : Balance Shortage</a>' +
-    '                        <a class="Collection_date"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+    '                        <a class=" Collection_date"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
     '                    </h3>' +
     '                    <div class="responsive-table">' +
     '                        <table class="nowTable" id="t_draggable1">' +
@@ -276,9 +276,11 @@ function sortByKey(array, key,isAsc) {
 }
 
 function getTrasactionsAll() {
-    $(".clearchk").prop("checked", true);
-    $(".clearchk").prop("disabled", true);
-   
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        console.log(resp.docs[0].data().collectionDays);
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+    });
     clearTransactionFields();
 if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".tablinks.active").attr("data-accid").toLowerCase()!="add-account"){
     getTrasactionsByAccount($(".tablinks.active").attr("data-accid"));
@@ -316,14 +318,12 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 // console.log(record);
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
-                if (myRecord.status != "Cleared") {
                     trCount++;
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
-                }
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
@@ -345,7 +345,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
-            totalAmount = totalAmount - sumOfAmount;
+            totalAmount = totalAmount + sumOfAmount;
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records '+weekday[new Date(key).getDay()]+'">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
                 '                <div class="timeline-content">' +
@@ -357,7 +357,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
@@ -435,12 +435,15 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
 
         }
     });
+<<<<<<< HEAD
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         console.log(resp.docs[0].data().collectionDays);
         filterbyCollectionDay(resp.docs[0].data().collectionDays);
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
     });
+=======
+>>>>>>> 13b7f38e2f7397ae2f8b18443514be1956795677
 }
 
 
@@ -448,7 +451,11 @@ function getTrasactionsByAccount(id) {
     clearTransactionFields();
     
     tblAccountCheques = db.collection("tbl_account_cheques");
-    
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        console.log(resp.docs[0].data().collectionDays);
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+    });
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
@@ -518,7 +525,7 @@ function getTrasactionsByAccount(id) {
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
@@ -551,8 +558,6 @@ function getTrasactionsByAccount(id) {
                 '            </li>';
             $('#acc-li-' + id).append(myLi);
 
-            $(".clearchk").prop("checked", true);
-            $(".clearchk").prop("disabled", true);
             if (totalAmount < sumOfAmount) {
                 $("alert_notification_" + accountid).show();
             } else {
@@ -597,6 +602,7 @@ function getTrasactionsByAccount(id) {
 
         }
     });
+<<<<<<< HEAD
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         console.log(resp.docs[0].data().collectionDays);
         filterbyCollectionDaytab(filterbyCollectionDaytab, id);
@@ -604,6 +610,8 @@ function getTrasactionsByAccount(id) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
     });
+=======
+>>>>>>> 13b7f38e2f7397ae2f8b18443514be1956795677
 }
 
 function addupdatetransaction(isUpdate) {
