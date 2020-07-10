@@ -108,6 +108,7 @@
                     <li><i class="fas fa-dollar-sign"></i> &nbsp; Last payment: <span id="amtpaid">-</span></li>
                     <li><i class="far fa-calendar-check"></i> &nbsp; Last payment date: <span id="trandate">-</span></li>
                     <li><i class="far fa-calendar-times"></i> &nbsp; Plan Expiry Date: <span id="expdate">-</span></li>
+               	   <li style="display:none;" id="billingdetailLink">Billing & Subscription Details: <span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"><a>click here!</a></span></li>
                 </ul>
             </div>
             <div class="col-md-4"></div>
@@ -144,6 +145,7 @@
             </div>
         </div>
     </div>
+    <input style="display:none;" id="customerid" value="" />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -185,7 +187,14 @@
                 $("#amtpaid").html(respParsed.AmountPaid);
                 $("#expdate").html(new Date(respParsed.ExpiryDate).toLocaleDateString("en-US"));
                 $("#trandate").html(new Date(respParsed.TransactionDate).toLocaleDateString("en-US"));
-
+                tblStripeCustomers = db.collection("tbl_stripecustomers");
+                tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                    if (querySnapshot.docs.length > 0) {
+                        $('#customerid').val(querySnapshot.docs[0].data().customerid);
+                        $("#billingdetailLink").show();
+                    }
+                });
+                
                 //$('.price .button').each(function (i,v) {
                 //    $(v).attr('href', $(v).attr('href').replace('<CUS_ID>', UserObject.uid));
                 //   console.log($(v).attr('href'));
@@ -207,3 +216,4 @@
 </body>
 
 </html>
+

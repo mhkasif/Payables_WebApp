@@ -69,6 +69,17 @@ app.get('/config', async (req, res) => {
   });
 });
 
+app.post('/get-discount-coupon', async (req, res) => {
+    console.log(req.body.coupon);
+    stripe.coupons.retrieve(
+        req.body.coupon,
+        function (err, coupon) {
+            console.log(err,coupon);
+            res.send({ coupon });
+        }
+    );
+});
+
 app.post('/create-customer', async (req, res) => {
   // Create a new customer object
   const customer = await stripe.customers.create({
@@ -81,9 +92,35 @@ app.post('/create-customer', async (req, res) => {
   res.send({ customer });
 });
 
+app.post('/create-customerportal-session', async (req, res) => {
+    // Create a new customer object
+    const stripenew = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    try {
+        const session = await stripenew.billingPortal.sessions.create({
+            customer: req.body.customerid,
+            return_url: process.env.REDIRECTURL,
+        });
+
+        res.send({ session });
+    } catch (error) {
+        return res.status('402').send({ error: { message: error.message } });
+    }
+    // save the customer.id as stripeCustomerId
+    // in your database.
+
+});
+
+
 app.post('/create-subscription', async (req, res) => {
+    if (req.body.coupon != "no-coupon-added") {
+        try { await stripe.customers.update(req.body.customerId, {
+            coupon: req.body.coupon,
+        });
+    } catch (error) {
+        return res.status('402').send({ error: { message: error.message } });
+    }
+    }
   // Set the default payment method on the customer
- 
   try {
     await stripe.paymentMethods.attach(req.body.paymentMethodId, {
       customer: req.body.customerId,
@@ -100,7 +137,7 @@ app.post('/create-subscription', async (req, res) => {
       },
     }
   );
-  console.log(process.env[req.body.priceId.toUpperCase()],process.env["BASIC"]);
+
   // Create the subscription
   const subscription = await stripe.subscriptions.create({
     customer: req.body.customerId,

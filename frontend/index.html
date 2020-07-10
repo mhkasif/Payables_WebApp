@@ -185,9 +185,9 @@
                             </thead>
                             <tbody class="t_sortable">
                             <tr id="all-transaction-fields">
-                                <td><input id="transaction_date" placeholder="DD/MM/YYYY" type="date"></td>
+                                <td><input id="transaction_date" class="mandatory-field" placeholder="DD/MM/YYYY" type="date"></td>
                                 <td><input id="cheque_no" placeholder="cheque no." type="text"></td>
-                                <td><input id="payee" placeholder="party" type="text"></td>
+                                <td><input id="payee" placeholder="party"  class="mandatory-field"  type="text"></td>
                                 <td>
                                     <select class="form-control" id="mode" name="">
                                         <option class="red-text" value="Buyer">Buyer</option>
@@ -206,7 +206,7 @@
                                     </select>
                                 </td>
                                 <td class="balance">
-                                    <input id="withdrawal" placeholder="enter amount" type="number">
+                                    <input id="withdrawal" placeholder="enter amount"  class="mandatory-field"  type="number">
                                 </td>
                                 <td>
                                     <button id="add-transaction" onclick="addupdatetransaction(false);" type="button">

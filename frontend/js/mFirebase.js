@@ -13,7 +13,7 @@ weekday[5] = "Friday";
 weekday[6] = "Saturday";
 var liRecords = '<tr>' +
     '                                <td><i class="fa fa-bars"></i></td>' +
-    '                                <td class="active_flag flag">🚩</td>' +
+    '                                <td class="active_flag flag">??</td>' +
     '                                <td>#100457</td>' +
     '                                <td>John</td>' +
     '                                <td>Cheque</td>' +
@@ -276,11 +276,7 @@ function sortByKey(array, key,isAsc) {
 }
 
 function getTrasactionsAll() {
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        $(".collectionDays").val(resp.docs[0].data().collectionDays);
-        $(".collectionDays").change();
-    });
+    
     clearTransactionFields();
 if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".tablinks.active").attr("data-accid").toLowerCase()!="add-account"){
     getTrasactionsByAccount($(".tablinks.active").attr("data-accid"));
@@ -327,8 +323,8 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td class="active_flag flag '+(myRecord.flag ? "" : "disable_flag")+'" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
-                    '                                <td>#<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -435,6 +431,11 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
 
         }
     });
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+        filterbyCollectionDay($(".collectionDays").val());
+    });
 }
 
 
@@ -442,11 +443,6 @@ function getTrasactionsByAccount(id) {
     clearTransactionFields();
     
     tblAccountCheques = db.collection("tbl_account_cheques");
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        $(".collectionDays").val(resp.docs[0].data().collectionDays);
-        $(".collectionDays").change();
-    });
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
@@ -486,8 +482,8 @@ function getTrasactionsByAccount(id) {
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared"?"style=\'display:none;\'":"") + '>'  +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td class="active_flag flag '+(myRecord.flag ? "" : "disable_flag")+'" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
-                    '                                <td>#<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -593,11 +589,17 @@ function getTrasactionsByAccount(id) {
 
         }
     });
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        console.log(resp.docs[0].data().collectionDays);
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+        filterbyCollectionDaytab( $(".collectionDays").val(), id);
+    });
 }
 
 function addupdatetransaction(isUpdate) {
     var errorCount = 0;
-    var InputsAll = $("#all-transaction-fields").find("input");
+    var InputsAll = $("#all-transaction-fields").find("input.mandatory-field");
     $(InputsAll).each(function (i, v) {
         if ($(v).attr("id") == "transaction_id") {
 
@@ -622,7 +624,6 @@ function addupdatetransaction(isUpdate) {
         $("#account-list").addClass("invalidSelect");
         errorCount = errorCount + 1;
     }
-    debugger;
     if (errorCount == 0) {
 
         if (isUpdate) {
@@ -737,8 +738,8 @@ function updateTrasaction(id) {
     var targetTr = $("#" + id);
     var tblRecordsHtml = '<tr id="' + id + '">' +
         '                                <td><i class="fa fa-bars"></i></td>' +
-        '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
-        '                                <td>#<span>' + myRecord.cheque_no + '</span></td>' +
+        '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+        '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
         '                                <td><span>' + myRecord.payee + '</span></td>' +
         '                                <td><span>' + myRecord.mode + '</span></td>' +
         '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -795,12 +796,12 @@ console.log(id,order);
 
 }
 function updateTrasactionFlag(evt, id, flag) {
-    console.log(evt);
-    if ($(evt).hasClass("disable_flag")) {
+   
+    if ($("#flag-" + id).hasClass("disable_flag")) {
         flag = true;
-        $(evt).removeClass("disable_flag");
+        $("#flag-"+id).removeClass("disable_flag");
     } else {
-        $(evt).addClass("disable_flag");
+        $("#flag-" + id).addClass("disable_flag");
         flag = false;
     }
     // console.log(id);

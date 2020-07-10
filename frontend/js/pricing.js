@@ -13,8 +13,36 @@ $(document).ready(function () {
 
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {
-        location.href = "http://localhost/fiver01/signin.html";
+        location.href = url + "/signin.html";
     }).catch(function (error) {
         // An error happened.
     });
+}
+
+
+function createCustomerPortalSession() {
+    let customerid = document.querySelector('#customerid').value;
+
+    return fetch('/create-customerportal-session', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            customerid: customerid,
+        }),
+    })
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((result) => {
+            console.log(result);
+            var win = window.open(result.session.url, '_blank');
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            }
+            return result;
+        });
 }
