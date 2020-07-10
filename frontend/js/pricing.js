@@ -1,5 +1,7 @@
 $(document).ready(function () {
+    getFirebaseConfig().then(function(){
     initializeFirebase();
+    getFirebaseConfig().then(function(){
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             UserObject = user;
@@ -8,8 +10,27 @@ $(document).ready(function () {
         } else {
             location.href = url + "/signin.html";
         }
-    });
+    });});
 });
+});
+
+var fireBaseConfigInfo;
+function getFirebaseConfig() {
+        return fetch('/firebaseConfig', {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            fireBaseConfigInfo=response;
+            console.log(fireBaseConfigInfo);
+      
+          });
+}
 
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {

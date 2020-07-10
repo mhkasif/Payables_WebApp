@@ -15,7 +15,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
 
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
     <link href="css/pricing.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
@@ -31,10 +31,11 @@
 <body>
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-         style="padding: 0 15px;background-color: #ffffff;">
+        style="padding: 0 15px;background-color: #ffffff;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+            <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
+                type="button">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -52,13 +53,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="index.html" onclick="GotoPricing();">
-                        <i class="fas fa-home"></i> &nbsp; <span id="signout" style="font-weight: bold;">Dashboard</span>
+                        <i class="fas fa-home"></i> &nbsp; <span id="signout"
+                            style="font-weight: bold;">Dashboard</span>
                     </a>
                 </li>
                 <li>
                 <a href="mailto:tulsihelpdesk@gmail.com">
                         <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout" style="font-weight: bold;">Feedback</span>
-                    </a>
+                </a>
                 </li>
                 <li>
                     <a href="#">
@@ -71,7 +73,8 @@
                 </li>
                 <li>
                     <a href="#" onclick="SignOutFirebase();">
-                        <span id="signout" style="font-weight: bold;">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i>
+                        <span id="signout" style="font-weight: bold;">Logout</span> &nbsp; <i
+                            class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
             </ul>
@@ -113,7 +116,8 @@
             <div class="col-md-4">
                 <ul style="line-height: 36px; font-family: monospace; list-style: none; padding: 0;color: #5c5c5c;">
                     <li><i class="fas fa-dollar-sign"></i> &nbsp; Last payment: <span id="amtpaid">-</span></li>
-                    <li><i class="far fa-calendar-check"></i> &nbsp; Last payment date: <span id="trandate">-</span></li>
+                    <li><i class="far fa-calendar-check"></i> &nbsp; Last payment date: <span id="trandate">-</span>
+                    </li>
                     <li><i class="far fa-calendar-times"></i> &nbsp; Plan Expiry Date: <span id="expdate">-</span></li>
                 </ul>
             </div>
@@ -214,60 +218,58 @@
     <script>
         var db, UserObject;
         function initializeFirebase1() {
-            var firebaseConfig = {
-                apiKey: "AIzaSyCtH9KgxZjcSUAXo2Z75LyzRe0WO4mwg7g",
-                authDomain: "fiver-1-safeer.firebaseapp.com",
-                databaseURL: "https://fiver-1-safeer.firebaseio.com",
-                projectId: "fiver-1-safeer",
-                storageBucket: "fiver-1-safeer.appspot.com",
-                messagingSenderId: "410280896300",
-                appId: "1:410280896300:web:91495e0238d6558979ae89"
-            };
-            //initialize firebase
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
+            getFirebaseConfig().then(function () {
+                var firebaseConfig = fireBaseConfigInfo;
+                //initialize firebase
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
 
 
-                db = firebase.firestore();
-            }
-            tblUsers = db.collection("tbl_users");
-            tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-                var respParsed = resp.docs[0].data();
-                $("#prev-subscription-details").show();
-                $("#email").html(UserObject.email);
-                $("#uid").html(UserObject.uid);
-                var plan = (respParsed.PackageID == 1 ? "$10/Month" : respParsed.PackageID == 2 ? "$25/3 Month" : respParsed.PackageID == 3 ? "$50/year" : "No package subscribed");
-                $("#plan").html(plan);
-                $("#amtpaid").html(respParsed.AmountPaid);
-                $("#expdate").html(new Date(respParsed.ExpiryDate).toLocaleDateString("en-US"));
-                $("#trandate").html(new Date(respParsed.TransactionDate).toLocaleDateString("en-US"));
-                tblStripeCustomers = db.collection("tbl_stripecustomers");
-                tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
-                    if (querySnapshot.docs.length > 0) {
-                        $('#customerid').val(querySnapshot.docs[0].data().customerid);
-                        $("#billingdetailLink").show();
+                    db = firebase.firestore();
+                }
+
+                firebase.auth().onAuthStateChanged(function (user) {
+
+                    if (user) {
+                        UserObject = user;
+
+                    
+                tblUsers = db.collection("tbl_users");
+                tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+                    var respParsed = resp.docs[0].data();
+                    $("#prev-subscription-details").show();
+                    $("#email").html(UserObject.email);
+                    $("#uid").html(UserObject.uid);
+                    var plan = (respParsed.PackageID == 1 ? "$10/Month" : respParsed.PackageID == 2 ? "$25/3 Month" : respParsed.PackageID == 3 ? "$50/year" : "No package subscribed");
+                    $("#plan").html(plan);
+                    $("#amtpaid").html(respParsed.AmountPaid);
+                    $("#expdate").html(new Date(respParsed.ExpiryDate).toLocaleDateString("en-US"));
+                    $("#trandate").html(new Date(respParsed.TransactionDate).toLocaleDateString("en-US"));
+                    tblStripeCustomers = db.collection("tbl_stripecustomers");
+                    tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                        if (querySnapshot.docs.length > 0) {
+                            $('#customerid').val(querySnapshot.docs[0].data().customerid);
+                            $("#billingdetailLink").show();
+                        }
+                    });
+
+                    //$('.price .button').each(function (i,v) {
+                    //    $(v).attr('href', $(v).attr('href').replace('<CUS_ID>', UserObject.uid));
+                    //   console.log($(v).attr('href'));
+                    //});
+                });
+            } else {
+                        location.href = url + "/signin.html";
                     }
                 });
-                
-                //$('.price .button').each(function (i,v) {
-                //    $(v).attr('href', $(v).attr('href').replace('<CUS_ID>', UserObject.uid));
-                //   console.log($(v).attr('href'));
-                //});
             });
+        
         }
         $(document).ready(function () {
-            firebase.auth().onAuthStateChanged(function (user) {
+            initializeFirebase1();
 
-                if (user) {
-                    UserObject = user;
-                    initializeFirebase1();
-                } else {
-                    location.href = url + "/signin.html";
-                }
-            });
         });
     </script>
 </body>
 
 </html>
-

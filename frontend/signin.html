@@ -80,20 +80,27 @@
 <div id="loader"></div>
 <script>
     $(document).ready(function () {
-        initializeFirebase();
-        firebase.auth().onAuthStateChanged(function (user) {
+        getFirebaseConfig().then(function(){
+            console.log("came here first");
+            initializeFirebase();
+            getFirebaseConfig().then(function(){
+              firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 location.href = url + "/index.html";
             } else {
                 $("body").show();
             }
         });
+    });
+    });
     })
 </script>
 <script>
     var ui;
     $(document).ready(function () {
-
+        getFirebaseConfig().then(function(){
+            console.log("came here first");
+            getFirebaseConfig().then(function(){
         ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             callbacks: {
@@ -122,6 +129,8 @@
         };
 
         ui.start('#google-signin', uiConfig);
+    });
+});
     });
 </script>
 </body>

@@ -3,7 +3,7 @@ const app = express();
 const { resolve } = require('path');
 const bodyParser = require('body-parser');
 // Replace if using a different env file or config
-require('dotenv').config({ path: '/app/exp.env' });
+require('dotenv').config({ path: __dirname+'/exp.env' });
 if (
   !process.env.STRIPE_SECRET_KEY ||
   !process.env.STRIPE_PUBLISHABLE_KEY ||
@@ -46,7 +46,7 @@ if (
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.use(express.static('/app/frontend'));
+app.use(express.static(__dirname+'/'+process.env.STATIC_DIR));
 // Use JSON parser for all non-webhook routes.
 app.use((req, res, next) => {
   if (req.originalUrl === '/stripe-webhook') {
@@ -57,15 +57,37 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  
-  const path = '/app/frontend/index.html';
+ 
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/'+process.env.STARTPOINT;
     res.sendFile(path);
 });
 
 app.get('/config', async (req, res) => {
+ 
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
     packages: [process.env.BASIC,process.env.PREMIUM,process.env.GOLD],
+  });
+});
+
+app.get('/firebaseConfig', async (req, res) => {
+ console.log({
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASEURL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDERID,
+  appId: process.env.FIREBASE_APP_ID,
+});
+  res.send({
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASEURL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDERID,
+    appId: process.env.FIREBASE_APP_ID,
   });
 });
 
