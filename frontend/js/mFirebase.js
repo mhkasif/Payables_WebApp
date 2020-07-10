@@ -435,15 +435,12 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
 
         }
     });
-<<<<<<< HEAD
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         console.log(resp.docs[0].data().collectionDays);
         filterbyCollectionDay(resp.docs[0].data().collectionDays);
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
     });
-=======
->>>>>>> 13b7f38e2f7397ae2f8b18443514be1956795677
 }
 
 
@@ -602,7 +599,6 @@ function getTrasactionsByAccount(id) {
 
         }
     });
-<<<<<<< HEAD
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         console.log(resp.docs[0].data().collectionDays);
         filterbyCollectionDaytab(filterbyCollectionDaytab, id);
@@ -610,8 +606,6 @@ function getTrasactionsByAccount(id) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
     });
-=======
->>>>>>> 13b7f38e2f7397ae2f8b18443514be1956795677
 }
 
 function addupdatetransaction(isUpdate) {
