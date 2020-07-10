@@ -276,11 +276,7 @@ function sortByKey(array, key,isAsc) {
 }
 
 function getTrasactionsAll() {
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        $(".collectionDays").val(resp.docs[0].data().collectionDays);
-        $(".collectionDays").change();
-    });
+    
     clearTransactionFields();
 if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".tablinks.active").attr("data-accid").toLowerCase()!="add-account"){
     getTrasactionsByAccount($(".tablinks.active").attr("data-accid"));
@@ -436,10 +432,9 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
         }
     });
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        filterbyCollectionDay(resp.docs[0].data().collectionDays);
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
+        filterbyCollectionDay($(".collectionDays").val());
     });
 }
 
@@ -448,11 +443,6 @@ function getTrasactionsByAccount(id) {
     clearTransactionFields();
     
     tblAccountCheques = db.collection("tbl_account_cheques");
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
-        $(".collectionDays").val(resp.docs[0].data().collectionDays);
-        $(".collectionDays").change();
-    });
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
@@ -601,10 +591,9 @@ function getTrasactionsByAccount(id) {
     });
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         console.log(resp.docs[0].data().collectionDays);
-        filterbyCollectionDaytab(filterbyCollectionDaytab, id);
-
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
+        filterbyCollectionDaytab( $(".collectionDays").val(), id);
     });
 }
 
