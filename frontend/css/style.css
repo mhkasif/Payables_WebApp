@@ -221,10 +221,16 @@ table tr:nth-child(even) {
 
 table input {
     width: 100%;
+    height: 34px;
+    border-radius: 3px;
 }
 
 table select{
     width: 100%;
+}
+
+table button{
+margin: 0;
 }
 
 th,
