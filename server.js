@@ -102,6 +102,17 @@ app.post('/get-discount-coupon', async (req, res) => {
     );
 });
 
+app.post('/get-cutomer-subscriptions', async (req, res) => {
+  console.log(req.body.customerid);
+  stripe.subscriptions.list(
+      {customer:req.body.customerid},
+      function (err, response) {
+          console.log(err,response);
+          res.send({ response });
+      }
+  );
+});
+
 app.post('/create-customer', async (req, res) => {
   // Create a new customer object
   const customer = await stripe.customers.create({
@@ -318,4 +329,5 @@ app.post(
 );
 var server_port = 4242 || process.env.PORT || 80;
 var server_host = 'localhost' || '0.0.0.0';
-app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
+// app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
+app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));

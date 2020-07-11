@@ -69,11 +69,13 @@ function stripeElements(publishableKey) {
     if (paymentForm) {
     paymentForm.addEventListener('submit', function (evt) {
         evt.preventDefault();
+        changeLoadingState(true);
         GlobalCouponResult = null;
         getDiscountCoupon().then((result) => {
+      
             if (result.result) {
                 GlobalCouponResult = result;
-      changeLoadingStatePrices(true);
+                
 
       // If a previous payment was attempted, get the lastest invoice
       const latestInvoicePaymentIntentStatus = localStorage.getItem(
@@ -93,6 +95,8 @@ function stripeElements(publishableKey) {
         // create new payment method & create subscription
         createPaymentMethod({ card });
       }
+            }else{
+              changeLoadingState(false);
             }
         });
     });
@@ -762,11 +766,12 @@ function onSubscriptionSampleDemoComplete({
             PackageID: getUrlParameter("package"),
             Email: UserObject.email,
             AmountPaid: priceInfo[priceId].amount / 100,
-            TransactionDate: new Date().toString(),
-            ExpiryDate: expiryDate+"",
+            TransactionDate: firebase.firestore.Timestamp.fromDate(new Date()).toDate(),
+            ExpiryDate: firebase.firestore.Timestamp.fromDate(expiryDate).toDate(),
             TransactionID: subscriptionId
 
         }).then(function () {
+          changeLoadingState(false);
             window.location.href ="/index.html"
             });
 
@@ -830,11 +835,11 @@ function changeLoadingState(isLoading) {
   if (isLoading) {
     document.querySelector('#button-text').classList.add('hidden');
     document.querySelector('#loading').classList.remove('hidden');
-    document.querySelector('#signup-form button').disabled = true;
+    document.querySelector('#payment-form button').disabled = true;
   } else {
     document.querySelector('#button-text').classList.remove('hidden');
     document.querySelector('#loading').classList.add('hidden');
-    document.querySelector('#signup-form button').disabled = false;
+    document.querySelector('#payment-form button').disabled = false;
   }
 }
 
