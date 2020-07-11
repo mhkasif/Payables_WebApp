@@ -219,6 +219,14 @@ table tr:nth-child(even) {
   background-color: #ffffff;
 }
 
+table input {
+    width: 100%;
+}
+
+table select{
+    width: 100%;
+}
+
 th,
 tr,
 td {
