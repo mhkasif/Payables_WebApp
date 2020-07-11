@@ -201,15 +201,14 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     white-space: nowrap;
-    border: 3px solid #e0e0e0;
-    border-top: none;
-    border-left: none;
+    border: 2px solid #e0e0e0;
 }
 
-table th {
+table th {    
     background: #fcfcfc;
     color: #676767;
     border: none;
+    padding: 8px;
 }
 
 table tr:nth-child(odd) {
@@ -223,10 +222,10 @@ table tr:nth-child(even) {
 th,
 tr,
 td {
-  text-align: center;
-  border: 1px solid #dfdfdf;
-  padding: 10px;
-  background: #fefefe;
+    text-align: center;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 4px;
+    background: #fefefe;
 }
 
 img {
