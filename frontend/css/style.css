@@ -393,6 +393,8 @@ img {
     width: 27%;
     border-radius: 6px;
     padding: 16px;
+    background: #fcfcfc;
+    border: 1px solid #3333;
 }
 
 .form-control {
