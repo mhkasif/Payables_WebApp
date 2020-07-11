@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -21,7 +19,6 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/videostyle.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <style>
@@ -205,8 +202,9 @@
                 <i class="fas fa-filter"></i> &nbsp; Filters
                 <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
                     title="Money paid and is now cleared">
-                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
-                        style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox" value="Cleared">
+                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecordsChecked()"
+                   id="clearchk"
+                    style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox" value="Cleared">
                     &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
                 </a>
                 <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
@@ -236,7 +234,6 @@
                 <option>Sunday</option>
             </select>
         </div>
-    </div>
     <ul class="timeline" id="all-transactions">
         <li class="timelinePart" id="add-entry-all">
             <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434);
@@ -319,7 +316,7 @@
         onclick="LoadMore();">Load more</span>
     </div>
 
-    </div>
+    
     <input style="display: none;" id="customerid">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
@@ -329,7 +326,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-    </div>
+   
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -347,7 +344,9 @@
     <script>
 
         $(document).ready(function () {
+            setTimeout(function(){ $('#clearchk').prop("checked",true).trigger("change");},5000);
             $("body").hide();
+            $(".collectiondayselect").select2();
             getFirebaseConfig().then(function () {
                 firebase.auth().onAuthStateChanged(function (user) {
                     if (user) {
@@ -397,6 +396,7 @@
                         tblAccounts = db.collection("tbl_accounts");
                         tblAccounts.where("title", "==", 'Cash in Hand').where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
                             // console.log(querySnapshot.docs.length);
+                         
                             // console.log(querySnapshot.size);
                             if (querySnapshot.docs.length > 0) {
                                 console.log('Cash in Hand already Exists');
