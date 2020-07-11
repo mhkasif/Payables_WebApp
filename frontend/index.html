@@ -16,11 +16,73 @@
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/videostyle.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
+
+<div id="loading">
+  <img id="loading-image" src="img/axiloader.gif" alt="Loading..." />
+</div>
+
+<!-- video modal -->
+<section class="video-modal">
+
+    <!-- Modal Content Wrapper -->
+    <div 
+         id="video-modal-content" class="video-modal-content"
+     >
+      
+       <!-- iframe -->
+       <iframe 
+          id="youtube" 
+          width="100%" 
+          height="100%" 
+          frameborder="0" 
+          allow="autoplay" 
+          allowfullscreen 
+          src=
+        ></iframe>
+
+        <a 
+        	href="#" 
+        	class="close-video-modal" 
+        >
+        	<!-- X close video icon -->
+          <svg 
+            version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0"
+            y="0"
+            viewBox="0 0 32 32" 
+            style="enable-background:new 0 0 32 32;" 
+            xml:space="preserve" 
+            width="24" 
+            height="24" 
+          >
+
+            <g id="icon-x-close">
+                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
+                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
+            </g>
+
+          </svg>
+        </a>
+
+    </div><!-- end modal content wrapper -->
+
+
+    <!-- clickable overlay element -->
+    <div class="overlay"></div>
+
+
+</section>
+<!-- end video modal -->
+
+
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
      style="padding: 0 15px;background-color: #ffffff;">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -42,8 +104,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="pricing.html" onclick="GotoPricing();">
-                    <i class="fas fa-graduation-cap"></i> &nbsp; <span id="signout" style="font-weight: bold;">Learn how to use</span>
+                <a href="https://www.youtube.com/watch?v=Ahglrb_z7wQ" data-youtube-id="Ahglrb_z7wQ" class=" button primary js-trigger-video-modal">
+                    <i class="fas fa-graduation-cap"></i> &nbsp; Learn how to use 
                 </a>
             </li>
             <li>
@@ -246,6 +308,7 @@
 <script defer src="js/mFirebase.js"></script>
 <script src="js/index.js"></script>
 <script src="js/select2.js"></script>
+<script src="js/videoscript.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -324,5 +387,11 @@
     }
 </script>
 </body>
+
+<script>
+  $(window).load(function() {
+    $('#loading').hide();
+  });
+</script>
 
 </html>
