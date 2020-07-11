@@ -15,79 +15,94 @@
 
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Poppins|Roboto|Roboto+Mono|Rubik|Work+Sans&display=swap"
+        rel="stylesheet" />
+
     <link href="css/style.css" rel="stylesheet">
     <link href="css/videostyle.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
+<style>
+    label {
+        display: flex !important;
+    }
+
+    .select2-container--open .select2-dropdown--below {
+        width: 345px;
+    }
+
+    .select2-selection.select2-selection--multiple {
+        width: 344px;
+        max-height: 280px !important;
+        height: 66px;
+        background: #fcfcfc;
+        border: 1px solid #3333;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #ffffff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 5px;
+        padding: 4px;
+    }
+</style>
+
 <body>
 
-<div id="loading">
-  <img id="loading-image" src="img/axiloader.gif" alt="Loading..." />
-</div>
+    <div id="loading">
+        <img id="loading-image" src="img/axiloader.gif" alt="Loading..." />
+    </div>
 
-<!-- video modal -->
-<section class="video-modal">
+    <!-- video modal -->
+    <section class="video-modal">
 
-    <!-- Modal Content Wrapper -->
-    <div 
-         id="video-modal-content" class="video-modal-content"
-     >
-      
-       <!-- iframe -->
-       <iframe 
-          id="youtube" 
-          width="100%" 
-          height="100%" 
-          frameborder="0" 
-          allow="autoplay" 
-          allowfullscreen 
-          src=
-        ></iframe>
+        <!-- Modal Content Wrapper -->
+        <div id="video-modal-content" class="video-modal-content">
 
-        <a 
-        	href="#" 
-        	class="close-video-modal" 
-        >
-        	<!-- X close video icon -->
-          <svg 
-            version="1.1" 
-            xmlns="http://www.w3.org/2000/svg" 
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0"
-            y="0"
-            viewBox="0 0 32 32" 
-            style="enable-background:new 0 0 32 32;" 
-            xml:space="preserve" 
-            width="24" 
-            height="24" 
-          >
+            <!-- iframe -->
+            <iframe id="youtube" width="100%" height="100%" frameborder="0" allow="autoplay" allowfullscreen
+                src=></iframe>
 
-            <g id="icon-x-close">
-                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
-                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
-            </g>
+            <a href="#" class="close-video-modal">
+                <!-- X close video icon -->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0"
+                    y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve" width="24"
+                    height="24">
 
-          </svg>
-        </a>
+                    <g id="icon-x-close">
+                        <path fill="#ffffff"
+                            d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z"
+                            id="Shape"></path>
+                        <path fill="#ffffff"
+                            d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z"
+                            id="Shape"></path>
+                    </g>
 
-    </div><!-- end modal content wrapper -->
+                </svg>
+            </a>
+
+        </div><!-- end modal content wrapper -->
 
 
-    <!-- clickable overlay element -->
-    <div class="overlay"></div>
+        <!-- clickable overlay element -->
+        <div class="overlay"></div>
 
 
-</section>
-<!-- end video modal -->
+    </section>
+    <!-- end video modal -->
 
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-     style="padding: 0 15px;background-color: #ffffff;">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+        style="padding: 0 15px;background-color: #ffffff;">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
+                type="button">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -96,31 +111,33 @@
             <a class="navbar-brand" href="#"><img src="img/logo7.png" style="width: 45%;" /></a>
         </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <!--            <li class="active"><a href="#">Link</a></li>-->
-            <!--            <li><a href="#">Link</a></li>-->
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="https://www.youtube.com/watch?v=Ahglrb_z7wQ" data-youtube-id="Ahglrb_z7wQ" class=" button primary js-trigger-video-modal">
-                    <i class="fas fa-graduation-cap"></i> &nbsp; Learn how to use 
-                </a>
-            </li>
-            <li>
-                <a href="pricing.html" onclick="GotoPricing();">
-                    <i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout" style="font-weight: bold;">Billing & Subscription</span>
-                </a>
-            </li>
-            <li>
-                <a href="mailto:tulsihelpdesk@gmail.com">
-                    <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout"
-                                                                      style="font-weight: bold;">Feedback</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--            <li class="active"><a href="#">Link</a></li>-->
+                <!--            <li><a href="#">Link</a></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://www.youtube.com/watch?v=Ahglrb_z7wQ" data-youtube-id="Ahglrb_z7wQ"
+                        class=" button primary js-trigger-video-modal">
+                        <i class="fas fa-graduation-cap"></i> &nbsp; Learn how to use
+                    </a>
+                </li>
+                <li>
+                    <a href="pricing.html" onclick="GotoPricing();">
+                        <i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout" style="font-weight: bold;">Billing
+                            & Subscription</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:tulsihelpdesk@gmail.com">
+                        <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout"
+                            style="font-weight: bold;">Feedback</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
                         <span id="userimage">
                             <img src="img/Profilepic.webp" style="max-height: 40px;
     border-radius: 50%;" />
@@ -138,7 +155,8 @@
         </div><!-- /.navbar-collapse -->
     </nav>
     <div style="border-right: 1px solid #a4a4a4;margin-top: 50px;">
-    <div style="padding: 2% 2% 2% 2%; border-bottom: 1px solid #e9e9e9; background: linear-gradient(176deg, #f9f9f9, transparent);">
+        <div
+            style="padding: 2% 2% 2% 2%; border-bottom: 1px solid #e9e9e9; background: linear-gradient(176deg, #f9f9f9, transparent);">
             <div style="display: inline-flex; width:100%;margin-bottom: 3%; margin-top: 1%;">
                 <h3 style="width: 100%;margin: 0;line-height: 2;font-weight: 600;font-family: initial;color: #999;">
                     Payment Accounts
@@ -147,79 +165,81 @@
     font-weight: 100;
 ">These below are your payment sources to manage payables &amp; recieveables from &amp; in each source</p>
                 </h3>
-            <div style="color: #607D8B; place-self: center; min-width: 282px; text-align: center; font-weight: 300; font-size: 21px;text-align: right;">
+                <div
+                    style="color: #607D8B; place-self: center; min-width: 282px; text-align: center; font-weight: 300; font-size: 21px;text-align: right;">
                     <i class="far fa-calendar-alt" style="color: #e5e5e5; font-size: 63px;"></i> &nbsp; <a
-                    style="display: inline-block; text-align: left;color: #999;"><b id="today" style="font-weight:900;">-----</b><br>
+                        style="display: inline-block; text-align: left;color: #999;"><b id="today"
+                            style="font-weight:900;">-----</b><br>
                         <b id="date">------</b></a>
                 </div>
             </div>
             <div class="tab" id="tabs-accounts">
-            <button class="tablinks" data-accid="defaultOpen" id="defaultOpen" onclick="openTab(event, 'All')" style="background: repeating-linear-gradient(379deg, #15a1800a, #ffffff00 155px);">
+                <button class="tablinks" data-accid="defaultOpen" id="defaultOpen" onclick="openTab(event, 'All')"
+                    style="background: repeating-linear-gradient(379deg, #15a1800a, #ffffff00 155px);">
                     <i class="fas fa-university"></i><br><b>Total of All Holdings</b>
                     <input disabled placeholder="---------" style="text-align: center;border: none;font-weight: 700;"
                         type="number" />
                 </button>
                 <!--ACCOUNT TABS APPEND HERE-->
-            <button class="tablinks" data-accid="add-account" id="add-account" onclick="$(this).addClass('active');">
+                <button class="tablinks" data-accid="add-account" id="add-account"
+                    onclick="$(this).addClass('active');">
                     <i class="fas fa-plus"></i>
                     <b>Add new account</b>
                     <input id="account_title" placeholder="Bank name" type="text" />
-                <a onclick="addAccountActual()"
-                   placeholder="add"
-                   type="button">
+                    <a onclick="addAccountActual()" placeholder="add" type="button">
                         Add
                         Bank Account
                     </a>
                 </button>
             </div>
         </div>
-        <div class="tabcontent" id="All">
-            <div class="balance_in_account_bar">
-                <input class="balance_input" onkeyup="advance_search_record($(this).val())"
-                   placeholder="Search data within all transactions"
-                   type="text"/> &nbsp;
+    </div>
+    <div class="tabcontent" id="All">
+        <div class="balance_in_account_bar">
+            <input class="balance_input" onkeyup="advance_search_record($(this).val())"
+                placeholder="Search data within all transactions" type="text" /> &nbsp;
 
 
 
-                <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">
-                    <i class="fas fa-filter"></i> &nbsp; Filters
-                    <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                        title="Money paid and is now cleared">
-                        <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox"
-                            value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
-                    </a>
-                    <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                        title="Money that is paid but un-clear">
-                        <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox"
-                            value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
-                    </a>
-                    <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                        title="Money that is to be paid">
-                        <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox"
-                            value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
-                    </a>
-                </b>
-                <select class="select selectpicker collectiondayselect collectionDays" multiple
-                    onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                    <option>Saturday</option>
-                    <option>Sunday</option>
-                </select>
-            </div>
-            <ul class="timeline" id="all-transactions">
-                <li class="timelinePart" id="add-entry-all">
-                <p class="timeline-date"
-                   style="background: linear-gradient(157deg, #393939, #343434);
+            <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">
+                <i class="fas fa-filter"></i> &nbsp; Filters
+                <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                    title="Money paid and is now cleared">
+                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
+                        style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox" value="Cleared">
+                    &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
+                </a>
+                <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                    title="Money that is paid but un-clear">
+                    <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                        style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
+                        value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
+                </a>
+                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                    title="Money that is to be paid">
+                    <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                        style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
+                        value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
+                </a>
+            </b>
+        </div>
+        <div style="display: grid; width: 35%;">
+            <label>Collection Days</label>
+            <select class="select selectpicker collectiondayselect collectionDays" multiple
+                onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+            </select>
+        </div>
+    </div>
+    <ul class="timeline" id="all-transactions">
+        <li class="timelinePart" id="add-entry-all">
+            <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434);
     color: #fff;
     border-top-left-radius: 34px;
     border-bottom-left-radius: 30px;
@@ -228,73 +248,76 @@
     margin-top: 13px;
     font-weight: 700;
     font-size: 16px;">
-                        + ADD NEW
-                    </p>
-                    <div class="timeline-content">
-                        <div class="responsive-table">
-                            <table class="nowTable" id="t_draggable1">
-                                <thead>
-                                    <tr class="ui-state-default">
-                                        <th>Date</th>
-                                        <th>Cheque no.</th>
-                                        <th>Party Name</th>
-                                        <th>Party Type</th>
-                                        <th>Bank</th>
-                                        <th>Status</th>
-                                        <th>Amount</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="t_sortable">
-                                    <tr id="all-transaction-fields">
-                                <td><input id="transaction_date" class="mandatory-field" placeholder="DD/MM/YYYY" type="date"></td>
-                                        <td><input id="cheque_no" placeholder="cheque no." type="text"></td>
-                                <td><input id="payee" placeholder="party"  class="mandatory-field"  type="text"></td>
-                                        <td>
-                                            <select class="form-control" id="mode" name="">
-                                                <option class="red-text" value="Buyer">Buyer</option>
-                                                <option class="green-text" value="Supplier">Supplier</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input id="transaction_id" type="hidden" value="">
-                                            <select class="form-control" id="account-list"></select>
-                                        </td>
-                                        <td>
-                                            <select class="form-control" id="status" name="">
-                                                <option class="red-text" value="Un Clear">Un-Clear</option>
-                                                <option class="orange-text" value="To Pay">To Pay</option>
-                                                <option class="green-text" value="Cleared">Cleared</option>
-                                            </select>
-                                        </td>
-                                        <td class="balance">
-                                    <input id="withdrawal" placeholder="enter amount"  class="mandatory-field"  type="number">
-                                        </td>
-                                        <td>
+                + ADD NEW
+            </p>
+            <div class="timeline-content">
+                <div class="responsive-table">
+                    <table class="nowTable" id="t_draggable1">
+                        <thead>
+                            <tr class="ui-state-default">
+                                <th>Date</th>
+                                <th>Cheque no.</th>
+                                <th>Party Name</th>
+                                <th>Party Type</th>
+                                <th>Bank</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="t_sortable">
+                            <tr id="all-transaction-fields">
+                                <td><input id="transaction_date" class="mandatory-field" placeholder="DD/MM/YYYY"
+                                        type="date"></td>
+                                <td><input id="cheque_no" placeholder="cheque no." type="text"></td>
+                                <td><input id="payee" placeholder="party" class="mandatory-field" type="text"></td>
+                                <td>
+                                    <select class="form-control" id="mode" name="">
+                                        <option class="red-text" value="Buyer">Buyer</option>
+                                        <option class="green-text" value="Supplier">Supplier</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input id="transaction_id" type="hidden" value="">
+                                    <select class="form-control" id="account-list"></select>
+                                </td>
+                                <td>
+                                    <select class="form-control" id="status" name="">
+                                        <option class="red-text" value="Un Clear">Un-Clear</option>
+                                        <option class="orange-text" value="To Pay">To Pay</option>
+                                        <option class="green-text" value="Cleared">Cleared</option>
+                                    </select>
+                                </td>
+                                <td class="balance">
+                                    <input id="withdrawal" placeholder="enter amount" class="mandatory-field"
+                                        type="number">
+                                </td>
+                                <td>
                                     <button id="add-transaction" onclick="addupdatetransaction(false);" type="button">
-                                                <i class="fa fa-plus"> &nbsp; Add</i>
-                                                <!--                                        Add-->
-                                            </button>
-                                            <button class="btn btn-info" id="edit-transaction"
-                                            onclick="addupdatetransaction(true);" style="display: none;" type="button">
-                                                <i class="fa fa-upload"> &nbsp; Update</i>
-                                                <!--                                        Update-->
-                                            </button>
+                                        <i class="fa fa-plus"> &nbsp; Add</i>
+                                        <!--                                        Add-->
+                                    </button>
+                                    <button class="btn btn-info" id="edit-transaction"
+                                        onclick="addupdatetransaction(true);" style="display: none;" type="button">
+                                        <i class="fa fa-upload"> &nbsp; Update</i>
+                                        <!--                                        Update-->
+                                    </button>
                                     <button id="clear-transaction" onclick="clearTransactionFields();" type="button">
-                                                <i class="fa fa-trash"> &nbsp; Clear</i>
-                                                <!--                                        Clear-->
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </li>
-                <!--TRANSACTION RECORDS HERE-->
-            </ul>
-            <span id="load-more" style="float: right; display: none; margin:20px;color:blue;cursor: pointer;" onclick="LoadMore();">Load more</span>
-        </div>
+                                        <i class="fa fa-trash"> &nbsp; Clear</i>
+                                        <!--                                        Clear-->
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </li>
+        <!--TRANSACTION RECORDS HERE-->
+    </ul>
+    <span id="load-more" style="float: right; display: none; margin:20px;color:blue;cursor: pointer;"
+        onclick="LoadMore();">Load more</span>
+    </div>
 
     </div>
     <input style="display: none;" id="customerid">
@@ -306,20 +329,20 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-</div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
 
-<script defer src="js/mFirebase.js"></script>
-<script src="js/index.js"></script>
-<script src="js/select2.js"></script>
-<script src="js/videoscript.js"></script>
+    <script defer src="js/mFirebase.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/select2.js"></script>
+    <script src="js/videoscript.js"></script>
 
     <script>
 
@@ -335,15 +358,15 @@
 
                         tblUsers = db.collection("tbl_users");
                         tblUsers.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
-                   
+
                             if (querySnapshot.docs.length > 0) {
                                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                                 tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshotNew) {
                                     if (querySnapshotNew.docs.length > 0) {
                                         $('#customerid').val(querySnapshotNew.docs[0].data().customerid);
                                         getCustomerSubscriptions().then(function (response) {
-                                            
-                                            if (response.length>0) {
+
+                                            if (response.length > 0) {
                                                 if (response[0].status == "active") {
                                                 } else {
                                                     location.href = url + "/pricing.html";
@@ -412,9 +435,9 @@
 </body>
 
 <script>
-  $(window).load(function() {
-    $('#loading').hide();
-  });
+    $(window).load(function () {
+        $('#loading').hide();
+    });
 </script>
 
 </html>

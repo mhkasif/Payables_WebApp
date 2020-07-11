@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-  font-family: lato;  
 }
 
 .columns {
@@ -45,7 +44,6 @@
     .price .grey {
     font-weight: 800;
     font-size: 31px;
-       font-family: Poppins-Regular;     
     }
 
 .button {
