@@ -388,11 +388,10 @@ img {
 }
 
 
-
 .balance_input {
     width: 27%;
-    border-radius: 6px;
-    padding: 16px;
+    border-radius: 3px;
+    padding: 19px;
     background: #fcfcfc;
     border: 1px solid #3333;
 }
