@@ -201,8 +201,9 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     white-space: nowrap;
-    border: double;
-    border-color: #3333;
+    border: 3px solid #e0e0e0;
+    border-top: none;
+    border-left: none;
 }
 
 table th {
