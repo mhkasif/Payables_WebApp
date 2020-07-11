@@ -11,13 +11,9 @@ styles are down below --
 * {
   box-sizing: border-box;
 }
-html {
-  background: #fcfcfc;
-}
+
 @media (min-width: 641px) {
-  html {
-    background: #4b4b4b;
-  }
+
 }
 body {
   font-family: 'Source Sans Pro', sans-serif;
