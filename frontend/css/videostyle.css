@@ -320,13 +320,11 @@ main .column.right {
   transform-style: preserve-3d;
 }
 .video-modal .overlay {
-  z-index: 0;
-  background: rgba(13,1,61,0.82); /* overlay color */
-
-  opacity: 0.0;
-
-  -webkit-transition: opacity 0.2s ease-out 0.05s;
-  transition: opacity 0.2s ease-out 0.05s;
+    z-index: 0;
+    background: rgba(43, 77, 138, 0.8);
+    opacity: 0.0;
+    -webkit-transition: opacity 0.2s ease-out 0.05s;
+    transition: opacity 0.s ease-out 0.05s;
 }
 
 
