@@ -147,27 +147,34 @@ function getAccountsAll() {
             }
             var accTab = '  <div class="tabcontent" id="'+doc.id+'">\n' +
                 '            <div class="balance_in_account_bar">\n' +
-                '        <input class="balance_input" placeholder="Search data within all transactions" onkeyup="advance_search_recordtab($(this).val(),\'' + doc.id +'\')"            '
-        +'            type="text" />                                                                                                                  '
-        +'    <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;"><i class="fas fa-filter"></i> &nbsp; Filters        '
+        +'               <div style="display: grid; width: 42%; min-height: 119px;">     '
+        +'               <label style="margin: 0;">Search</label>      '
+        +'        <input class="balance_input" placeholder="Search data within all transactions" onkeyup="advance_search_recordtab($(this).val(),\'' + doc.id +'\')"            '
+        +'            type="text" />       '
+        +'           <div style="margin-right: 1%; display: grid; width: 51%;">    '
+        +'          <label>Filters</label>                                            '                                                                    '
+        +'    <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">     '
         +'        <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques paid and are now deducted from your bank">           '
         +'            <input                                                                                                                                  '
-                + '                class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                    '
+        + '                class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                    '
         +'                style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                     '
         +'                value="Cleared"                                                                                                                   '
         +'                type="checkbox">&nbsp; Cleared &nbsp; <i class="fas fa-check"></i></a>                                                                                                 '
         +'            <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that are paid but un-clear"><input              '
-                + '                class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                     '
+        + '                class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                     '
         +'                style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                     '
         +'                value="Un Clear"                                                                                                                    '
         +'                type="checkbox">&nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i></a>                                                                                                        '
         +'                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that is still to be paid"><input      '
-                + '                    class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                 '
+        + '                    class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                 '
         +'                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
         +'                    value="To Pay"                                                                                                                  '
         +'                    type="checkbox">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
-        +'    </b>                                                                                                                                            '
-                + '                <select class="select collectionDays" multiple id="selectbox_'+doc.id+'" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id +'\');" style="float: right; margin: -7px 11px;">                   '
+        +'    </b>   
+        +'              </div>     '                                                                                                                                         '
+        +'                     <div style="display: grid; width: 35%;">             '      
+        +'                     <label>Collection Days</label>               '      
+        + '                <select class="select collectionDays" multiple id="selectbox_'+doc.id+'" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id +'\');" style="float: right; margin: -7px 11px;">                   '
         +'                                                                                         '
         +'                    <option>Monday</option>                                                                                                         '
         +'                    <option>Tuesday</option>                                                                                                        '
@@ -176,7 +183,9 @@ function getAccountsAll() {
         +'                    <option>Friday</option>                                                                                                         '
         +'                    <option>Saturday</option>                                                                                                       '
         +'                    <option>Sunday</option>                                                                                                         '
-        +'                </select>                     </div><ul id="acc-li-'+doc.id+'" class="timeline"></ul></div>';
+        +'                </select>    '
+        +'                    </div>  '
+        +'                   </div><ul id="acc-li-'+doc.id+'" class="timeline"></ul></div>';        '
             $("#All").after(accTab);
             $('#account-list').append('<option value="' + doc.id + '">' + doc.data().title + '</option>');
         });
