@@ -313,9 +313,8 @@ img {
     padding-left: 2%;
     margin-left: 9.9%;
     border-left: double;
-    display: grid;
-    grid-gap: 14px;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    align-items: flex-start;
 }
 
 .navbar-default .navbar-nav>li>a {
