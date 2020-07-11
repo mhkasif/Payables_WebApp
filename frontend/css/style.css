@@ -364,11 +364,11 @@ img {
 
 .Collection_date {
     color: #ffffff !important;
-    margin-left: 16px !important;
+    margin-left: 2px !important;
     font-family: inherit;
-    background: #607D8B !important;
-    padding: 0.6% 2%;
-    border-radius: 4px;
+    background: #2196F3 !important;
+    padding: 6px 15px;
+    border-radius: 26px;
     font-size: 15px;
 }
 
