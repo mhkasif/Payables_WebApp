@@ -354,14 +354,16 @@ function getTrasactionsAll() {
                 // console.log(record);
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
-                    trCount++;
+                trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -515,13 +517,15 @@ function getTrasactionsAllPagination() {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                     trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -675,13 +679,15 @@ function getTrasactionsByAccount(id) {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                     trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -834,13 +840,15 @@ function getTrasactionsByAccountPagination(id) {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                     trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
