@@ -21,6 +21,12 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
+<style>
+label {
+    display: flex !important;
+}
+</style>
+
 <body>
 
 <div id="loading">
@@ -175,14 +181,15 @@
     </div>
     <div class="tabcontent" id="All">
         <div class="balance_in_account_bar">
+           <label>Search</label>
             <input class="balance_input" onkeyup="advance_search_record($(this).val())"
                    placeholder="Search data within all transactions"
                    type="text"/> &nbsp;
 
 
-
+           <label>Filters</label>
             <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">
-                <i class="fas fa-filter"></i> &nbsp; Filters
+                <i class="fas fa-filter"></i> &nbsp;
                 <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
                    title="Money paid and is now cleared">
                     <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
@@ -205,6 +212,7 @@
                            value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
                 </a>
             </b>
+            <label>Collection Days</label>
             <select class="select selectpicker collectiondayselect collectionDays" multiple
                     onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
                 <option>Monday</option>
