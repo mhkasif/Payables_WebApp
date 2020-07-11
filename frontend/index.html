@@ -23,6 +23,9 @@
 
 <body>
 
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
 
 <!-- video modal -->
 <section class="video-modal">
@@ -384,5 +387,11 @@
     }
 </script>
 </body>
+
+<script>
+  $(window).load(function() {
+    $('#loading').hide();
+  });
+</script>
 
 </html>
