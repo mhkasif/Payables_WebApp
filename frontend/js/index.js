@@ -25,11 +25,16 @@ $(document).ready(function () {
 });
 
 function openTab(evt, tabName) {
+   
     if (tabName.toLowerCase() != "all") {
         $('#selectbox_' + tabName).select2({
             placeholder: 'Select Collection day'
         });
-    getTrasactionsByAccount(tabName);}
+        GetTransactionGeneral(tabName);
+    }
+    else{
+        GetTransactionGeneral(null);
+    }
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -39,13 +44,13 @@ function openTab(evt, tabName) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(tabName).style.display = "block";
+     document.getElementById("All").style.display = "block";
 
     evt.currentTarget.className += " active";
 
-    // Clearing up every toggle table or table row upon tab switch
-    $('table').css('display', 'table');
-    $('table tr').css('display', 'table-row');
+    // // Clearing up every toggle table or table row upon tab switch
+    // $('table').css('display', 'table');
+    // $('table tr').css('display', 'table-row');
 
     // Unchecking every checkbox upon tab switch
     $('input:checkbox').map(function () {
@@ -54,7 +59,7 @@ function openTab(evt, tabName) {
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+
 
 function filterbyCollectionDay(value) {
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {

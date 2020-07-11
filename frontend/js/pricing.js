@@ -27,7 +27,6 @@ function getFirebaseConfig() {
           })
           .then((response) => {
             fireBaseConfigInfo=response;
-            console.log(fireBaseConfigInfo);
       
           });
 }
@@ -38,6 +37,27 @@ function SignOutFirebase() {
     }).catch(function (error) {
         // An error happened.
     });
+}
+
+
+function getCustomerSubscriptions() {
+    let customerid = document.querySelector('#customerid').value;
+    return fetch('/get-cutomer-subscriptions', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            customerid: customerid,
+        }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        return response.response.data;
+  
+      });
 }
 
 

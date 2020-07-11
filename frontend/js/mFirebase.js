@@ -3,7 +3,7 @@ var UserObject;
 var tblAccounts/* = db.collection("tbl_accounts")*/;
 var tblAccountCheques/* = db.collection("tbl_account_cheques")*/;
 var tblUsers;
-
+var lastfetchedRecord;
 var weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -72,6 +72,29 @@ var liTemplate = '<li class="timelinePart">' +
     '                </div>' +
     '            </li>';
     var fireBaseConfigInfo;
+
+    function getCustomerSubscriptions() {
+        let customerid = document.querySelector('#customerid').value;
+        return fetch('/get-cutomer-subscriptions', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                customerid: customerid,
+            }),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            return response.response.data;
+      
+          });
+    }
+    
+ 
+    
 function getFirebaseConfig() {
         return fetch('/firebaseConfig', {
           method: 'get',
@@ -84,13 +107,11 @@ function getFirebaseConfig() {
           })
           .then((response) => {
             fireBaseConfigInfo=response;
-            console.log(fireBaseConfigInfo);
       
           });
 }
 function initializeFirebase() {
     getFirebaseConfig().then(function(){
-        console.log("came here first");
     var firebaseConfig = fireBaseConfigInfo;
     //initialize firebase
     if (!firebase.apps.length) {
@@ -182,7 +203,8 @@ function getAccountsAll() {
         });
         $('#defaultOpen').find("input").val(SumOfAllInit_Balance);
         $('#defaultOpen').after(htmlTabs);
-        getTrasactionsAll();
+        document.getElementById("defaultOpen").click();
+       
     });
 }
 
@@ -287,15 +309,20 @@ function sortByKey(array, key,isAsc) {
 
 }
 
-function getTrasactionsAll() {
-    
-    clearTransactionFields();
-if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".tablinks.active").attr("data-accid").toLowerCase()!="add-account"){
-    getTrasactionsByAccount($(".tablinks.active").attr("data-accid"));
-    return;
+function GetTransactionGeneral(account_id){
+    if(account_id){
+        getTrasactionsByAccount(account_id);
+    }else{
+        getTrasactionsAll();  
+    }
+    lastfetchedRecord = null;
 }
-    tblAccountCheques = db.collection("tbl_account_cheques");
 
+function getTrasactionsAll() {
+    clearTransactionFields();
+
+    tblAccountCheques = db.collection("tbl_account_cheques").limit(20);
+    
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
@@ -310,6 +337,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
             obj.id = doc.id;
             allTrasactions.push(obj);
         });
+        lastfetchedRecord =  querySnapshot.docs[querySnapshot.docs.length-1];
         allTrasactions = sortByKey(allTrasactions,"order_sequence",true);
         allTrasactions =sortByKey(allTrasactions,"date",true);
         groupedRecords = groupBy(allTrasactions, 'date');
@@ -382,7 +410,7 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
-                '                            <tbody id="tbody_'+key+'_'+tbodyindex+'" class="t_sortable">' +
+                '                            <tbody data-rcddate="'+key+'" id="tbody_'+key+'_'+tbodyindex+'" class="t_sortable">' +
                 tblRecordsHtml +
                 '                            </tbody>' +
                 '                                <tfoot>'+
@@ -409,11 +437,331 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
                 appendTo: $tabs,
                 helper: "clone",
                 zIndex: 999990,
-                update: function( ) {
+                update: function(event, ui) {
+                    
+                   console.log($(this).find("tr"));
+                   var allrows = $(this).find("tr");
+                       updateTrasactionSorting($(ui.item[0]).attr("id"),0,ui.item[0]);
+                    
+                    var tbody = allrows;
+                    var totalWithdrawl = 0;
+
+
+                    var totalAmount = Number($("#defaultOpen>input").val());
+                    $(".timelinePart.records").each(function (ii, vv) {
+                        var tbody = $(vv).find("table>tbody>tr");
+
+
+                        var totalWithdrawl = 0;
+                        $(tbody).each(function (i, v) {
+                            totalWithdrawl += Number($(v).find(".balance>span").text());
+                        });
+                        $(vv).find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
+                        if (totalAmount < totalWithdrawl) {
+                            $(vv).find(".alert_notification_tag").show();
+                        } else {
+                            $(vv).find(".alert_notification_tag").hide();
+                        }
+                        totalAmount = totalAmount - totalWithdrawl;
+                    });
+                }
+            }).disableSelection();
+
+            tblRecordsHtml = '';
+
+        }
+    });
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+        filterbyCollectionDay($(".collectionDays").val());
+    });
+}
+
+function getTrasactionsAllPagination() {
+    clearTransactionFields();
+    console.log("here it comes",lastfetchedRecord);
+    tblAccountCheques = db.collection("tbl_account_cheques").startAfter(lastfetchedRecord).limit(20);
+    
+    allTrasactions = [];
+    groupedRecords = {};
+    tblRecordsHtml = '';
+   // $('#all-transactions li:not([id=add-entry-all])').remove();
+
+    tblAccountCheques.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            doc.data().id = doc.id;
+            var obj = doc.data();
+            obj.id = doc.id;
+            allTrasactions.push(obj);
+        });
+        lastfetchedRecord =  querySnapshot.docs[querySnapshot.docs.length-1];
+        allTrasactions = sortByKey(allTrasactions,"order_sequence",true);
+        allTrasactions =sortByKey(allTrasactions,"date",true);
+        groupedRecords = groupBy(allTrasactions, 'date');
+        var tbodyindex = 0;
+        var totalAmount = Number($(".tablinks[data-accid=defaultOpen]").find("input").val());
+        for (var key in groupedRecords) {
+            // console.log(key);
+            // console.log(groupedRecords[key]);
+            tbodyindex = tbodyindex + 1;
+            var sumOfAmount=0;
+            var accountid = "";
+            var trCount = 0;
+            for (var record in groupedRecords[key]) {
+                // console.log(record);
+                // console.log(groupedRecords[key][record]);
+                var myRecord = groupedRecords[key][record];
+                    trCount++;
+                    if (myRecord.mode == "Buyer") {
+                        sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
+                    } else {
+                        sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
+                    }
+                accountid=myRecord.account_id;
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                    '                                <td><i class="fa fa-bars"></i></td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td><span>' + myRecord.payee + '</span></td>' +
+                    '                                <td><span>' + myRecord.mode + '</span></td>' +
+                    '                                <td><span>' + myRecord.bank + '</span></td>' +
+                    '                                <td>' +
+                    '                                    <select' +
+                    '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : "status-topay") + '"' +
+                    '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
+                    '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
+                    '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+                    '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+                    '                                    </select>' +
+                    '                                </td>' +
+                    '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                            </tr>';
+            }
+            totalAmount = totalAmount + sumOfAmount;
+            var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records '+weekday[new Date(key).getDay()]+'">' +
+                '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
+                '                <div class="timeline-content">' +
+                '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
+                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">'+
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") +'"> <i' +
+                '                                class="fas fa-exclamation-circle"></i>' +
+                '                            &nbsp;' +
+                '                            Alert : Balance Shortage</a>' +
+                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                    </h3>' +
+                '                    <div class="responsive-table">' +
+                '                        <table class="nowTable" id="draggable-' + key + '">' +
+                '                            <thead>' +
+                '                            <tr class="ui-state-default">' +
+                '                                <th>Drag</th>' +
+                '                                <th></th>' +
+                '                                <th>Cheque no.</th>' +
+                '                                <th>Party Name</th>' +
+                '                                <th>Party Type</th>' +
+                '                                <th>Bank</th>' +
+                '                                <th  style="width: 10%;">Status</th>' +
+                '                                <th>Amount</th>' +
+                '                                <th style="width: 10%;">Action</th>' +
+                '                            </tr>' +
+                '                            </thead>' +
+                '                            <tbody data-rcddate="'+key+'" id="tbody_'+key+'_'+tbodyindex+'" class="t_sortable">' +
+                tblRecordsHtml +
+                '                            </tbody>' +
+                '                                <tfoot>'+
+                '                                <tr class="ui-state-default">'+
+                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th>' + sumOfAmount + '</th>' +
+                '                                    <th></th>'+
+                '                                </tr>'+
+                '                            </tfoot>'+
+                '                        </table>' +
+                '                    </div>' +
+                '                </div>' +
+                '            </li>';
+            $('#all-transactions').append(myLi);
+            if (totalAmount < sumOfAmount) {
+                $("alert_notification_" + accountid).show();
+            } else {
+                $("alert_notification_" + accountid).hide();
+            }
+            var $tabs = $('#draggable-' + key + '');
+            $("tbody.t_sortable").sortable({
+                connectWith: ".t_sortable",
+                items: "> tr",
+                appendTo: $tabs,
+                helper: "clone",
+                zIndex: 999990,
+                update: function(event, ui) {
+                    
+                   console.log($(this).find("tr"));
+                   var allrows = $(this).find("tr");
+                       updateTrasactionSorting($(ui.item[0]).attr("id"),0,ui.item[0]);
+                    
+                    var tbody = allrows;
+                    var totalWithdrawl = 0;
+
+
+                    var totalAmount = Number($("#defaultOpen>input").val());
+                    $(".timelinePart.records").each(function (ii, vv) {
+                        var tbody = $(vv).find("table>tbody>tr");
+
+
+                        var totalWithdrawl = 0;
+                        $(tbody).each(function (i, v) {
+                            totalWithdrawl += Number($(v).find(".balance>span").text());
+                        });
+                        $(vv).find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
+                        if (totalAmount < totalWithdrawl) {
+                            $(vv).find(".alert_notification_tag").show();
+                        } else {
+                            $(vv).find(".alert_notification_tag").hide();
+                        }
+                        totalAmount = totalAmount - totalWithdrawl;
+                    });
+                }
+            }).disableSelection();
+
+            tblRecordsHtml = '';
+
+        }
+    });
+    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+        $(".collectionDays").val(resp.docs[0].data().collectionDays);
+        $(".collectionDays").change();
+        filterbyCollectionDay($(".collectionDays").val());
+    });
+}
+
+function getTrasactionsByAccount(id) {
+    console.log(id);
+    clearTransactionFields();
+    tblAccountCheques = db.collection("tbl_account_cheques").limit(20);
+
+    allTrasactions = [];
+    groupedRecords = {};
+    tblRecordsHtml = '';
+    $('#all-transactions li:not([id=add-entry-all])').remove();
+
+    tblAccountCheques.where("UserID", "==", UserObject.uid).where("account_id","==",id).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            doc.data().id = doc.id;
+            var obj = doc.data();
+            obj.id = doc.id;
+            allTrasactions.push(obj);
+        });
+        lastfetchedRecord =  querySnapshot.docs[querySnapshot.docs.length-1];
+        allTrasactions = sortByKey(allTrasactions,"order_sequence",true);
+        allTrasactions =sortByKey(allTrasactions,"date",true);
+        groupedRecords = groupBy(allTrasactions, 'date');
+        var tbodyindex = 0;
+        var totalAmount = Number($(".tablinks[data-accid=defaultOpen]").find("input").val());
+        for (var key in groupedRecords) {
+            // console.log(key);
+            // console.log(groupedRecords[key]);
+            tbodyindex = tbodyindex + 1;
+            var sumOfAmount=0;
+            var accountid = "";
+            var trCount = 0;
+            for (var record in groupedRecords[key]) {
+                // console.log(record);
+                // console.log(groupedRecords[key][record]);
+                var myRecord = groupedRecords[key][record];
+                    trCount++;
+                    if (myRecord.mode == "Buyer") {
+                        sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
+                    } else {
+                        sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
+                    }
+                accountid=myRecord.account_id;
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                    '                                <td><i class="fa fa-bars"></i></td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td><span>' + myRecord.payee + '</span></td>' +
+                    '                                <td><span>' + myRecord.mode + '</span></td>' +
+                    '                                <td><span>' + myRecord.bank + '</span></td>' +
+                    '                                <td>' +
+                    '                                    <select' +
+                    '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : "status-topay") + '"' +
+                    '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
+                    '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
+                    '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+                    '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+                    '                                    </select>' +
+                    '                                </td>' +
+                    '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                            </tr>';
+            }
+            totalAmount = totalAmount + sumOfAmount;
+            var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records '+weekday[new Date(key).getDay()]+'">' +
+                '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
+                '                <div class="timeline-content">' +
+                '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
+                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">'+
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") +'"> <i' +
+                '                                class="fas fa-exclamation-circle"></i>' +
+                '                            &nbsp;' +
+                '                            Alert : Balance Shortage</a>' +
+                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                    </h3>' +
+                '                    <div class="responsive-table">' +
+                '                        <table class="nowTable" id="draggable-' + key + '">' +
+                '                            <thead>' +
+                '                            <tr class="ui-state-default">' +
+                '                                <th>Drag</th>' +
+                '                                <th></th>' +
+                '                                <th>Cheque no.</th>' +
+                '                                <th>Party Name</th>' +
+                '                                <th>Party Type</th>' +
+                '                                <th>Bank</th>' +
+                '                                <th  style="width: 10%;">Status</th>' +
+                '                                <th>Amount</th>' +
+                '                                <th style="width: 10%;">Action</th>' +
+                '                            </tr>' +
+                '                            </thead>' +
+                '                            <tbody data-rcddate="'+key+'" id="tbody_'+key+'_'+tbodyindex+'" class="t_sortable">' +
+                tblRecordsHtml +
+                '                            </tbody>' +
+                '                                <tfoot>'+
+                '                                <tr class="ui-state-default">'+
+                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th>' + sumOfAmount + '</th>' +
+                '                                    <th></th>'+
+                '                                </tr>'+
+                '                            </tfoot>'+
+                '                        </table>' +
+                '                    </div>' +
+                '                </div>' +
+                '            </li>';
+            $('#all-transactions').append(myLi);
+            if (totalAmount < sumOfAmount) {
+                $("alert_notification_" + accountid).show();
+            } else {
+                $("alert_notification_" + accountid).hide();
+            }
+            var $tabs = $('#draggable-' + key + '');
+            $("tbody.t_sortable").sortable({
+                connectWith: ".t_sortable",
+                items: "> tr",
+                appendTo: $tabs,
+                helper: "clone",
+                zIndex: 999990,
+                update: function(event,ui ) {
                    console.log($(this).find("tr"));
                    var allrows = $(this).find("tr");
                    for(var i=0;i<allrows.length;i++){
-                       updateTrasactionSorting($(allrows[i]).attr("id"),i+1);
+                       updateTrasactionSorting($(ui.item[0]).attr("id"),0,ui.item[0]);
                     }
                     var tbody = allrows;
                     var totalWithdrawl = 0;
@@ -450,17 +798,16 @@ if($(".tablinks.active").attr("data-accid").toLowerCase()!="defaultopen" && $(".
     });
 }
 
-
-function getTrasactionsByAccount(id) {
+function getTrasactionsByAccountPagination(id) {
+    console.log(id);
     clearTransactionFields();
-    
-    tblAccountCheques = db.collection("tbl_account_cheques");
+    tblAccountCheques = db.collection("tbl_account_cheques").startAfter(lastfetchedRecord).limit(20);
+
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
-    $('#acc-li-'+id).empty();
 
-    tblAccountCheques.where("account_id", "==", id).get().then(function (querySnapshot) {
+    tblAccountCheques.where("UserID", "==", UserObject.uid).where("account_id","==",id).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -469,13 +816,16 @@ function getTrasactionsByAccount(id) {
             obj.id = doc.id;
             allTrasactions.push(obj);
         });
+        lastfetchedRecord =  querySnapshot.docs[querySnapshot.docs.length-1];
         allTrasactions = sortByKey(allTrasactions,"order_sequence",true);
         allTrasactions =sortByKey(allTrasactions,"date",true);
         groupedRecords = groupBy(allTrasactions, 'date');
+        var tbodyindex = 0;
         var totalAmount = Number($(".tablinks[data-accid=defaultOpen]").find("input").val());
         for (var key in groupedRecords) {
             // console.log(key);
             // console.log(groupedRecords[key]);
+            tbodyindex = tbodyindex + 1;
             var sumOfAmount=0;
             var accountid = "";
             var trCount = 0;
@@ -483,18 +833,16 @@ function getTrasactionsByAccount(id) {
                 // console.log(record);
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
-                if (myRecord.status != "Cleared") {
                     trCount++;
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
-                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared"?"style=\'display:none;\'":"") + '>'  +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
+                    '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
@@ -509,18 +857,18 @@ function getTrasactionsByAccount(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
-            totalAmount = totalAmount - sumOfAmount;
-            var myLi = '<li ' + (trCount==0?"style=\'display:none;\'":"") + ' class="timelinePart records ' + weekday[new Date(key).getDay()] + '">' +
+            totalAmount = totalAmount + sumOfAmount;
+            var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records '+weekday[new Date(key).getDay()]+'">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
                 '                <div class="timeline-content">' +
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
-                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount +'</span>    <a class="totalBalance" style="float:right;color: #737373;">'+
-                'Balance Left:' +
-                '                            ' + (totalAmount)+'</a>' +
-                '                        <a class="alert_notification_tag" id="alert_notification_' + accountid + '" style="display:' + ((totalAmount < 0)?"block;":"none;")+'"> <i' +
+                '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount+'</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">'+
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") +'"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
@@ -533,30 +881,29 @@ function getTrasactionsByAccount(id) {
                 '                                <th>Drag</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
-                '                                <th>Payee</th>' +
-                '                                <th>Mode</th>' +
+                '                                <th>Party Name</th>' +
+                '                                <th>Party Type</th>' +
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
-                '                                <th>Withdrwal</th>' +
-                '                                <th  style="width: 10%;">Action</th>' +
+                '                                <th>Amount</th>' +
+                '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
-                '                            <tbody class="t_sortable">' +
+                '                            <tbody data-rcddate="'+key+'" id="tbody_'+key+'_'+tbodyindex+'" class="t_sortable">' +
                 tblRecordsHtml +
                 '                            </tbody>' +
-                '                                <tfoot>' +
-                '                                <tr class="ui-state-default">' +
-                '                                    <th colspan="7"></th>' +
+                '                                <tfoot>'+
+                '                                <tr class="ui-state-default">'+
+                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>' +
-                '                                </tr>' +
-                '                            </tfoot>' +
+                '                                    <th></th>'+
+                '                                </tr>'+
+                '                            </tfoot>'+
                 '                        </table>' +
                 '                    </div>' +
                 '                </div>' +
                 '            </li>';
-            $('#acc-li-' + id).append(myLi);
-
+            $('#all-transactions').append(myLi);
             if (totalAmount < sumOfAmount) {
                 $("alert_notification_" + accountid).show();
             } else {
@@ -569,12 +916,14 @@ function getTrasactionsByAccount(id) {
                 appendTo: $tabs,
                 helper: "clone",
                 zIndex: 999990,
-                update: function( ) {
-                    console.log($(this).find("tr"));
-                    var allrows = $(this).find("tr");
-                    for (var i = 0; i < allrows.length; i++){
-                        updateTrasactionSorting($(allrows[i]).attr("id"),i+1);
+                update: function(event,ui ) {
+                   console.log($(this).find("tr"));
+                   var allrows = $(this).find("tr");
+                   for(var i=0;i<allrows.length;i++){
+                       updateTrasactionSorting($(ui.item[0]).attr("id"),0,ui.item[0]);
                     }
+                    var tbody = allrows;
+                    var totalWithdrawl = 0;
 
 
                     var totalAmount = Number($("#defaultOpen>input").val());
@@ -602,10 +951,9 @@ function getTrasactionsByAccount(id) {
         }
     });
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
-        console.log(resp.docs[0].data().collectionDays);
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
-        filterbyCollectionDaytab( $(".collectionDays").val(), id);
+        filterbyCollectionDay($(".collectionDays").val());
     });
 }
 
@@ -670,7 +1018,7 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
             document.getElementById('payee').value = '';
             document.getElementById('status').value = '';
             document.getElementById('withdrawal').value = '';
-            getTrasactionsAll();
+            GetTransactionGeneral();
         })
         .catch(function (error) {
             console.error("Error adding document: ", error);
@@ -685,37 +1033,41 @@ $("#status").on("change", function () {
         $("#status").removeClass("status-clear").removeClass("status-unclear").addClass("status-topay");
 });
 function deleteTrasaction(id) {
-    tblAccountCheques = db.collection("tbl_account_cheques");
-    tblAccountCheques.doc(id)
-        .delete().then(function () {
-            var trid = $("#" + id).parent().attr("id");
-            $("#" + id).remove();
-            var tbody = $("#" + trid).find("tr");
-            console.log(tbody, trid);
-            var totalWithdrawl = 0;
-            $(tbody).each(function (i, v) {
-                totalWithdrawl += Number($(v).find(".balance>span").text());
-            });
-            $("#" + trid).parent().parent().parent().find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
-
-            var totalAmount = Number($("#defaultOpen>input").val());
-            $(".timelinePart.records").each(function (ii, vv) {
-                var tbody = $(vv).find("table>tbody>tr");
+    if (confirm('Are you sure to delete this record.')) {
+        tblAccountCheques = db.collection("tbl_account_cheques");
+        tblAccountCheques.doc(id)
+            .delete().then(function () {
+                var trid = $("#" + id).parent().attr("id");
+                $("#" + id).remove();
+                var tbody = $("#" + trid).find("tr");
+                console.log(tbody, trid);
                 var totalWithdrawl = 0;
                 $(tbody).each(function (i, v) {
                     totalWithdrawl += Number($(v).find(".balance>span").text());
                 });
-                if (totalAmount < totalWithdrawl) {
-                    $(vv).find(".alert_notification_tag").show();
-                } else {
-                    $(vv).find(".alert_notification_tag").hide();
-                }
-                totalAmount = totalAmount - totalWithdrawl;
-            });
-        console.log("Document successfully deleted!");
-    }).catch(function (error) {
-        console.error("Error removing document: ", error);
-    });
+                $("#" + trid).parent().parent().parent().find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
+    
+                var totalAmount = Number($("#defaultOpen>input").val());
+                $(".timelinePart.records").each(function (ii, vv) {
+                    var tbody = $(vv).find("table>tbody>tr");
+                    var totalWithdrawl = 0;
+                    $(tbody).each(function (i, v) {
+                        totalWithdrawl += Number($(v).find(".balance>span").text());
+                    });
+                    if (totalAmount < totalWithdrawl) {
+                        $(vv).find(".alert_notification_tag").show();
+                    } else {
+                        $(vv).find(".alert_notification_tag").hide();
+                    }
+                    totalAmount = totalAmount - totalWithdrawl;
+                });
+            console.log("Document successfully deleted!");
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
+        });
+    } else {
+    }
+    
 }
 
 function updateTrasaction(id) {
@@ -793,11 +1145,31 @@ function updateTrasaction(id) {
     clearTransactionFields();
 }
 
-function updateTrasactionSorting(id, order) {
-console.log(id,order);
+
+$(document).ready(function(){
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() >= $(document).height()){
+            
+            if($("body").find(".tablinks.active").attr("id")=="defaultOpen"){
+           console.log("hereee");
+               getTrasactionsAllPagination();
+            }else{
+               getTrasactionsByAccountPagination($("body").find(".tablinks.active").attr("data-accid"));
+            } 
+        }
+      });
+
+
+
+});
+
+function updateTrasactionSorting(id, order,ele) {
+    var updatedDate = $(ele).parent().attr("data-rcddate");
+    console.log($($(ele).find("td")[2]).find("span").html(),updatedDate);
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id).update({
         order_sequence: order,
+        date:updatedDate
     }).then(function () {
        // getTrasactionsAll();
         console.log("Document sequence updated!");
@@ -903,4 +1275,14 @@ function clearTransactionFields() {
     $('#edit-transaction').hide();
     $('#add-transaction').show();
 
+}
+
+function LoadMore(){
+
+    if($("body").find(".tablinks.active").attr("id")=="defaultOpen"){
+        console.log("hereee");
+            getTrasactionsAllPagination();
+         }else{
+            getTrasactionsByAccountPagination($("body").find(".tablinks.active").attr("data-accid"));
+         } 
 }
