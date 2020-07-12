@@ -192,39 +192,41 @@
         </div>
     </div>
     <div class="tabcontent" id="All">
-        <div class="balance_in_account_bar">
-            <input class="balance_input" onkeyup="advance_search_record($(this).val())"
-                placeholder="Search data within all transactions" type="text" /> &nbsp;
-
-
-
-            <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;">
-                <i class="fas fa-filter"></i> &nbsp; Filters
+       <div class="balance_in_account_bar">
+           <div style="display: grid; width: 42%; min-height: 119px;">
+           <label style="margin: 0;">Search</label>
+            <input style="width: 97%;" class="balance_input" onkeyup="advance_search_record($(this).val())" placeholder="Search data within all transactions" type="text"/> &nbsp;
+           </div>
+           <div style="margin-right: 1%; display: grid; width: 51%;">
+           <label>Filters</label>
+            <b style="padding: 19px; border-radius: 4px; border: 1px solid #3333; background: #fcfcfc;">
                 <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                    title="Money paid and is now cleared">
-                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecordsChecked()"
-                   id="clearchk"
-                    style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox" value="Cleared">
-                    &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
+                   title="Money paid and is now cleared">
+                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
+                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                           type="checkbox" checked
+                           value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
                 </a>
                 <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                    title="Money that is paid but un-clear">
+                   title="Money that is paid but un-clear">
                     <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                        style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
-                        value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
+                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                           type="checkbox"
+                           value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
                 </a>
                 <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                    title="Money that is to be paid">
+                   title="Money that is to be paid">
                     <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                        style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
-                        value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
+                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                           type="checkbox"
+                           value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
                 </a>
             </b>
-        </div>
-        <div style="display: grid; width: 35%;">
+            </div>
+            <div style="display: grid; width: 35%;">
             <label>Collection Days</label>
             <select class="select selectpicker collectiondayselect collectionDays" multiple
-                onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
+                    onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
                 <option>Monday</option>
                 <option>Tuesday</option>
                 <option>Wednesday</option>
@@ -233,6 +235,7 @@
                 <option>Saturday</option>
                 <option>Sunday</option>
             </select>
+            </div>
         </div>
     <ul class="timeline" id="all-transactions">
         <li class="timelinePart" id="add-entry-all">
