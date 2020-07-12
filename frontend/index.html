@@ -155,15 +155,14 @@
                 <!--            <li><a href="#">Link</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
- 
-<div class="dropdown">
-  <button class="dropbtn">Vaibhav</button>
-  <div class="dropdown-content" style="left:0;">
-  <a href="#">Link 1</a>
-  <a href="#">Link 2</a>
-  <a href="#">Link 3</a>
-  </div>
-</div>
+                <div class="dropdown">
+                  <button class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /></span><span id="username">Not LoggedIn</span></button>
+                  <div class="dropdown-content" style="left:0;">
+                  <a href="#">Settings</a>
+                  <a href="pricing.html" onclick="GotoPricing();"><i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout">Billing & Subscription</span></a>
+                  <a href="#" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                  </div>
+                </div>
                 <li>
                     <a href="https://www.youtube.com/watch?v=Ahglrb_z7wQ" data-youtube-id="Ahglrb_z7wQ"
                         class=" button primary js-trigger-video-modal">
@@ -171,29 +170,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="pricing.html" onclick="GotoPricing();">
-                        <i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout">Billing
-                            & Subscription</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:tulsihelpdesk@gmail.com">
+                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank>
                         <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout">Feedback</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span id="userimage">
-                            <img src="img/Profilepic.webp" style="max-height: 40px;
-    border-radius: 50%;" />
-                        </span>
-                        <span id="username">Not LoggedIn</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="SignOutFirebase();">
-                        <span id="signout">Logout</span> &nbsp; <i
-                            class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
             </ul>
