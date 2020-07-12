@@ -204,6 +204,11 @@
     color: #897d13 !important;
     border: 2px solid #f2e604 !important;
 }
+.status-bounced {
+    background: #e6e6e6 !important;
+    color: #3e3e3e !important;
+    border: 2px solid #6f6f6f !important;
+}
 .invalidSelect {
     border: 1px solid red !important;
 }
