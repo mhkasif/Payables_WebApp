@@ -48,7 +48,7 @@
         padding: 4px;
     }
  .dropbtn {
-  background-color: #4CAF50;
+  background-color: #ffffff;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -62,26 +62,31 @@
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 1px 8px 16px 0px rgba(179, 179, 179, 0.2);
+    z-index: 1;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+    color: #737373;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #d4d4d499;
+    font-family: lato;
 }
 
 .dropdown-content a:hover {background-color: #f1f1f1;}
 
 .dropdown:hover .dropdown-content {
   display: block;
+    width: 242px;
 }
 
 .dropdown:hover .dropbtn {
@@ -155,14 +160,6 @@
                 <!--            <li><a href="#">Link</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                  <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /></span><span id="username">Not LoggedIn</span></a>
-                  <div class="dropdown-content" style="left:0;">
-                  <a href="#">Settings</a>
-                  <a href="pricing.html" onclick="GotoPricing();"><i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout">Billing & Subscription</span></a>
-                  <a href="#" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
-                  </div>
-                </li>
                 <li>
                     <a href="https://www.youtube.com/watch?v=Ahglrb_z7wQ" data-youtube-id="Ahglrb_z7wQ"
                         class=" button primary js-trigger-video-modal">
@@ -171,8 +168,16 @@
                 </li>
                 <li>
                     <a href="mailto:tulsihelpdesk@gmail.com" target="_blank>
-                        <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout">Feedback</span>
+                        <i class="fas fa-envelope-open"></i> &nbsp; <span>Feedback</span>
                     </a>
+                </li>
+                <li class="dropdown">
+                  <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; &nbsp; </span><span id="username">Not LoggedIn</span></a>
+                  <div class="dropdown-content" style="left:0;">
+                  <a href="#">Settings</a>
+                  <a href="pricing.html" onclick="GotoPricing();"><i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout">Billing & Subscription</span></a>
+                  <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                  </div>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
