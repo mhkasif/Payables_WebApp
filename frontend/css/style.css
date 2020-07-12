@@ -40,13 +40,13 @@
 }
 
     label {
-        display: flex !important;
-    height: 0px;
+    display: flex !important;
+    height: 4px;
     font-size: 16px;
     font-family: fantasy;
     color: #999;
-    margin: 0;
-    padding: 0;       
+    margin-bottom: 5px;
+    font-weight: 500;  
     }
     .select2-container--open .select2-dropdown--below {
         width: 345px;
