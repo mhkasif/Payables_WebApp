@@ -25,11 +25,9 @@
     label {
         display: flex !important;
     }
-
     .select2-container--open .select2-dropdown--below {
         width: 345px;
     }
-
     .select2-selection.select2-selection--multiple {
         width: 344px;
         max-height: 280px !important;
@@ -37,7 +35,6 @@
         background: #fcfcfc;
         border: 1px solid #3333;
     }
-
     .select2-container--default .select2-selection--multiple .select2-selection__choice {
         background-color: #ffffff;
         border: 1px solid #aaa;
@@ -71,15 +68,19 @@
     z-index: 1;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    margin: 4%;
+    margin-top: 0;    
 }
 
 .dropdown-content a {
     color: #737373;
-    padding: 12px 16px;
+    padding: 17px 16px;
     text-decoration: none;
     display: block;
     border-bottom: 1px solid #d4d4d499;
     font-family: lato;
+    font-size: 15px;
+    text-align: center;
 }
 
 .dropdown-content a:hover {background-color: #f1f1f1;}
@@ -90,6 +91,8 @@
 }
 
 .dropdown:hover .dropbtn {
+    width: 237px;
+    text-align: center;
 }   
 </style>
 
@@ -172,7 +175,7 @@
                 </li>
 
                 <li class="dropdown">
-                  <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not LoggedIn</span> &nbsp; &nbsp; <i class="fas fa-angle-down"></i></a>
+                  <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not LoggedIn</span> &nbsp; <i class="fas fa-angle-down"></i></a>
                   <div class="dropdown-content" >
                   <a href="#">Extra Option</a>
                   <a href="pricing.html" onclick="GotoPricing();"><i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout">Billing & Subscription</span></a>
