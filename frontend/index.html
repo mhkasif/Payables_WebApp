@@ -264,25 +264,32 @@
            <label>Filters</label>
             <b style="padding: 19px; border-radius: 4px; border: 1px solid #3333; background: #fcfcfc;">
                 <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Money paid and is now cleared">
+                   title="Cheques paid and are now deducted from your account">
                     <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
                            style="width: 27px; height: 20px; vertical-align: text-bottom;"
                            type="checkbox" checked
                            value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
                 </a>
                 <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Money that is paid but un-clear">
+                   title="Cheques that is given out but arnt yet cleared from the bank.">
                     <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                            style="width: 27px; height: 20px; vertical-align: text-bottom;"
                            type="checkbox"
                            value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
                 </a>
                 <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Money that is to be paid">
+                   title="Cheques that are yet to be paid">
                     <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                            style="width: 27px; height: 20px; vertical-align: text-bottom;"
                            type="checkbox"
                            value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
+                </a>
+                <a style="color: #33439a; background: #e3e5f0; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                   title="Cheques that have been dishonoured or failed to clear">
+                    <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                           type="checkbox"
+                           value="Bounced">&nbsp; Bounced &nbsp; <i class="fas fa-times"></i>
                 </a>
             </b>
             </div>
