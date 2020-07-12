@@ -121,12 +121,10 @@ input{
 }
 
 .addbank {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .addbank:hover{
-    color: #56bea6;
-    background: none;
     text-decoration: none;
 }
 
