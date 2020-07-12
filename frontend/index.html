@@ -256,78 +256,75 @@
     </div>
 
 
-  <li class="timelinePart"  id="All">
+
+  <ul class="timelinePart"  id="All">
             <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434); color: #fff; border-top-left-radius: 34px;
     border-bottom-left-radius: 30px; text-align: center; padding: 6px 0px; margin-top: 13px; font-weight: 700; font-size: 16px;">
                 + ADD NEW
             </p>
             
-       <div class="timeline-content balance_in_account_bar">
+       <li class="timeline-content balance_in_account_bar">
+           
            <div style="display: grid; width: 22%; min-height: 119px;">
-           <label style="margin: 0;">Search</label>
-            <input style="width: 97%;" class="balance_input" onkeyup="advance_search_record($(this).val())" placeholder="Search data within all transactions" type="text"/> &nbsp;
+              <label style="margin: 0;">Search</label>
+              <input style="width: 97%;" class="balance_input" onkeyup="advance_search_record($(this).val())" placeholder="Search data within all transactions" type="text"/> &nbsp;
            </div>
+           
            <div style="margin-right: 1%; display: grid; width: 51%;">
-           <label>Filters</label>
-            <b style="padding: 19px; border-radius: 4px; border: 1px solid #3333; background: #fcfcfc;">
-                <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Cheques paid and are now deducted from your account">
-                    <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox" checked
-                           value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
-                </a>
-                <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Cheques that is given out but arnt yet cleared from the bank.">
-                    <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox"
-                           value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
-                </a>
-                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Cheques that are yet to be paid">
-                    <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox"
-                           value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
-                </a>
-                <a style="color: #616161;background: #e4e4e4; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
-                   title="Cheques that have been dishonoured or failed to clear">
-                    <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
-                           style="width: 27px; height: 20px; vertical-align: text-bottom;"
-                           type="checkbox"
-                           value="Bounced">&nbsp; Bounced &nbsp; <i class="fas fa-times"></i>
-                </a>
-            </b>
+               <label>Filters</label>
+                <b style="padding: 19px; border-radius: 4px; border: 1px solid #3333; background: #fcfcfc;">
+                    <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                       title="Cheques paid and are now deducted from your account">
+                        <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
+                               style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                               type="checkbox" checked
+                               value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
+                    </a>
+                    <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                       title="Cheques that is given out but arnt yet cleared from the bank.">
+                        <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                               style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                               type="checkbox"
+                               value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
+                    </a>
+                    <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                       title="Cheques that are yet to be paid">
+                        <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                               style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                               type="checkbox"
+                               value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
+                    </a>
+                    <a style="color: #616161;background: #e4e4e4; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;"
+                       title="Cheques that have been dishonoured or failed to clear">
+                        <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                               style="width: 27px; height: 20px; vertical-align: text-bottom;"
+                               type="checkbox"
+                               value="Bounced">&nbsp; Bounced &nbsp; <i class="fas fa-times"></i>
+                    </a>
+                </b>
             </div>
+            
             <div style="display: grid; width: 25%;">
-            <label>Payment Collection Days</label>
-            <select class="select selectpicker collectiondayselect collectionDays" multiple
-                    onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
-                <option>Saturday</option>
-                <option>Sunday</option>
-            </select>
+                <label>Payment Collection Days</label>
+                <select class="select selectpicker collectiondayselect collectionDays" multiple
+                        onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
             </div>
-            </div>            
+            
         </li>
+    </ul>    
 
-
-    <ul class="timeline" id="all-transactions">
+    <ul>
         <li class="timelinePart" id="add-entry-all">
-            <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434);
-    color: #fff;
-    border-top-left-radius: 34px;
-    border-bottom-left-radius: 30px;
-    text-align: center;
-    padding: 6px 0px;
-    margin-top: 13px;
-    font-weight: 700;
-    font-size: 16px;">
+            <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434); color: #fff; border-top-left-radius: 34px;
+               border-bottom-left-radius: 30px; text-align: center; padding: 6px 0px; margin-top: 13px; font-weight: 700; font-size: 16px;">
                 + ADD NEW
             </p>
             <div class="timeline-content">
@@ -399,6 +396,7 @@
         </li>
         <!--TRANSACTION RECORDS HERE-->
     </ul>
+    
     <span id="load-more" style="float: right; display: none; margin:20px;color:blue;cursor: pointer;"
         onclick="LoadMore();">Load more</span>
     </div>
