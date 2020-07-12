@@ -25,6 +25,105 @@
 
 
 
+    label {
+        display: flex !important;
+    }
+    .select2-container--open .select2-dropdown--below {
+        width: 345px;
+    }
+    .select2-selection.select2-selection--multiple {
+        width: 344px;
+        max-height: 280px !important;
+        height: 66px;
+        background: #fcfcfc;
+        border: 1px solid #3333;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #ffffff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 5px;
+        padding: 4px;
+    }
+ .dropbtn {
+  background-color: #ffffff;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 1px 8px 16px 0px rgba(179, 179, 179, 0.2);
+    z-index: 1;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 4%;
+    margin-top: 0;    
+}
+
+.dropdown-content a {
+    color: #737373;
+    padding: 17px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #d4d4d499;
+    font-family: lato;
+    font-size: 15px;
+    text-align: center;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+    width: 242px;
+}
+
+.dropdown:hover .dropbtn {
+    text-align: center;
+}   
+    
+.message_notify {
+    font-size: 15px;
+    border: 2px solid #616161;
+    border-radius: 5px;
+    color: #6d6b6b;
+    height: 39px;
+    max-height: 51px;
+    background: #e9e9e9;
+    overflow: hidden;
+    font-family: sans-serif;
+    margin-bottom: 2%;
+    box-shadow: 0px 0px 12px #c4c4c46b;
+    font-weight: 400;
+    padding: 10px;
+}    
+    
+.message_notify a {
+    background: #616161;
+    color: #ffffff !important;
+    padding: 17px;
+    margin-left: -16px;
+    margin-right: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+
 [type=submit], [type=reset], button, html [type=button] {
     -webkit-appearance: button;
     -webkit-appearance: button;
