@@ -592,6 +592,10 @@ option {
   color: orange
 }
 
+.black-text {
+  color: black
+}
+
 select:focus {
   outline: none;
 }
