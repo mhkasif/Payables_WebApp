@@ -255,7 +255,20 @@
         </div>
     </div>
     <div class="tabcontent" id="All">
-       <div class="balance_in_account_bar">
+       <ul class="timeline balance_in_account_bar">
+        <li class="timelinePart" id="add-entry-all">
+            <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434);
+    color: #fff;
+    border-top-left-radius: 34px;
+    border-bottom-left-radius: 30px;
+    text-align: center;
+    padding: 6px 0px;
+    margin-top: 13px;
+    font-weight: 700;
+    font-size: 16px;">
+                + Query
+            </p>
+        <div class="timeline-content">
            <div style="display: grid; width: 22%; min-height: 119px;">
            <label style="margin: 0;">Search</label>
             <input style="width: 97%;" class="balance_input" onkeyup="advance_search_record($(this).val())" placeholder="Search data within all transactions" type="text"/> &nbsp;
@@ -307,6 +320,9 @@
             </select>
             </div>
         </div>
+        </li>
+        </ul>
+
     <ul class="timeline" id="all-transactions">
         <li class="timelinePart" id="add-entry-all">
             <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434);
