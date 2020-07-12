@@ -343,14 +343,9 @@ img {
 }
 
 .navbar-default .navbar-nav>li>a>i {
-    font-size: 18px;
+    font-size: 22px;
     color: #a4a4a4;
-    background: #f3f3f3;
-    width: 31px;
-    height: 31px;
-    text-align: center;
-    border-radius: 19px;
-    padding: 6px;   
+    text-shadow: 5px 4px 2px #4c464614;   
 }
 
 .addpayee_button {
