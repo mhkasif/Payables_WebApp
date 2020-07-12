@@ -120,11 +120,11 @@ input{
     color: #ff9393;
 }
 
-.tablinks a [type=button] {
+.addbank {
     color: #ffffff;
 }
 
-.tablinks a:hover{
+.addbank:hover{
     color: #56bea6;
     background: none;
     text-decoration: none;
