@@ -26,6 +26,7 @@ var liRecords = '<tr>' +
     '                                        <option class="red-text" value="Un Clear">Un-Clear</option>' +
     '                                        <option class="orange-text" value="To Pay">To Pay</option>' +
     '                                        <option class="green-text" value="Cleared">Cleared</option>' +
+    '                                        <option class="green-text" value="Bounced">Bounced</option>' +
     '                                    </select>' +
     '                                </td>' +
     '                                <td class="balance">50,000</td>' +
@@ -187,6 +188,11 @@ function getAccountsAll() {
         +'                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
         +'                    value="To Pay"                                                                                                                  '
         +'                    type="checkbox">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
+        +'                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that is still to be paid"><input      '
+                + '                    class="1" name="clearPaymentCheckbox_unused"                                                                '
+        +'                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
+        +'                    value="Bounced"                                                                                                                  '
+        +'                    type="checkbox">&nbsp; Bounced &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
         +'    </b>                                                                                                                                            '
                 + '                <select class="select collectionDaysunused" multiple id="selectbox_'+doc.id+'" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id +'\');" style="float: right; margin: -7px 11px;">                   '
         +'                                                                                         '
@@ -378,6 +384,7 @@ function getTrasactionsAll() {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -542,6 +549,7 @@ function getTrasactionsAllPagination() {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -706,6 +714,7 @@ function getTrasactionsByAccount(id) {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -869,6 +878,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -1048,6 +1058,8 @@ $("#status").on("change", function () {
         $("#status").removeClass("status-unclear").removeClass("status-topay").addClass("status-clear");
     if ($("#status").val() == "To Pay")
         $("#status").removeClass("status-clear").removeClass("status-unclear").addClass("status-topay");
+    if ($("#status").val() == "Bounced")
+        $("#status").removeClass("status-bounce").removeClass("status-bounce").addClass("status-bounce");
 });
 function deleteTrasaction(id) {
     if (confirm('Are you sure to delete this record.')) {
@@ -1131,6 +1143,7 @@ function updateTrasaction(id) {
         '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
         '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
         '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
+        '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -1298,7 +1311,7 @@ function clearTransactionFields() {
 function LoadMore(){
 
     if($("body").find(".tablinks.active").attr("id")=="defaultOpen"){
-        console.log("hereee");
+        console.log("loading more transactions");
             getTrasactionsAllPagination();
          }else{
             getTrasactionsByAccountPagination($("body").find(".tablinks.active").attr("data-accid"));
