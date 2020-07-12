@@ -407,8 +407,8 @@ function getTrasactionsAll() {
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Party Type</th>' +
-                '                                <th>Bank</th>' +
-                '                                <th  style="width: 10%;">Status</th>' +
+                '                                <th>Payment Source</th>' +
+                '                                <th style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
