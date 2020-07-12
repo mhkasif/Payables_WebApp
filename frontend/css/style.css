@@ -194,7 +194,7 @@ font-family: lato;
 }
 
   .timeline-content i {
-color: #d6d6d6;
+   opacity: 0.6;
   }
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
