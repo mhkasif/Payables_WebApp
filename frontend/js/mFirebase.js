@@ -26,7 +26,7 @@ var liRecords = '<tr>' +
     '                                        <option class="red-text" value="Un Clear">Un-Clear</option>' +
     '                                        <option class="orange-text" value="To Pay">To Pay</option>' +
     '                                        <option class="green-text" value="Cleared">Cleared</option>' +
-    '                                        <option class="green-text" value="Bounced">Bounced</option>' +
+    '                                        <option class="black-text" value="Bounced">Bounced</option>' +
     '                                    </select>' +
     '                                </td>' +
     '                                <td class="balance">50,000</td>' +
@@ -384,7 +384,7 @@ function getTrasactionsAll() {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
-                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
+                    '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -549,7 +549,7 @@ function getTrasactionsAllPagination() {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
-                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
+                    '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -714,7 +714,7 @@ function getTrasactionsByAccount(id) {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
-                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
+                    '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -878,7 +878,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
-                    '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
+                    '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -1053,13 +1053,13 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
 }
 $("#status").on("change", function () {
     if ($("#status").val() == "Un Clear")
-        $("#status").removeClass("status-clear").removeClass("status-topay").addClass("status-unclear");
+        $("#status").removeClass("status-clear").removeClass("status-topay").removeClass("status-bounce").addClass("status-unclear");
     if ($("#status").val() == "Cleared")
-        $("#status").removeClass("status-unclear").removeClass("status-topay").addClass("status-clear");
+        $("#status").removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounce").addClass("status-clear");
     if ($("#status").val() == "To Pay")
-        $("#status").removeClass("status-clear").removeClass("status-unclear").addClass("status-topay");
+        $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounce").addClass("status-topay");
     if ($("#status").val() == "Bounced")
-        $("#status").removeClass("status-bounce").removeClass("status-bounce").addClass("status-bounce");
+        $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-topay").addClass("status-bounce");
 });
 function deleteTrasaction(id) {
     if (confirm('Are you sure to delete this record.')) {
@@ -1143,7 +1143,7 @@ function updateTrasaction(id) {
         '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
         '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
         '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
-        '                                        <option class="green-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
+        '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
@@ -1234,15 +1234,16 @@ function updateTrasactionFlag(evt, id, flag) {
 
 }
 function updateTrasactionStatus(evt, id, newValue) {
-    // console.log(evt);
     // console.log(id);
     console.log(newValue);
     if (newValue == "Un Clear")
-        $(evt).removeClass("status-clear").removeClass("status-topay").addClass("status-unclear");
+        $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-bounced").addClass("status-unclear");
     if (newValue == "Cleared")
-       $(evt).removeClass("status-unclear").removeClass("status-topay").addClass("status-clear");
+       $(evt).removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounced").addClass("status-clear");
     if (newValue == "To Pay")
-        $(evt).removeClass("status-clear").removeClass("status-unclear").addClass("status-topay");
+        $(evt).removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounced").addClass("status-topay");
+    if (newValue == "Bounced")
+        $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-unclear").addClass("status-bounced");
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id).update({
         status: newValue,
@@ -1267,11 +1268,13 @@ function editRecord(id) {
     document.getElementById('status').value = record.status;
     document.getElementById('withdrawal').value = record.withdrawal;
     if (record.status == "Un Clear")
-        $("#status").removeClass("status-clear").removeClass("status-topay").addClass("status-unclear");
+        $("#status").removeClass("status-clear").removeClass("status-topay").removeClass("status-bounced").addClass("status-unclear");
     if (record.status == "Cleared")
-        $("#status").removeClass("status-unclear").removeClass("status-topay").addClass("status-clear");
+        $("#status").removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounced").addClass("status-clear");
     if (record.status == "To Pay")
-        $("#status").removeClass("status-clear").removeClass("status-unclear").addClass("status-topay");
+        $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounced").addClass("status-topay");
+    if (record.status == "Bounced")
+        $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-topay").addClass("status-bounced");
 
     $('#edit-transaction').show();
     $('#add-transaction').hide();
