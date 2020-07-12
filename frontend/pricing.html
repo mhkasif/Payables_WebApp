@@ -57,35 +57,28 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="index.html" onclick="GotoPricing();">
-                        <i class="fas fa-home"></i> &nbsp; <span id="signout"
-                            style="font-weight: bold;">Dashboard</span>
+                    <a href="index.html">
+                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
                     </a>
                 </li>
+
                 <li>
-                <a href="mailto:tulsihelpdesk@gmail.com">
-                        <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout" style="font-weight: bold;">Feedback</span>
-                    </a>
+                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >
+                     Feedback</a>
                 </li>
-                <li>
-                    <a href="#">
-                        <span id="userimage">
-                            <img src="img/Profilepic.webp" style="max-height: 40px;
-    border-radius: 50%;" />
-                        </span>
-                        <span id="username" style="font-weight: bold;">Not LoggedIn</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="SignOutFirebase();">
-                        <span id="signout" style="font-weight: bold;">Logout</span> &nbsp; <i
-                            class="fas fa-sign-out-alt"></i>
-                    </a>
+
+                <li class="dropdown">
+                  <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not LoggedIn</span> &nbsp; <i class="fas fa-angle-down"></i></a>
+                  <div class="dropdown-content" >
+                  <a href="pricing.html" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                   <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >Report a bug</a>
+                   <a href="www.google.com" target="_blank" >Helpdesk</a>
+                  <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                  </div>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
-
 
 
     <div class="container" style="margin-top: 5%;">
