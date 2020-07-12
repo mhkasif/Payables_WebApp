@@ -23,7 +23,21 @@
     margin: 24% -5%;
 }
 
+.third-content {
+    max-width: 290px;
+    width: 100%;
+    white-space: pre-wrap;
+    margin-right: 21px;
+    margin-left: 18px;
+    text-align: center;
+    font-size: 13px;
+}
 
+.third-content img {
+    width: 100%;
+    filter: saturate(0.8);
+    padding: 0% 11%;
+}
 
     label {
         display: flex !important;
