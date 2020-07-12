@@ -171,14 +171,14 @@
             </div>
             <div class="tab" id="tabs-accounts">
                 <button class="tablinks" data-accid="defaultOpen" id="defaultOpen" onclick="openTab(event, 'All')"
-                    style="background: repeating-linear-gradient(379deg, #15a1800a, #ffffff00 155px);">
+                    style="    background: repeating-linear-gradient(379deg, #fff6dc, #ffffff17 155px);border-color: #ffb200;">
                     <i class="fas fa-university"></i><br><b>Total of All Holdings</b>
                     <input disabled placeholder="---------" style="text-align: center;border: none;font-weight: 700;"
                         type="number" />
                 </button>
                 <!--ACCOUNT TABS APPEND HERE-->
                 <button class="tablinks" data-accid="add-account" id="add-account"
-                    onclick="$(this).addClass('active');">
+                    onclick="$(this).addClass('active');"   style="filter: none;opacity: 1;color: #15a180;">
                     <i class="fas fa-plus"></i>
                     <b>Add new account</b>
                     <input id="account_title" placeholder="Bank name" type="text" />
@@ -254,13 +254,13 @@
                     <table class="nowTable" id="t_draggable1">
                         <thead>
                             <tr class="ui-state-default">
-                                <th>Date</th>
+                                <th>Date &nbsp; <i class="fas fa-asterisk" style="color:red;"></i></th>
                                 <th>Cheque no.</th>
-                                <th>Party Name</th>
-                                <th>Party Type</th>
-                                <th>Bank</th>
-                                <th>Status</th>
-                                <th>Amount</th>
+                                <th>Party Name <i class="fas fa-asterisk" style="color:red;"></i></th>
+                                <th>Party Type <i class="fas fa-asterisk" style="color:red;"></i></th>
+                                <th>Payment Source <i class="fas fa-asterisk" style="color:red;"></i></th>
+                                <th>Status <i class="fas fa-asterisk" style="color:red;"></i></th>
+                                <th>Amount <i class="fas fa-asterisk" style="color:red;"></i></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -268,10 +268,11 @@
                             <tr id="all-transaction-fields">
                                 <td><input id="transaction_date" class="mandatory-field" placeholder="DD/MM/YYYY"
                                         type="date"></td>
-                                <td><input id="cheque_no" placeholder="cheque no." type="text"></td>
-                                <td><input id="payee" placeholder="party" class="mandatory-field" type="text"></td>
+                                <td><input id="cheque_no" placeholder="cheque no." type="number"></td>
+                                <td><input id="payee" placeholder="Name of Buyer or Supplier" class="mandatory-field" type="text"></td>
                                 <td>
                                     <select class="form-control" id="mode" name="">
+                                        <option disabled selected>Who're they ?</option>
                                         <option class="red-text" value="Buyer">Buyer</option>
                                         <option class="green-text" value="Supplier">Supplier</option>
                                     </select>
@@ -282,7 +283,7 @@
                                 </td>
                                 <td>
                                     <select class="form-control" id="status" name="">
-                                        <option class="red-text" value="Un Clear">Un-Clear</option>
+                                        <option class="red-text" value="Un Clear" selected >Un-Clear</option>
                                         <option class="orange-text" value="To Pay">To Pay</option>
                                         <option class="green-text" value="Cleared">Cleared</option>
                                     </select>
@@ -301,8 +302,8 @@
                                         <i class="fa fa-upload"> &nbsp; Update</i>
                                         <!--                                        Update-->
                                     </button>
-                                    <button id="clear-transaction" onclick="clearTransactionFields();" type="button">
-                                        <i class="fa fa-trash"> &nbsp; Clear</i>
+                                    <button id="clear-transaction" onclick="clearTransactionFields();" type="button" style="background: #afafaf;">
+                                        <i class="fas fa-minus-circle"> &nbsp; Clear</i>
                                         <!--                                        Clear-->
                                     </button>
                                 </td>
