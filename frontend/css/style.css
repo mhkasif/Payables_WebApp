@@ -41,7 +41,6 @@
 
     label {
     display: flex !important;
-    height: 4px;
     font-size: 16px;
     font-family: fantasy;
     color: #999;
@@ -537,6 +536,8 @@ img {
     padding: 10px;
     background: #fcfcfc;
     border: 1px solid #3333;
+    height: 66px;
+    margin-top: 0%;
 }
 
 .form-control {
