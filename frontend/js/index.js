@@ -220,6 +220,32 @@ function filterRecords() {
     });
 }
 
+
+function filterRecordsChecked() {
+    var checked = $('.clearchk');
+    if ($('.clearchk').is(":checked")) {
+        $('#all-transactions tbody tr').each(function (index, val) {
+              if($(val).find('select > option:selected').val() === $(checked).val()){
+                $(val).hide();
+              }
+            });
+    }else{
+        $('#all-transactions tbody tr').each(function (index, val) {
+            if($(val).find('select > option:selected').val() === $(checked).val()){
+              $(val).show();
+            }
+          });
+    }
+      
+      $("#all-transactions>li").each(function (i, v) {
+          if ($(v).find("tbody>tr:not([style=\"display: none;\"])").length > 0) {
+              $(v).show();
+          } else {
+              $(v).hide();
+          }
+      });
+  }
+
 function filterRecordstab(tabid) {
 
     var checked = $('.tabcontent#' + tabid).find('[name=clearPaymentCheckbox]:checked');

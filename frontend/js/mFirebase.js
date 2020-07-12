@@ -167,28 +167,28 @@ function getAccountsAll() {
                     '</button>';
             }
             var accTab = '  <div class="tabcontent" id="'+doc.id+'">\n' +
-                '            <div class="balance_in_account_bar">\n' +
+                '            <div style="display:none;" class="balance_in_account_bar">\n' +
                 '        <input class="balance_input" placeholder="Search data within all transactions" onkeyup="advance_search_recordtab($(this).val(),\'' + doc.id +'\')"            '
         +'            type="text" />                                                                                                                  '
         +'    <b style="padding: 19px; border-radius: 8px; border: 1px solid #9999;color: #999;"><i class="fas fa-filter"></i> &nbsp; Filters        '
         +'        <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques paid and are now deducted from your bank">           '
         +'            <input                                                                                                                                  '
-                + '                class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                    '
+                + '                class="1 clearchk1" name="clearPaymentCheckbox_unused"                                                                    '
         +'                style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                     '
         +'                value="Cleared"                                                                                                                   '
         +'                type="checkbox">&nbsp; Cleared &nbsp; <i class="fas fa-check"></i></a>                                                                                                 '
         +'            <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that are paid but un-clear"><input              '
-                + '                class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                     '
+                + '                class="1" name="clearPaymentCheckbox_unused"                                                                      '
         +'                style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                     '
         +'                value="Un Clear"                                                                                                                    '
         +'                type="checkbox">&nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i></a>                                                                                                        '
         +'                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" title="Cheques that is still to be paid"><input      '
-                + '                    class="1" name="clearPaymentCheckbox" onchange="filterRecordstab(\'' + doc.id +'\')"                                                                 '
+                + '                    class="1" name="clearPaymentCheckbox_unused"                                                                '
         +'                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
         +'                    value="To Pay"                                                                                                                  '
         +'                    type="checkbox">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
         +'    </b>                                                                                                                                            '
-                + '                <select class="select collectionDays" multiple id="selectbox_'+doc.id+'" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id +'\');" style="float: right; margin: -7px 11px;">                   '
+                + '                <select class="select collectionDaysunused" multiple id="selectbox_'+doc.id+'" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id +'\');" style="float: right; margin: -7px 11px;">                   '
         +'                                                                                         '
         +'                    <option>Monday</option>                                                                                                         '
         +'                    <option>Tuesday</option>                                                                                                        '
@@ -197,10 +197,11 @@ function getAccountsAll() {
         +'                    <option>Friday</option>                                                                                                         '
         +'                    <option>Saturday</option>                                                                                                       '
         +'                    <option>Sunday</option>                                                                                                         '
-        +'                </select>                     </div><ul id="acc-li-'+doc.id+'" class="timeline"></ul></div>';
+        +'                </select>                     </div><ul style="display:none;" id="acc-li-'+doc.id+'" class="timeline"></ul></div>';
             $("#All").after(accTab);
             $('#account-list').append('<option value="' + doc.id + '">' + doc.data().title + '</option>');
         });
+        
         $('#defaultOpen').find("input").val(SumOfAllInit_Balance);
         $('#defaultOpen').after(htmlTabs);
         document.getElementById("defaultOpen").click();
@@ -264,19 +265,19 @@ function updateAccount(id, title, init_balance) {
         totalAmount = totalAmount - totalWithdrawl;
     });
 }
-
 function deleteAccount(id) {
     tblAccounts = db.collection("tbl_accounts");
     tblAccountCheques.where("account_id", "==", id).get().then(function (querySnapshot) {
         console.log(querySnapshot.docs.length);
         if (querySnapshot.docs.length == 0) {
+            if (confirm('Are you sure to delete this record.')) {
             tblAccounts.doc(id)
                 .delete().then(function () {
                     getAccountsAll();
                     console.log("Document successfully deleted!");
                 }).catch(function (error) {
                     console.error("Error removing document: ", error);
-                });
+                });}
         } else {
             alert("Account cannot be deleted because it has transactions associated.");
         }
@@ -354,14 +355,16 @@ function getTrasactionsAll() {
                 // console.log(record);
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
-                    trCount++;
+                trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -474,6 +477,8 @@ function getTrasactionsAll() {
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
+        filterRecordsChecked();
+        filterRecords();
         filterbyCollectionDay($(".collectionDays").val());
     });
 }
@@ -515,13 +520,15 @@ function getTrasactionsAllPagination() {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                     trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -635,6 +642,8 @@ function getTrasactionsAllPagination() {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
         filterbyCollectionDay($(".collectionDays").val());
+        filterRecordsChecked();
+        filterRecords();
     });
 }
 
@@ -675,13 +684,15 @@ function getTrasactionsByAccount(id) {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                     trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -794,6 +805,8 @@ function getTrasactionsByAccount(id) {
     tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
+        filterRecordsChecked();
+        filterRecords();
         filterbyCollectionDay($(".collectionDays").val());
     });
 }
@@ -834,13 +847,15 @@ function getTrasactionsByAccountPagination(id) {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                     trCount++;
+                if (myRecord.status != "Cleared") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' ' + (myRecord.status === "Cleared" ? "style=\'display:none;\'" : "") +'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -954,6 +969,8 @@ function getTrasactionsByAccountPagination(id) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
         filterbyCollectionDay($(".collectionDays").val());
+        filterRecordsChecked();
+        filterRecords();
     });
 }
 
@@ -1147,11 +1164,12 @@ function updateTrasaction(id) {
 
 
 $(document).ready(function(){
+    
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() >= $(document).height()){
             
             if($("body").find(".tablinks.active").attr("id")=="defaultOpen"){
-           console.log("hereee");
+           
                getTrasactionsAllPagination();
             }else{
                getTrasactionsByAccountPagination($("body").find(".tablinks.active").attr("data-accid"));

@@ -1,7 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39&display=swap');
-
-
 #loading {
     width: 100%;
     height: 100%;
@@ -140,7 +137,6 @@ input{
 
 .timeline>li h3{
 font-size:19px;
-font-family: lato;    
 }
 
 
@@ -149,7 +145,6 @@ font-family: lato;
     background: none;
     border: none;
     margin: 0;
-     font-family: lato;   
 }
 
 /* for Desktop */
@@ -206,14 +201,15 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     white-space: nowrap;
-    border: 2px solid #e0e0e0;
+    border: 3px solid #e0e0e0;
+    border-top: none;
+    border-left: none;
 }
 
-table th {    
+table th {
     background: #fcfcfc;
     color: #676767;
     border: none;
-    padding: 8px;
 }
 
 table tr:nth-child(odd) {
@@ -224,27 +220,13 @@ table tr:nth-child(even) {
   background-color: #ffffff;
 }
 
-table input {
-    width: 100%;
-    height: 34px;
-    border-radius: 3px;
-}
-
-table select{
-    width: 100%;
-}
-
-table button{
-margin: 0 !important;
-}
-
 th,
 tr,
 td {
-    text-align: center;
-    border-bottom: 1px solid #dfdfdf;
-    padding: 4px;
-    background: #fefefe;
+  text-align: center;
+  border: 1px solid #dfdfdf;
+  padding: 10px;
+  background: #fefefe;
 }
 
 img {
@@ -331,8 +313,6 @@ img {
     padding-left: 2%;
     margin-left: 9.9%;
     border-left: double;
-    display: flex;
-    align-items: flex-start;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -406,12 +386,11 @@ img {
 }
 
 
+
 .balance_input {
     width: 27%;
-    border-radius: 3px;
-    padding: 19px;
-    background: #fcfcfc;
-    border: 1px solid #3333;
+    border-radius: 6px;
+    padding: 16px;
 }
 
 .form-control {
