@@ -342,7 +342,7 @@ img {
     font-size: 16px;     
 }
 
-.navbar-default .navbar-nav>li>i {
+.navbar-default .navbar-nav>li>a>i {
     font-size: 18px;
     color: #a4a4a4;
     background: #f3f3f3;
