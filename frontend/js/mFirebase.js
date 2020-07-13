@@ -379,7 +379,7 @@ function getTrasactionsAll() {
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
                     '                                <td>' +
                     '                                    <select' +
-                    '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : "status-topay") + '"' +
+                    '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
                     '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
@@ -544,7 +544,7 @@ function getTrasactionsAllPagination() {
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
                     '                                <td>' +
                     '                                    <select' +
-                    '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : "status-topay") + '"' +
+                    '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
                     '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
                     '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
