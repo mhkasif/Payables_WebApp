@@ -362,7 +362,7 @@ function getTrasactionsAll() {
                 // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                 trCount++;
-                if (myRecord.status != "Cleared") {
+                if (myRecord.status != "Bounced") {
                     if (myRecord.mode == "Buyer") {
                         sumOfAmount = sumOfAmount + Number(myRecord.withdrawal);
                     } else {
