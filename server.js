@@ -101,17 +101,6 @@ app.get('/config', async (req, res) => {
   });
 });
 
-app.get('/get-customer-by-email', async (req, res) => {
-  stripe.customers.list(
-    { email: req.query.email },
-    function (err, response) {
-      const customer = response.data[0];
-      res.send({ customer });
-    }
-  );
-
-});
-
 app.get('/firebaseConfig', async (req, res) => {
   console.log({
     apiKey: process.env.FIREBASE_API_KEY,
@@ -167,26 +156,21 @@ app.post('/subscribe-trial-subscription', async (req, res) => {
 });
 
 app.post('/create-customer', async (req, res) => {
-  stripe.customers.list(
-    { email: req.query.email },
-    function (err, response) {
-      const customer = response.data[0];
-      if (customer) {
-        res.send({ customer });
-      }
-      else {
-        // Create a new customer object
-        const customer = await stripe.customers.create({
-          email: req.body.email,
-        });
+   const customerlist = await stripe.customers.list({email:req.body.email});
+  if(customerlist.data){
+    const customer = customerlist.data[0];
+    res.send({ customer });
+  }else{
+     // Create a new customer object
+     const customer = await stripe.customers.create({
+      email: req.body.email,
+    });
 
-        // save the customer.id as stripeCustomerId
-        // in your database.
+    // save the customer.id as stripeCustomerId
+    // in your database.
 
-        res.send({ customer });
-      }
-    }
-  );
+    res.send({ customer });
+  }
 });
 
 app.post('/create-customerportal-session', async (req, res) => {
