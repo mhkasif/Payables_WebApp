@@ -133,10 +133,11 @@ function subscribeTrial() {
             });
         }else{
             createCustomer().then(function(resp){
+                console.log();
                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
-                    customerid: resp.id,
+                    customerid: resp.customer.id,
                     UserID : UserObject.uid
                 });
                 $('#customerid').val(resp.id);
