@@ -410,7 +410,7 @@ function initializeFirebase1() {
     }
 
     tblStripeCustomers = db.collection("tbl_stripecustomers");
-    tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) { 
+    tblStripeCustomers.where("UserID", "==", UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) { 
         if (querySnapshot.docs.length > 0) {
             $('#customerid').val(querySnapshot.docs[0].data().customerid);
         } else {

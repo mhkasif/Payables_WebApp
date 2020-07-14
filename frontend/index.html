@@ -457,7 +457,7 @@
                         tblUsers.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
                             if (querySnapshot.docs.length > 0) {
                                 tblStripeCustomers = db.collection("tbl_stripecustomers");
-                                tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshotNew) {
+                                tblStripeCustomers.where("UserID","==",UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshotNew) {
                                     if (querySnapshotNew.docs.length > 0) {
                                         $('#customerid').val(querySnapshotNew.docs[0].data().customerid);
                                         getCustomerSubscriptions().then(function (response) {
