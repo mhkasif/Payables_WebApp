@@ -185,7 +185,7 @@
 
                 $('#name').val(UserObject.displayName);
                 $('#email').val(UserObject.email);
-                var priceID = (getUrlParameter('package') == "1" ? "basic" : getUrlParameter('package') == "2" ? "premium");
+                var priceID = (getUrlParameter('package') == "1" ? "basic" : "premium");
                 $('#email').val(UserObject.email);
                 $('#priceid').val(priceID);
                 goToPaymentPage(priceID);           
