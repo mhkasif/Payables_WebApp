@@ -47,7 +47,7 @@ function createCustomer() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: UserObject.email;,
+        email: UserObject.email,
       }),
     })
       .then((response) => {
