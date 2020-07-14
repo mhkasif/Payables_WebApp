@@ -40,7 +40,6 @@ function SignOutFirebase() {
 }
 
 function createCustomer() {
-    let billingEmail = UserObject.email;
   
     return fetch('/create-customer', {
       method: 'post',
@@ -48,7 +47,7 @@ function createCustomer() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: billingEmail,
+        email: UserObject.email;,
       }),
     })
       .then((response) => {
@@ -133,7 +132,7 @@ function subscribeTrial() {
             });
         }else{
             createCustomer().then(function(resp){
-                console.log();
+                console.log(resp);
                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
