@@ -161,26 +161,7 @@
         </div>
 
         <div class="row" style="display: grid; grid-gap: 16px; grid-template-columns: repeat(2, 1fr); margin-bottom: 5%; width: 85%; margin: auto; margin-top: 12%;">
-            <div class="col-4" id="trial-box" style="width: 100%;">
-                <ul class="price">
-                    <li class="header">7 Days Trial</li>
-                    <li class="grey">Free trial</li>
-                    <ul class="price-box__list">
-                        <li class="price-box__list-el"><b>Includes:</b></li>
-                       <li class="price-box__list-el"><b>Unlimited</b> transactions</li>
-                       <li class="price-box__list-el"><b>Unlimited</b> Payment Sources</li>
-                       <li class="price-box__list-el">Team members (Comming Soon)</li>
-                </ul>
-                    <li class="grey"><a href="#" onclick="subscribeTrial();" id="trial-btn" class="subbtn button">Subscribe Trial</a></li>
-                  <div style=" font-size: 16px; margin-top: 10px; color: #7f7f7f;">
-                    <i class="fas fa-lock" style="color: #00bb32;"></i> &nbsp;
-                    <b>SSLSECURED PAYMENT</b>
-                    <br>
-                    <p>Your information is protected by 256-bit SSL encryption</p>
-            </div>
-              </ul>
-            </div>
-
+           
             <div class="col-4" style="width: 100%;">
                 <ul class="price">
                     <li class="header">Monthly Subscription</li>
@@ -288,13 +269,12 @@
                                     $("#trandate").html(new Date(response[0].current_period_start*1000).toLocaleDateString());
                                 }else{
                                     $(".subbtn").removeClass("disable-sub-btn");
-                                    if(response.findIndex(x=>x.status=="trialing")>-1){
-                                         $("#trial-btn").addClass("disable-sub-btn");
-                                     }
                                 }
                             }
 
                             });
+                        }else{
+                            subscribeTrial();
                         }
                     });
                 });
