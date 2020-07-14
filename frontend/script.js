@@ -62,6 +62,7 @@ function stripeElements(publishableKey) {
   let paymentForm = document.getElementById('payment-form');
     if (paymentForm) {
     paymentForm.addEventListener('submit', function (evt) {
+   
         evt.preventDefault();
         changeLoadingState(true);
         GlobalCouponResult = null;
@@ -409,17 +410,16 @@ function initializeFirebase1() {
     }
 
     tblStripeCustomers = db.collection("tbl_stripecustomers");
-    tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) { 
+    tblStripeCustomers.where("UserID", "==", UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) { 
         if (querySnapshot.docs.length > 0) {
             $('#customerid').val(querySnapshot.docs[0].data().customerid);
         } else {
             createCustomer().then((result) => {
-                console.log('customer created');
-                console.log(result);
                 customer = result.customer;
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
-                    customerid: customer.id
+                    customerid: customer.id,
+                    UserID: UserObject.uid
                 });
                 $('#customerid').val(customer.id);
             });
@@ -766,7 +766,7 @@ function onSubscriptionSampleDemoComplete({
 
         }).then(function () {
           changeLoadingState(false);
-            window.location.href ="/index.html"
+            window.location.href ="/index"
             });
 
     });
@@ -828,11 +828,11 @@ function changePriceSelection(priceId) {
 function changeLoadingState(isLoading) {
   if (isLoading) {
     document.querySelector('#button-text').classList.add('hidden');
-    document.querySelector('#loading').classList.remove('hidden');
+    document.querySelector('#loadingbtn').classList.remove('hidden');
     document.querySelector('#payment-form button').disabled = true;
   } else {
     document.querySelector('#button-text').classList.remove('hidden');
-    document.querySelector('#loading').classList.add('hidden');
+    document.querySelector('#loadingbtn').classList.add('hidden');
     document.querySelector('#payment-form button').disabled = false;
   }
 }
@@ -842,7 +842,7 @@ function changeLoadingStatePrices(isLoading) {
   return;
   if (isLoading) {
     document.querySelector('#button-text').classList.add('hidden');
-    document.querySelector('#loading').classList.remove('hidden');
+    document.querySelector('#loadingbtn').classList.remove('hidden');
 
     document.querySelector('#submit-basic').classList.add('invisible');
     document.querySelector('#submit-premium').classList.add('invisible');
@@ -853,7 +853,7 @@ function changeLoadingStatePrices(isLoading) {
     }
   } else {
     document.querySelector('#button-text').classList.remove('hidden');
-    document.querySelector('#loading').classList.add('hidden');
+    document.querySelector('#loadingbtn').classList.add('hidden');
 
     document.querySelector('#submit-basic').classList.remove('invisible');
     document.querySelector('#submit-premium').classList.remove('invisible');

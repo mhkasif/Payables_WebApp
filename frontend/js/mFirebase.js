@@ -369,8 +369,16 @@ function getTrasactionsAll() {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
                 }
+                var withdrawalSpan = "";
+                if(myRecord.mode=="Buyer"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">"+myRecord.withdrawal+"</span>";
+                }
+                if(myRecord.mode=="Supplier"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">("+myRecord.withdrawal+")</span>";
+                }
+
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -387,7 +395,7 @@ function getTrasactionsAll() {
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
-                    '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+                    '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -534,8 +542,16 @@ function getTrasactionsAllPagination() {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
                 }
+                var withdrawalSpan = "";
+                if(myRecord.mode=="Buyer"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">"+myRecord.withdrawal+"</span>";
+                }
+                if(myRecord.mode=="Supplier"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">("+myRecord.withdrawal+")</span>";
+                }
+
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -552,7 +568,7 @@ function getTrasactionsAllPagination() {
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
-                    '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+                    '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -699,8 +715,17 @@ function getTrasactionsByAccount(id) {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
                 }
+
+                var withdrawalSpan = "";
+                if(myRecord.mode=="Buyer"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">"+myRecord.withdrawal+"</span>";
+                }
+                if(myRecord.mode=="Supplier"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">("+myRecord.withdrawal+")</span>";
+                }
+
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -717,7 +742,7 @@ function getTrasactionsByAccount(id) {
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
-                    '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+                    '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -863,8 +888,15 @@ function getTrasactionsByAccountPagination(id) {
                         sumOfAmount = sumOfAmount - Number(myRecord.withdrawal);
                     }
                 }
+                var withdrawalSpan = "";
+                if(myRecord.mode=="Buyer"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">"+myRecord.withdrawal+"</span>";
+                }
+                if(myRecord.mode=="Supplier"){
+                    withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">("+myRecord.withdrawal+")</span>";
+                }
                 accountid=myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\'>' +
+                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
@@ -881,7 +913,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
                     '                                </td>' +
-                    '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+                    '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -982,6 +1014,34 @@ function getTrasactionsByAccountPagination(id) {
         filterRecordsChecked();
         filterRecords();
     });
+}
+
+
+function refreshAllCalculations(){
+    var totalAmount = Number($(".tablinks[data-accid=defaultOpen]").find("input").val());
+    $(".timelinePart.records").each(function (ii, vv) {
+        var trs = $(vv).find("table>tbody>tr");
+        var sumOfAmount = 0;
+        $(trs).each(function(iii,vvv){
+            if ($(vvv).find("select").val() != "Bounced") {
+                if ($(vvv).find("td:nth-child(5)").find("span").text()=="Buyer") {
+                    sumOfAmount = sumOfAmount + Number($(vvv).attr("data-rcdamt"));
+                } else {
+                    sumOfAmount = sumOfAmount - Number($(vvv).attr("data-rcdamt"));
+                }
+            }
+
+        });
+        $(vv).find("#remainingfromtotal").text(totalAmount-sumOfAmount);
+        $(vv).find("table>tfoot>tr>th:nth-child(2)").html(sumOfAmount);
+        totalAmount = totalAmount + sumOfAmount;
+        var balanceElement = '<i class="far fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day">'+
+        '</i> &nbsp; <u>Balance carry forward :</u>'+
+        ''+totalAmount+' &nbsp; '+
+        '<i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i>';
+        $(vv).find("a.totalBalance").html(balanceElement);
+    });
+
 }
 
 function addupdatetransaction(isUpdate) {
@@ -1173,6 +1233,7 @@ function updateTrasaction(id) {
         totalAmount = totalAmount - totalWithdrawl;
     });
     clearTransactionFields();
+    refreshAllCalculations();
 }
 
 
@@ -1202,7 +1263,7 @@ function updateTrasactionSorting(id, order,ele) {
         order_sequence: order,
         date:updatedDate
     }).then(function () {
-       // getTrasactionsAll();
+        refreshAllCalculations();
         console.log("Document sequence updated!");
     }).catch(function (error) {
         console.error("Error updating sequence: ", error);
@@ -1248,7 +1309,7 @@ function updateTrasactionStatus(evt, id, newValue) {
     tblAccountCheques.doc(id).update({
         status: newValue,
     }).then(function () {
-      //  getTrasactionsAll();
+        refreshAllCalculations();
         console.log("Document status updated!");
     }).catch(function (error) {
         console.error("Error updating status: ", error);

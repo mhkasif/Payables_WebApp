@@ -8,7 +8,7 @@ $(document).ready(function () {
             $('#userimage').find('img').attr('src', UserObject.photoURL);
             $('#username').text(UserObject.displayName);
         } else {
-            location.href = url + "/signin.html";
+            location.href = url + "/signin";
         }
     });});
 });
@@ -33,11 +33,31 @@ function getFirebaseConfig() {
 
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {
-        location.href = url + "/signin.html";
+        location.href = url + "/signin";
     }).catch(function (error) {
         // An error happened.
     });
 }
+
+function createCustomer() {
+    let billingEmail = UserObject.email;
+  
+    return fetch('/create-customer', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: billingEmail,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        return result;
+      });
+  }
 
 
 function getCustomerSubscriptions() {
@@ -58,6 +78,7 @@ function getCustomerSubscriptions() {
         return response.response.data;
   
       });
+    
 }
 
 
@@ -86,4 +107,59 @@ function createCustomerPortalSession() {
             }
             return result;
         });
+}
+
+function subscribeTrial() {
+    let customerid = document.querySelector('#customerid').value;
+    if(customerid){
+        return fetch('/subscribe-trial-subscription', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                customerid: customerid,
+                priceid: 'price_1H2Y2wIr0OyOmRWpCxbTMjrR'
+            }),
+        })
+            .then((response) => {
+                console.log(response);
+                return response.json();
+
+            })
+            .then((result) => {
+                console.log(result);
+
+            });
+        }else{
+            createCustomer().then(function(resp){
+                tblStripeCustomers = db.collection("tbl_stripecustomers");
+                tblStripeCustomers.add({
+                    CustomerEmail: UserObject.email,
+                    customerid: resp.id,
+                    UserID : UserObject.uid
+                });
+                $('#customerid').val(resp.id);
+                return fetch('/subscribe-trial-subscription', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        customerid: resp.id,
+                        priceid: 'basic'
+                    }),
+                })
+                    .then((response) => {
+                        console.log(response);
+                        return response.json();
+        
+                    })
+                    .then((result) => {
+                        console.log(result);
+        
+                    });  
+            });
+        }
+   
 }

@@ -31,7 +31,7 @@ function initializeFirebase() {
 
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {
-        location.href = url + "/signin.html";
+        location.href = url + "/signin";
     }).catch(function (error) {
         // An error happened.
     });
