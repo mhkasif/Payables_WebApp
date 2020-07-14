@@ -418,7 +418,8 @@ function initializeFirebase1() {
                 customer = result.customer;
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
-                    customerid: customer.id
+                    customerid: customer.id,
+                    UserID: UserObject.uid
                 });
                 $('#customerid').val(customer.id);
             });

@@ -136,7 +136,8 @@ function subscribeTrial() {
                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
-                    customerid: resp.id
+                    customerid: resp.id,
+                    UserID : UserObject.uid
                 });
                 $('#customerid').val(resp.id);
                 return fetch('/subscribe-trial-subscription', {
