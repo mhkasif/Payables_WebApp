@@ -51,7 +51,6 @@ function createCustomer() {
       }),
     })
       .then((response) => {
-        return response.json();
       })
       .then((result) => {
         return result;
@@ -131,27 +130,16 @@ function subscribeTrial() {
 
             });
         }else{
-            let customer_email = document.querySelector("#email").value;
-            return fetch('/create-customer', {
-              method: 'post',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email: customer_email,
-              }),
-            })
-              .then((response) => {
-                return response.json();
-              })
-              .then((result) => {
+            setTimeout(function(){
+            createCustomer().then(function(resp){
+                console.log(resp);
                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
-                    customerid: result.customer.id,
+                    customerid: resp.customer.id,
                     UserID : UserObject.uid
                 });
-                $('#customerid').val(result.customer.id);
+                $('#customerid').val(resp.id);
                 return fetch('/subscribe-trial-subscription', {
                     method: 'post',
                     headers: {
@@ -171,9 +159,8 @@ function subscribeTrial() {
                         console.log(result);
         
                     });  
-              });
-           
-            }
-        
+            });
+        },3000);
+        }
    
 }
