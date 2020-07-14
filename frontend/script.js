@@ -2,23 +2,17 @@ let stripe, customer, price, card;
 let apiURL = "";
 let priceInfo = {
   basic: {
-    amount: '1000',
+    amount: '10',
     name: 'Basic',
     interval: 'monthly',
     currency: 'USD',
   },
   premium: {
-    amount: '2500',
+    amount: '99',
     name: 'Premium',
-    interval: '3 month',
+    interval: '12 month',
     currency: 'USD',
     },
-    gold: {
-        amount: '5000',
-        name: 'Gold',
-        interval: 'yearly',
-        currency: 'USD',
-    }
 };
 let GlobalCouponResult;
 function stripeElements(publishableKey) {
