@@ -2,13 +2,13 @@ let stripe, customer, price, card;
 let apiURL = "";
 let priceInfo = {
   basic: {
-    amount: '10',
+    amount: '10.00',
     name: 'Basic',
     interval: 'monthly',
     currency: 'USD',
   },
   premium: {
-    amount: '99',
+    amount: '99.00',
     name: 'Premium',
     interval: '12 month',
     currency: 'USD',
