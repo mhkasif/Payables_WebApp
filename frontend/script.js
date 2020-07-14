@@ -196,7 +196,7 @@ function switchPrices(newPriceIdSelected) {
       ).innerText = capitalizeFirstLetter(newPriceIdSelected);
 
       document.getElementById('new-price-price-selected').innerText =
-        '$' + upcomingInvoice.amount_due / 100;
+        '$' + upcomingInvoice.amount_due;
 
       let nextPaymentAttemptDateToDisplay = getDateStringFromUnixTimestamp(
         upcomingInvoice.next_payment_attempt
@@ -669,7 +669,7 @@ function getFormattedAmount(amount) {
       zeroDecimalCurrency = false;
     }
   }
-  amount = zeroDecimalCurrency ? amount : amount / 100;
+  amount = zeroDecimalCurrency ? amount : amount;
   var formattedAmount = numberFormat.format(amount);
 
   return formattedAmount;
@@ -759,7 +759,7 @@ function onSubscriptionSampleDemoComplete({
             PaymentVerified: true,
             PackageID: getUrlParameter("package"),
             Email: UserObject.email,
-            AmountPaid: priceInfo[priceId].amount / 100,
+            AmountPaid: priceInfo[priceId].amount,
             TransactionDate: firebase.firestore.Timestamp.fromDate(new Date()).toDate(),
             ExpiryDate: firebase.firestore.Timestamp.fromDate(expiryDate).toDate(),
             TransactionID: subscriptionId
