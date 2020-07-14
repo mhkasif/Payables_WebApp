@@ -2,23 +2,17 @@ let stripe, customer, price, card;
 let apiURL = "";
 let priceInfo = {
   basic: {
-    amount: '1000',
+    amount: '10.00',
     name: 'Basic',
     interval: 'monthly',
     currency: 'USD',
   },
   premium: {
-    amount: '2500',
+    amount: '99.00',
     name: 'Premium',
-    interval: '3 month',
+    interval: 'yearly',
     currency: 'USD',
     },
-    gold: {
-        amount: '5000',
-        name: 'Gold',
-        interval: 'yearly',
-        currency: 'USD',
-    }
 };
 let GlobalCouponResult;
 function stripeElements(publishableKey) {
@@ -202,7 +196,7 @@ function switchPrices(newPriceIdSelected) {
       ).innerText = capitalizeFirstLetter(newPriceIdSelected);
 
       document.getElementById('new-price-price-selected').innerText =
-        '$' + upcomingInvoice.amount_due / 100;
+        '$' + upcomingInvoice.amount_due;
 
       let nextPaymentAttemptDateToDisplay = getDateStringFromUnixTimestamp(
         upcomingInvoice.next_payment_attempt
@@ -675,7 +669,7 @@ function getFormattedAmount(amount) {
       zeroDecimalCurrency = false;
     }
   }
-  amount = zeroDecimalCurrency ? amount : amount / 100;
+  amount = zeroDecimalCurrency ? amount : amount;
   var formattedAmount = numberFormat.format(amount);
 
   return formattedAmount;
@@ -765,7 +759,7 @@ function onSubscriptionSampleDemoComplete({
             PaymentVerified: true,
             PackageID: getUrlParameter("package"),
             Email: UserObject.email,
-            AmountPaid: priceInfo[priceId].amount / 100,
+            AmountPaid: priceInfo[priceId].amount,
             TransactionDate: firebase.firestore.Timestamp.fromDate(new Date()).toDate(),
             ExpiryDate: firebase.firestore.Timestamp.fromDate(expiryDate).toDate(),
             TransactionID: subscriptionId

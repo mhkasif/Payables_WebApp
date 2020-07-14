@@ -8,14 +8,15 @@
     <meta charset="UTF-8">
     <script>
         var url = location.origin + location.href.replace(location.origin, '').substr(0, location.href.replace(location.origin, '').lastIndexOf('/'));
-        //var url = "https://clever-engelbart-ff8898.netlify.app/";
     </script>
-    <title>Pricing</title>
+    <title>Payables ~ Billing & Subscription</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
 
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Poppins|Roboto|Roboto+Mono|Rubik|Work+Sans&display=swap"
+        rel="stylesheet" />
     <link href="css/pricing.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
@@ -44,7 +45,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="img/logo7.png" style="width: 45%;" /></a>
+            <a class="navbar-brand" href="index"><img src="img/logo7.png" style="width: 45%;" /></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,41 +56,35 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="index.html" onclick="GotoPricing();">
-                        <i class="fas fa-home"></i> &nbsp; <span id="signout"
-                            style="font-weight: bold;">Dashboard</span>
+                    <a href="index">
+                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
                     </a>
                 </li>
+
                 <li>
-                <a href="mailto:tulsihelpdesk@gmail.com">
-                        <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout" style="font-weight: bold;">Feedback</span>
-                    </a>
+                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >
+                     Feedback</a>
                 </li>
-                <li>
-                    <a href="#">
-                        <span id="userimage">
-                            <img src="img/Profilepic.webp" style="max-height: 40px;
-    border-radius: 50%;" />
-                        </span>
-                        <span id="username" style="font-weight: bold;">Not LoggedIn</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="SignOutFirebase();">
-                        <span id="signout" style="font-weight: bold;">Logout</span> &nbsp; <i
-                            class="fas fa-sign-out-alt"></i>
-                    </a>
+
+                <li class="dropdown">
+                  <a class="dropbtn" style="display: flex; height: 80px;"><span id="userimage"><img src="img/Profilepic.webp" style="max-width: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 12px; margin-right: 9px;">Not LoggedIn</span></a>
+                  <div class="dropdown-content" >
+                  <a href="pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                   <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >Report a bug</a>
+                   <a href="www.google.com" target="_blank" >Helpdesk</a>
+                  <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                  </div>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
 
 
-
     <div class="container" style="margin-top: 5%;">
         <div class="row">
             <div class="col-md-12">
                 <h2 style="text-align:center">Current Subscription Details</h2>
+                <p style="text-align:center">Keep a hold on your subscription with our automated process</p>
             </div>
         </div>
         <div class="row" style="margin-left: 48px;
@@ -122,9 +117,6 @@
                     <li><i class="far fa-calendar-check"></i> &nbsp; Last payment date: <span id="trandate">-</span>
                     </li>
                     <li><i class="far fa-calendar-times"></i> &nbsp; Plan Expiry Date: <span id="expdate">-</span></li>
-                    <li style="display:none;" id="billingdetailLink">Billing & Subscription Details: <span
-                            id="customer-portal" style="cursor: pointer;"
-                            onclick="createCustomerPortalSession();"><a>click here!</a></span></li>
                 </ul>
             </div>
             <div class="col-md-4"></div>
@@ -163,20 +155,21 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h2 style="text-align:center">Simple Pricing o</h2>
-                <p style="text-align:center">Choose your suitable package</p>
+                <h2 style="text-align:center">Simple Pricing</h2>
+                <p style="text-align:center">We made it flexible for you to subscribe according to your business cashflow</p>
             </div>
         </div>
 
-        <div class="row" style="display: grid; grid-gap: 16px; grid-template-columns: repeat(2, 1fr); margin-bottom: 5%;">
+        <div class="row" style="display: grid; grid-gap: 16px; grid-template-columns: repeat(2, 1fr); margin-bottom: 5%; width: 85%; margin: auto; margin-top: 12%;">
             <div class="col-6" style="width: 100%;">
                 <ul class="price">
                     <li class="header">Monthly Subscription</li>
                     <li class="grey">$ 10 / Month</li>
                     <ul class="price-box__list">
-                       <li class="price-box__list-el">Includes <b>Unlimited</b> transactions</li>
-                       <li class="price-box__list-el"><b>Unlimited</b> Team members</li>
-                       <li class="price-box__list-el">User access rights</li>
+                        <li class="price-box__list-el"><b>Includes:</b></li>
+                       <li class="price-box__list-el"><b>Unlimited</b> transactions</li>
+                       <li class="price-box__list-el"><b>Unlimited</b> Payment Sources</li>
+                       <li class="price-box__list-el">Team members (Comming Soon)</li>
                 </ul>
                     <li class="grey"><a href="payment.html?package=1" class="subbtn button">Subscribe Monthly</a></li>
                   <div style=" font-size: 16px; margin-top: 10px; color: #7f7f7f;">
@@ -193,11 +186,12 @@
                     <li class="header">Yearly Subscription</li>
                     <li class="grey">$ 99 / year</li>
                     <ul class="price-box__list">
-                       <li class="price-box__list-el">Includes <b>Unlimited</b> transactions</li>
-                       <li class="price-box__list-el"><b>Unlimited</b> Team members</li>
-                       <li class="price-box__list-el">User access rights</li>
+                        <li class="price-box__list-el"><b>Includes:</b></li>
+                       <li class="price-box__list-el"><b>Unlimited</b> transactions</li>
+                       <li class="price-box__list-el"><b>Unlimited</b> Payment Sources</li>
+                       <li class="price-box__list-el">Team members (Comming Soon)</li>
                 </ul>
-                    <li class="grey"><a href="payment.html?package=3" class="subbtn button">Subscribe Yearly</a></li>
+                    <li class="grey"><a href="payment.html?package=2" class="subbtn button">Subscribe Yearly</a></li>
                   <div style=" font-size: 16px; margin-top: 10px; color: #7f7f7f;">
                     <i class="fas fa-lock" style="color: #00bb32;"></i> &nbsp;
                     <b>SSLSECURED PAYMENT</b>

@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+  font-family: lato;  
 }
 
 .columns {
@@ -20,6 +21,7 @@
     box-shadow: 0px 0px 8px 2px #3333;
     min-height: 311px;
     text-align: center;
+     margin-bottom: 13%;   
 }
 
     .price:hover {
@@ -44,6 +46,7 @@
     .price .grey {
     font-weight: 800;
     font-size: 31px;
+       font-family: Poppins-Regular;     
     }
 
 .button {

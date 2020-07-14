@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Subscription prices</title>
+    <title>Payables Payment Screen ~ Stripe</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="A demo of Stripe Billing" name="description" />
+    <meta content="Payables Payment Screen ~ Stripe" name="description" />
     <link href="css/global.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
@@ -29,63 +29,60 @@
     </style>
 
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-     style="padding: 0 15px;background-color: #ffffff;">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#"><img src="img/logo7.png" style="width: 45%;"/></a>
-    </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <!--            <li class="active"><a href="#">Link</a></li>-->
-            <!--            <li><a href="#">Link</a></li>-->
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="pricing.html" onclick="GotoPricing();">
-                    <i class="fas fa-dollar-sign"></i> &nbsp; <span id="signout" style="font-weight: bold;">Billing & Subscription</span>
-                </a>
-            </li>
-            <li>
-                <a href="mailto:tulsihelpdesk@gmail.com">
-                    <i class="fas fa-envelope-open"></i> &nbsp; <span id="signout"
-                                                                      style="font-weight: bold;">Feedback</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"  style="display: inline-flex;">
-                        <span id="userimage">
-                            <img src="img/Profilepic.webp" style="max-height: 40px;border-radius: 50%;margin-right: 9px;"/>
-                        </span>
-                    <span id="username" style="font-weight: bold;">Not LoggedIn</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" onclick="SignOutFirebase();">
-                    <span id="signout" style="font-weight: bold;">Logout</span> &nbsp; <i
-                        class="fas fa-sign-out-alt"></i>
-                </a>
-            </li>
-        </ul>
-    </div><!-- /.navbar-collapse -->
-</nav>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+        style="padding: 0 15px;background-color: #ffffff;">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
+                type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index"><img src="img/logo7.png" style="width: 45%;" /></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--            <li class="active"><a href="#">Link</a></li>-->
+                <!--            <li><a href="#">Link</a></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="pricing">
+                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Billing & Subscription
+                    </a>
+                </li>
+
+                <li>
+                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >
+                     Feedback</a>
+                </li>
+
+                <li class="dropdown">
+                  <a class="dropbtn" style="display: flex;height: 78px;"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 10px;">Not LoggedIn</span> </a>
+                  <div class="dropdown-content" >
+                  <a href="pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                   <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >Report a bug</a>
+                   <a href="www.google.com" target="_blank" >Helpdesk</a>
+                  <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                  </div>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+
 <div class="container" style="margin-top: 100px;">
     <div class="flex flex-wrap justify-center" style="margin-top:20px;" id="prices-and-payment">
         <div id="prices-form">
-            <div class="text-center text-pasha font-bold text-2xl mt-4 mb-6">
-                <img src="img/logo7.png" style="width: 45%;">
-            </div>
 
             <div class="flex justify-center" id="payment-form-wrapper" style="width: 525px;">
-                <div class="w-full inline-block border p-4 rounded-md" style="padding: 23px;font-size: 16px;">
+                <div class="w-full inline-block border p-4 rounded-md" style="padding: 23px; font-size: 16px; box-shadow: 8px 8px 16px #e4e4e499; border-radius: 9px; margin-top: 2%; border: 1px solid #9999; margin-bottom: 6%;">
+                <img src="img/moneygurantee.png" style="border-radius:5px;margin-bottom: 5%;">
                     <div class="font-bold text-xl mb-2" style="font-size: 16px; padding-bottom: 2%; margin-bottom: 3%; border-bottom: 1px solid #c7c7c799; color: #757575; font-family: sans-serif;">
                         Unlimited accounts payables, and more. Cancel anytime.</br>
                     </div>
@@ -146,7 +143,7 @@
                             <input style="display:none;" id="email" value="" />
                             <input style="display:none;" id="priceid" value="" />
                             <input style="display:none;" id="customerid" value="" />
-                            <button style="font-size: 18px; margin-top: 2%;" class="w-full bg-pasha hover:bg-white hover:shadow-outline hover:text-pasha hover:border hover:border-black focus:shadow-outline text-white focus:bg-white focus:text-pasha font-light py-2 px-4 rounded-md"
+                            <button style="font-size: 18px; margin-top: 2%; background: #f4b319; border: 1px solid #fdc131;" class="w-full bg-pasha hover:bg-white hover:shadow-outline hover:text-pasha hover:border hover:border-black focus:shadow-outline text-white focus:bg-white focus:text-pasha font-light py-2 px-4 rounded-md"
                                     id="submit-premium"
                                     type="submit">
                                 <div class="">
@@ -188,7 +185,7 @@
 
                 $('#name').val(UserObject.displayName);
                 $('#email').val(UserObject.email);
-                var priceID = (getUrlParameter('package') == "1" ? "basic" : getUrlParameter('package') == "2" ? "premium" : "gold");
+                var priceID = (getUrlParameter('package') == "1" ? "basic" : "premium");
                 $('#email').val(UserObject.email);
                 $('#priceid').val(priceID);
                 goToPaymentPage(priceID);           
