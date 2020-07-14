@@ -10,7 +10,7 @@ let priceInfo = {
   premium: {
     amount: '99.00',
     name: 'Premium',
-    interval: '12 month',
+    interval: 'yearly',
     currency: 'USD',
     },
 };
