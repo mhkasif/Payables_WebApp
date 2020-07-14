@@ -202,7 +202,7 @@
                 <li class="dropdown">
                   <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not LoggedIn</span> &nbsp; <i class="fas fa-angle-down"></i></a>
                   <div class="dropdown-content" >
-                  <a href="pricing.html" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                  <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >Report a bug</a>
                    <a href="www.google.com" target="_blank" >Helpdesk</a>
                   <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
@@ -455,7 +455,6 @@
 
                         tblUsers = db.collection("tbl_users");
                         tblUsers.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
-
                             if (querySnapshot.docs.length > 0) {
                                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                                 tblStripeCustomers.where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshotNew) {
@@ -464,9 +463,9 @@
                                         getCustomerSubscriptions().then(function (response) {
 
                                             if (response.length > 0) {
-                                                if (response[0].status == "active") {
+                                                if (response[0].status == "active" || response[0].status == "trialing") {
                                                 } else {
-                                                    location.href = url + "/pricing.html";
+                                                    location.href = url + "/pricing";
                                                 }
                                             }
 
@@ -483,7 +482,7 @@
                                     ExpiryDate: "",
                                     collectionDays: ""
                                 }).then(function (docRef) {
-                                    location.href = url + "/pricing.html";
+                                    location.href = url + "/pricing";
                                 }).catch(function (error) {
                                     console.error("Error adding document: ", error);
                                 });
@@ -508,7 +507,7 @@
                         getAccountsAll();
                         $("body").show();
                     } else {
-                        location.href = url + "/signin.html";
+                        location.href = url + "/signin";
                     }
                 });
                 BalanceInputField();
@@ -519,12 +518,12 @@
         });
 
         function GotoPricing() {
-            location.url = url + "/pricing.html";
+            location.url = url + "/pricing";
         }
 
         function SignOutFirebase() {
             firebase.auth().signOut().then(function () {
-                location.href = url + "/signin.html";
+                location.href = url + "/signin";
             }).catch(function (error) {
                 // An error happened.
             });

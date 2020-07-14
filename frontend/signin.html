@@ -94,7 +94,7 @@
             getFirebaseConfig().then(function(){
               firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                location.href = url + "/index.html";
+                location.href = url + "/index";
             } else {
                 $("body").show();
             }
@@ -121,7 +121,7 @@
             },
             // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
             signInFlow: 'popup',
-            signInSuccessUrl: url + '/index.html',
+            signInSuccessUrl: url + '/index',
             signInOptions: [
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID//,
                 //firebase.auth.FacebookAuthProvider.PROVIDER_ID,

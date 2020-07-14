@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const { resolve } = require('path');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 // Replace if using a different env file or config
 require('dotenv').config({ path: __dirname+'/exp.env' });
 if (
@@ -47,6 +48,7 @@ if (
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.use(express.static(__dirname+'/'+process.env.STATIC_DIR));
+app.engine('html', require('ejs').renderFile);   
 // Use JSON parser for all non-webhook routes.
 app.use((req, res, next) => {
   if (req.originalUrl === '/stripe-webhook') {
@@ -55,11 +57,40 @@ app.use((req, res, next) => {
     bodyParser.json()(req, res, next);
   }
 });
-
 app.get('/', (req, res) => {
  
-  const path =  __dirname+'/'+process.env.STATIC_DIR +'/'+process.env.STARTPOINT;
-    res.sendFile(path);
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/index.html';
+  res.render(path);
+});
+
+app.get('/index', function(req, res){
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/index.html';
+  res.render(path);
+});
+
+app.get('/pricing', function(req, res){
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/pricing.html';
+  res.render(path);
+});
+
+app.get('/signin', function(req, res){
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/signin.html';
+  res.render(path);
+});
+
+app.get('/payment', function(req, res){
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/payment.html';
+  res.render(path);
+});
+
+app.get('/prices', function(req, res){
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/prices.html';
+  res.render(path);
+});
+
+app.get('/account', function(req, res){
+  const path =  __dirname+'/'+process.env.STATIC_DIR +'/account.html';
+  res.render(path);
 });
 
 app.get('/config', async (req, res) => {
@@ -111,6 +142,17 @@ app.post('/get-cutomer-subscriptions', async (req, res) => {
           res.send({ response });
       }
   );
+});
+
+app.post('/subscribe-trial-subscription', async (req, res) => {
+  console.log(req.body.customerid);
+  var trialEnd = moment().add(7, 'days').unix();
+  const subscription = await stripe.subscriptions.create({
+    customer: req.body.customerid,
+    items: [{price: process.env[req.body.priceid.toUpperCase()]}],
+    trial_end: trialEnd,
+  });
+  res.send({ subscription });
 });
 
 app.post('/create-customer', async (req, res) => {
