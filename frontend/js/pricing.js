@@ -40,14 +40,14 @@ function SignOutFirebase() {
 }
 
 function createCustomer() {
-  
+  let customer_email = document.querySelector("#email").value;
     return fetch('/create-customer', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: UserObject.email,
+        email: customer_email,
       }),
     })
       .then((response) => {
@@ -118,7 +118,7 @@ function subscribeTrial() {
             },
             body: JSON.stringify({
                 customerid: customerid,
-                priceid: 'price_1H2Y2wIr0OyOmRWpCxbTMjrR'
+                priceid: 'basic'
             }),
         })
             .then((response) => {
