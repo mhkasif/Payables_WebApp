@@ -1049,7 +1049,12 @@ function refreshAllCalculations(){
         });
         $(vv).find("#remainingfromtotal").text(totalAmount-sumOfAmount);
         $(vv).find("table>tfoot>tr>th:nth-child(2)").html(sumOfAmount);
-        totalAmount = totalAmount + sumOfAmount;
+        if(sumOfAmount>0){
+            totalAmount = totalAmount + sumOfAmount;
+        }
+        else{
+            totalAmount = totalAmount - sumOfAmount;
+        }
         var balanceElement = '<i class="far fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day">'+
         '</i> &nbsp; <u>Balance carry forward :</u>'+
         ''+totalAmount+' &nbsp; '+
