@@ -148,6 +148,7 @@ function getAccountsAll() {
         var htmlTabs = '';
         var SumOfAllInit_Balance = 0;
         querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
             SumOfAllInit_Balance +=Number(doc.data().init_balance);
@@ -1049,7 +1050,12 @@ function refreshAllCalculations(){
         });
         $(vv).find("#remainingfromtotal").text(totalAmount-sumOfAmount);
         $(vv).find("table>tfoot>tr>th:nth-child(2)").html(sumOfAmount);
-        totalAmount = totalAmount + sumOfAmount;
+        if(sumOfAmount>0){
+            totalAmount = totalAmount + sumOfAmount;
+        }
+        else{
+            totalAmount = totalAmount - sumOfAmount;
+        }
         var balanceElement = '<i class="far fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day">'+
         '</i> &nbsp; <u>Balance carry forward :</u>'+
         ''+totalAmount+' &nbsp; '+
@@ -1058,7 +1064,7 @@ function refreshAllCalculations(){
         if(totalAmount<0){
             $(vv).find(".alert_notification_tag").show();
         }else{
-            $(vv).find(".alert_notification_tag").show();
+            $(vv).find(".alert_notification_tag").hide();
         }
     });
    
@@ -1335,16 +1341,16 @@ function updateTrasactionStatus(evt, id, newValue) {
         $(evt).removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounced").addClass("status-topay");
     if (newValue == "Bounced")
         $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-unclear").addClass("status-bounced");
-
+console.log($(evt).parent().parent());
     var withdrawalSpan = "";
-    if ($(evt).parent().parent().find("td:nth-child(5)").find("span").text() == "Buyer") {
+    if ($(evt).parent().parent().find("td:nth-child(6)").find("span").text() == "Buyer") {
 
         withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + $(evt).parent().parent().attr("data-rcdamt") + "</span>";
     }
-    if (myRecord.mode == "Supplier") {
+    if ($(evt).parent().parent().find("td:nth-child(6)").find("span").text() == "Supplier") {
         withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + $(evt).parent().parent().attr("data-rcdamt") + ")</span>";
     }
-    $(evt).parent().parent().find("td:nth-child(8)").html(withdrawalSpan);
+    $(evt).parent().parent().find("td:nth-child(9)").html(withdrawalSpan);
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id).update({
         status: newValue,
