@@ -429,6 +429,7 @@ function getTrasactionsAll() {
                 '                                <th>Payment Source</th>' +
                 '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th><i class="far fa-file-alt"></i></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -439,7 +440,7 @@ function getTrasactionsAll() {
                 '                                <tr class="ui-state-default">'+
                 '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -603,6 +604,7 @@ function getTrasactionsAllPagination() {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th><i class="far fa-file-alt"></i></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -613,7 +615,7 @@ function getTrasactionsAllPagination() {
                 '                                <tr class="ui-state-default">'+
                 '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -777,6 +779,7 @@ function getTrasactionsByAccount(id) {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th><i class="far fa-file-alt"></i></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -787,7 +790,7 @@ function getTrasactionsByAccount(id) {
                 '                                <tr class="ui-state-default">'+
                 '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -949,6 +952,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th><i class="far fa-file-alt"></i></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -959,7 +963,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <tr class="ui-state-default">'+
                 '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
