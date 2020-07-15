@@ -1063,7 +1063,7 @@ function refreshAllCalculations(){
         if(totalAmount<0){
             $(vv).find(".alert_notification_tag").show();
         }else{
-            $(vv).find(".alert_notification_tag").show();
+            $(vv).find(".alert_notification_tag").hide();
         }
     });
    
