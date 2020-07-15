@@ -148,6 +148,7 @@ function getAccountsAll() {
         var htmlTabs = '';
         var SumOfAllInit_Balance = 0;
         querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
             SumOfAllInit_Balance +=Number(doc.data().init_balance);
@@ -1346,7 +1347,7 @@ function updateTrasactionStatus(evt, id, newValue) {
 
         withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + $(evt).parent().parent().attr("data-rcdamt") + "</span>";
     }
-    if (myRecord.mode == "Supplier") {
+    if ($(evt).parent().parent().find("td:nth-child(5)").find("span").text() == "Supplier") {
         withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + $(evt).parent().parent().attr("data-rcdamt") + ")</span>";
     }
     $(evt).parent().parent().find("td:nth-child(8)").html(withdrawalSpan);
