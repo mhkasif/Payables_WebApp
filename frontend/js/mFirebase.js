@@ -1018,6 +1018,7 @@ function getTrasactionsByAccountPagination(id) {
 
 
 function refreshAllCalculations(){
+   
     var totalAmount = Number($(".tablinks[data-accid=defaultOpen]").find("input").val());
     $(".timelinePart.records").each(function (ii, vv) {
         var trs = $(vv).find("table>tbody>tr");
@@ -1040,8 +1041,13 @@ function refreshAllCalculations(){
         ''+totalAmount+' &nbsp; '+
         '<i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i>';
         $(vv).find("a.totalBalance").html(balanceElement);
+        if(totalAmount<0){
+            $(vv).find(".alert_notification_tag").show();
+        }else{
+            $(vv).find(".alert_notification_tag").show();
+        }
     });
-
+   
 }
 
 function addupdatetransaction(isUpdate) {
@@ -1189,6 +1195,13 @@ function updateTrasaction(id) {
         withdrawal: document.getElementById('withdrawal').value
     };
     var targetTr = $("#" + id);
+    var withdrawalSpan = "";
+    if(myRecord.mode=="Buyer"){
+        withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">"+myRecord.withdrawal+"</span>";
+    }
+    if(myRecord.mode=="Supplier"){
+        withdrawalSpan = "<span "+(myRecord.status === "Bounced"?"style='text-decoration: line-through;'":"")+">("+myRecord.withdrawal+")</span>";
+    }
     var tblRecordsHtml = '<tr id="' + id + '">' +
         '                                <td><i class="fa fa-bars"></i></td>' +
         '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
@@ -1206,7 +1219,7 @@ function updateTrasaction(id) {
         '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
         '                                    </select>' +
         '                                </td>' +
-        '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+        '                                <td class="balance">' + withdrawalSpan + '</td>' +
         '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
         '                            </tr>';
 
@@ -1256,6 +1269,7 @@ $(document).ready(function(){
 });
 
 function updateTrasactionSorting(id, order,ele) {
+    $('#loading').show();
     var updatedDate = $(ele).parent().attr("data-rcddate");
     console.log($($(ele).find("td")[2]).find("span").html(),updatedDate);
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1264,6 +1278,7 @@ function updateTrasactionSorting(id, order,ele) {
         date:updatedDate
     }).then(function () {
         refreshAllCalculations();
+        $('#loading').hide();
         console.log("Document sequence updated!");
     }).catch(function (error) {
         console.error("Error updating sequence: ", error);
@@ -1300,11 +1315,21 @@ function updateTrasactionStatus(evt, id, newValue) {
     if (newValue == "Un Clear")
         $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-bounced").addClass("status-unclear");
     if (newValue == "Cleared")
-       $(evt).removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounced").addClass("status-clear");
+        $(evt).removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounced").addClass("status-clear");
     if (newValue == "To Pay")
         $(evt).removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounced").addClass("status-topay");
     if (newValue == "Bounced")
         $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-unclear").addClass("status-bounced");
+
+    var withdrawalSpan = "";
+    if ($(evt).parent().parent().find("td:nth-child(5)").find("span").text() == "Buyer") {
+
+        withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + $(evt).parent().parent().attr("data-rcdamt") + "</span>";
+    }
+    if (myRecord.mode == "Supplier") {
+        withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + $(evt).parent().parent().attr("data-rcdamt") + ")</span>";
+    }
+    $(evt).parent().parent().find("td:nth-child(8)").html(withdrawalSpan);
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id).update({
         status: newValue,
