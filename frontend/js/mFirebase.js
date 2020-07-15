@@ -399,6 +399,7 @@ function getTrasactionsAll() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -429,7 +430,7 @@ function getTrasactionsAll() {
                 '                                <th>Payment Source</th>' +
                 '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
-                '                                <th><i class="far fa-file-alt"></i></th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -575,6 +576,7 @@ function getTrasactionsAllPagination() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -604,7 +606,7 @@ function getTrasactionsAllPagination() {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
-                '                                <th><i class="far fa-file-alt"></i></th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -751,6 +753,7 @@ function getTrasactionsByAccount(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -779,7 +782,7 @@ function getTrasactionsByAccount(id) {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
-                '                                <th><i class="far fa-file-alt"></i></th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -923,6 +926,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -952,7 +956,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
-                '                                <th><i class="far fa-file-alt"></i></th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -1218,6 +1222,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+        '                                <td></td>' +
         '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
         '                            </tr>';
 
