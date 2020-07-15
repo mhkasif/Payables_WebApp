@@ -39,22 +39,25 @@ function SignOutFirebase() {
     });
 }
 
-function createCustomer() {
-  let customer_email = document.querySelector("#email").value;
-    return fetch('/create-customer', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: customer_email,
-      }),
-    })
-      .then((response) => {
+async function createCustomerStart() {
+       var customer_email = UserObject.email;
+      return fetch('/create-customer', {
+          method: 'post',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              email: customer_email,
+          }),
       })
-      .then((result) => {
-        return result;
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          return response;
+    
+        });
+
   }
 
 
@@ -108,6 +111,7 @@ function createCustomerPortalSession() {
 }
 
 function subscribeTrial() {
+    console.log(UserObject.email);
     let customerid = document.querySelector('#customerid').value;
     if(customerid){
         return fetch('/subscribe-trial-subscription', {
@@ -130,8 +134,8 @@ function subscribeTrial() {
 
             });
         }else{
-            setTimeout(function(){
-            createCustomer().then(function(resp){
+            
+                createCustomerStart().then(async function(resp){
                 console.log(resp);
                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                 tblStripeCustomers.add({
@@ -139,14 +143,14 @@ function subscribeTrial() {
                     customerid: resp.customer.id,
                     UserID : UserObject.uid
                 });
-                $('#customerid').val(resp.id);
+                $('#customerid').val(resp.customer.id);
                 return fetch('/subscribe-trial-subscription', {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        customerid: resp.id,
+                        customerid: resp.customer.id,
                         priceid: 'basic'
                     }),
                 })
@@ -160,7 +164,7 @@ function subscribeTrial() {
         
                     });  
             });
-        },3000);
+        
         }
    
 }
