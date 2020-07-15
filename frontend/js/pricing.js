@@ -39,24 +39,25 @@ function SignOutFirebase() {
     });
 }
 
-function createCustomer() {
-    let billingEmail = UserObject.email;
-  
-    return fetch('/create-customer', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: billingEmail,
-      }),
-    })
-      .then((response) => {
-        return response.json();
+async function createCustomerStart() {
+       var customer_email = UserObject.email;
+      return fetch('/create-customer', {
+          method: 'post',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              email: customer_email,
+          }),
       })
-      .then((result) => {
-        return result;
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          return response;
+    
+        });
+
   }
 
 
@@ -110,6 +111,7 @@ function createCustomerPortalSession() {
 }
 
 function subscribeTrial() {
+    console.log(UserObject.email);
     let customerid = document.querySelector('#customerid').value;
     if(customerid){
         return fetch('/subscribe-trial-subscription', {
@@ -119,7 +121,7 @@ function subscribeTrial() {
             },
             body: JSON.stringify({
                 customerid: customerid,
-                priceid: 'price_1H2Y2wIr0OyOmRWpCxbTMjrR'
+                priceid: 'basic'
             }),
         })
             .then((response) => {
@@ -132,21 +134,23 @@ function subscribeTrial() {
 
             });
         }else{
-            createCustomer().then(function(resp){
+            
+                createCustomerStart().then(async function(resp){
+                console.log(resp);
                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                 tblStripeCustomers.add({
                     CustomerEmail: UserObject.email,
-                    customerid: resp.id,
+                    customerid: resp.customer.id,
                     UserID : UserObject.uid
                 });
-                $('#customerid').val(resp.id);
+                $('#customerid').val(resp.customer.id);
                 return fetch('/subscribe-trial-subscription', {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        customerid: resp.id,
+                        customerid: resp.customer.id,
                         priceid: 'basic'
                     }),
                 })
@@ -157,9 +161,38 @@ function subscribeTrial() {
                     })
                     .then((result) => {
                         console.log(result);
+                        tblStripeCustomers = db.collection("tbl_stripecustomers");
+                        tblStripeCustomers.where("UserID","==",UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                            if (querySnapshot.docs.length > 0) {
+                                $('#customerid').val(querySnapshot.docs[0].data().customerid);
+                                $("#billingdetailLink").show();
+                                getCustomerSubscriptions().then(function (response){
+                              
+                                if(response.length>0){
+                                    if(response[0].status=="active" || response[0].status=="trialing"){
+                                        console.log(response[0]);
+                                        $(".subbtn").addClass("disable-sub-btn");
+                                        var plan = '$'+response[0].plan.amount/100+'/'+response[0].plan.interval;
+                                        $("#amtpaid").html('$'+response[0].plan.amount/100);
+                                        if(response[0].status=="trialing"){
+                                            plan = "7 days trial";
+                                            $("#amtpaid").html('$0.00');
+                                        }
+                                        $("#plan").html(plan);
+                                        $("#expdate").html(new Date(response[0].current_period_end*1000).toLocaleDateString());
+                                        $("#trandate").html(new Date(response[0].current_period_start*1000).toLocaleDateString());
+                                    }else{
+                                        $(".subbtn").removeClass("disable-sub-btn");
+                                    }
+                                }
+    
+                                });
+                            }
+                        });
         
                     });  
             });
+        
         }
    
 }
