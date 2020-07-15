@@ -14,6 +14,7 @@ weekday[5] = "Friday";
 weekday[6] = "Saturday";
 var liRecords = '<tr>' +
     '                                <td><i class="fa fa-bars"></i></td>' +
+    '                                <td>---</td>' +
     '                                <td class="active_flag flag">??</td>' +
     '                                <td>#100457</td>' +
     '                                <td>John</td>' +
@@ -48,13 +49,14 @@ var liTemplate = '<li class="timelinePart">' +
     '                        <table class="nowTable" id="t_draggable1">' +
     '                            <thead>' +
     '                            <tr class="ui-state-default">' +
-    '                                <th>Drag</th>' +
+    '                                <th></th>' +
+    '                                <th>Sign</th>' +
     '                                <th></th>' +
     '                                <th>Cheque no.</th>' +
     '                                <th>Party Name</th>' +
     '                                <th>Party Type</th>' +
     '                                <th>Bank</th>' +
-    '                                <th>Status</th>' +
+    '                                <th>Payment Status</th>' +
     '                                <th>Withdrwal</th>' +
     '                                <th>Action</th>' +
     '                            </tr>' +
@@ -64,7 +66,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                            </tbody>' +
     '                                <tfoot>'+
     '                                <tr class="ui-state-default">'+
-    '                                    <th colspan="7"></th>'+
+    '                                    <th colspan="8"></th>'+
     '                                    <th></th>'+
     '                                </tr>'+
     '                            </tfoot>'+
@@ -380,6 +382,7 @@ function getTrasactionsAll() {
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
+                    '                                <td>---</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -396,6 +399,7 @@ function getTrasactionsAll() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td><i class="far fa-file-alt" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -417,14 +421,16 @@ function getTrasactionsAll() {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
+                '                                <th></th>' +
+                '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Party Type</th>' +
                 '                                <th>Payment Source</th>' +
-                '                                <th style="width: 10%;">Status</th>' +
+                '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -433,9 +439,9 @@ function getTrasactionsAll() {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -553,6 +559,7 @@ function getTrasactionsAllPagination() {
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
+                    '                                <td>---</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -569,6 +576,7 @@ function getTrasactionsAllPagination() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td><i class="far fa-file-alt" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -590,7 +598,7 @@ function getTrasactionsAllPagination() {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
+                '                                <th></th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
@@ -598,6 +606,7 @@ function getTrasactionsAllPagination() {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -606,9 +615,9 @@ function getTrasactionsAllPagination() {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -727,6 +736,7 @@ function getTrasactionsByAccount(id) {
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
+                    '                                <td>--</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -743,6 +753,7 @@ function getTrasactionsByAccount(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td><i class="far fa-file-alt" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -764,7 +775,6 @@ function getTrasactionsByAccount(id) {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
@@ -772,6 +782,7 @@ function getTrasactionsByAccount(id) {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -780,9 +791,9 @@ function getTrasactionsByAccount(id) {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -898,6 +909,7 @@ function getTrasactionsByAccountPagination(id) {
                 accountid=myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
+                    '                                <td>--</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -914,6 +926,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
+                    '                                <td><i class="far fa-file-alt" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
@@ -935,7 +948,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
+                '                                <th></th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
@@ -943,6 +956,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
+                '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
                 '                            </thead>' +
@@ -951,9 +965,9 @@ function getTrasactionsByAccountPagination(id) {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
-                '                                    <th></th>'+
+                '                                    <th colspan="2"></th>'+
                 '                                </tr>'+
                 '                            </tfoot>'+
                 '                        </table>' +
@@ -1191,6 +1205,7 @@ function updateTrasaction(id) {
     var targetTr = $("#" + id);
     var tblRecordsHtml = '<tr id="' + id + '">' +
         '                                <td><i class="fa fa-bars"></i></td>' +
+        '                                <td>---</td>' +
         '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
         '                                <td>' + (myRecord.cheque_no ? "#" : "") +'<span>' + myRecord.cheque_no + '</span></td>' +
         '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -1207,6 +1222,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance"><span>' + myRecord.withdrawal + '</span></td>' +
+        '                                <td><i class="far fa-file-alt" title="This is sample description shown in tooltip"></i></td>' +
         '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
         '                            </tr>';
 
