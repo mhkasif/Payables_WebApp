@@ -54,7 +54,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                                <th>Party Name</th>' +
     '                                <th>Party Type</th>' +
     '                                <th>Bank</th>' +
-    '                                <th>Status</th>' +
+    '                                <th>Payment Status</th>' +
     '                                <th>Withdrwal</th>' +
     '                                <th>Action</th>' +
     '                            </tr>' +
@@ -423,7 +423,7 @@ function getTrasactionsAll() {
                 '                                <th>Party Name</th>' +
                 '                                <th>Party Type</th>' +
                 '                                <th>Payment Source</th>' +
-                '                                <th style="width: 10%;">Status</th>' +
+                '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
                 '                                <th style="width: 10%;">Action</th>' +
                 '                            </tr>' +
@@ -1198,7 +1198,7 @@ function updateTrasaction(id) {
         '                                <td><span>' + myRecord.bank + '</span></td>' +
         '                                <td>' +
         '                                    <select' +
-        '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared"?"status-clear":"status-topay") + '"'+
+        '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared"?"status-clear":  myRecord.status === "Bounced"?"status-bounced":"status-topay") + '"'+
         '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
         '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
         '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
