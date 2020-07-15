@@ -157,10 +157,13 @@ app.post('/subscribe-trial-subscription', async (req, res) => {
 
 app.post('/create-customer', async (req, res) => {
    const customerlist = await stripe.customers.list({email:req.body.email});
-  if(customerlist.data){
+   console.log(customerlist.data.length);
+  if(customerlist.data.length>0){
+    console.log("customer fetched");
     const customer = customerlist.data[0];
     res.send({ customer });
   }else{
+    console.log("customer creating");
      // Create a new customer object
      const customer = await stripe.customers.create({
       email: req.body.email,
