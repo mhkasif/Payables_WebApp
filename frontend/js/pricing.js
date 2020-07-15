@@ -161,6 +161,34 @@ function subscribeTrial() {
                     })
                     .then((result) => {
                         console.log(result);
+                        tblStripeCustomers = db.collection("tbl_stripecustomers");
+                        tblStripeCustomers.where("UserID","==",UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                            if (querySnapshot.docs.length > 0) {
+                                $('#customerid').val(querySnapshot.docs[0].data().customerid);
+                                $("#billingdetailLink").show();
+                                getCustomerSubscriptions().then(function (response){
+                              
+                                if(response.length>0){
+                                    if(response[0].status=="active" || response[0].status=="trialing"){
+                                        console.log(response[0]);
+                                        $(".subbtn").addClass("disable-sub-btn");
+                                        var plan = '$'+response[0].plan.amount/100+'/'+response[0].plan.interval;
+                                        $("#amtpaid").html('$'+response[0].plan.amount/100);
+                                        if(response[0].status=="trialing"){
+                                            plan = "7 days trial";
+                                            $("#amtpaid").html('$0.00');
+                                        }
+                                        $("#plan").html(plan);
+                                        $("#expdate").html(new Date(response[0].current_period_end*1000).toLocaleDateString());
+                                        $("#trandate").html(new Date(response[0].current_period_start*1000).toLocaleDateString());
+                                    }else{
+                                        $(".subbtn").removeClass("disable-sub-btn");
+                                    }
+                                }
+    
+                                });
+                            }
+                        });
         
                     });  
             });
