@@ -66,7 +66,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                            </tbody>' +
     '                                <tfoot>'+
     '                                <tr class="ui-state-default">'+
-    '                                    <th colspan="7"></th>'+
+    '                                    <th colspan="8"></th>'+
     '                                    <th></th>'+
     '                                </tr>'+
     '                            </tfoot>'+
@@ -437,7 +437,7 @@ function getTrasactionsAll() {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
                 '                                    <th></th>'+
                 '                                </tr>'+
@@ -611,7 +611,7 @@ function getTrasactionsAllPagination() {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
                 '                                    <th></th>'+
                 '                                </tr>'+
@@ -786,7 +786,7 @@ function getTrasactionsByAccount(id) {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
                 '                                    <th></th>'+
                 '                                </tr>'+
@@ -958,7 +958,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                            </tbody>' +
                 '                                <tfoot>'+
                 '                                <tr class="ui-state-default">'+
-                '                                    <th colspan="7" style="text-align: right;">Balance:</th>' +
+                '                                    <th colspan="8" style="text-align: right;">Balance:</th>' +
                 '                                    <th>' + sumOfAmount + '</th>' +
                 '                                    <th></th>'+
                 '                                </tr>'+
