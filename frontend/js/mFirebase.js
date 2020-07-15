@@ -49,7 +49,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                        <table class="nowTable" id="t_draggable1">' +
     '                            <thead>' +
     '                            <tr class="ui-state-default">' +
-    '                                <th>Drag</th>' +
+    '                                <th></th>' +
     '                                <th>Sign</th>' +
     '                                <th></th>' +
     '                                <th>Cheque no.</th>' +
@@ -420,7 +420,7 @@ function getTrasactionsAll() {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
+                '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
@@ -595,7 +595,7 @@ function getTrasactionsAllPagination() {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
+                '                                <th></th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
@@ -770,7 +770,6 @@ function getTrasactionsByAccount(id) {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
@@ -942,7 +941,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                        <table class="nowTable" id="draggable-' + key + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
-                '                                <th>Drag</th>' +
+                '                                <th></th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
