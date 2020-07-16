@@ -138,7 +138,11 @@ app.post('/get-cutomer-subscriptions', async (req, res) => {
   stripe.subscriptions.list(
     { customer: req.body.customerid },
     function (err, response) {
-      console.log(err, response);
+      var data = response.data;
+      data = data.filter(function(el) {
+        return el.plan.product === process.env.PRODUCTID;
+      });
+      response.data = data;
       res.send({ response });
     }
   );
