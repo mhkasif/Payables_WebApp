@@ -1136,6 +1136,8 @@ function addupdatetransaction(isUpdate) {
 
 function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence, payee, status, withdrawal*/) {
     tblAccountCheques = db.collection("tbl_account_cheques");
+    var bankoftransaction =document.getElementById('account-list').options[document.getElementById('account-list').selectedIndex].text;
+        
     tblAccountCheques.add({
         account_id: document.getElementById('account-list').value,
         bank: document.getElementById('account-list').options[document.getElementById('account-list').selectedIndex].text,
@@ -1159,7 +1161,7 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
             document.getElementById('status').value = '';
             document.getElementById('withdrawal').value = '';
             db.collection('tbl_audit_log').add({
-                content: `Transaction ${docRef.id} added to account <b>${docRef.data().bank}</b>`,
+                content: `Transaction ${docRef.id} added to account <b>${bankoftransaction}</b>`,
                 now: (new Date()).getTime(),
                 party: '',
                 date: '',
