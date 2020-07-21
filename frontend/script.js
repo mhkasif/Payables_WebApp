@@ -420,6 +420,16 @@ function initializeFirebase1() {
                     CustomerEmail: UserObject.email,
                     customerid: customer.id,
                     UserID: UserObject.uid
+                }).then(function(){
+                  db.collection('tbl_audit_log').add({
+                    content: `New Stripe Customer Registered ${UserObject.email} with customerID ${customer.id}</b>`,
+                    now: (new Date()).getTime(),
+                    party: '',
+                    date: '',
+                    amount: '',
+                    refId: UserObject.uid,
+                    collection: 'tbl_stripecustomers'
+                });
                 });
                 $('#customerid').val(customer.id);
             });

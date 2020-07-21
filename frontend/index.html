@@ -323,6 +323,7 @@
                 <option>Sunday</option>
             </select>
             </div>
+            <div style="float: right; margin: -7px 11px;clear: both;"><button onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export to Excel</button></div>
         </div>
         </li>
         </ul>
@@ -413,7 +414,19 @@
     <span id="load-more" style="float: right; display: none; margin:20px;color:blue;cursor: pointer;"
         onclick="LoadMore();">Load more</span>
     </div>
-
+<div id="export_to_excel" style="display:none">
+    <table id="tblDatatoexport">
+      <tr>
+            <th>Date</th>
+            <th>Check #</th>
+            <th>Party Name</th>
+            <th>Party Type</th>
+            <th>Payment Source</th>
+            <th>Payment Status</th>
+            <th>Amount</th>
+        </tr>
+    </table>
+</div>
     
     <input style="display: none;" id="customerid">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

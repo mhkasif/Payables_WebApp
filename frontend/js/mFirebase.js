@@ -239,7 +239,15 @@ function addAccount(obj) {
     })
         .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
-
+            db.collection('tbl_audit_log').add({
+                content: `Account Added <b>${obj.title}</b>`,
+                now: (new Date()).getTime(),
+                party: '',
+                date: '',
+                amount: '',
+                refId: UserObject.uid,
+                collection: 'Account Added'
+            });
             getAccountsAll();
         })
         .catch(function (error) {
@@ -253,6 +261,16 @@ function updateAccount(id, title, init_balance) {
         title: title,
         UserID: UserObject.uid,
         init_balance: parseFloat(init_balance)
+    }).then(function(){
+        db.collection('tbl_audit_log').add({
+            content: `Account updated <b>${title}</b> balance <b>${init_balance}</b>`,
+            now: (new Date()).getTime(),
+            party: '',
+            date: '',
+            amount: '',
+            refId: UserObject.uid,
+            collection: 'Accounts'
+        });
     });
     var allinputs = $('#tabs-accounts button:not([id=defaultOpen]):not([id=add-account])').find("input");
     var totalAmount = 0;
@@ -282,6 +300,15 @@ function deleteAccount(id) {
             if (confirm('Are you sure to delete this record.')) {
             tblAccounts.doc(id)
                 .delete().then(function () {
+                    db.collection('tbl_audit_log').add({
+                        content: `Account Deleted <b>${id}</b>`,
+                        now: (new Date()).getTime(),
+                        party: '',
+                        date: '',
+                        amount: '',
+                        refId: UserObject.uid,
+                        collection: 'Accounts'
+                    });
                     getAccountsAll();
                     console.log("Document successfully deleted!");
                 }).catch(function (error) {
@@ -1131,6 +1158,15 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
             document.getElementById('payee').value = '';
             document.getElementById('status').value = '';
             document.getElementById('withdrawal').value = '';
+            db.collection('tbl_audit_log').add({
+                content: `Transaction ${docRef.id} added to account <b>${docRef.data().bank}</b>`,
+                now: (new Date()).getTime(),
+                party: '',
+                date: '',
+                amount: '',
+                refId: UserObject.uid,
+                collection: 'Transactions'
+            });
             GetTransactionGeneral();
         })
         .catch(function (error) {
@@ -1151,7 +1187,16 @@ function deleteTrasaction(id) {
     if (confirm('Are you sure to delete this record.')) {
         tblAccountCheques = db.collection("tbl_account_cheques");
         tblAccountCheques.doc(id)
-            .delete().then(function () {
+            .delete().then(function (docRef) {
+                db.collection('tbl_audit_log').add({
+                    content: `Transaction ${id} delete</b>`,
+                    now: (new Date()).getTime(),
+                    party: '',
+                    date: '',
+                    amount: '',
+                    refId: UserObject.uid,
+                    collection: 'Transactions'
+                });
                 var trid = $("#" + id).parent().attr("id");
                 $("#" + id).remove();
                 var tbody = $("#" + trid).find("tr");
@@ -1199,6 +1244,16 @@ function updateTrasaction(id) {
         payee: document.getElementById('payee').value,
         status: document.getElementById('status').value,
         withdrawal: document.getElementById('withdrawal').value
+    }).then(function(docRef){
+        db.collection('tbl_audit_log').add({
+            content: `Transaction ${id} updated</b>`,
+            now: (new Date()).getTime(),
+            party: '',
+            date: '',
+            amount: '',
+            refId: UserObject.uid,
+            collection: 'Transactions'
+        });
     });
 
     var myRecord = {
@@ -1298,6 +1353,15 @@ function updateTrasactionSorting(id, order,ele) {
         order_sequence: order,
         date:updatedDate
     }).then(function () {
+        db.collection('tbl_audit_log').add({
+            content: `Transaction date for ${id} updated</b>`,
+            now: (new Date()).getTime(),
+            party: '',
+            date: '',
+            amount: '',
+            refId: UserObject.uid,
+            collection: 'Transactions'
+        });
         refreshAllCalculations();
         $('#loading').hide();
         console.log("Document sequence updated!");
@@ -1322,6 +1386,15 @@ function updateTrasactionFlag(evt, id, flag) {
     tblAccountCheques.doc(id).update({
         flag: !flag,
     }).then(function () {
+        db.collection('tbl_audit_log').add({
+            content: `Transaction flag for ${id} updated</b>`,
+            now: (new Date()).getTime(),
+            party: '',
+            date: '',
+            amount: '',
+            refId: UserObject.uid,
+            collection: 'Transactions'
+        });
        // getTrasactionsAll();
         console.log("Document flag updated!");
     }).catch(function (error) {
@@ -1355,6 +1428,15 @@ console.log($(evt).parent().parent());
     tblAccountCheques.doc(id).update({
         status: newValue,
     }).then(function () {
+        db.collection('tbl_audit_log').add({
+            content: `Transaction status for ${id} updated to ${newValue}</b>`,
+            now: (new Date()).getTime(),
+            party: '',
+            date: '',
+            amount: '',
+            refId: UserObject.uid,
+            collection: 'Transactions'
+        });
         refreshAllCalculations();
         console.log("Document status updated!");
     }).catch(function (error) {
@@ -1426,4 +1508,81 @@ function LoadMore(){
          }else{
             getTrasactionsByAccountPagination($("body").find(".tablinks.active").attr("data-accid"));
          } 
+}
+
+function exportToExcel_datapopulate() {
+    var trs = $('.timelinePart.records').find("tbody tr:not([style=\'display: none;\'])");
+    console.log(trs);
+    var allIds = [];
+    $(trs).each(function (i, v) {
+        console.log($(v).attr("id"));
+        allIds.push($(v).attr("id"));
+    });
+    console.log(allIds);
+    
+    $("#tblDatatoexport>tbody").html("");
+    var tblAccountChequesNew = db.collection("tbl_account_cheques");
+    tblAccountChequesNew.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+        console.log(querySnapshot);
+        var thead = "<tr>"
+        +"<th>Date</th>"
+        +"<th>Check</th>"
+        +"<th>Party Name</th>"
+        +"<th>Party Type</th>"
+        +"<th>Payment Source</th>"
+        +"<th>Payment Status</th>"
+        +"<th>Amount</th>"
+    +"</tr>";
+    $("#tblDatatoexport").append(thead);
+        querySnapshot.forEach(function (doc) {
+          if(allIds.indexOf(doc.id)>-1){
+             var newtr="<tr>"+
+             "<td>"+doc.data().date+"</td>"+
+             "<td>"+doc.data().cheque_no+"</td>"+
+             "<td>"+doc.data().payee+"</td>"+
+             "<td>"+doc.data().mode+"</td>"+
+             "<td>"+doc.data().bank+"</td>"+
+             "<td>"+doc.data().status+"</td>"+
+             "<td>"+doc.data().withdrawal+"</td>"+
+             "</td>";
+             $("#tblDatatoexport").append(newtr);
+          }
+        });
+        
+        exportTableToExcel("tblDatatoexport",'filtered_transactions');
+    });
+
+
+}
+
+function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    console.log($(tableSelect).find("tr").length);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
 }
