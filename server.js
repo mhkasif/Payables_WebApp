@@ -123,11 +123,9 @@ app.get('/firebaseConfig', async (req, res) => {
 });
 
 app.post('/get-discount-coupon', async (req, res) => {
-  console.log(req.body.coupon);
   stripe.coupons.retrieve(
     req.body.coupon,
     function (err, coupon) {
-      console.log(err, coupon);
       res.send({ coupon });
     }
   );
