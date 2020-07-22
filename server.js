@@ -68,6 +68,16 @@ app.get('/index', function (req, res) {
   res.render(path);
 });
 
+app.get('/collaborators', function (req, res) {
+  const path = __dirname + '/' + process.env.STATIC_DIR + '/addcollaborators.html';
+  res.render(path);
+});
+
+app.get('/auditlogs', function (req, res) {
+  const path = __dirname + '/' + process.env.STATIC_DIR + '/auditlogs.html';
+  res.render(path);
+});
+
 app.get('/pricing', function (req, res) {
   const path = __dirname + '/' + process.env.STATIC_DIR + '/pricing.html';
   res.render(path);
@@ -102,15 +112,7 @@ app.get('/config', async (req, res) => {
 });
 
 app.get('/firebaseConfig', async (req, res) => {
-  console.log({
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.FIREBASE_DATABASEURL,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    storageBucket: process.env.FIREBASE_STORAGEBUCKET,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDERID,
-    appId: process.env.FIREBASE_APP_ID,
-  });
+
   res.send({
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -123,11 +125,9 @@ app.get('/firebaseConfig', async (req, res) => {
 });
 
 app.post('/get-discount-coupon', async (req, res) => {
-  console.log(req.body.coupon);
   stripe.coupons.retrieve(
     req.body.coupon,
     function (err, coupon) {
-      console.log(err, coupon);
       res.send({ coupon });
     }
   );
@@ -138,7 +138,11 @@ app.post('/get-cutomer-subscriptions', async (req, res) => {
   stripe.subscriptions.list(
     { customer: req.body.customerid },
     function (err, response) {
-      console.log(err, response);
+      var data = response.data;
+      data = data.filter(function(el) {
+        return el.plan.product === process.env.PRODUCTID;
+      });
+      response.data = data;
       res.send({ response });
     }
   );

@@ -290,6 +290,15 @@
 
         });
     </script>
+     <script>
+        var ViewOnly = false;
+           $(document).ready(function () {
+              // initializeFirebase1();
+               if (localStorage.getItem("access") != "Owner") {
+                location.href = url + "/index";
+               }
+           });
+   </script>
 </body>
 
 </html>
