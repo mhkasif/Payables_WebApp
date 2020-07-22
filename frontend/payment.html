@@ -207,5 +207,14 @@
             border-right: 1px solid #ebebeb !important;
         }
     </style>
+    <script>
+        var ViewOnly = false;
+           $(document).ready(function () {
+              // initializeFirebase1();
+               if (localStorage.getItem("access") != "Owner") {
+                location.href = url + "/index";
+               }
+           });
+   </script>
 </body>
 </html>

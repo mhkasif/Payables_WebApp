@@ -31,6 +31,25 @@
     width: fit-content;
     background: #ffff;
     border: ridge;padding-top: 2%;">
+        <center>
+            <div>
+                <br />
+                <div style="margin-bottom: 10px; width: 70%;"><span style="font-weight: bold;color: crimson;" id="login_error"></span></div>
+                <div style="margin-bottom: 20px;">
+                    <span style="text-align: left;
+       padding: 15px;
+       margin-bottom: 10px;">Email:</span> <input style="width: 210px;" id="email" type="text" />
+                </div>
+                <br />
+                <div style="margin-bottom: 20px;">
+                    </span> Password: </span> <input id="password" style="width: 210px;" type="password" />
+                    <br />
+                </div>
+                <button id="siginIndirectly" onclick="signInUsingEmailPassword();">Sign In</button>
+                <br>
+                <h3>OR</h3>
+            </div>
+        </center>
         <div id="google-signin">
             <a href="#"><img src="img/logo7.png" style="width: 53%;margin: auto 22%;" /></a>
             <br>
@@ -89,8 +108,40 @@
     <link href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" rel="stylesheet" type="text/css" />
     <div id="loader"></div>
     <input style="display:none;" id="customerid" value="" />
+    <style>
+        .errorClass {
+            border: 1px solid red;
+        }
+    </style>
     <script>
         var UserObject;
+        var email;
+        function signInUsingEmailPassword() {
+            $("#password").removeClass("errorClass");
+            $("#email").removeClass("errorClass");
+            email = $("#email").val();
+            var password = $("#password").val();
+            if (email) {
+                if (password) {
+                    firebase
+                        .auth()
+                        .signInWithEmailAndPassword(email, password)
+                        .then(async (res) => {
+                            console.log(res);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            $("#login_error").html(error.message);
+                        });
+
+                } else {
+                    $("#password").addClass("errorClass");
+                }
+            } else {
+                $("#email").addClass("errorClass");
+            }
+        }
+
         $(document).ready(function () {
             getFirebaseConfig().then(function () {
                 console.log("came here first");
@@ -100,24 +151,43 @@
                         if (user) {
                             console.log(user);
                             UserObject = user;
-                            tblStripeCustomers = db.collection("tbl_stripecustomers");
-                            tblStripeCustomers.where("UserID", "==", UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
-                                if (querySnapshot.docs.length > 0) {
-                                    getCustomerSubscriptions().then(function (response) {
+                            db.collection("tbl_linked_account_access")
+                                .doc(UserObject.uid)
+                                .get()
+                                .then((res) => {
+                                    var data = res.data();
+                                    console.log(data,UserObject);
+                                    if (data && UserObject.providerData.findIndex(x=>x.uid===email)>=0) {
+                                        localStorage.setItem("access", data.type);
+                                        localStorage.setItem("user", data.user);
+                                        localStorage.setItem("userid", data.UserID);
+                                        localStorage.setItem("islinkedaccount", true);
+                                        location.href = url + "/index";
+                                    } else {
+                                        localStorage.setItem("access", "Owner");
+                                        localStorage.setItem("user", UserObject.displayName);
+                                        localStorage.setItem("userid", UserObject.uid);
+                                        localStorage.setItem("islinkedaccount", false);
+                                        tblStripeCustomers = db.collection("tbl_stripecustomers");
+                                        tblStripeCustomers.where("UserID", "==", UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                                            if (querySnapshot.docs.length > 0) {
+                                                getCustomerSubscriptions().then(function (response) {
 
-                                        if (response.length > 0) {
-                                            if (response[0].status == "active" || response[0].status == "trialing") {
-                                                location.href = url + "/index";
+                                                    if (response.length > 0) {
+                                                        if (response[0].status == "active" || response[0].status == "trialing") {
+                                                            location.href = url + "/index";
+                                                        }
+                                                    } else {
+                                                        subscribeTrial();
+                                                    }
+
+                                                });
+                                            } else {
+                                                subscribeTrial();
                                             }
-                                        } else {
-                                            subscribeTrial();
-                                        }
-
-                                    });
-                                } else {
-                                    subscribeTrial();
-                                }
-                            });
+                                        });
+                                    }
+                                });
                             //location.href = url + "/index";
                         } else {
                             $("body").show();

@@ -68,6 +68,11 @@ app.get('/index', function (req, res) {
   res.render(path);
 });
 
+app.get('/collaborators', function (req, res) {
+  const path = __dirname + '/' + process.env.STATIC_DIR + '/addcollaborators.html';
+  res.render(path);
+});
+
 app.get('/pricing', function (req, res) {
   const path = __dirname + '/' + process.env.STATIC_DIR + '/pricing.html';
   res.render(path);
