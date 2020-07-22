@@ -57,6 +57,12 @@
     color: #000000;
 }
 
+.clean_table b{
+    font-weight: 500;
+    font-family: lato;
+    text-decoration: underline;
+}
+
 
 
 .third-content {
