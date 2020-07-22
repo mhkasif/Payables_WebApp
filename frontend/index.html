@@ -605,10 +605,10 @@
                         $('#username').text(UserObject.displayName);
 
                         tblUsers = db.collection("tbl_users");
-                        tblUsers.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+                        tblUsers.where("UserID", "==", localStorage.getItem("userid")).get().then(function (querySnapshot) {
                             if (querySnapshot.docs.length > 0) {
                                 tblStripeCustomers = db.collection("tbl_stripecustomers");
-                                tblStripeCustomers.where("UserID", "==", UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshotNew) {
+                                tblStripeCustomers.where("UserID", "==", localStorage.getItem("userid")).where("CustomerEmail", "==", localStorage.getItem("owner_email")).get().then(function (querySnapshotNew) {
                                     if (querySnapshotNew.docs.length > 0) {
                                         $('#customerid').val(querySnapshotNew.docs[0].data().customerid);
                                         getCustomerSubscriptions().then(function (response) {
@@ -626,7 +626,7 @@
 
                             } else {
                                 tblUsers.add({
-                                    UserID: UserObject.uid,
+                                    UserID: localStorage.getItem("userid"),
                                     PaymentVerified: false,
                                     AmountPaid: 0,
                                     TransactionID: "",
@@ -642,7 +642,7 @@
                             console.error("Error adding document: ", error);
                         });
                         tblAccounts = db.collection("tbl_accounts");
-                        tblAccounts.where("title", "==", 'Cash in Hand').where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+                        tblAccounts.where("title", "==", 'Cash in Hand').where("UserID", "==", localStorage.getItem("userid")).get().then(function (querySnapshot) {
                             // console.log(querySnapshot.docs.length);
 
                             // console.log(querySnapshot.size);
@@ -650,7 +650,7 @@
                                 console.log('Cash in Hand already Exists');
                             } else {
                                 console.log('Cash in Hand account is creating...');
-                                addAccount({ title: "Cash in Hand", init_balance: 0, UserID: UserObject.uid });
+                                addAccount({ title: "Cash in Hand", init_balance: 0, UserID: localStorage.getItem("userid") });
                             }
                         }).catch(function (error) {
                             console.error("Error adding document: ", error);

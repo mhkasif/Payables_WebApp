@@ -14,6 +14,9 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="//js.stripe.com/v3/"></script>
+    <script>
+        var url = location.origin + location.href.replace(location.origin, '').substr(0, location.href.replace(location.origin, '').lastIndexOf('/'));
+    </script>
 </head>
 
 <style>
@@ -103,8 +106,8 @@
                     <select id='other-type'
                         style="margin-bottom: 8px; padding: 3px; padding-left: 11px; width: 50%;  border-radius: 3px; height: 43px; margin-left: -1px;">
                         <option value="" selected disabled hidden>--Select--</option>
-                        <option>View Only</option>
-                        <option>Edit Rights</option>
+                        <option>Submitter</option>
+                        <option>Approver</option>
                     </select>
                 </div>
                 <div class="contact_button">
@@ -209,7 +212,7 @@
             initializeFirebase1();
             if (localStorage.getItem("access") != "Owner") {
                 //ViewOnly =true;
-                location.href=url+"/index";
+                location.href = url + "/index";
             }
         });
 
@@ -233,14 +236,15 @@
         async function AddUserAccess(email, password, type) {
             let name = email.slice(0, email.indexOf('@'));
             var credential = firebase.auth.EmailAuthProvider.credential(email, password);
-            firebase.auth().currentUser.linkWithCredential(credential)
+            // firebase.auth().currentUser.linkWithCredential(credential)
+            // .then(function (res) {
+            // var user = res.user;
+
+            secondaryApp.auth().createUserWithEmailAndPassword(email, password)
                 .then(function (res) {
                     var user = res.user;
-
-                    // secondaryApp.auth().createUserWithEmailAndPassword(email, password)
-                    //     .then(function (res) {
                     db.collection('tbl_linked_account_access').doc(res.user.uid).set({
-                        user: name, email: email, password: password, type: type, UserID: UserObject.uid
+                        user: name, email: email,owner_email:UserObject.email, password: password, type: type, UserID: UserObject.uid
                     })
                         .then(function () {
 
@@ -322,10 +326,10 @@
         }
         function Revoke(del) {
 
-            secondaryApp.auth().currentUser.unlink("password").then(function (resp) {
-                console.log(resp);
+            secondaryApp.auth().currentUser.delete().then(function () {
+                console.log("user deleted from authentication ")
             }).catch(function (error) {
-                console.log(error);
+                console.log("error happens while deleting from authentication", error);
             });
             db.collection('tbl_linked_account_access').doc(del.id).delete()
                 .then(function () {

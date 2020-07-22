@@ -4,6 +4,26 @@ var tblAccounts/* = db.collection("tbl_accounts")*/;
 var tblAccountCheques/* = db.collection("tbl_account_cheques")*/;
 var tblUsers, tbl_transaction_notes;
 var lastfetchedRecord;
+var userid = localStorage.getItem("userid");
+var isOwner = false;
+if(localStorage.getItem("access")=="Owner"){
+    isOwner=true;
+}else{
+    isOwner=false;
+}
+var isApprover =false;
+if(localStorage.getItem("access")=="Approver"){
+    isApprover=true;
+}else{
+    isApprover=false;
+}
+var isSubmitter =false;
+if(localStorage.getItem("access")=="Submitter"){
+    isSubmitter=true;
+}else{
+    isSubmitter=false;
+}
+var current_userid = localStorage.getItem("current_userid");
 var weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -126,7 +146,7 @@ function initializeFirebase() {
 
 function addAccountActual() {
 
-    if (ViewOnly) {
+    if (!isOwner) {
         alert("You don't have edit rights");
         return;
     }
@@ -135,7 +155,7 @@ function addAccountActual() {
         return;
     }
     $('#account_title').removeClass("invalidInput");
-    addAccount({ title: document.getElementById('account_title').value, UserID: UserObject.uid, init_balance: 0 });
+    addAccount({ title: document.getElementById('account_title').value, UserID: userid, init_balance: 0 });
     document.getElementById('account_title').value = '';
 
 }
@@ -145,7 +165,7 @@ function getAccountsAll() {
     $('#account-list').empty();
     tblAccounts = db.collection("tbl_accounts");
 
-    tblAccounts.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+    tblAccounts.where("UserID", "==", userid).get().then(function (querySnapshot) {
         // console.log(querySnapshot.docs.length);
         // console.log(querySnapshot.size);
         var htmlTabs = '';
@@ -224,7 +244,7 @@ function getAccountsAll() {
 function getAccountByName(title) {
     tblAccounts = db.collection("tbl_accounts");
 
-    tblAccounts.where("title", "==", title).where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+    tblAccounts.where("title", "==", title).where("UserID", "==", userid).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
@@ -234,7 +254,7 @@ function getAccountByName(title) {
 }
 
 function addAccount(obj) {
-    if (ViewOnly) {
+    if (!isOwner) {
         alert("You don't have edit rights");
         return;
     }
@@ -242,7 +262,7 @@ function addAccount(obj) {
     tblAccounts.add({
         title: obj.title,
         init_balance: obj.init_balance,
-        UserID: UserObject.uid
+        UserID: userid
     })
         .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
@@ -253,7 +273,7 @@ function addAccount(obj) {
                 date: '',
                 amount: '',
                 user: localStorage.getItem("user"),
-                refId: UserObject.uid,
+                refId: userid,
                 collection: 'Account Added'
             });
             getAccountsAll();
@@ -264,14 +284,14 @@ function addAccount(obj) {
 }
 
 function updateAccount(id, title, init_balance) {
-    if (ViewOnly) {
+    if (!isOwner) {
         alert("You don't have edit rights");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
     tblAccounts.doc(id).update({
         title: title,
-        UserID: UserObject.uid,
+        UserID: userid,
         init_balance: parseFloat(init_balance)
     }).then(function () {
         db.collection('tbl_audit_log').add({
@@ -281,7 +301,7 @@ function updateAccount(id, title, init_balance) {
             date: '',
             user: localStorage.getItem("user"),
             amount: '',
-            refId: UserObject.uid,
+            refId: userid,
             collection: 'Accounts'
         });
     });
@@ -306,7 +326,7 @@ function updateAccount(id, title, init_balance) {
     });
 }
 function deleteAccount(id) {
-    if (ViewOnly) {
+    if (!isOwner) {
         alert("You don't have edit rights");
         return;
     }
@@ -324,7 +344,7 @@ function deleteAccount(id) {
                             user: localStorage.getItem("user"),
                             date: '',
                             amount: '',
-                            refId: UserObject.uid,
+                            refId: userid,
                             collection: 'Accounts'
                         });
                         getAccountsAll();
@@ -383,8 +403,11 @@ function getTrasactionsAll() {
     groupedRecords = {};
     tblRecordsHtml = '';
     $('#all-transactions li:not([id=add-entry-all])').remove();
-
-    tblAccountCheques.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+    var query = tblAccountCheques.where("UserID", "==", userid);
+    if(isSubmitter){
+        query = query.where("added_by","==",current_userid);
+    }
+    query.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -542,7 +565,7 @@ function getTrasactionsAll() {
 
         }
     });
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+    tblUsers.where("UserID", "==", userid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
         filterRecordsChecked();
@@ -560,8 +583,11 @@ function getTrasactionsAllPagination() {
     groupedRecords = {};
     tblRecordsHtml = '';
     // $('#all-transactions li:not([id=add-entry-all])').remove();
-
-    tblAccountCheques.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+    var query = tblAccountCheques.where("UserID", "==", userid);
+    if(isSubmitter){
+        query = query.where("added_by","==",current_userid);
+    }
+    query.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -718,7 +744,7 @@ function getTrasactionsAllPagination() {
 
         }
     });
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+    tblUsers.where("UserID", "==", userid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
         filterbyCollectionDay($(".collectionDays").val());
@@ -737,7 +763,11 @@ function getTrasactionsByAccount(id) {
     tblRecordsHtml = '';
     $('#all-transactions li:not([id=add-entry-all])').remove();
 
-    tblAccountCheques.where("UserID", "==", UserObject.uid).where("account_id", "==", id).get().then(function (querySnapshot) {
+    var query = tblAccountCheques.where("UserID", "==", userid);
+    if(isSubmitter){
+        query = query.where("added_by","==",current_userid);
+    }
+    query.where("account_id", "==", id).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -894,7 +924,7 @@ function getTrasactionsByAccount(id) {
 
         }
     });
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+    tblUsers.where("UserID", "==", userid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
         filterRecordsChecked();
@@ -912,7 +942,11 @@ function getTrasactionsByAccountPagination(id) {
     groupedRecords = {};
     tblRecordsHtml = '';
 
-    tblAccountCheques.where("UserID", "==", UserObject.uid).where("account_id", "==", id).get().then(function (querySnapshot) {
+    var query = tblAccountCheques.where("UserID", "==", userid);
+    if(isSubmitter){
+        query = query.where("added_by","==",current_userid);
+    }
+    query.where("account_id", "==", id).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -1068,7 +1102,7 @@ function getTrasactionsByAccountPagination(id) {
 
         }
     });
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+    tblUsers.where("UserID", "==", userid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
         filterbyCollectionDay($(".collectionDays").val());
@@ -1117,7 +1151,7 @@ function refreshAllCalculations() {
 }
 
 function addupdatetransaction(isUpdate) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1158,7 +1192,7 @@ function addupdatetransaction(isUpdate) {
 }
 
 function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence, payee, status, withdrawal*/) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1171,7 +1205,8 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
         cheque_no: document.getElementById('cheque_no').value,
         date: document.getElementById('transaction_date').value,
         flag: false,
-        UserID: UserObject.uid,
+        UserID: userid,
+        added_by:current_userid,
         mode: document.getElementById('mode').value,
         order_sequence: 0,
         payee: document.getElementById('payee').value,
@@ -1195,7 +1230,7 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
                 user: localStorage.getItem("user"),
                 date: '',
                 amount: '',
-                refId: UserObject.uid,
+                refId: userid,
                 collection: 'Transactions'
             });
             GetTransactionGeneral();
@@ -1215,7 +1250,7 @@ $("#status").on("change", function () {
         $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-topay").addClass("status-bounce");
 });
 function deleteTrasaction(id) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1229,7 +1264,7 @@ function deleteTrasaction(id) {
                     party: '',
                     date: '',
                     amount: '',
-                    refId: UserObject.uid,
+                    refId: userid,
                     user: localStorage.getItem("user"),
                     collection: 'Transactions'
                 });
@@ -1267,7 +1302,7 @@ function deleteTrasaction(id) {
 }
 
 function updateTrasaction(id) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1278,7 +1313,7 @@ function updateTrasaction(id) {
         cheque_no: document.getElementById('cheque_no').value,
         date: document.getElementById('transaction_date').value,
         flag: false,
-        UserID: UserObject.uid,
+        UserID: userid,
         mode: document.getElementById('mode').value,
         order_sequence: 0,
         payee: document.getElementById('payee').value,
@@ -1292,7 +1327,7 @@ function updateTrasaction(id) {
             date: '',
             amount: '',
             user: localStorage.getItem("user"),
-            refId: UserObject.uid,
+            refId: userid,
             collection: 'Transactions'
         });
     });
@@ -1367,7 +1402,7 @@ function updateTrasaction(id) {
 }
 
 function sign_approve_transaction(transaction_id,is_signed,ele){
-    if(localStorage.getItem("access")=="Owner"){
+    if(isApprover || isOwner){
     if(confirm("Do you want to sign this transaction as "+(is_signed?"unapproved":"approved"))){
         tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(transaction_id).update({
@@ -1379,7 +1414,7 @@ function sign_approve_transaction(transaction_id,is_signed,ele){
             party: '',
             date: '',
             amount: '',
-            refId: UserObject.uid,
+            refId: userid,
             user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
@@ -1412,7 +1447,7 @@ $(document).ready(function () {
 });
 
 function updateTrasactionSorting(id, order, ele) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1430,7 +1465,7 @@ function updateTrasactionSorting(id, order, ele) {
             party: '',
             date: '',
             amount: '',
-            refId: UserObject.uid,
+            refId: userid,
             user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
@@ -1444,7 +1479,7 @@ function updateTrasactionSorting(id, order, ele) {
 
 }
 function updateTrasactionFlag(evt, id, flag) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1468,7 +1503,7 @@ function updateTrasactionFlag(evt, id, flag) {
             party: '',
             date: '',
             amount: '',
-            refId: UserObject.uid,
+            refId: userid,
             user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
@@ -1481,7 +1516,7 @@ function updateTrasactionFlag(evt, id, flag) {
 
 }
 function updateTrasactionStatus(evt, id, newValue) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
@@ -1515,7 +1550,7 @@ function updateTrasactionStatus(evt, id, newValue) {
             party: '',
             date: '',
             amount: '',
-            refId: UserObject.uid,
+            refId: userid,
             user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
@@ -1529,11 +1564,13 @@ function updateTrasactionStatus(evt, id, newValue) {
 }
 
 function editRecord(id) {
-    if (ViewOnly) {
+    if (isApprover) {
         alert("You don't have edit rights");
         return;
     }
-    var record = allTrasactions.find(x => x.id === id);
+    tblAccountCheques = db.collection("tbl_account_cheques");
+    tblAccountCheques.doc(id).get().then(function(doc){
+        var record = doc.data();
     document.getElementById('transaction_id').value = id;
     document.getElementById('account-list').value = record.account_id;
     document.getElementById('cheque_no').value = record.cheque_no;
@@ -1553,7 +1590,7 @@ function editRecord(id) {
 
     $('#edit-transaction').show();
     $('#add-transaction').hide();
-
+});
 }
 function editRecordAccount(id) {
     var record = allTrasactions.find(x => x.id === id);
@@ -1608,7 +1645,7 @@ function exportToExcel_datapopulate() {
 
     $("#tblDatatoexport>tbody").html("");
     var tblAccountChequesNew = db.collection("tbl_account_cheques");
-    tblAccountChequesNew.where("UserID", "==", UserObject.uid).get().then(function (querySnapshot) {
+    tblAccountChequesNew.where("UserID", "==", userid).get().then(function (querySnapshot) {
         console.log(querySnapshot);
         var thead = "<tr>"
             + "<th>Date</th>"
@@ -1691,7 +1728,7 @@ function AddNotesToTransaction() {
         }
         var transaction_id = $("#notes_transaction_id").val();
         tbl_transaction_notes = db.collection("tbl_transaction_notes");
-        tbl_transaction_notes.add({attachment:filename,UserID:UserObject.uid,notes:$("#notes").val(),transaction_id:transaction_id}).then(function(){
+        tbl_transaction_notes.add({attachment:filename,UserID:userid,notes:$("#notes").val(),transaction_id:transaction_id}).then(function(){
             load_transaction_notes();
             $("#notes").val("");
             $('#transaction_attachment').val("");
@@ -1701,7 +1738,7 @@ function AddNotesToTransaction() {
                 party: '',
                 date: '',
                 amount: '',
-                refId: UserObject.uid,
+                refId: userid,
                 user: localStorage.getItem("user"),
                 collection: 'TransactionsNotes'
             });
@@ -1716,7 +1753,7 @@ function load_transaction_notes() {
     $("#loading_rows_tr").show();
     var transaction_id = $("#notes_transaction_id").val();
     tbl_transaction_notes = db.collection("tbl_transaction_notes");
-    tbl_transaction_notes.where("UserID", "==", UserObject.uid).where("transaction_id", "==", transaction_id)
+    tbl_transaction_notes.where("UserID", "==", userid).where("transaction_id", "==", transaction_id)
         .get().then(function (results) {
           
             results.forEach(function (doc) {
@@ -1752,7 +1789,7 @@ function delete_transaction_notes(ele) {
             date: '',
             amount: '',
             user: localStorage.getItem("user"),
-            refId: UserObject.uid,
+            refId: userid,
             collection: 'TransactionsNotes'
         });
     });}

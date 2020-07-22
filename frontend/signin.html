@@ -158,10 +158,12 @@
                                 .then((res) => {
                                     var data = res.data();
                                     console.log(data, UserObject);
-                                    if (data && UserObject.providerData.findIndex(x => x.uid === email) >= 0) {
+                                    if (data) {
                                         localStorage.setItem("access", data.type);
                                         localStorage.setItem("user", data.user);
                                         localStorage.setItem("userid", data.UserID);
+                                        localStorage.setItem("owner_email",data.owner_email);
+                                        localStorage.setItem("current_userid", UserObject.uid);
                                         localStorage.setItem("islinkedaccount", true);
                                         db.collection('tbl_audit_log').add({
                                             content: `User logged in <b>${data.user}</b>`,
@@ -169,7 +171,7 @@
                                             party: '',
                                             date: '',
                                             amount: '',
-                                            refId: UserObject.uid,
+                                            refId:  localStorage.getItem("userid"),
                                             user: localStorage.getItem("user"),
                                             collection: 'login Activity'
                                         });
@@ -178,6 +180,8 @@
                                         localStorage.setItem("access", "Owner");
                                         localStorage.setItem("user", UserObject.displayName);
                                         localStorage.setItem("userid", UserObject.uid);
+                                        localStorage.setItem("current_userid", UserObject.uid);
+                                        localStorage.setItem("owner_email",UserObject.email);
                                         localStorage.setItem("islinkedaccount", false);
                                         db.collection('tbl_audit_log').add({
                                             content: `User logged in <b>${ UserObject.displayName}</b>`,
@@ -185,13 +189,15 @@
                                             party: '',
                                             date: '',
                                             amount: '',
-                                            refId: UserObject.uid,
+                                            refId: localStorage.getItem("userid"),
                                             user: localStorage.getItem("user"),
                                             collection: 'login Activity'
                                         });
                                         tblStripeCustomers = db.collection("tbl_stripecustomers");
-                                        tblStripeCustomers.where("UserID", "==", UserObject.uid).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                                        tblStripeCustomers.where("UserID", "==", localStorage.getItem("userid")).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
                                             if (querySnapshot.docs.length > 0) {
+                                                console.log(querySnapshot);
+                                                $("#customerid").val(querySnapshot.docs[0].data().customerid);
                                                 getCustomerSubscriptions().then(function (response) {
 
                                                     if (response.length > 0) {

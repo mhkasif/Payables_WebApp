@@ -62,7 +62,7 @@ function openTab(evt, tabName) {
 
 
 function filterbyCollectionDay(value) {
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+    tblUsers.where("UserID", "==", localStorage.getItem("userid")).get().then(function (resp) {
         tblUsers.doc(resp.docs[0].id).update({
             collectionDays: value
         });
@@ -83,7 +83,7 @@ function filterbyCollectionDay(value) {
 }
 
 function filterbyCollectionDaytab(value, tabid) {
-    tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
+    tblUsers.where("UserID", "==", localStorage.getItem("userid")).get().then(function (resp) {
         tblUsers.doc(resp.docs[0].id).update({
             collectionDays: value
         });
