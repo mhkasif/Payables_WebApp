@@ -601,8 +601,8 @@
                     if (user) {
                         UserObject = user;
 
-                        $('#userimage').find('img').attr('src', UserObject.photoURL);
-                        $('#username').text(UserObject.displayName);
+                        $('#userimage').find('img').attr('src', (UserObject.photoURL?UserObject.photoURL:'img/Profilepic.webp'));
+                        $('#username').text((UserObject.displayName?UserObject.displayName:UserObject.email.split('@')[0]));
 
                         tblUsers = db.collection("tbl_users");
                         tblUsers.where("UserID", "==", localStorage.getItem("userid")).get().then(function (querySnapshot) {
