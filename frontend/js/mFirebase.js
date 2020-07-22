@@ -74,7 +74,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                                <th></th>' +
     '                                <th>Cheque no.</th>' +
     '                                <th>Party Name</th>' +
-    '                                <th>Party Type</th>' +
+    '                                <th>Transaction Type</th>' +
     '                                <th>Bank</th>' +
     '                                <th>Payment Status</th>' +
     '                                <th>Withdrwal</th>' +
@@ -496,7 +496,7 @@ function getTrasactionsAll() {
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
                 '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
@@ -676,7 +676,7 @@ function getTrasactionsAllPagination() {
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
@@ -854,11 +854,11 @@ function getTrasactionsByAccount(id) {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sigh</th>' +
+                '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
                 '                                <th  style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
@@ -1037,7 +1037,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
                 '                                <th  style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
@@ -1655,7 +1655,7 @@ function exportToExcel_datapopulate() {
             + "<th>Date</th>"
             + "<th>Check</th>"
             + "<th>Party Name</th>"
-            + "<th>Party Type</th>"
+            + "<th>Transaction Type</th>"
             + "<th>Payment Source</th>"
             + "<th>Payment Status</th>"
             + "<th>Amount</th>"
