@@ -91,11 +91,10 @@
     <div class="row" style="margin-left: 48px;
     padding-bottom: 22px;
     margin-top: 26px;
-    border: 1px solid #c9c8c7;
-    box-shadow: 0 1px 21px 0 rgba(135,140,157,.2);
-    border-radius: 7px;
+    box-shadow: 4px 5px 21px 0 rgba(43, 43, 43, 0.2);
+    border-radius: 4px;
     overflow: hidden;
-    background: #ffffff url(../img/5ede8c01da0955caac532ece_scene_1.png) 101% 11% no-repeat;
+    background: #ffffff url(../img/5ede8c0…_scene_1.png) 101% 11% no-repeat;
     background-repeat: no-repeat;
     background-size: 50% 100%;
     background-position-x: 100%;
@@ -104,7 +103,7 @@
     padding: 23px;
     background-color: #fafafa;
     font-weight: 700;
-    font-size: 14px;">
+    font-size: 16px;">
 
                 <h2 style="text-align:left; margin-top: 0;">Audit Log</h2>
                 <p style="text-align:left;font-weight: 300;">Keep an eye on all the changes within the system, like having a bird's eye view to each change.</p>
@@ -120,12 +119,12 @@
                     <thead>
                         <tr>
                             <!--Table Header-->
-                            <th>Date</th>
+                            <th>Timestamp</th>
                             <th>User</th>
-                            <th>Description</th>
-                            <th>Party</th>
-                            <th>Date</th>
-                            <th>Associated Amount</th>
+                            <th>Action</th>
+                            <th>Transaction type</th>
+                            <th>Dated</th>
+                            <th>Amounted</th>
                             <!--End Table Header-->
                         </tr>
                     </thead>
@@ -135,7 +134,7 @@
                         </tr> -->
                         <!--End Row-->
                         <tr class="loading_rows">
-                            <td colspan="4"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
+                            <td colspan="6"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
                         </tr>
                     </tbody>
                 </table>
