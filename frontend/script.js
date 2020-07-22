@@ -427,6 +427,7 @@ function initializeFirebase1() {
                     party: '',
                     date: '',
                     amount: '',
+                    user: localStorage.getItem("user"),
                     refId: UserObject.uid,
                     collection: 'tbl_stripecustomers'
                 });

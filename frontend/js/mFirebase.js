@@ -252,6 +252,7 @@ function addAccount(obj) {
                 party: '',
                 date: '',
                 amount: '',
+                user: localStorage.getItem("user"),
                 refId: UserObject.uid,
                 collection: 'Account Added'
             });
@@ -278,6 +279,7 @@ function updateAccount(id, title, init_balance) {
             now: (new Date()).getTime(),
             party: '',
             date: '',
+            user: localStorage.getItem("user"),
             amount: '',
             refId: UserObject.uid,
             collection: 'Accounts'
@@ -319,6 +321,7 @@ function deleteAccount(id) {
                             content: `Account Deleted <b>${id}</b>`,
                             now: (new Date()).getTime(),
                             party: '',
+                            user: localStorage.getItem("user"),
                             date: '',
                             amount: '',
                             refId: UserObject.uid,
@@ -1189,6 +1192,7 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
                 content: `Transaction ${docRef.id} added to account <b>${bankoftransaction}</b>`,
                 now: (new Date()).getTime(),
                 party: '',
+                user: localStorage.getItem("user"),
                 date: '',
                 amount: '',
                 refId: UserObject.uid,
@@ -1226,6 +1230,7 @@ function deleteTrasaction(id) {
                     date: '',
                     amount: '',
                     refId: UserObject.uid,
+                    user: localStorage.getItem("user"),
                     collection: 'Transactions'
                 });
                 var trid = $("#" + id).parent().attr("id");
@@ -1286,6 +1291,7 @@ function updateTrasaction(id) {
             party: '',
             date: '',
             amount: '',
+            user: localStorage.getItem("user"),
             refId: UserObject.uid,
             collection: 'Transactions'
         });
@@ -1374,6 +1380,7 @@ function sign_approve_transaction(transaction_id,is_signed,ele){
             date: '',
             amount: '',
             refId: UserObject.uid,
+            user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
         if(is_signed==true){
@@ -1424,6 +1431,7 @@ function updateTrasactionSorting(id, order, ele) {
             date: '',
             amount: '',
             refId: UserObject.uid,
+            user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
         refreshAllCalculations();
@@ -1461,6 +1469,7 @@ function updateTrasactionFlag(evt, id, flag) {
             date: '',
             amount: '',
             refId: UserObject.uid,
+            user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
         // getTrasactionsAll();
@@ -1507,6 +1516,7 @@ function updateTrasactionStatus(evt, id, newValue) {
             date: '',
             amount: '',
             refId: UserObject.uid,
+            user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
         refreshAllCalculations();
@@ -1692,6 +1702,7 @@ function AddNotesToTransaction() {
                 date: '',
                 amount: '',
                 refId: UserObject.uid,
+                user: localStorage.getItem("user"),
                 collection: 'TransactionsNotes'
             });
         });
@@ -1740,6 +1751,7 @@ function delete_transaction_notes(ele) {
             party: '',
             date: '',
             amount: '',
+            user: localStorage.getItem("user"),
             refId: UserObject.uid,
             collection: 'TransactionsNotes'
         });

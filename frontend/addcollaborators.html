@@ -251,6 +251,7 @@
                                 date: '',
                                 amount: '',
                                 refId: UserObject.uid,
+                                user: localStorage.getItem("user"),
                                 collection: 'tbl_linked_account_access'
                             });
                             getAccessedUsers();
@@ -335,6 +336,7 @@
                         date: '',
                         amount: '',
                         refId: UserObject.uid,
+                        user: localStorage.getItem("user"),
                         collection: 'tbl_linked_account_access'
                     });
                     getAccessedUsers();
