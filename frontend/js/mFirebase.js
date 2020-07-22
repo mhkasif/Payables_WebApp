@@ -672,6 +672,7 @@ function getTrasactionsAllPagination() {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
+                '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
@@ -853,11 +854,13 @@ function getTrasactionsByAccount(id) {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
+                '                                <th>Sigh</th>' +
+                '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Party Type</th>' +
-                '                                <th>Bank</th>' +
-                '                                <th  style="width: 10%;">Status</th>' +
+                '                                <th>Payment Source</th>' +
+                '                                <th  style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
                 '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
@@ -1030,12 +1033,13 @@ function getTrasactionsByAccountPagination(id) {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
+                '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Party Type</th>' +
-                '                                <th>Bank</th>' +
-                '                                <th  style="width: 10%;">Status</th>' +
+                '                                <th>Payment Source</th>' +
+                '                                <th  style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
                 '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
