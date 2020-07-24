@@ -25,15 +25,14 @@
         }
     
         .select2-container--open .select2-dropdown--below {
-            width: 241px;
+            width: 345px;
         }
-    
+
         .select2-selection.select2-selection--multiple {
-            width: 241px;
+            width: 344px;
             max-height: 280px !important;
             height: 66px;
             background: #fcfcfc;
-            border: 1px solid #3333;
         }
     
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
@@ -286,7 +285,7 @@
                     QUERY
                 </p>
                 <div class="timeline-content" style="display: flex;padding-bottom: 2%; padding-top: 1%;">
-                    <div style="display: grid; width: 28%;">
+                    <div style="display: grid; width: 23%;">
                         <label>Search</label>
                         <input style="width: 97%;" class="balance_input" onkeyup="advance_search_record($(this).val())"
                             placeholder="Search data within all transactions" type="text" />
@@ -339,11 +338,11 @@
                     </div>
                     <div style="display: grid; width: 6%;">
                         <label>Export</label>
-                        <select style="float: right; margin: -7px 11px;">
-                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as Quickbooks</option>
+                        <select>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Quickbooks</option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Xero </option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Tulsi </option>
-                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as Sage</option>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Sage</option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as csv</option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as excel</option>
                         </select>
