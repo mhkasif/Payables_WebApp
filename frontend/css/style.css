@@ -25,6 +25,29 @@
 
 
 
+
+
+.loading_rows{
+    text-align: center;
+    margin: 18px;
+    border: 1px solid #9999;
+    padding: 15px;
+    overflow: hidden;
+    border-radius: 5px;
+    font-size: 19px;
+    color: #969696;
+    background: #f9f9f9;
+}
+
+.loading_rows img{
+    width: 32px !important;
+    float: none !important;
+    margin-right: 0px !important;
+}
+
+
+
+
 .clean_table {
 	width: 100%;
 	text-align: center;
