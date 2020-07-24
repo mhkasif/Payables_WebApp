@@ -372,7 +372,7 @@
                             <thead>
                                 <tr class="ui-state-default">
                                     <th>Date</th>
-                                    <th style="width: 10%;">Cheque no. (Optional)</th>
+                                    <th style="width: 10%;">Payment mode (Optional)</th>
                                     <th>Party Name</th>
                                     <th>Transaction Type</th>
                                     <th style="width: 12%;">Payment Source </th>
@@ -385,20 +385,20 @@
                                 <tr id="all-transaction-fields">
                                     <td><input id="transaction_date" class="mandatory-field" placeholder="DD/MM/YYYY"
                                             type="date"></td>
-                                    <td><input id="cheque_no" placeholder="cheque no." type="number"></td>
+                                    <td><input id="cheque_no" placeholder="cheque, NEFT, RTGS" type="text"></td>
                                     <td><input id="payee" placeholder="Name of Buyer or Supplier"
                                             class="mandatory-field" type="text"></td>
                                     <td>
                                         <select class="form-control" id="mode" name="">
-                                            <option disabled selected>Who're they ?</option>
-                                            <option class="green-text" value="Buyer">Buyer</option>
-                                            <option class="red-text" value="Supplier">Supplier</option>
+                                            <option disabled selected>Type of transaction ?</option>
+                                            <option class="green-text" value="Buyer">Buyer Addition</option>
+                                            <option class="red-text" value="Supplier">Supplier Deduction</option>
                                         </select>
                                     </td>
                                     <td>
                                         <input id="transaction_id" type="hidden" value="">
                                         <select class="form-control" id="account-list">
-                                            <option disabled selected>Paying from?</option>
+                                            <option disabled selected>Paying from ?</option>
                                         </select>
                                     </td>
                                     <td>
