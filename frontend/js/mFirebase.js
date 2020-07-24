@@ -1423,7 +1423,7 @@ function sign_approve_transaction(transaction_id,is_signed,ele){
             collection: 'Transactions'
         });
         if(is_signed==true){
-        $(ele).replaceWith("<td title='approve' onclick='sign_approve_transaction(\""+transaction_id+"\",false,this);'><i class="far fa-circle"></i></td>");
+        $(ele).replaceWith("<td title='approve' onclick='sign_approve_transaction(\""+transaction_id+"\",false,this);'>---</td>");
        }else{
         $(ele).replaceWith("<td title='un-approve' onclick='sign_approve_transaction(\""+transaction_id+"\",true,this);'><i class='fa fa-check-circle' style='font-size: 25px;color: #56bea6;opacity: 1;'></i></td>");
        }
