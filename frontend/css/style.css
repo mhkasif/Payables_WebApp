@@ -621,24 +621,23 @@ img {
 
 .alert_notification_tag {
     float: right;
-    margin-right: 24px !important;
-    font-weight: 300;
+    margin-right: 3% !important;
     color: #ffffff !important;
     background: #f46083 !important;
-    padding: 7px;
+    padding: 6px;
     padding-left: 21px;
     padding-right: 22px;
     margin-top: -6px !important;
     border-radius: 27px;
-    font-size: 15px;
+    font-size: 13.8px;
 }
 
 .Collection_date {
     color: #ffffff !important;
-    margin-left: 2px !important;
+    margin-left: 6px !important;
     font-family: inherit;
-    background: #2196F3 !important;
-    padding: 6px 15px;
+    background: #56bea6 !important;
+    padding: 2px 16px;
     border-radius: 26px;
     font-size: 15px;
 }
