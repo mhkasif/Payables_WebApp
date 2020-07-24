@@ -21,6 +21,7 @@
     min-height: 311px;
     text-align: center;
     margin-bottom: 13%;
+     border: 1px solid #eaeaea;     
 }
 
     .price:hover {
