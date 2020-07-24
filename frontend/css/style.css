@@ -411,10 +411,11 @@ table {
 }
 
 table th {    
-    background: #fcfcfc;
-    color: #676767;
+    background: #ffffff;
+    color: #7d7d7d;
     border: none;
     padding: 8px;
+    font-weight: 100;
 }
 
 table tr:nth-child(odd) {
@@ -445,7 +446,7 @@ td {
     text-align: center;
     border-bottom: 1px solid #dfdfdf;
     padding: 4px;
-    background: #fefefe;
+    background: #ffffff;
 }
 
 img {
