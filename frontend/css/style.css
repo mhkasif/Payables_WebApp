@@ -255,6 +255,15 @@ background-color: #fafafa;
 }
 
 
+
+h2, .h2 {
+    font-size: 27px;
+    font-family: poppins;
+}
+
+
+
+
 [type=submit], [type=reset], button, html [type=button] {
     -webkit-appearance: button;
     -webkit-appearance: button;
