@@ -31,7 +31,12 @@ background-color: #fafafa;
 }
 
 
-
+.collaborator_type{
+    background: #949494;
+    padding: 6px;
+    border-radius: 6px;
+    color: #ffffff;
+}
 
 
 .loading_rows{
