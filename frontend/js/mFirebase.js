@@ -1197,7 +1197,7 @@ function addupdatetransaction(isUpdate) {
 
 function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence, payee, status, withdrawal*/) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have permission for this feature.");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1255,7 +1255,7 @@ $("#status").on("change", function () {
 });
 function deleteTrasaction(id) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have permission for this feature.");
         return;
     }
     if (confirm('Are you sure to delete this record.')) {
@@ -1307,7 +1307,7 @@ function deleteTrasaction(id) {
 
 function updateTrasaction(id) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have permission for this feature.");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1407,13 +1407,13 @@ function updateTrasaction(id) {
 
 function sign_approve_transaction(transaction_id,is_signed,ele){
     if(isApprover || isOwner){
-    if(confirm("Do you want to sign this transaction as "+(is_signed?"unapproved":"approved"))){
+    if(confirm("Do you want to approve this transaction as "+(is_signed?"unapproved":"approved"))){
         tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(transaction_id).update({
         is_signed:!is_signed
     }).then(function (docRef) {
         db.collection('tbl_audit_log').add({
-            content: `Transaction ${transaction_id} updated as signed</b>`,
+            content: `Transaction ${transaction_id} is appoved by USER</b>`,
             now: (new Date()).getTime(),
             party: '',
             date: '',
@@ -1423,9 +1423,9 @@ function sign_approve_transaction(transaction_id,is_signed,ele){
             collection: 'Transactions'
         });
         if(is_signed==true){
-        $(ele).replaceWith("<td title='click to approve' onclick='sign_approve_transaction(\""+transaction_id+"\",false,this);'>---</td>");
+        $(ele).replaceWith("<td title='approve' onclick='sign_approve_transaction(\""+transaction_id+"\",false,this);'>---</td>");
        }else{
-        $(ele).replaceWith("<td title='click to unapprove' onclick='sign_approve_transaction(\""+transaction_id+"\",true,this);'><i class='fa fa-check-circle' style='font-size:25px; color:green;'></i></td>");
+        $(ele).replaceWith("<td title='un-approve' onclick='sign_approve_transaction(\""+transaction_id+"\",true,this);'><i class='fa fa-check-circle' style='font-size:25px; color:green;'></i></td>");
        }
     });}}else{
         alert("you don't have permission to approve.");
@@ -1737,7 +1737,7 @@ function AddNotesToTransaction() {
             $("#notes").val("");
             $('#transaction_attachment').val("");
             db.collection('tbl_audit_log').add({ 
-                content: `Transaction Notes added for ${transaction_id}`,
+                content: `Transaction notes and attachments added for ${transaction_id}`,
                 now: (new Date()).getTime(),
                 party: '',
                 date: '',
