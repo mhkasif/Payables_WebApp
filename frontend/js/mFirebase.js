@@ -470,7 +470,7 @@ function getTrasactionsAll() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -650,7 +650,7 @@ function getTrasactionsAllPagination() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -832,7 +832,7 @@ function getTrasactionsByAccount(id) {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1011,7 +1011,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a><a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1156,7 +1156,7 @@ function refreshAllCalculations() {
 
 function addupdatetransaction(isUpdate) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update entry");
         return;
     }
     var errorCount = 0;
@@ -1376,7 +1376,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance">' + withdrawalSpan + '</td>' +
-        '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+        '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
         '                            </tr>';
 
     $(targetTr).replaceWith(tblRecordsHtml);
@@ -1452,7 +1452,7 @@ $(document).ready(function () {
 
 function updateTrasactionSorting(id, order, ele) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to edit the entry");
         return;
     }
     $('#loading').show();
@@ -1484,7 +1484,7 @@ function updateTrasactionSorting(id, order, ele) {
 }
 function updateTrasactionFlag(evt, id, flag) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update the entry");
         return;
     }
 
@@ -1521,7 +1521,7 @@ function updateTrasactionFlag(evt, id, flag) {
 }
 function updateTrasactionStatus(evt, id, newValue) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update the entry");
         return;
     }
     // console.log(id);
@@ -1569,7 +1569,7 @@ function updateTrasactionStatus(evt, id, newValue) {
 
 function editRecord(id) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update the entry");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
