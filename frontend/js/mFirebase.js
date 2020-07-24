@@ -51,7 +51,7 @@ var liRecords = '<tr>' +
     '                                    </select>' +
     '                                </td>' +
     '                                <td class="balance">50,000</td>' +
-    '                                <td><a href="#" type="button"> <i class="fa fa-pen"></i> &nbsp; Edit</a></td>' +
+    '                                <td><a href="#" type="button"> <i class="fa fa-pen"></i></a></td>' +
     '                            </tr>';
 var liTemplate = '<li class="timelinePart">' +
     '                <p class="timeline-date">23/04/19</p>' +
@@ -147,7 +147,7 @@ function initializeFirebase() {
 function addAccountActual() {
 
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to add new account");
         return;
     }
     if (!$('#account_title').val()) {
@@ -255,7 +255,7 @@ function getAccountByName(title) {
 
 function addAccount(obj) {
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission for this feature");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
@@ -285,7 +285,7 @@ function addAccount(obj) {
 
 function updateAccount(id, title, init_balance) {
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update details");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
@@ -327,7 +327,7 @@ function updateAccount(id, title, init_balance) {
 }
 function deleteAccount(id) {
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to delete");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
@@ -470,7 +470,7 @@ function getTrasactionsAll() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -650,7 +650,7 @@ function getTrasactionsAllPagination() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -832,7 +832,7 @@ function getTrasactionsByAccount(id) {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1011,7 +1011,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1197,7 +1197,7 @@ function addupdatetransaction(isUpdate) {
 
 function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence, payee, status, withdrawal*/) {
     if (isApprover) {
-        alert("You don't have permission for this feature.");
+        alert("You don't have permission to add a new transaction");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1255,7 +1255,7 @@ $("#status").on("change", function () {
 });
 function deleteTrasaction(id) {
     if (isApprover) {
-        alert("You don't have permission for this feature.");
+        alert("You don't have permission to delete the transaction.");
         return;
     }
     if (confirm('Are you sure to delete this record.')) {
@@ -1307,7 +1307,7 @@ function deleteTrasaction(id) {
 
 function updateTrasaction(id) {
     if (isApprover) {
-        alert("You don't have permission for this feature.");
+        alert("You don't have permission to update the entry.");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1376,7 +1376,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance">' + withdrawalSpan + '</td>' +
-        '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+        '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
         '                            </tr>';
 
     $(targetTr).replaceWith(tblRecordsHtml);
@@ -1428,7 +1428,7 @@ function sign_approve_transaction(transaction_id,is_signed,ele){
         $(ele).replaceWith("<td title='un-approve' onclick='sign_approve_transaction(\""+transaction_id+"\",true,this);'><i class='fa fa-check-circle' style='font-size: 25px;color: #56bea6;opacity: 1;'></i></td>");
        }
     });}}else{
-        alert("you don't have permission to approve.");
+        alert("you don't have permission to approve a transaction.");
     }
 }
 
