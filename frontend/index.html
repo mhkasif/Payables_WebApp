@@ -325,7 +325,7 @@
                             </a>
                         </b>
                     </div>
-                    <div style="display: grid; width: 25%;">
+                    <div style="display: grid; width: 19%;">
                         <label>Payment Collection Days</label>
                         <select class="select selectpicker collectiondayselect collectionDays" multiple
                             onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
@@ -338,8 +338,16 @@
                             <option>Sunday</option>
                         </select>
                     </div>
-                    <div style="float: right; margin: -7px 11px;clear: both;"><button
-                            onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export to Excel</button>
+                    <div style="display: grid; width: 6%;">
+                        <label>Export</label>
+                        <select style="float: right; margin: -7px 11px;">
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as Quickbooks</option>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Xero </option>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Tulsi </option>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as Sage</option>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as csv</option>
+                            <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as excel</option>
+                        </select>
                     </div>
                 </div>
             </li>
