@@ -2,6 +2,13 @@
 @import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39&display=swap');
 
 
+
+.body{
+background-color: #fafafa;
+}
+
+
+
 #loading {
     width: 100%;
     height: 100%;
