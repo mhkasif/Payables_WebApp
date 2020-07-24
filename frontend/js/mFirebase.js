@@ -72,7 +72,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                                <th></th>' +
     '                                <th>Sign</th>' +
     '                                <th></th>' +
-    '                                <th>Cheque no.</th>' +
+    '                                <th>Payment mode</th>' +
     '                                <th>Party Name</th>' +
     '                                <th>Transaction Type</th>' +
     '                                <th>Bank</th>' +
@@ -334,7 +334,7 @@ function deleteAccount(id) {
     tblAccountCheques.where("account_id", "==", id).get().then(function (querySnapshot) {
         console.log(querySnapshot.docs.length);
         if (querySnapshot.docs.length == 0) {
-            if (confirm('Are you sure to delete this record.')) {
+            if (confirm('Are you sure to delete this entry.')) {
                 tblAccounts.doc(id)
                     .delete().then(function () {
                         db.collection('tbl_audit_log').add({
@@ -494,7 +494,7 @@ function getTrasactionsAll() {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
@@ -674,7 +674,7 @@ function getTrasactionsAllPagination() {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Bank</th>' +
@@ -856,7 +856,7 @@ function getTrasactionsByAccount(id) {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
@@ -1035,7 +1035,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
@@ -1258,7 +1258,7 @@ function deleteTrasaction(id) {
         alert("You don't have permission to delete the transaction.");
         return;
     }
-    if (confirm('Are you sure to delete this record.')) {
+    if (confirm('Are you sure to delete this entry.')) {
         tblAccountCheques = db.collection("tbl_account_cheques");
         tblAccountCheques.doc(id)
             .delete().then(function (docRef) {
