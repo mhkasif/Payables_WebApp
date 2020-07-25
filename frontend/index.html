@@ -583,7 +583,93 @@
             }
         </style>
     </div>
+
+    <div id="transaction-approve_deny_modal" class="modal1">
+        <div class="modal-content">
+            <span class="modal-close-btn" onclick="closeapproveDenyModal();">&times;</span>
+            <div class="modal-body">
+                <div>
+                    <h3 style="margin-bottom: 10px;">Approve/Deny Transaction</h3>
+                   
+                </div>
+                <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
+                    onclick="SetSignedOrDenied('Approved');">Approve</button>
+                    <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
+                    onclick="SetSignedOrDenied('Denied');">Deny</button>
+                    <br>
+                <br>
+            </div>
+        </div>
+        <style>
+            .message-success {
+                color: #00bb32;
+            }
+
+            .message-error {
+                color: #860404;
+            }
+
+            /* The Modal (background) */
+            .modal1 {
+                display: none;
+                /* Hidden by default */
+                position: fixed;
+                /* Stay in place */
+                z-index: 1;
+                /* Sit on top */
+                left: 0;
+                top: 30px;
+                width: 100%;
+                /* Full width */
+                height: 100%;
+                /* Full height */
+                overflow: auto;
+                /* Enable scroll if needed */
+                background-color: rgb(0, 0, 0);
+                /* Fallback color */
+                background-color: rgba(0, 0, 0, 0.4);
+                /* Black w/ opacity */
+            }
+
+            .modal-body {
+                clear: both;
+                margin-top: 10px;
+                overflow: auto;
+            }
+
+            /* Modal Content/Box */
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 45%;
+                height: 75%;
+            }
+
+            .modal-close-btn {
+                font-size: 20px;
+                padding: 5px;
+                width: 25px;
+                position: absolute;
+                right: 15px;
+                top: 5px;
+            }
+
+            .modal-close-btn:hover,
+            .modal-close-btn:focus {
+                color: black;
+                font-weight: bold;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+    </div>
+
     <script>
+        function closeapproveDenyModal(){
+            $("#transaction-approve_deny_modal").hide();
+        }
         function closeNotesModal() {
             $("#transaction-notes-modal").hide();
         }
