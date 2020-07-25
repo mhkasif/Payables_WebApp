@@ -51,7 +51,7 @@ var liRecords = '<tr>' +
     '                                    </select>' +
     '                                </td>' +
     '                                <td class="balance">50,000</td>' +
-    '                                <td><a href="#" type="button"> <i class="fa fa-pen"></i></a></td>' +
+    '                                <td><a href="#"> <i class="fa fa-pen"></i></a></td>' +
     '                            </tr>';
 var liTemplate = '<li class="timelinePart">' +
     '                <p class="timeline-date">23/04/19</p>' +
@@ -470,7 +470,7 @@ function getTrasactionsAll() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-sticky-note" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -650,7 +650,7 @@ function getTrasactionsAllPagination() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-sticky-note"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -832,7 +832,7 @@ function getTrasactionsByAccount(id) {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-sticky-note"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1011,7 +1011,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-sticky-note"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a><a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a><a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1376,7 +1376,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance">' + withdrawalSpan + '</td>' +
-        '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
+        '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a>&nbsp;<a href="#" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
         '                            </tr>';
 
     $(targetTr).replaceWith(tblRecordsHtml);
