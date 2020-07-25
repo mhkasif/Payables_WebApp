@@ -492,17 +492,13 @@
             <span class="modal-close-btn" onclick="closeNotesModal();">&times;</span>
             <div class="modal-body">
                 <div>
-                    <h3 style="margin-bottom: 10px;">Add Notes against Check #<span id="check_no"></span></h3>
+                    <h3 style="margin-bottom: 10px;">Transacton notes for Check #<span id="check_no"></span></h3>
                     <br/>
-                    <div style="margin-bottom: 20px;">
-                        <span style="text-align: left;
-           padding: 15px;
-           margin-bottom: 10px;">Notes:</span> <textarea style="width: 80%;margin: 0px;height: 58px;" id="notes" type="textarea" ></textarea>
+                    <div style="margin-bottom: 20px;display: grid;">
+                        <span>Notes:</span> <textarea style="width: 80%;margin: 0px;height: 58px;" id="notes" type="textarea" ></textarea>
                     </div>
-                    <div style="margin-bottom: 20px;">
-                        <span style="text-align: left;
-           padding: 15px;
-           margin-bottom: 10px;">Attachment:</span><input type="file" style="border: none; width: 80%;" id="transaction_attachment"></input>
+                    <div style="margin-bottom: 20px;display: grid;">
+                        <span>Attachment:</span><input type="file" style="border: none; width: 80%;" id="transaction_attachment"></input>
                     </div>
                     <input id="notes_transaction_id" style="display: none;"></input>
                 </div>
