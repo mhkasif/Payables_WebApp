@@ -485,7 +485,7 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     font-weight: 700;
-    padding: 3%;
+    padding: 1% 3%;
     width: 40%;
     height: 72%;
     box-shadow: none;">
@@ -495,15 +495,11 @@
                     <h3 style="margin-bottom: 10px;">Transacton notes for Check #<span id="check_no"></span></h3>
                     <br/>
                     <div style="margin-bottom: 20px;display: grid;">
-                        <span>Notes:</span> <textarea style="width: 80%;margin: 0px;height: 58px;" id="notes" type="textarea" ></textarea>
+                        <span>Notes:</span> <textarea style="background: #ffffff5c; max-height: 166px; height: 109px; border: 2px solid #ffed71;" id="notes" type="textarea" ></textarea>
                     </div>
-                    <div style="margin-bottom: 20px;display: grid;">
-                        <span>Attachment:</span><input type="file" style="border: none; width: 80%;" id="transaction_attachment"></input>
-                    </div>
-                    <input id="notes_transaction_id" style="display: none;"></input>
+                    <input id="notes_transaction_id" style="border: none; width: 100%; background: #fdfcd0; border: 2px solid #ffeb68;"></input>
                 </div>
-                <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
-                    onclick="AddNotesToTransaction();">Add Notes.</button>
+                <br /><button onclick="AddNotesToTransaction();">Add Notes.</button>
 
                     <br>
                 <br>
