@@ -158,7 +158,7 @@ app.post('/get-cutomer-subscriptions-active', async (req, res) => {
         return el.plan.product === process.env.PRODUCTID && el.status=="active";
       });
       response.data = data;
-      if(data.length>0){
+      if(data && data.length>0){
         res.send(true);
       }else{
         res.send(false);
