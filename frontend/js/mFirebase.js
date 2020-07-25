@@ -25,13 +25,13 @@ if(localStorage.getItem("access")=="Submitter"){
 }
 var current_userid = localStorage.getItem("current_userid");
 var weekday = new Array(7);
-weekday[0] = "Sunday";
-weekday[1] = "Monday";
-weekday[2] = "Tuesday";
-weekday[3] = "Wednesday";
-weekday[4] = "Thursday";
-weekday[5] = "Friday";
-weekday[6] = "Saturday";
+weekday[0] = "Sun";
+weekday[1] = "Mon";
+weekday[2] = "Tue";
+weekday[3] = "Wed";
+weekday[4] = "Thu";
+weekday[5] = "Fri";
+weekday[6] = "Sat";
 var liRecords = '<tr>' +
     '                                <td><i class="fa fa-bars"></i></td>' +
     '                                <td>---</td>' +
@@ -222,13 +222,13 @@ function getAccountsAll() {
                 + '    </b>                                                                                                                                            '
                 + '                <select class="select collectionDaysunused" multiple id="selectbox_' + doc.id + '" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id + '\');" style="float: right; margin: -7px 11px;">                   '
                 + '                                                                                         '
-                + '                    <option>Monday</option>                                                                                                         '
-                + '                    <option>Tuesday</option>                                                                                                        '
-                + '                    <option>Wednesday</option>                                                                                                      '
-                + '                    <option>Thursday</option>                                                                                                       '
-                + '                    <option>Friday</option>                                                                                                         '
-                + '                    <option>Saturday</option>                                                                                                       '
-                + '                    <option>Sunday</option>                                                                                                         '
+                + '                    <option>Mon</option>                                                                                                         '
+                + '                    <option>Tue</option>                                                                                                        '
+                + '                    <option>Wed</option>                                                                                                      '
+                + '                    <option>Thu</option>                                                                                                       '
+                + '                    <option>Fri</option>                                                                                                         '
+                + '                    <option>Sat</option>                                                                                                       '
+                + '                    <option>Sun</option>                                                                                                         '
                 + '                </select>                     </div><ul style="display:none;" id="acc-li-' + doc.id + '" class="timeline"></ul></div>';
             $("#All").after(accTab);
             $('#account-list').append('<option value="' + doc.id + '">' + doc.data().title + '</option>');
