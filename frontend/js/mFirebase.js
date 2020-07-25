@@ -452,7 +452,7 @@ function getTrasactionsAll() {
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td  title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\','+myRecord.is_signed+',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
+                    '                                <td  title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -632,7 +632,7 @@ function getTrasactionsAllPagination() {
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\','+myRecord.is_signed+',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
+                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -814,7 +814,7 @@ function getTrasactionsByAccount(id) {
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\','+myRecord.is_signed+',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
+                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -993,7 +993,7 @@ function getTrasactionsByAccountPagination(id) {
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\','+myRecord.is_signed+',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
+                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<i class='fa fa-close' style='font-size:25px;color:red;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
