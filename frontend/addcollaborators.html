@@ -145,7 +145,7 @@
                         </select>
                         </td>
                         <td><input type="text" id="" placeholder="Enter team name" value=""></td>
-                        <td colspan="2"><button onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add User</button></td>                     
+                        <td colspan="2"><button style="width: 100%;background: #5f5c5c;" onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add Collaborator</button></td>                     
                     </tr>
                     <tr>
                         <td id="owner_name">------</td>
@@ -154,7 +154,7 @@
                         <td><a class="collaborator_type">Account Owner<a/></td>
                         <td></td>
                         <td><button class="settings_delete_button" style="color: #b5b5b5; background: none; border: 2px solid #b5b5b5; font-weight: 600;"><i title="The owner account cannot be altered or changed"
-                                    class="fas fa-lock"></i> &nbsp; Pause </button></td>
+                                    class="fas fa-pause"></i> &nbsp; Pause </button></td>
                         <td><button class="settings_delete_button" style="background:#b5b5b5;border:none;"><i title="The owner account cannot be altered or changed"
                                     class="fas fa-lock"></i> &nbsp; Delete </button></td>
                     </tr>
@@ -326,8 +326,8 @@
                         td3.innerHTML = `<input type='password' value=${data.password} readonly >`;
                         td4.innerHTML = `<a class="collaborator_type"> ${data.type} </a>`;
                         td5.innerHTML = `<a class="teams_type"> Marketing Alpha </a>`;
-                        td6.innerHTML = `<button class="settings_delete_button" style="color: #f96f6f; background: none; border: 2px solid #f96f6f; font-weight: 600;"  title="Remove user account">
-        <i class="far fa-trash-alt"></i> &nbsp; Pause</button> `;
+                        td6.innerHTML = `<button class="settings_delete_button" style="color: #f96f6f; background: none; border: 2px solid #f96f6f; font-weight: 600;"  title="Put the user on hold">
+        <i class="fas fa-pause"></i> &nbsp; Pause</button> `;
                         td7.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Remove user account">
         <i class="far fa-trash-alt"></i> &nbsp; Delete</button> `;
 
