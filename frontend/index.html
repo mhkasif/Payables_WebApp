@@ -340,6 +340,7 @@
                     <div style="display: flow-root;margin-left: 1%;">
                         <label>Export</label>
                         <select style="height: 66px; border-radius: 4px; border: 1px solid #3333; background: #fcfcfc;">
+                            <option selected >Select format</option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as Quickbooks</option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Xero </option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Tulsi </option>
@@ -392,6 +393,15 @@
                                             <option disabled selected>Type of transaction ?</option>
                                             <option class="green-text" value="Buyer">Buyer Addition</option>
                                             <option class="red-text" value="Supplier">Supplier Deduction</option>
+                                             <optgroup label="Company Expenses ">
+                                            <option class="red-text" value="">Uncategorised</option>
+                                            <option class="red-text" value="">Advertising</option>
+                                            <option class="red-text" value="">Stationery</option>
+                                            <option class="red-text" value="">Benifits</option>
+                                            <option class="red-text" value="">Car</option>
+                                            <option class="red-text" value="">Dinner</option>
+                                            <option class="red-text" value="">Home Office</option>
+                                            </optgroup>
                                         </select>
                                     </td>
                                     <td>
