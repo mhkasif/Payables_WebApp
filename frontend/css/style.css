@@ -265,6 +265,25 @@ background: #ffffff;
 }
 
 
+.fa fa-pen {
+    background: #e6f5f2;
+    border-bottom-left-radius: 18px;
+    border-top-left-radius: 18px;
+}
+
+.fa fa-trash{
+    color: #f46083;
+    background: #feecf0;
+    border-bottom-right-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.far fa-sticky-note{
+    font-size: 22px;
+    color: #b1aa25;
+    background: #fff7c8;
+}
+
 
 h2, .h2 {
     font-size: 27px;
