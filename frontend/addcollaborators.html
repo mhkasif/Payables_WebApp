@@ -145,7 +145,7 @@
                         </select>
                         </td>
                         <td><input type="text" id="" placeholder="Enter team name" value=""></td>
-                        <td><button onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add User</button></td>                     
+                        <td colspan="2"><button onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add User</button></td>                     
                     </tr>
                     <tr>
                         <td id="owner_name">------</td>
@@ -318,6 +318,7 @@
                         var td4 = document.createElement('td');
                         var td5 = document.createElement('td');
                         var td6 = document.createElement('td');
+                        var td7 = document.createElement('td');
 
 
                         td1.innerHTML = data.user;
@@ -326,11 +327,13 @@
                         td4.innerHTML = `<a class="collaborator_type"> ${data.type} </a>`;
                         td5.innerHTML = `<a class="teams_type"> Marketing Alpha </a>`;
                         td6.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Remove user account">
+        <i class="far fa-trash-alt"></i> &nbsp; Pause</button> `;
+                        td7.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Remove user account">
         <i class="far fa-trash-alt"></i> &nbsp; Delete</button> `;
 
-                        viewOnly ? td5.setAttribute("onclick", `viewAlert();`) :
-                            td6.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
-                        tr.innerHTML += td1.outerHTML + td2.outerHTML + td3.outerHTML + td4.outerHTML + td5.outerHTML + td6.outerHTML;
+                        viewOnly ? td7.setAttribute("onclick", `viewAlert();`) :
+                            td7.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
+                        tr.innerHTML += td1.outerHTML + td2.outerHTML + td3.outerHTML + td4.outerHTML + td5.outerHTML + td6.outerHTML + td7.outerHTML;
                         tbody.appendChild(tr);
                     })
                 })
