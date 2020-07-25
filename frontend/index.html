@@ -30,7 +30,7 @@
         }
     
         .select2-selection.select2-selection--multiple {
-            width: 250px;
+            width: 286px;
             max-height: 280px !important;
             height: 66px;
             background: #fcfcfc;
@@ -324,7 +324,7 @@
                             </a>
                         </b>
                     </div>
-                    <div style="display: grid; width: 19%;">
+                    <div style="display: grid; width: 22%;">
                         <label>Payment Collection Days</label>
                         <select class="select selectpicker collectiondayselect collectionDays" multiple
                             onchange="filterbyCollectionDay($(this).val());" style="float: right; margin: -7px 11px;">
@@ -337,9 +337,9 @@
                             <option>Sunday</option>
                         </select>
                     </div>
-                    <div style="display: grid; width: 6%;">
+                    <div style="display: flow-root;margin-left: 1%;">
                         <label>Export</label>
-                        <select style="float: right; margin: -7px 11px;">
+                        <select style="height: 66px; border-radius: 4px; border: 1px solid #3333; background: #fcfcfc;">
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export as Quickbooks</option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Xero </option>
                             <option onclick="exportToExcel_datapopulate();" id="export_to_excel_btn">Export for Tulsi </option>
