@@ -39,6 +39,16 @@ background-color: #fafafa;
 }
 
 
+
+.teams_type{
+background: #ffffff;
+    padding: 2% 7%;
+    border-radius: 24px;
+    color: #6f6f6f;
+    border: 1px dashed #949494;
+    font-family: sans-serif;
+}
+
 .loading_rows{
     text-align: center;
     margin: 18px;
