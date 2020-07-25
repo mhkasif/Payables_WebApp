@@ -298,9 +298,9 @@ h2, .h2 {
 [type=submit], [type=reset], button, html [type=button] {
     -webkit-appearance: button;
     -webkit-appearance: button;
-    background: #56bea6;
-    border: 1px solid #50c6ab;
-    color: #fff;
+    background: #f0f9f7;
+    border: 2px solid #50c6ab;
+    color: #71c8b4;
     border-radius: 4px;
     padding: 9px;
     margin-top: -9px;
