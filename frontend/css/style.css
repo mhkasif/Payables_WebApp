@@ -269,6 +269,7 @@ background: #ffffff;
     background: #e6f5f2;
     border-bottom-left-radius: 18px;
     border-top-left-radius: 18px;
+    padding: 9px 13px;
 }
 
 .fa-trash{
@@ -276,6 +277,7 @@ background: #ffffff;
     background: #feecf0;
     border-bottom-right-radius: 18px;
     border-top-right-radius: 18px;
+    padding: 9px 13px;	
 }
 
 .fa-sticky-note{
