@@ -128,6 +128,7 @@
                             <th>Email</th>
                             <th>Temporary Password</th>
                             <th>Type</th>
+                            <th>Team</th>
                             <th style="width: 9%;">Action</th>
                         </tr>
                     </thead>
@@ -143,13 +144,15 @@
                         <option>Approver</option>
                         </select>
                         </td>
+                        <td><input type="text" id="" placeholder="Enter team name" value=""></td>
                         <td><button onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add User</button></td>                     
                     </tr>
                     <tr>
                         <td id="owner_name">------</td>
                         <td id="owner_email">OwnerEmail@gmail.com</td>
                         <td><input type="password" value="32462%$#@" / readonly></td>
-                        <td><a class="collaborator_type">Account Owner<a /></td>
+                        <td><a class="collaborator_type">Account Owner<a/></td>
+                        <td></td>
                         <td><button class="settings_delete_button" style="background:#b5b5b5;"><i title="The owner type cannot be changed"
                                     class="fas fa-lock"></i> &nbsp; Revoke </button></td>
                     </tr>
@@ -158,7 +161,7 @@
 
                     </tbody>
                     <tr id="loading_rows_tr" class="loading_rows">
-                        <td colspan="5"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
+                        <td colspan="6"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
                     </tr>
                 </table>
             </div>
@@ -312,18 +315,20 @@
                         var td3 = document.createElement('td');
                         var td4 = document.createElement('td');
                         var td5 = document.createElement('td');
+                        var td6 = document.createElement('td');
 
 
                         td1.innerHTML = data.user;
                         td2.innerHTML = data.email;
                         td3.innerHTML = `<input type='password' value=${data.password} readonly >`;
                         td4.innerHTML = `<a class="collaborator_type"> ${data.type} </a>`;
-                        td5.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Delete">
+                        td5.innerHTML = `<a> Team 1 </a>`;
+                        td6.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Pause">
         <i class="far fa-trash-alt"></i> &nbsp; Revoke</button>`;
 
                         viewOnly ? td5.setAttribute("onclick", `viewAlert();`) :
-                            td5.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
-                        tr.innerHTML += td1.outerHTML + td2.outerHTML + td3.outerHTML + td4.outerHTML + td5.outerHTML;
+                            td6.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
+                        tr.innerHTML += td1.outerHTML + td2.outerHTML + td3.outerHTML + td4.outerHTML + td5.outerHTML + td6.outerHTML;
                         tbody.appendChild(tr);
                     })
                 })
