@@ -469,7 +469,7 @@ function getTrasactionsAll() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-sticky-note" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
@@ -649,7 +649,7 @@ function getTrasactionsAllPagination() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-sticky-note"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
@@ -831,7 +831,7 @@ function getTrasactionsByAccount(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-sticky-note"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
@@ -1010,7 +1010,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-sticky-note"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a><a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
