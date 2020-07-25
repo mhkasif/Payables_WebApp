@@ -493,22 +493,21 @@
             <span class="modal-close-btn" onclick="closeNotesModal();">&times;</span>
             <div class="modal-body">
                 <div>
-                    <h3 style="margin-bottom: 10px;">Notes for Transaction ID #<span id="notes_transaction_id"></span></h3>
+                    <h3 style="font-family: poppins-regular;">Notes for Transaction ID #<span id="notes_transaction_id"></span></h3>
                     <br/>
                     <div style="margin-bottom: 20px;display: grid;">
-                        <span>Transaction Notes:</span> <textarea style="background: #ffffff5c; max-height: 166px; height: 109px; border: 2px solid #ffed71;"  placeholder="add payment notes and attachments such as bank account details, payment invoices, etc;" id="notes" type="textarea" ></textarea>
+                        <span>More details about transaction:</span> <textarea style="background: #ffffff5c; max-height: 166px; height: 109px; border: 2px solid #ffed71;"  placeholder="add payment notes and attachments such as bank account details, payment invoices, etc;" id="notes" type="textarea" ></textarea>
                     </div>
-                    <input type="file" style="border: none; width: 100%; background: #fdfcd0; border: 2px solid #ffeb68;" id="transaction_attachment"></input>
+                    <input type="file" style="border: none; width: 100%; background: #fdfcd0; border: 2px solid #ffeb68;margin-bottom: 20px;" id="transaction_attachment"></input>
                 </div>
-                <button style="width: 100%; background: #333;" onclick="AddNotesToTransaction();">Add Notes</button>
-
+                <button style="width: 100%; background: #333;" onclick="AddNotesToTransaction();">Save transaction Notes</button>
                     <br>
                 <br>
                 <div>
                     <table class="saved_table">
                         <thead>
                             <tr>
-                                <th colspan="3">Transaction Notes</th>
+                                <th colspan="3">Remove this table, notes to update and delete in the same text box</th>
                             </tr>
                             <tr>
                                 <th style="text-align: left;">Notes</th>
@@ -577,12 +576,15 @@
                 width: 38px;
                 height: 38px;
                 position: absolute;
-                right: -4%;
-                top: 4%;
-                background: #f6de35;
+                right: 44%;
+                top: 1%;
+                background: #F44336;
+                color: #ffffffba;
                 border-radius: 61px;
                 font-size: 27px;
                 text-align: -webkit-center;
+                transform: scale(1.5);
+                box-shadow: -6px 3px #3333;
             }
 
             .modal-close-btn:hover,
