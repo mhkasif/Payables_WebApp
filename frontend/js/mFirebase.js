@@ -1426,7 +1426,7 @@ function SetSignedOrDenied(val){
         $(selected_sign_approve_ele).replaceWith("<td title='click to unapprove' onclick='sign_approve_transaction(\""+selected_signUnsign_tid+"\",true,this);'><i class='fa fa-check-circle' style='font-size:25px; color:green;'></i></td>");
        }
        else if(val=="Denied"){
-        $(selected_sign_approve_ele).replaceWith("<td title='click to unapprove' onclick='sign_approve_transaction(\""+selected_signUnsign_tid+"\",true,this);'><i class='fa fa-close' style='font-size:25px; color:red;'></i></td>");
+        $(selected_sign_approve_ele).replaceWith("<td title='click to unapprove' onclick='sign_approve_transaction(\""+selected_signUnsign_tid+"\",true,this);'><span class='fa fa-close' style='font-size:25px; color:red;'>X</span></td>");
        }
        $("#transaction-approve_deny_modal").hide();
     });
