@@ -129,7 +129,7 @@
                             <th>Temporary Password</th>
                             <th>Type</th>
                             <th>Team</th>
-                            <th style="width: 9%;">Action</th>
+                            <th colspan="2" style="width: 9%;">Action</th>
                         </tr>
                     </thead>
                     <tr>
@@ -153,8 +153,10 @@
                         <td><input type="password" value="32462%$#@" / readonly></td>
                         <td><a class="collaborator_type">Account Owner<a/></td>
                         <td></td>
-                        <td><button class="settings_delete_button" style="background:#b5b5b5;"><i title="The owner type cannot be changed"
-                                    class="fas fa-lock"></i> &nbsp; Revoke </button></td>
+                        <td><button class="settings_delete_button" style="background:#b5b5b5;border:none;"><i title="The owner account cannot be altered or changed"
+                                    class="fas fa-lock"></i> &nbsp; Pause </button></td>
+                        <td><button class="settings_delete_button" style="background:#b5b5b5;border:none;"><i title="The owner account cannot be altered or changed"
+                                    class="fas fa-lock"></i> &nbsp; Delete </button></td>
                     </tr>
                     <tbody id="Add_User_table_tbody">
                         <!-- Firebase data -->
@@ -323,8 +325,8 @@
                         td3.innerHTML = `<input type='password' value=${data.password} readonly >`;
                         td4.innerHTML = `<a class="collaborator_type"> ${data.type} </a>`;
                         td5.innerHTML = `<a class="teams_type"> Marketing Alpha </a>`;
-                        td6.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Pause">
-        <i class="far fa-trash-alt"></i> &nbsp; Revoke</button>`;
+                        td6.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f; border: none;"  title="Remove user account">
+        <i class="far fa-trash-alt"></i> &nbsp; Delete</button> `;
 
                         viewOnly ? td5.setAttribute("onclick", `viewAlert();`) :
                             td6.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
@@ -334,7 +336,7 @@
                 })
         }
         function viewAlert() {
-            alert("You've not the permission for this action");
+            alert("You dont have the permission to remove a user");
         }
 
         function RevokeUser(data) {
