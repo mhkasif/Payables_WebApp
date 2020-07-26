@@ -25,13 +25,13 @@ if(localStorage.getItem("access")=="Submitter"){
 }
 var current_userid = localStorage.getItem("current_userid");
 var weekday = new Array(7);
-weekday[0] = "Sunday";
-weekday[1] = "Monday";
-weekday[2] = "Tuesday";
-weekday[3] = "Wednesday";
-weekday[4] = "Thursday";
-weekday[5] = "Friday";
-weekday[6] = "Saturday";
+weekday[0] = "Sun";
+weekday[1] = "Mon";
+weekday[2] = "Tue";
+weekday[3] = "Wed";
+weekday[4] = "Thu";
+weekday[5] = "Fri";
+weekday[6] = "Sat";
 var liRecords = '<tr>' +
     '                                <td><i class="fa fa-bars"></i></td>' +
     '                                <td>---</td>' +
@@ -51,7 +51,7 @@ var liRecords = '<tr>' +
     '                                    </select>' +
     '                                </td>' +
     '                                <td class="balance">50,000</td>' +
-    '                                <td><a href="#" type="button"> <i class="fa fa-pen"></i> &nbsp; Edit</a></td>' +
+    '                                <td><a href="#"> <i class="fa fa-pen"></i></a></td>' +
     '                            </tr>';
 var liTemplate = '<li class="timelinePart">' +
     '                <p class="timeline-date">23/04/19</p>' +
@@ -72,9 +72,9 @@ var liTemplate = '<li class="timelinePart">' +
     '                                <th></th>' +
     '                                <th>Sign</th>' +
     '                                <th></th>' +
-    '                                <th>Cheque no.</th>' +
+    '                                <th>Payment mode</th>' +
     '                                <th>Party Name</th>' +
-    '                                <th>Party Type</th>' +
+    '                                <th>Transaction Type</th>' +
     '                                <th>Bank</th>' +
     '                                <th>Payment Status</th>' +
     '                                <th>Withdrwal</th>' +
@@ -147,7 +147,7 @@ function initializeFirebase() {
 function addAccountActual() {
 
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to add new account");
         return;
     }
     if (!$('#account_title').val()) {
@@ -222,13 +222,13 @@ function getAccountsAll() {
                 + '    </b>                                                                                                                                            '
                 + '                <select class="select collectionDaysunused" multiple id="selectbox_' + doc.id + '" onchange="filterbyCollectionDaytab($(this).val(),\'' + doc.id + '\');" style="float: right; margin: -7px 11px;">                   '
                 + '                                                                                         '
-                + '                    <option>Monday</option>                                                                                                         '
-                + '                    <option>Tuesday</option>                                                                                                        '
-                + '                    <option>Wednesday</option>                                                                                                      '
-                + '                    <option>Thursday</option>                                                                                                       '
-                + '                    <option>Friday</option>                                                                                                         '
-                + '                    <option>Saturday</option>                                                                                                       '
-                + '                    <option>Sunday</option>                                                                                                         '
+                + '                    <option>Mon</option>                                                                                                         '
+                + '                    <option>Tue</option>                                                                                                        '
+                + '                    <option>Wed</option>                                                                                                      '
+                + '                    <option>Thu</option>                                                                                                       '
+                + '                    <option>Fri</option>                                                                                                         '
+                + '                    <option>Sat</option>                                                                                                       '
+                + '                    <option>Sun</option>                                                                                                         '
                 + '                </select>                     </div><ul style="display:none;" id="acc-li-' + doc.id + '" class="timeline"></ul></div>';
             $("#All").after(accTab);
             $('#account-list').append('<option value="' + doc.id + '">' + doc.data().title + '</option>');
@@ -255,7 +255,7 @@ function getAccountByName(title) {
 
 function addAccount(obj) {
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission for this feature");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
@@ -285,7 +285,7 @@ function addAccount(obj) {
 
 function updateAccount(id, title, init_balance) {
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update details");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
@@ -327,14 +327,14 @@ function updateAccount(id, title, init_balance) {
 }
 function deleteAccount(id) {
     if (!isOwner) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to delete");
         return;
     }
     tblAccounts = db.collection("tbl_accounts");
     tblAccountCheques.where("account_id", "==", id).get().then(function (querySnapshot) {
         console.log(querySnapshot.docs.length);
         if (querySnapshot.docs.length == 0) {
-            if (confirm('Are you sure to delete this record.')) {
+            if (confirm('Are you sure to delete this entry.')) {
                 tblAccounts.doc(id)
                     .delete().then(function () {
                         db.collection('tbl_audit_log').add({
@@ -469,8 +469,8 @@ function getTrasactionsAll() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><i class="far fa-sticky-note" href="#" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="notes"></i></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -494,9 +494,9 @@ function getTrasactionsAll() {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
                 '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
@@ -649,8 +649,8 @@ function getTrasactionsAllPagination() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><i class="far fa-sticky-note" href="#" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="notes"></i></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -674,9 +674,9 @@ function getTrasactionsAllPagination() {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Bank</th>' +
                 '                                <th  style="width: 10%;">Status</th>' +
                 '                                <th>Amount</th>' +
@@ -831,8 +831,8 @@ function getTrasactionsByAccount(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><i class="far fa-sticky-note"  href="#" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="notes"></i></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -854,11 +854,11 @@ function getTrasactionsByAccount(id) {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sigh</th>' +
+                '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
                 '                                <th  style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
@@ -1010,8 +1010,8 @@ function getTrasactionsByAccountPagination(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
-                    '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+                    '                                <td><i class="far fa-sticky-note" href="#"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="notes"></i></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a><a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
                     '                            </tr>';
             }
             totalAmount = totalAmount + sumOfAmount;
@@ -1035,9 +1035,9 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th></th>' +
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Cheque no.</th>' +
+                '                                <th>Payment mode</th>' +
                 '                                <th>Party Name</th>' +
-                '                                <th>Party Type</th>' +
+                '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
                 '                                <th  style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
@@ -1156,7 +1156,7 @@ function refreshAllCalculations() {
 
 function addupdatetransaction(isUpdate) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update entry");
         return;
     }
     var errorCount = 0;
@@ -1197,7 +1197,7 @@ function addupdatetransaction(isUpdate) {
 
 function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence, payee, status, withdrawal*/) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have permission to add a new transaction");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1255,10 +1255,10 @@ $("#status").on("change", function () {
 });
 function deleteTrasaction(id) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have permission to delete the transaction.");
         return;
     }
-    if (confirm('Are you sure to delete this record.')) {
+    if (confirm('Are you sure to delete this entry.')) {
         tblAccountCheques = db.collection("tbl_account_cheques");
         tblAccountCheques.doc(id)
             .delete().then(function (docRef) {
@@ -1307,7 +1307,7 @@ function deleteTrasaction(id) {
 
 function updateTrasaction(id) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have permission to update the entry.");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1376,7 +1376,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance">' + withdrawalSpan + '</td>' +
-        '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
+        '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a>&nbsp;<a href="#" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a></td>' +
         '                            </tr>';
 
     $(targetTr).replaceWith(tblRecordsHtml);
@@ -1404,6 +1404,7 @@ function updateTrasaction(id) {
     clearTransactionFields();
     refreshAllCalculations();
 }
+
 var selected_signUnsign_tid="";
 function SetSignedOrDenied(val){
         tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1420,6 +1421,7 @@ function SetSignedOrDenied(val){
             user: localStorage.getItem("user"),
             collection: 'Transactions'
         });
+
         if(val=="Pending"){
         $(selected_sign_approve_ele).replaceWith("<td title='click to approve' onclick='sign_approve_transaction(\""+selected_signUnsign_tid+"\",false,this);'>---</td>");
        }else if(val=="Approved"){
@@ -1462,7 +1464,7 @@ $(document).ready(function () {
 
 function updateTrasactionSorting(id, order, ele) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to edit the entry");
         return;
     }
     $('#loading').show();
@@ -1494,7 +1496,7 @@ function updateTrasactionSorting(id, order, ele) {
 }
 function updateTrasactionFlag(evt, id, flag) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update the entry");
         return;
     }
 
@@ -1531,7 +1533,7 @@ function updateTrasactionFlag(evt, id, flag) {
 }
 function updateTrasactionStatus(evt, id, newValue) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update the entry");
         return;
     }
     // console.log(id);
@@ -1579,7 +1581,7 @@ function updateTrasactionStatus(evt, id, newValue) {
 
 function editRecord(id) {
     if (isApprover) {
-        alert("You don't have edit rights");
+        alert("You don't have the permission to update the entry");
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1665,7 +1667,7 @@ function exportToExcel_datapopulate() {
             + "<th>Date</th>"
             + "<th>Check</th>"
             + "<th>Party Name</th>"
-            + "<th>Party Type</th>"
+            + "<th>Transaction Type</th>"
             + "<th>Payment Source</th>"
             + "<th>Payment Status</th>"
             + "<th>Amount</th>"
@@ -1747,7 +1749,7 @@ function AddNotesToTransaction() {
             $("#notes").val("");
             $('#transaction_attachment').val("");
             db.collection('tbl_audit_log').add({ 
-                content: `Transaction Notes added for ${transaction_id}`,
+                content: `Transaction notes and attachments added for ${transaction_id}`,
                 now: (new Date()).getTime(),
                 party: '',
                 date: '',

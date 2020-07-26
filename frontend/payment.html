@@ -65,10 +65,14 @@
                 <li class="dropdown">
                   <a class="dropbtn" style="display: flex;height: 78px;"><span id="userimage"><img src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 10px;">Not LoggedIn</span> </a>
                   <div class="dropdown-content" >
-                  <a href="pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
-                   <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >Report a bug</a>
-                   <a href="www.google.com" target="_blank" >Helpdesk</a>
-                  <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                        <a href="/auditlogs" target="_self">Audit Logs</a>
+                        <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a href="/collaborators" target="_self">Teams & Permissions</a>
+                        <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">Report a bug</a>
+                        <a href="http://www.google.com" target="_blank">Helpdesk</a>
+                        <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;"
+                            onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i
+                                class="fas fa-sign-out-alt"></i></a>
                   </div>
                 </li>
             </ul>
