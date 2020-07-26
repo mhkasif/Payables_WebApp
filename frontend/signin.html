@@ -23,6 +23,38 @@
 
 <body style="display:none;background: #f9f9f9;">
     <!--<button type="button" onclick="googleSignInClicked()">Google SignIn</button>-->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <div>
+        <div id="google-signin">
+            <a href="#"><img src="img/logo7.png" style="width: 53%;margin: auto 22%;" /></a>
+            <br>
+            <h3 style="text-align: center;font-family: monospace;margin-top: 10%;">Run an organized business today</h3>
+        </div>
+            <div style="width: max-content;margin: auto;">
+                <div style="margin-bottom: 10px; width: 70%;"><span style="font-weight: bold;color: crimson;" id="login_error"></span></div>
+                <div style="margin-bottom: 20px;display:grid;">
+                    <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;">Email:</span> 
+                    <input style="width: 210px;" id="email" type="text" />
+                </div>
+                <div style="margin-bottom: 20px;display:grid;">
+                    <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;"> Password: </span>
+                    <input id="password" style="width: 210px;" type="password" />
+                </div>
+                <button id="siginIndirectly" onclick="signInUsingEmailPassword();"  style="width: 100%;">LOGIN</button>
+            </div>
+    </div>
+    </div>
+    <div class="col">
+        <a><img src="img/bannerwoman.png" style="width: 500px;" /></a>
+    </div>
+  </div>
+
+
+
+
     <div style="border-radius: 7px;
     box-shadow: 0px 2px 5px 9px #e8e8e833;
     margin: 3% auto;
@@ -89,7 +121,6 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
     <script>
         var url = location.origin + location.href.replace(location.origin, '').substr(0, location.href.replace(location.origin, '').lastIndexOf('/'));
-    // var url = "https://clever-engelbart-ff8898.netlify.app/";
     </script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
@@ -242,8 +273,8 @@
                             //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                             //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
                             //firebase.auth.GithubAuthProvider.PROVIDER_ID,
-                            //firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                            //firebase.auth.PhoneAuthProvider.PROVIDER_ID
+                            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                            firebase.auth.PhoneAuthProvider.PROVIDER_ID
                         ],
                         // Terms of service url.
                         tosUrl: '<your-tos-url>',
