@@ -148,6 +148,25 @@ app.post('/get-cutomer-subscriptions', async (req, res) => {
   );
 });
 
+app.post('/get-cutomer-subscriptions-active', async (req, res) => {
+  console.log(req.body.customerid);
+  stripe.subscriptions.list(
+    { customer: req.body.customerid },
+    function (err, response) {
+      var data = response.data;
+      data = data.filter(function(el) {
+        return el.plan.product === process.env.PRODUCTID && el.status=="active";
+      });
+      response.data = data;
+      if(data && data.length>0){
+        res.send(true);
+      }else{
+        res.send(false);
+      }
+    }
+  );
+});
+
 app.post('/subscribe-trial-subscription', async (req, res) => {
   console.log(req.body.customerid);
   var trialEnd = moment().add(7, 'days').unix();
