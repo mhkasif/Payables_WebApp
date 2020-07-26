@@ -68,7 +68,14 @@ background: #ffffff;
 }
 
 
-
+.divider_line {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #ddd;
+    text-transform: uppercase;
+    font-weight: 600;
+}
 
 .clean_table {
 	width: 100%;
