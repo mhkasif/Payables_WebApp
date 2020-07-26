@@ -77,6 +77,19 @@ background: #ffffff;
     font-weight: 600;
 }
 
+.divider_line:before {
+    border-top: 1px solid #dfdfdf;
+    content: '';
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 95%;
+    z-index: -1;
+}
+
 .clean_table {
 	width: 100%;
 	text-align: center;
