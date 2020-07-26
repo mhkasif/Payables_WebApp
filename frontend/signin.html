@@ -24,37 +24,8 @@
 <body style="display:none;background: #f9f9f9;">
     <!--<button type="button" onclick="googleSignInClicked()">Google SignIn</button>-->
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-    <div>
-        <div id="google-signin">
-            <a href="#"><img src="img/logo7.png" style="width: 53%;margin: auto 22%;" /></a>
-            <br>
-            <h3 style="text-align: center;font-family: monospace;margin-top: 10%;">Run an organized business today</h3>
-        </div>
-            <div style="width: max-content;margin: auto;">
-                <div style="margin-bottom: 10px; width: 70%;"><span style="font-weight: bold;color: crimson;" id="login_error"></span></div>
-                <div style="margin-bottom: 20px;display:grid;">
-                    <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;">Email:</span> 
-                    <input style="width: 210px;" id="email" type="text" />
-                </div>
-                <div style="margin-bottom: 20px;display:grid;">
-                    <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;"> Password: </span>
-                    <input id="password" style="width: 210px;" type="password" />
-                </div>
-                <button id="siginIndirectly" onclick="signInUsingEmailPassword();"  style="width: 100%;">LOGIN</button>
-            </div>
-    </div>
-    </div>
-    <div class="col">
-        <a><img src="img/bannerwoman.png" style="width: 500px;" /></a>
-    </div>
-  </div>
 
-
-
-
+<div  class="container">
     <div style="border-radius: 7px;
     box-shadow: 0px 2px 5px 9px #e8e8e833;
     margin: 3% auto;
@@ -63,9 +34,9 @@
     width: fit-content;
     background: #ffff;
     border: ridge;
-    display: flex;">
+    display: flex;" class="row">
    
-    <div>
+    <div class="col">
         <div id="google-signin">
             <a href="#"><img src="img/logo7.png" style="width: 53%;margin: auto 22%;" /></a>
             <br>
@@ -84,9 +55,11 @@
                 <button id="siginIndirectly" onclick="signInUsingEmailPassword();"  style="width: 100%;">LOGIN</button>
             </div>
     </div>
-
+      <div class="col">
         <a><img src="img/bannerwoman.png" style="width: 500px;" /></a>
+      </div>
     </div>
+</div>
 
     <style>
         /**
