@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Payables Payment Screen ~ Stripe</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Payables Payment Screen ~ Stripe" name="description" />
+    <meta content="Teams & Collaborators" name="description" />
     <link href="css/global.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
@@ -57,7 +57,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="/index">
-                        <i class="fas fa-arrow-left"></i> &nbsp; Dashboard
+                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
                     </a>
                 </li>
 
@@ -71,9 +71,11 @@
                                 src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp;
                         </span><span id="username" style="margin-left: 10px;">Not LoggedIn</span> </a>
                     <div class="dropdown-content">
-                        <a href="pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a href="/auditlogs" target="_self">Audit Logs</a>
+                        <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a href="/collaborators" target="_self">Teams & Permissions</a>
                         <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">Report a bug</a>
-                        <a href="www.google.com" target="_blank">Helpdesk</a>
+                        <a href="http://www.google.com" target="_blank">Helpdesk</a>
                         <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;"
                             onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i
                                 class="fas fa-sign-out-alt"></i></a>
@@ -133,11 +135,6 @@
     <div id="add-collaborator-tab" class="tabcontnt container" style="margin-top: 25px;">
         <div class="flex flex-wrap justify-center" style="margin-top:20px;" id="prices-and-payment">
             <div class="settings_setup_container">
-                <div class="settings_sepration_header">
-                    <h3>Add Collaborator
-                        <p>Add a collaborator user type with special account privileges with edit and view rights.</p>
-                    </h3>
-                </div>
                 <div><span style="font-weight: bold; color: crimson;" id="acc_linking_message"></span></div>
                 <div class="single_input" style="margin-bottom: 10px;">
                     <label>Email:</label>
@@ -185,6 +182,21 @@
                             <th style="width: 9%;">Lock/Unlock</th>
                         </tr>
                     </thead>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" id="other-email" placeholder="Enter email address" value=""></td>
+                        <td><input type="text" id="other-pwd" placeholder="Enter password" value=""></td>
+                        <td>                    
+                        <select id='other-type'
+                        style="padding: 3px;border-radius: 3px;height: 34px;">
+                        <option value="" selected disabled hidden>--Select--</option>
+                        <option>Submitter</option>
+                        <option>Approver</option>
+                        </select>
+                        </td>
+                        <td><input type="text" id="" placeholder="Enter team name" value=""></td>
+                        <td colspan="2"><button style="width: 100%;background: #5f5c5c;" onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add Collaborator</button></td>                     
+                    </tr>
                     <tr>
                         <td id="owner_name">------</td>
                         <td id="owner_email">OwnerEmail@gmail.com</td>
@@ -533,7 +545,7 @@
                 })
         }
         function viewAlert() {
-            alert("You've not the permission for this action");
+            alert("You dont have the permission to remove a user");
         }
         function LockUnlockUser(data){
             if(confirm("Are you sure you want to "+(data.islocked?"unlock":"lock")+" the user?")){

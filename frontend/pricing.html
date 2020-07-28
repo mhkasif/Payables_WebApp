@@ -69,10 +69,14 @@
                 <li class="dropdown">
                   <a class="dropbtn" style="display: flex; height: 80px;"><span id="userimage"><img src="img/Profilepic.webp" style="max-width: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 12px; margin-right: 9px;">Not LoggedIn</span></a>
                   <div class="dropdown-content" >
-                  <a href="pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
-                   <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >Report a bug</a>
-                   <a href="www.google.com" target="_blank" >Helpdesk</a>
-                  <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                        <a href="/auditlogs" target="_self">Audit Logs</a>
+                        <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a href="/collaborators" target="_self">Teams & Permissions</a>
+                        <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">Report a bug</a>
+                        <a href="http://www.google.com" target="_blank">Helpdesk</a>
+                        <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;"
+                            onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i
+                                class="fas fa-sign-out-alt"></i></a>
                   </div>
                 </li>
             </ul>
@@ -80,7 +84,12 @@
     </nav>
 
 
-    <div class="container" style="margin-top: 5%;">
+    <div class="container" style="margin-top: 100px;
+    background: #fff;
+    padding: 2%;
+    border-radius: 6px;
+    box-shadow: 2px 7px 20px 7px #8a8a8a14;
+    border: 2px solid #f3f3f3;">
         <div class="row">
             <div class="col-md-12">
                 <h2 style="text-align:center">Current Subscription Details</h2>
@@ -90,20 +99,20 @@
         <div class="row" style="margin-left: 48px;
     padding-bottom: 22px;
     margin-top: 26px;
-    border: 1px solid #c9c8c7;
-    box-shadow: 0 1px 21px 0 rgba(135,140,157,.2);
     border-radius: 7px;
     overflow: hidden;
-    background: #ffffff url(../img/5ede8c01da0955caac532ece_scene_1.png) 101% 11% no-repeat;
+    background: #ffffff url(../img/pricebanner.png) 101% 11% no-repeat;
     background-repeat: no-repeat;
     background-size: 68% 100%;
     background-position-x: 100%;
     background-position-y: 38%;
     margin: 1%;
     padding: 23px;
-    background-color: #fafafa;
+    background-color: #ffffff;
     font-weight: 700;
-    font-size: 14px;">
+    font-size: 14px;
+    box-shadow: 11px 9px 12px 2px #f7f7f7cf;
+    border: 1px solid #eaeaea;">
             <div class="col-md-4" id="prev-subscription-details" style="display:none;padding: 0;">
                 <ul style="line-height: 36px; font-family: monospace; list-style: none; padding: 0;color: #5c5c5c;">
                     <li> <i class="far fa-envelope-open"></i> &nbsp; Email: <span id="email">-</span></li>
