@@ -11,7 +11,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 <style>
     .firebaseui-idp-button {
@@ -152,6 +152,7 @@
                         if (user) {
                             console.log(user);
                             UserObject = user;
+
                             db.collection("tbl_linked_account_access")
                                 .doc(UserObject.uid)
                                 .get()
@@ -159,62 +160,93 @@
                                     var data = res.data();
                                     console.log(data, UserObject);
                                     if (data) {
-                                        localStorage.setItem("access", data.type);
-                                        localStorage.setItem("user", data.user);
-                                        localStorage.setItem("userid", data.UserID);
-                                        localStorage.setItem("owner_email",data.owner_email);
-                                        localStorage.setItem("current_userid", UserObject.uid);
-                                        localStorage.setItem("islinkedaccount", true);
-                                        db.collection('tbl_audit_log').add({
-                                            content: `User logged in <b>${data.user}</b>`,
-                                            now: (new Date()).getTime(),
-                                            party: '',
-                                            date: '',
-                                            amount: '',
-                                            refId:  localStorage.getItem("userid"),
-                                            user: localStorage.getItem("user"),
-                                            collection: 'login Activity'
-                                        });
-                                        location.href = url + "/index";
-                                    } else {
-                                        localStorage.setItem("access", "Owner");
-                                        localStorage.setItem("user", UserObject.displayName);
-                                        localStorage.setItem("userid", UserObject.uid);
-                                        localStorage.setItem("current_userid", UserObject.uid);
-                                        localStorage.setItem("owner_email",UserObject.email);
-                                        localStorage.setItem("islinkedaccount", false);
-                                        db.collection('tbl_audit_log').add({
-                                            content: `User logged in <b>${ UserObject.displayName}</b>`,
-                                            now: (new Date()).getTime(),
-                                            party: '',
-                                            date: '',
-                                            amount: '',
-                                            refId: localStorage.getItem("userid"),
-                                            user: localStorage.getItem("user"),
-                                            collection: 'login Activity'
-                                        });
-                                        tblStripeCustomers = db.collection("tbl_stripecustomers");
-                                        tblStripeCustomers.where("UserID", "==", localStorage.getItem("userid")).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
-                                            if (querySnapshot.docs.length > 0) {
-                                                console.log(querySnapshot);
-                                                $("#customerid").val(querySnapshot.docs[0].data().customerid);
-                                                getCustomerSubscriptions().then(function (response) {
+                                        if (data.islocked) {
+                                            firebase.auth().signOut().then(function () {
+                                                $("#login_error").html("Your account is locked. Please contact your administrator.");
+                                            }).catch(function (error) {
+                                                // An error happened.
+                                            });
 
-                                                    if (response.length > 0) {
-                                                        if (response[0].status == "active" || response[0].status == "trialing") {
-                                                            location.href = url + "/index";
-                                                        }
-                                                    } else {
-                                                        subscribeTrial();
-                                                    }
-
+                                        } else {
+                                            if (user.emailVerified) {
+                                                localStorage.setItem("access", data.type);
+                                                localStorage.setItem("user", data.user);
+                                                localStorage.setItem("groupid", data.GroupID);
+                                                localStorage.setItem("group", data.group);
+                                                localStorage.setItem("userid", data.UserID);
+                                                localStorage.setItem("owner_email", data.owner_email);
+                                                localStorage.setItem("current_userid", UserObject.uid);
+                                                localStorage.setItem("islinkedaccount", true);
+                                                db.collection('tbl_audit_log').add({
+                                                    content: `User logged in <b>${data.user}</b>`,
+                                                    now: (new Date()).getTime(),
+                                                    party: '',
+                                                    date: '',
+                                                    amount: '',
+                                                    refId: localStorage.getItem("userid"),
+                                                    user: localStorage.getItem("user"),
+                                                    collection: 'login Activity'
                                                 });
+                                                $("body").show();
+                                                location.href = url + "/index";
                                             } else {
-                                                subscribeTrial();
+                                                $("body").show();
+                                                UserObject.sendEmailVerification().then(function () {
+                                                    $("#login_error").html("We sent you and email for verification.Please verify your email account.");
+                                                });
+
+
                                             }
-                                        });
+                                        }
+                                    } else {
+                                        if (UserObject.emailVerified) {
+                                            localStorage.setItem("access", "Owner");
+                                            localStorage.setItem("user", UserObject.displayName);
+                                            localStorage.setItem("userid", UserObject.uid);
+                                            localStorage.setItem("groupid", "admin");
+                                            localStorage.setItem("group", "owner");
+                                            localStorage.setItem("current_userid", UserObject.uid);
+                                            localStorage.setItem("owner_email", UserObject.email);
+                                            localStorage.setItem("islinkedaccount", false);
+                                            db.collection('tbl_audit_log').add({
+                                                content: `User logged in <b>${UserObject.displayName}</b>`,
+                                                now: (new Date()).getTime(),
+                                                party: '',
+                                                date: '',
+                                                amount: '',
+                                                refId: localStorage.getItem("userid"),
+                                                user: localStorage.getItem("user"),
+                                                collection: 'login Activity'
+                                            });
+                                            tblStripeCustomers = db.collection("tbl_stripecustomers");
+                                            tblStripeCustomers.where("UserID", "==", localStorage.getItem("userid")).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                                                if (querySnapshot.docs.length > 0) {
+                                                    console.log(querySnapshot);
+                                                    $("#customerid").val(querySnapshot.docs[0].data().customerid);
+                                                    getCustomerSubscriptions().then(function (response) {
+
+                                                        if (response.length > 0) {
+                                                            if (response[0].status == "active" || response[0].status == "trialing") {
+                                                                location.href = url + "/index";
+                                                            }
+                                                        } else {
+                                                            subscribeTrial();
+                                                        }
+
+                                                    });
+                                                } else {
+                                                    subscribeTrial();
+                                                }
+                                            });
+                                        } else {
+                                            $("body").show();
+                                            UserObject.sendEmailVerification().then(function () {
+                                                $("#login_error").html("We sent you and email for verification.Please verify your email account.");
+                                            });
+                                        }
                                     }
                                 });
+
                             //location.href = url + "/index";
                         } else {
                             $("body").show();
@@ -262,6 +294,8 @@
                 });
             });
         });
+
+
     </script>
 </body>
 

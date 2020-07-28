@@ -3,6 +3,8 @@ const app = express();
 const { resolve } = require('path');
 const bodyParser = require('body-parser');
 const moment = require('moment');
+
+var nodemailer = require('nodemailer');
 // Replace if using a different env file or config
 require('dotenv').config({ path: __dirname + '/exp.env' });
 if (
@@ -65,6 +67,10 @@ app.get('/', (req, res) => {
 
 app.get('/index', function (req, res) {
   const path = __dirname + '/' + process.env.STATIC_DIR + '/index.html';
+  res.render(path);
+});
+app.get('/settings', function (req, res) {
+  const path = __dirname + '/' + process.env.STATIC_DIR + '/setting.html';
   res.render(path);
 });
 
@@ -402,6 +408,32 @@ app.post(
     res.sendStatus(200);
   }
 );
+
+
+app.post('/send-verification-email', async (req, res) => {
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'safeermalik1515@gmail.com',
+    pass: 'MyP@ssword123'
+  }
+});
+
+var mailOptions = {
+  from: 'payables@gmail.com',
+  to: req.body.email,
+  subject: 'Email verification',
+  text: 'Verify your email by clicking below link. \n http://localhost:4243/signin?email='+req.body.email+'&code='+req.body.uid+''
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    res.send(error);
+  } else {
+    res.sendStatus(200);
+  }
+});
+});
 var server_port = 4242 || process.env.PORT || 80;
 var server_host = 'localhost' || '0.0.0.0';
 app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));

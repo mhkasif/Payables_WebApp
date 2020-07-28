@@ -7,6 +7,68 @@
     <meta charset="UTF-8">
     <script>
         var url = location.origin + location.href.replace(location.origin, '').substr(0, location.href.replace(location.origin, '').lastIndexOf('/'));
+        var groupid = localStorage.getItem("groupid");
+        var group = localStorage.getItem("group");
+        var userid = localStorage.getItem("userid");
+        var isOwner = false;
+        if (localStorage.getItem("access") == "Owner") {
+            isOwner = true;
+        } else {
+            isOwner = false;
+        }
+        var isApprover = false;
+        if (localStorage.getItem("access") == "Approver") {
+            isApprover = true;
+        } else {
+            isApprover = false;
+        }
+
+        var isGroupAdmin = false;
+        if (localStorage.getItem("access") == "Group Admin") {
+            isGroupAdmin = true;
+        } else {
+            isGroupAdmin = false;
+        }
+
+        var isSubmitter = false;
+        if (localStorage.getItem("access") == "Submitter") {
+            isSubmitter = true;
+        } else {
+            isSubmitter = false;
+        }
+        function GotoPricing() {
+            if (localStorage.getItem("access") == "Owner") {
+                //location.url = url + "/pricing";
+                window.open(url + "/pricing", "_self");
+            } else {
+                alert("You don't have permission to access requested page.")
+            }
+        }
+
+        function GotoCollaborators() {
+            if (localStorage.getItem("access") == "Owner" || isGroupAdmin) {
+                window.open(url + "/collaborators", "_self");
+            } else {
+                alert("You don't have permission to access requested page.")
+            }
+        }
+
+        function GoToAuditLogs() {
+            if (localStorage.getItem("access") == "Owner") {
+                window.open(url + "/auditlogs", "_self");
+            } else {
+                alert("You don't have permission to access requested page.")
+            }
+        }
+
+        function GoToSettings() {
+            if (localStorage.getItem("access") == "Owner") {
+                window.open(url + "/settings", "_self");
+            } else {
+                alert("You don't have permission to access requested page.")
+            }
+        }
+
     </script>
     <title>Payables by Tulsi</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet">
@@ -24,11 +86,11 @@
         label {
             display: flex !important;
         }
-    
+
         .select2-container--open .select2-dropdown--below {
             width: 345px;
         }
-    
+
         .select2-selection.select2-selection--multiple {
             width: 344px;
             max-height: 280px !important;
@@ -36,7 +98,7 @@
             background: #fcfcfc;
             border: 1px solid #3333;
         }
-    
+
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: #ffffff;
             border: 1px solid #aaa;
@@ -46,7 +108,7 @@
             margin-top: 5px;
             padding: 4px;
         }
-    
+
         .dropbtn {
             background-color: #ffffff;
             color: white;
@@ -55,12 +117,12 @@
             border: none;
             cursor: pointer;
         }
-    
+
         .dropdown {
             position: relative;
             display: inline-block;
         }
-    
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -74,7 +136,7 @@
             margin: 4%;
             margin-top: 0;
         }
-    
+
         .dropdown-content a {
             color: #737373;
             padding: 17px 16px;
@@ -85,20 +147,20 @@
             font-size: 15px;
             text-align: center;
         }
-    
+
         .dropdown-content a:hover {
             background-color: #f1f1f1;
         }
-    
+
         .dropdown:hover .dropdown-content {
             display: block;
             width: 242px;
         }
-    
+
         .dropdown:hover .dropbtn {
             text-align: center;
         }
-    
+
         .message_notify {
             font-size: 15px;
             border: 2px solid #616161;
@@ -114,7 +176,7 @@
             font-weight: 400;
             padding: 10px;
         }
-    
+
         .message_notify a {
             background: #616161;
             color: #ffffff !important;
@@ -212,9 +274,10 @@
                                 style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not
                             LoggedIn</span> &nbsp; <i class="fas fa-angle-down"></i></a>
                     <div class="dropdown-content">
-                        <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
-                        <a href="/collaborators" target="_self">User Access</a>
-                        <a href="/auditlogs" target="_self">Audit Logs</a>
+                        <a onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a onclick="GotoCollaborators()" target="_self">User Access</a>
+                        <a onclick="GoToAuditLogs()" target="_self">Audit Logs</a>
+                        <a onclick="GoToSettings()" target="_self">Settings</a>
                         <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">Report a bug</a>
                         <a href="www.google.com" target="_blank">Helpdesk</a>
                         <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;"
@@ -477,25 +540,30 @@
             <div class="modal-body">
                 <div>
                     <h3 style="margin-bottom: 10px;">Add Notes against Check #<span id="check_no"></span></h3>
-                    <br/>
+                    <br />
                     <div style="margin-bottom: 20px;">
                         <span style="text-align: left;
            padding: 15px;
-           margin-bottom: 10px;">Notes:</span> <textarea style="width: 80%;margin: 0px;height: 58px;" id="notes" type="textarea" ></textarea>
+           margin-bottom: 10px;">Notes:</span> <textarea style="width: 80%;margin: 0px;height: 58px;" id="notes"
+                            type="textarea"></textarea>
                     </div>
                     <div style="margin-bottom: 20px;">
                         <span style="text-align: left;
            padding: 15px;
-           margin-bottom: 10px;">Attachment:</span><input type="file" style="border: none; width: 80%;" id="transaction_attachment"></input>
+           margin-bottom: 10px;">Attachment:</span><input type="file" accept="image/x-png,image/gif,image/jpeg"
+                            style="border: none; width: 80%;" id="transaction_attachment"></input>
+                        <div id="attachmentsdiv"> <span id="attachments" style="margin-left: 10px;"
+                                onclick="downloadattachment($(this).html());">attachments</span>&nbsp;&nbsp;<span
+                                onclick="deleteAttachment()"><i class="fa fa-trash"></i></span> </div>
                     </div>
                     <input id="notes_transaction_id" style="display: none;"></input>
                 </div>
                 <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
-                    onclick="AddNotesToTransaction();">Add Notes.</button>
+                    onclick="AddNotesToTransaction();">Save Notes.</button>
 
-                    <br>
                 <br>
-                <div>
+                <br>
+                <div style="display: none;">
                     <table class="saved_table">
                         <thead>
                             <tr>
@@ -509,7 +577,7 @@
                         </thead>
                         <tbody id="transaction_notes_table_tbody">
                             <!-- Firebase data -->
-    
+
                         </tbody>
                         <tr id="loading_rows_tr" class="loading_rows">
                             <td colspan="3"><img src="img/loader.svg" /> &nbsp; Loading results...</td>
@@ -549,6 +617,10 @@
                 /* Black w/ opacity */
             }
 
+            .blue-text {
+                color: blue;
+            }
+
             .modal-body {
                 clear: both;
                 margin-top: 10px;
@@ -562,7 +634,7 @@
                 padding: 20px;
                 border: 1px solid #888;
                 width: 45%;
-                height: 75%;
+                height: 45%;
             }
 
             .modal-close-btn {
@@ -590,15 +662,15 @@
             <div class="modal-body">
                 <div>
                     <h3 style="margin-bottom: 10px;">Approve/Deny Transaction</h3>
-                   
+
                 </div>
                 <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
                     onclick="SetSignedOrDenied('Approved');">Approve</button>
-                    <br>
-                    <br>
-                    <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
+                <br>
+                <br>
+                <br /><button style="float: none;width: 50%;justify-content: center;margin-left: 25%;"
                     onclick="SetSignedOrDenied('Denied');">Deny</button>
-                    <br>
+                <br>
                 <br>
             </div>
         </div>
@@ -669,7 +741,7 @@
     </div>
 
     <script>
-        function closeapproveDenyModal(){
+        function closeapproveDenyModal() {
             $("#transaction-approve_deny_modal").hide();
         }
         function closeNotesModal() {
@@ -679,18 +751,28 @@
         function openNotesModal() {
             $("#transaction-notes-modal").show();
         }
-       
+
         $(document).ready(function () {
-            setTimeout(function () { $('#clearchk').prop("checked", true).trigger("change"); }, 5000);
+            setTimeout(function () {
+                $('#clearchk').prop("checked", true).trigger("change");
+                var field = document.querySelector('#transaction_date');
+                var date = new Date();
+
+                // Set the date
+                field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
+                    '-' + date.getDate().toString().padStart(2, 0);
+            }, 5000);
             $("body").hide();
             $(".collectiondayselect").select2();
             getFirebaseConfig().then(function () {
                 firebase.auth().onAuthStateChanged(function (user) {
                     if (user) {
                         UserObject = user;
-
-                        $('#userimage').find('img').attr('src', (UserObject.photoURL?UserObject.photoURL:'img/Profilepic.webp'));
-                        $('#username').text((UserObject.displayName?UserObject.displayName:UserObject.email.split('@')[0]));
+                        if (!UserObject.emailVerified) {
+                            location.href = url + "/signin";
+                        }
+                        $('#userimage').find('img').attr('src', (UserObject.photoURL ? UserObject.photoURL : 'img/Profilepic.webp'));
+                        $('#username').text((UserObject.displayName ? UserObject.displayName : UserObject.email.split('@')[0]));
 
                         tblUsers = db.collection("tbl_users");
                         tblUsers.where("UserID", "==", localStorage.getItem("userid")).get().then(function (querySnapshot) {
@@ -698,11 +780,13 @@
                                 tblStripeCustomers = db.collection("tbl_stripecustomers");
                                 tblStripeCustomers.where("UserID", "==", localStorage.getItem("userid")).where("CustomerEmail", "==", localStorage.getItem("owner_email")).get().then(function (querySnapshotNew) {
                                     if (querySnapshotNew.docs.length > 0) {
+
                                         $('#customerid').val(querySnapshotNew.docs[0].data().customerid);
                                         getCustomerSubscriptions().then(function (response) {
 
                                             if (response.length > 0) {
                                                 if (response[0].status == "active" || response[0].status == "trialing") {
+                                                    getUserExpenseTypes();
                                                 } else {
                                                     location.href = url + "/pricing";
                                                 }
@@ -756,8 +840,22 @@
             });
         });
 
-        function GotoPricing() {
-            location.url = url + "/pricing";
+        function getUserExpenseTypes() {
+            console.log("appending expense types");
+            $("#mode").html("");
+
+            $("#mode").append("<option selected>Who're they ?</option>");
+            $("#mode").append("<option class='green-text' value='Buyer'>Buyer</option>");
+            $("#mode").append("<option class='red-text' value='Supplier'>Supplier</option>");
+            db.collection('tbl_expense_type').where('UserID', '==', localStorage.getItem("userid")).get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(val => {
+                        var data = val.data();
+                        data.id = val.id;
+                        $("#mode").append("<option class='blue-text'  value='" + data.type + "'>" + data.type + "</option>");
+                    })
+
+                });
         }
 
         function SignOutFirebase() {
@@ -773,15 +871,16 @@
 <script>
     $(window).load(function () {
         $('#loading').hide();
+
     });
     var ViewOnly = false;
-        $(document).ready(function () {
-          
-            if (localStorage.getItem("access") == "View Only") {
-                ViewOnly = true;
-                //  location.href=url+"/index";
-            }
-        });
+    $(document).ready(function () {
+
+        if (localStorage.getItem("access") == "Owner") {
+            ViewOnly = true;
+            //  location.href=url+"/index";
+        }
+    });
 </script>
 
 

@@ -4,25 +4,8 @@ var tblAccounts/* = db.collection("tbl_accounts")*/;
 var tblAccountCheques/* = db.collection("tbl_account_cheques")*/;
 var tblUsers, tbl_transaction_notes;
 var lastfetchedRecord;
-var userid = localStorage.getItem("userid");
-var isOwner = false;
-if(localStorage.getItem("access")=="Owner"){
-    isOwner=true;
-}else{
-    isOwner=false;
-}
-var isApprover =false;
-if(localStorage.getItem("access")=="Approver"){
-    isApprover=true;
-}else{
-    isApprover=false;
-}
-var isSubmitter =false;
-if(localStorage.getItem("access")=="Submitter"){
-    isSubmitter=true;
-}else{
-    isSubmitter=false;
-}
+
+
 var current_userid = localStorage.getItem("current_userid");
 var weekday = new Array(7);
 weekday[0] = "Sunday";
@@ -330,11 +313,11 @@ function deleteAccount(id) {
         alert("You don't have edit rights");
         return;
     }
+    else if(confirm("Are you sure you want to delete the account?")){
     tblAccounts = db.collection("tbl_accounts");
-    tblAccountCheques.where("account_id", "==", id).get().then(function (querySnapshot) {
+    tblAccountCheques.where("UserID","==",userid).where("account_id", "==", id).get().then(function (querySnapshot) {
         console.log(querySnapshot.docs.length);
         if (querySnapshot.docs.length == 0) {
-            if (confirm('Are you sure to delete this record.')) {
                 tblAccounts.doc(id)
                     .delete().then(function () {
                         db.collection('tbl_audit_log').add({
@@ -352,11 +335,12 @@ function deleteAccount(id) {
                     }).catch(function (error) {
                         console.error("Error removing document: ", error);
                     });
-            }
+            
         } else {
             alert("Account cannot be deleted because it has transactions associated.");
         }
     });
+}
 }
 
 var groupBy = function (xs, key) {
@@ -397,17 +381,24 @@ function GetTransactionGeneral(account_id) {
 function getTrasactionsAll() {
     clearTransactionFields();
 
-    tblAccountCheques = db.collection("tbl_account_cheques").limit(20);
-
+    tblAccountCheques = db.collection("tbl_account_cheques").where("UserID", "==", userid);
+    if(!isOwner){
+        tblAccountCheques =  tblAccountCheques.where("groupid","==",groupid);
+    }
+    if(isSubmitter){
+        tblAccountCheques = tblAccountCheques.where("added_by","==",current_userid)
+    }
+    
+    tblAccountCheques = tblAccountCheques.limit(20);
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
+
     $('#all-transactions li:not([id=add-entry-all])').remove();
-    var query = tblAccountCheques.where("UserID", "==", userid);
-    if(isSubmitter){
-        query = query.where("added_by","==",current_userid);
-    }
-    query.get().then(function (querySnapshot) {
+   
+  
+    tblAccountCheques.get().then(function (querySnapshot) {
+        console.log(querySnapshot,"Here it came");
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -416,6 +407,7 @@ function getTrasactionsAll() {
             obj.id = doc.id;
             allTrasactions.push(obj);
         });
+       
         lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
         allTrasactions = sortByKey(allTrasactions, "order_sequence", true);
         allTrasactions = sortByKey(allTrasactions, "date", true);
@@ -423,15 +415,11 @@ function getTrasactionsAll() {
         var tbodyindex = 0;
         var totalAmount = Number($(".tablinks[data-accid=defaultOpen]").find("input").val());
         for (var key in groupedRecords) {
-            // console.log(key);
-            // console.log(groupedRecords[key]);
             tbodyindex = tbodyindex + 1;
             var sumOfAmount = 0;
             var accountid = "";
             var trCount = 0;
             for (var record in groupedRecords[key]) {
-                // console.log(record);
-                // console.log(groupedRecords[key][record]);
                 var myRecord = groupedRecords[key][record];
                 trCount++;
                 if (myRecord.status != "Bounced") {
@@ -445,7 +433,7 @@ function getTrasactionsAll() {
                 if (myRecord.mode == "Buyer") {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + myRecord.withdrawal + "</span>";
                 }
-                if (myRecord.mode == "Supplier") {
+               else{
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
 
@@ -469,10 +457,11 @@ function getTrasactionsAll() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt" onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-file-alt" '+(myRecord.notes?"":"style=\'opacity:0.2;\'")+' onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="'+(myRecord.notes?myRecord.notes:"No notes added. click to add.")+'"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
+            var draggablekey = key.split("/").join("_");
             totalAmount = totalAmount + sumOfAmount;
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records ' + weekday[new Date(key).getDay()] + '">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
@@ -488,7 +477,7 @@ function getTrasactionsAll() {
                 '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
-                '                        <table class="nowTable" id="draggable-' + key + '">' +
+                '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
@@ -524,11 +513,12 @@ function getTrasactionsAll() {
             } else {
                 $("alert_notification_" + accountid).hide();
             }
-            var $tabs = $('#draggable-' + key + '');
+            var did = '#draggable-' + draggablekey;
+            var tabs = $(did);
             $("tbody.t_sortable").sortable({
                 connectWith: ".t_sortable",
                 items: "> tr",
-                appendTo: $tabs,
+                appendTo: tabs,
                 helper: "clone",
                 zIndex: 999990,
                 update: function (event, ui) {
@@ -577,17 +567,22 @@ function getTrasactionsAll() {
 function getTrasactionsAllPagination() {
     clearTransactionFields();
     console.log("here it comes", lastfetchedRecord);
-    tblAccountCheques = db.collection("tbl_account_cheques").startAfter(lastfetchedRecord).limit(20);
+    
+    tblAccountCheques = db.collection("tbl_account_cheques").where("UserID", "==", userid);
+    if(!isOwner){
+        tblAccountCheques =  tblAccountCheques.where("groupid","==",groupid);
+    }
+    if(isSubmitter){
+        tblAccountCheques = tblAccountCheques.where("added_by","==",current_userid);
+    }
+    tblAccountCheques = tblAccountCheques.startAfter(lastfetchedRecord).limit(20);
 
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
     // $('#all-transactions li:not([id=add-entry-all])').remove();
-    var query = tblAccountCheques.where("UserID", "==", userid);
-    if(isSubmitter){
-        query = query.where("added_by","==",current_userid);
-    }
-    query.get().then(function (querySnapshot) {
+    
+    tblAccountCheques.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -625,14 +620,14 @@ function getTrasactionsAllPagination() {
                 if (myRecord.mode == "Buyer") {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + myRecord.withdrawal + "</span>";
                 }
-                if (myRecord.mode == "Supplier") {
+                else {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
 
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<span class='fa fa-close' style='font-size:25px;color:red;'>X</span>":"---")+'</td>' +
+                    '                                <td  title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<span class='fa fa-close' style='font-size:25px;color:red;'>X</span>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -649,10 +644,11 @@ function getTrasactionsAllPagination() {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-file-alt" '+(myRecord.notes?"":"style=\'opacity:0.2;\'")+' onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="'+(myRecord.notes?myRecord.notes:"No notes added. click to add.")+'"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
+            var draggablekey = key.split("/").join("_");
             totalAmount = totalAmount + sumOfAmount;
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records ' + weekday[new Date(key).getDay()] + '">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
@@ -668,7 +664,7 @@ function getTrasactionsAllPagination() {
                 '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
-                '                        <table class="nowTable" id="draggable-' + key + '">' +
+                '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
@@ -704,7 +700,7 @@ function getTrasactionsAllPagination() {
             } else {
                 $("alert_notification_" + accountid).hide();
             }
-            var $tabs = $('#draggable-' + key + '');
+            var $tabs = $('#draggable-' + draggablekey + '');
             $("tbody.t_sortable").sortable({
                 connectWith: ".t_sortable",
                 items: "> tr",
@@ -755,20 +751,26 @@ function getTrasactionsAllPagination() {
 }
 
 function getTrasactionsByAccount(id) {
-    console.log(id);
     clearTransactionFields();
-    tblAccountCheques = db.collection("tbl_account_cheques").limit(20);
+
+    tblAccountCheques = db.collection("tbl_account_cheques").where("UserID", "==", userid).where("account_id", "==", id);
+   
+    if(!isOwner){
+        tblAccountCheques =  tblAccountCheques.where("groupid","==",groupid);
+    }
+    if(isSubmitter){
+        tblAccountCheques = tblAccountCheques.where("added_by","==",current_userid);
+    }
+    tblAccountCheques = tblAccountCheques.limit(20);
+
 
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
     $('#all-transactions li:not([id=add-entry-all])').remove();
 
-    var query = tblAccountCheques.where("UserID", "==", userid);
-    if(isSubmitter){
-        query = query.where("added_by","==",current_userid);
-    }
-    query.where("account_id", "==", id).get().then(function (querySnapshot) {
+    
+    tblAccountCheques.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -777,6 +779,7 @@ function getTrasactionsByAccount(id) {
             obj.id = doc.id;
             allTrasactions.push(obj);
         });
+        console.log(allTrasactions);
         lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
         allTrasactions = sortByKey(allTrasactions, "order_sequence", true);
         allTrasactions = sortByKey(allTrasactions, "date", true);
@@ -807,14 +810,14 @@ function getTrasactionsByAccount(id) {
                 if (myRecord.mode == "Buyer") {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + myRecord.withdrawal + "</span>";
                 }
-                if (myRecord.mode == "Supplier") {
+                else{
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
 
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<span class='fa fa-close' style='font-size:25px;color:red;'>X</span>":"---")+'</td>' +
+                    '                                <td  title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<span class='fa fa-close' style='font-size:25px;color:red;'>X</span>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -831,10 +834,11 @@ function getTrasactionsByAccount(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-file-alt" '+(myRecord.notes?"":"style=\'opacity:0.2;\'")+' onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="'+(myRecord.notes?myRecord.notes:"No notes added. click to add.")+'"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
+            var draggablekey = key.split("/").join("_");
             totalAmount = totalAmount + sumOfAmount;
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records ' + weekday[new Date(key).getDay()] + '">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
@@ -850,17 +854,17 @@ function getTrasactionsByAccount(id) {
                 '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
-                '                        <table class="nowTable" id="draggable-' + key + '">' +
+                '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sigh</th>' +
+                '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Cheque no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Party Type</th>' +
                 '                                <th>Payment Source</th>' +
-                '                                <th  style="width: 10%;">Payment Status</th>' +
+                '                                <th style="width: 10%;">Payment Status</th>' +
                 '                                <th>Amount</th>' +
                 '                                <th></th>' +
                 '                                <th style="width: 10%;">Action</th>' +
@@ -886,7 +890,8 @@ function getTrasactionsByAccount(id) {
             } else {
                 $("alert_notification_" + accountid).hide();
             }
-            var $tabs = $('#draggable-' + key + '');
+            var did = '#draggable-' + draggablekey;
+            var $tabs = $(did);
             $("tbody.t_sortable").sortable({
                 connectWith: ".t_sortable",
                 items: "> tr",
@@ -939,17 +944,21 @@ function getTrasactionsByAccount(id) {
 function getTrasactionsByAccountPagination(id) {
     console.log(id);
     clearTransactionFields();
-    tblAccountCheques = db.collection("tbl_account_cheques").startAfter(lastfetchedRecord).limit(20);
+    tblAccountCheques = db.collection("tbl_account_cheques").where("UserID", "==", userid).where("account_id", "==", id);
+    if(!isOwner){
+        tblAccountCheques =  tblAccountCheques.where("groupid","==",groupid);
+    }
+    if(isSubmitter){
+        tblAccountCheques = tblAccountCheques.where("added_by","==",current_userid);
+    }
+    tblAccountCheques = tblAccountCheques.startAfter(lastfetchedRecord).limit(20);
 
     allTrasactions = [];
     groupedRecords = {};
     tblRecordsHtml = '';
 
-    var query = tblAccountCheques.where("UserID", "==", userid);
-    if(isSubmitter){
-        query = query.where("added_by","==",current_userid);
-    }
-    query.where("account_id", "==", id).get().then(function (querySnapshot) {
+    
+    tblAccountCheques.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
@@ -958,6 +967,7 @@ function getTrasactionsByAccountPagination(id) {
             obj.id = doc.id;
             allTrasactions.push(obj);
         });
+       
         lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
         allTrasactions = sortByKey(allTrasactions, "order_sequence", true);
         allTrasactions = sortByKey(allTrasactions, "date", true);
@@ -987,13 +997,13 @@ function getTrasactionsByAccountPagination(id) {
                 if (myRecord.mode == "Buyer") {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + myRecord.withdrawal + "</span>";
                 }
-                if (myRecord.mode == "Supplier") {
+                else{
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
                 accountid = myRecord.account_id;
                 tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
-                    '                                <td title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);>'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<span class='fa fa-close' style='font-size:25px;color:red;'>X</span>":"---")+'</td>' +
+                    '                                <td  title="click to approve/unapprove" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color:green;'></i>":myRecord.is_signed=="Denied"?"<span class='fa fa-close' style='font-size:25px;color:red;'>X</span>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span>' + myRecord.payee + '</span></td>' +
@@ -1010,10 +1020,12 @@ function getTrasactionsByAccountPagination(id) {
                     '                                    </select>' +
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
-                    '                                <td><i class="far fa-file-alt"  onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="This is sample description shown in tooltip"></i></td>' +
+                    '                                <td><i class="far fa-file-alt" '+(myRecord.notes?"":"style=\'opacity:0.2;\'")+' onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="'+(myRecord.notes?myRecord.notes:"No notes added. click to add.")+'"></i></td>' +
                     '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a> &nbsp;<a href="#" style="color:#f46083;" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
                     '                            </tr>';
             }
+            
+            var draggablekey = key.split("/").join("_");
             totalAmount = totalAmount + sumOfAmount;
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records ' + weekday[new Date(key).getDay()] + '">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
@@ -1029,7 +1041,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
-                '                        <table class="nowTable" id="draggable-' + key + '">' +
+                '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
@@ -1065,7 +1077,7 @@ function getTrasactionsByAccountPagination(id) {
             } else {
                 $("alert_notification_" + accountid).hide();
             }
-            var $tabs = $('#draggable-' + key + '');
+            var $tabs = $('#draggable-' + draggablekey + '');
             $("tbody.t_sortable").sortable({
                 connectWith: ".t_sortable",
                 items: "> tr",
@@ -1209,6 +1221,7 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
         cheque_no: document.getElementById('cheque_no').value,
         date: document.getElementById('transaction_date').value,
         flag: false,
+        groupid:groupid,
         UserID: userid,
         added_by:current_userid,
         mode: document.getElementById('mode').value,
@@ -1354,7 +1367,7 @@ function updateTrasaction(id) {
     if (myRecord.mode == "Buyer") {
         withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + myRecord.withdrawal + "</span>";
     }
-    if (myRecord.mode == "Supplier") {
+    else{
         withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
     }
     var tblRecordsHtml = '<tr id="' + id + '">' +
@@ -1376,6 +1389,7 @@ function updateTrasaction(id) {
         '                                    </select>' +
         '                                </td>' +
         '                                <td class="balance">' + withdrawalSpan + '</td>' +
+        '                                <td><i class="far fa-file-alt" '+(myRecord.notes?"":"style=\'opacity:0.2;\'")+' onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="'+(myRecord.notes?myRecord.notes:"No notes added. click to add.")+'"></i></td>' +
         '                                <td><a href="#" type="button" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i> &nbsp; Edit</a>&nbsp;<a href="#" type="button" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i> &nbsp; Delete</a></td>' +
         '                            </tr>';
 
@@ -1730,7 +1744,9 @@ function AddNotesToTransaction() {
         var filename = $('#transaction_attachment').val();
         filename = new Date().getTime()+'.'+filename.split('.').pop();
         let storageRef;// = firebase.storage().ref('transactionAttachments/'+fileName)
+        var isFileAdded= false;
         if($('#transaction_attachment').val()){
+            isFileAdded=true;
            // filename="";
             storageRef = firebase.storage().ref('/transactionAttachments/'+filename);
             let firstFile = $('#transaction_attachment').prop('files')[0];// upload the first file only
@@ -1741,8 +1757,8 @@ function AddNotesToTransaction() {
             });
         }
         var transaction_id = $("#notes_transaction_id").val();
-        tbl_transaction_notes = db.collection("tbl_transaction_notes");
-        tbl_transaction_notes.add({attachment:filename,UserID:userid,notes:$("#notes").val(),transaction_id:transaction_id}).then(function(){
+        tbl_transaction_notes = db.collection("tbl_account_cheques");
+        tbl_transaction_notes.doc(transaction_id).update({attachment:(isFileAdded?filename:''),notes:$("#notes").val()}).then(function(){
             load_transaction_notes();
             $("#notes").val("");
             $('#transaction_attachment').val("");
@@ -1754,7 +1770,7 @@ function AddNotesToTransaction() {
                 amount: '',
                 refId: userid,
                 user: localStorage.getItem("user"),
-                collection: 'TransactionsNotes'
+                collection: 'tbl_account_cheques'
             });
         });
     } else {
@@ -1766,25 +1782,41 @@ function load_transaction_notes() {
     $("#transaction_notes_table_tbody").html("");
     $("#loading_rows_tr").show();
     var transaction_id = $("#notes_transaction_id").val();
-    tbl_transaction_notes = db.collection("tbl_transaction_notes");
-    tbl_transaction_notes.where("UserID", "==", userid).where("transaction_id", "==", transaction_id)
+    tbl_transaction_notes = db.collection("tbl_account_cheques");
+    tbl_transaction_notes.doc(transaction_id)
         .get().then(function (results) {
+            var doc = results;
+            console.log(results.data());
+            if(doc.data().notes){
+          var doc = results;
+          $("#notes").val(doc.data().notes);
+          if(doc.data().attachment){
+          $("#attachments").html((doc.data().attachment?doc.data().attachment:""));
           
-            results.forEach(function (doc) {
+          $("#attachmentsdiv").show();  
+        }else{
+            $("#attachmentsdiv").hide(); 
+        }
                 var tr = "<tr id='" + doc.id + "'>" +
                     "<td style='text-align: left;'>" + doc.data().notes + "</td>"+
                     "<td  style='text-align: left;'><a href='#' onclick='downloadattachment(\""+doc.data().attachment+"\")'>"+(doc.data().attachment?doc.data().attachment:"")+"</a></td>"+
                 "<td  style='text-align: left;'><a href='#' onclick='delete_transaction_notes(this);'> delete</a></td></tr>";
                 $("#transaction_notes_table_tbody").append(tr);
-            });
+            }
             $("#loading_rows_tr").hide();
         });
 }
-function delete_transaction_notes(ele) {
+function deleteAttachment() {
     if(confirm("Are you sure you want to Delete these notes?")){
-    var notes_id = $(ele).parent().parent().attr("id");
-    tbl_transaction_notes = db.collection("tbl_transaction_notes");
-    tbl_transaction_notes.doc(notes_id).get().then(function(resp){
+        if(added_from_file_input){
+            $('#transaction_attachment').val('');
+            $("#attachmentsdiv").hide();
+            return;
+        }
+    //var notes_id = $(ele).parent().parent().attr("id");
+    var transaction_id = $("#notes_transaction_id").val();
+    tbl_transaction_notes = db.collection("tbl_account_cheques");
+    tbl_transaction_notes.doc(transaction_id).get().then(function(resp){
             if(resp.data().attachment){
                 var storageRef = firebase.storage().ref('/transactionAttachments/'+resp.data().attachment);
                 storageRef.delete().then(function() {
@@ -1794,7 +1826,7 @@ function delete_transaction_notes(ele) {
                   });
             }
     });
-    tbl_transaction_notes.doc(notes_id).delete().then(function(){
+    tbl_transaction_notes.doc(transaction_id).update({attachment:''}).then(function(){
         load_transaction_notes();
         db.collection('tbl_audit_log').add({ 
             content: `Transaction Notes delete for ${notes_id}`,
@@ -1808,6 +1840,15 @@ function delete_transaction_notes(ele) {
         });
     });}
 }
+var added_from_file_input=false;
+$('#transaction_attachment').on("change",function(){
+    var filename = $('#transaction_attachment').val();
+    filename = new Date().getTime()+'.'+filename.split('.').pop();
+    $("#attachments").html((filename));
+    added_from_file_input=true;
+    
+    $("#attachmentsdiv").show(); 
+});
 
 function open_notes_modal(transaction_id,check_no){
     $("#check_no").html(check_no);

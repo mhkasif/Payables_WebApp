@@ -94,7 +94,7 @@
                     </h3>
                 </div>
                 <br>
-                <table id='timeline-tab' class="clean_table">
+                <table id='timeline-tab' style="margin-bottom: 50px;" class="clean_table">
                     <colgroup>
                         <col span="1" style="background-color: #efefef; border-left: 1px solid #9999;">
                     </colgroup>
@@ -118,6 +118,11 @@
                         <tr class="loading_rows">
                             <td colspan="4"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
                         </tr>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6" style="text-align: center;"><span id="backward_page"  style="color:blue;cursor:pointer;" onclick="getAuditLogPagination(true);">Previous</span>&nbsp;<span id="page_number" style="margin-left: 5px;margin-right: 5px;"></span>&nbsp;<span id="forward_page" style="color:blue;cursor:pointer;" onclick="getAuditLogPagination(false);">Next</span></td>
+                            </tr>
+                        </tfoot>
                     </tbody>
                 </table>
             </div>
@@ -169,6 +174,13 @@
 
                     if (user) {
                         UserObject = user;
+                        if(!UserObject.emailVerified){
+                            location.href = url + "/signin";
+                        }
+                        $("#owner_name").html(UserObject.displayName);
+                        $("#owner_email").html(UserObject.email);
+                        $('#userimage').find('img').attr('src', UserObject.photoURL);
+                        $('#username').text((UserObject.displayName ? UserObject.displayName : UserObject.email.split("@")[0]));
                         getAuditLog();
                     } else {
                         location.href = url + "/signin";
@@ -186,13 +198,127 @@
                 location.href = url + "/index";
             }
         });
+        var totalcount = 0;
+        var recordsFetched = 0;
+        var lastfetchedRecord = null;
+        var firstfetchedRecord = null;
+        var page_number = 1;
+        var lastfetchedRcd=null;
         async function getAuditLog() {
-          //  var current = await getUserData();
+            //  var current = await getUserData();
+            $("#backward_page").hide();
             var arr = [];
             const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
             await db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).get()
                 .then(querySnapshot => {
+                    totalcount = querySnapshot.docs.length;
+                }).catch(err => {
+                    console.log(err);
+                });
+            var query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).limit(50);
+            await query.get()
+                .then(querySnapshot => {
+                    recordsFetched = querySnapshot.docs.length;
+                        if(totalcount==recordsFetched){
+                            $("#backward_page").hide();
+                            $("#forward_page").hide();
+                         
+                        }
+                        $("#page_number").html(page_number);
+                    lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
+                    firstfetchedRecord = querySnapshot.docs[0];
+                    lastfetchedRcd = firstfetchedRecord;// querySnapshot.docs[querySnapshot.docs.length - 1];
+                    querySnapshot.forEach(val => {
+                        arr.push(val.data());
+                    })
+                }).catch(err => {
+                    console.log(err);
+                })
+                console.log(totalcount,recordsFetched);
+            var data = arr.slice(0);
+            data.sort(function (a, b) {
+                return b.now - a.now;
+            });
+
+            var tbody = document.getElementById('audit-log-tbody');
+            tbody.innerHTML = '';
+            //     db.collection('tbl_audit_log').add({
+            //     content: `Transaction ${transaction_id} updated as signed</b>`,
+            //     now: (new Date()).getTime(),
+            //     party: '',
+            //     date: '',
+            //     amount: '',
+            //     refId: UserObject.uid,
+            //     collection: 'Transactions'
+            // });
+            for (let i = 0; i < data.length; i++) {
+                var d = new Date(parseInt(data[i].now));
+                var date = d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+                var hours = 0;
+                var zone = 'am';
+                if (d.getHours() > 12) {
+                    hours = d.getHours() - 12;
+                    zone = 'pm'
+                } else {
+                    hours = d.getHours()
+                }
+                var time = hours + ":" + d.getMinutes() + zone;
+                var tr = document.createElement('tr');
+                tr.innerHTML = `<td><b>${date}</b> ${time}</td>
+            <td>${data[i].user ? data[i].user : UserObject.displayName}</td>
+            <td>${data[i].content}</td>
+            <td>${data[i].party ? data[i].party : ''}</td>
+            <td>${data[i].date ? data[i].date : ''}</td>
+            <td>${data[i].amount ? data[i].amount : ''}</td>`;
+                tbody.appendChild(tr)
+            }
+        }
+        var lastfetchedRecordcount=0;
+        async function getAuditLogPagination(IsBackward) {
+            //  var current = await getUserData();
+            var arr = [];
+            const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+            var query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid);
+            if(IsBackward){
+               // if(lastfetchedRecordcount<50)
+                   
+                query = query.startAfter(firstfetchedRecord).limit(50);
+           
+            }else{
+                
+                    query = query.startAfter(lastfetchedRecord).limit(50);
+            }
+            await query.get()
+                .then(querySnapshot => {
+                    $("#backward_page").show();
+                    
+                    if(IsBackward){
+                        page_number--;
+                        recordsFetched = recordsFetched - querySnapshot.docs.length;
+                    }else{
+                        page_number++;
+                        recordsFetched = recordsFetched + querySnapshot.docs.length;  
+                    }
+                    console.log(totalcount,recordsFetched);
+                    if(totalcount<=recordsFetched){
+                        lastfetchedRecordcount= querySnapshot.docs.length;
+                            //$("#backward_page").hide();
+                            $("#forward_page").hide();
+                           
+                    }
+                   
+                    $("#page_number").html(page_number);
+                    if(lastfetchedRecordcount==50){
+                    firstfetchedRecord = querySnapshot.docs[0];
+                }
+                    lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
+                    if(recordsFetched<=50){
+                        lastfetchedRecord = lastfetchedRcd;
+                        $("#backward_page").hide();
+                        $("#forward_page").show();
+                    }
                     querySnapshot.forEach(val => {
                         arr.push(val.data());
                     })
@@ -239,6 +365,7 @@
             }
         }
 
+        
         function SignOutFirebase() {
             firebase.auth().signOut().then(function () {
                 location.href = url + "/signin";
@@ -246,6 +373,8 @@
                 // An error happened.
             });
         }
+
+       
     </script>
     <style>
         .navbar-nav>li>a {

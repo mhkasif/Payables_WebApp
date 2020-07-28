@@ -82,9 +82,55 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
+    <div class="tab" id="tabs-accounts" style="margin-top: 100px;
+    margin-left: 20%">
+        <button class="tablinks active" data-accid="defaultOpen" id="defaultOpen"
+            onclick="openTab('add-collaborator-tab',this)">
+            Add Collaborator
+        </button>
+        <!--ACCOUNT TABS APPEND HERE-->
+        <button class="tablinks" data-accid="add-account" id="add-account" onclick="openTab('add-group-tab',this)">
+            Add Group
+        </button>
+        <script>
+            function openTab(tab, ele) {
+                if(tab=="add-group-tab" && localStorage.getItem("access")!="Owner"){
+                    alert("Sorry! you don't have access.");
+                    return;
+                }
+                if(tab=="add-group-tab"){
+                    getGroups();
+                }
+                getGroupsDDL();
+                $(".tabcontnt").hide();
+                $("#" + tab).show();
+                $(".tablinks").removeClass("active");
+                $(ele).addClass("active");
+               
+            }
+        </script>
+        <style>
+            .tab button {
+                /* outline: none; */
+                cursor: pointer;
+                transition: 0.3s;
+                height: 50px;
+                text-align: -webkit-center;
+                filter: grayscale(1);
+                opacity: 1;
+                color: #fff;
+                border-radius: 7px;
+                padding: 2% 5%;
+                box-shadow: 5px 4px #f0f0f0;
+                font-size: 14px;
+                background: #6b3af1;
+                /* border: double; */
+                /* border-color: #19c9a0; */
+            }
+        </style>
+    </div>
 
-
-    <div class="container" style="margin-top: 100px;">
+    <div id="add-collaborator-tab" class="tabcontnt container" style="margin-top: 25px;">
         <div class="flex flex-wrap justify-center" style="margin-top:20px;" id="prices-and-payment">
             <div class="settings_setup_container">
                 <div class="settings_sepration_header">
@@ -102,12 +148,21 @@
                     <input type="text" id="other-pwd" placeholder="Enter password" value="" style="width: 50%;">
                 </div>
                 <div class="single_input" style="margin-bottom: 10px;">
+                    <label>Group:</label>
+                    <select id='ddlGroup'
+                    style="margin-bottom: 8px; padding: 3px; padding-left: 11px; width: 50%;  border-radius: 3px; height: 43px; margin-left: -1px;">
+                    <option value="" selected disabled hidden>--Select--</option>
+                    </select>
+
+                </div>
+                <div class="single_input" style="margin-bottom: 10px;">
                     <label>Type:</label>
                     <select id='other-type'
                         style="margin-bottom: 8px; padding: 3px; padding-left: 11px; width: 50%;  border-radius: 3px; height: 43px; margin-left: -1px;">
                         <option value="" selected disabled hidden>--Select--</option>
                         <option>Submitter</option>
                         <option>Approver</option>
+                        <option id="gadmin">Group Admin</option>
                     </select>
                 </div>
                 <div class="contact_button">
@@ -118,30 +173,74 @@
                 <table class="saved_table">
                     <thead>
                         <tr>
-                            <th colspan="5">Saved User Accounts</th>
+                            <th colspan="7">Saved User Accounts</th>
                         </tr>
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Group</th>
                             <th>Temporary Password</th>
                             <th>Type</th>
                             <th style="width: 9%;">Action</th>
+                            <th style="width: 9%;">Lock/Unlock</th>
                         </tr>
                     </thead>
                     <tr>
                         <td id="owner_name">------</td>
                         <td id="owner_email">OwnerEmail@gmail.com</td>
+                        <td>---</td>
                         <td><input type="password" value="32462%$#@" / readonly></td>
                         <td><a class="collaborator_type">Account Owner<a /></td>
                         <td><button class="settings_delete_button"><i title="The owner type cannot be changed"
                                     class="fas fa-lock"></i></button></td>
+                                    <td></td>
                     </tr>
                     <tbody id="Add_User_table_tbody">
                         <!-- Firebase data -->
 
                     </tbody>
                     <tr id="loading_rows_tr" class="loading_rows">
-                        <td colspan="4"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
+                        <td colspan="7"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div id="add-group-tab" class="container tabcontnt" style=" display:none;margin-top: 25px;">
+        <div class="flex flex-wrap justify-center" style="margin-top:20px;" id="prices-and-payment">
+            <div class="settings_setup_container">
+                <div class="settings_sepration_header">
+                    <h3>Add Group
+                        <p>Add a collaborator Groups having privileges with edit and view rights.</p>
+                    </h3>
+                </div>
+                <div><span style="font-weight: bold; color: crimson;" id="group_add_message"></span></div>
+                <div class="single_input" style="margin-bottom: 10px;">
+                    <label>Group Name:</label>
+                    <input type="text" id="group-name" placeholder="Enter Group Name" value="" style="width: 50%;">
+                </div>
+                <div class="contact_button">
+                    <button onclick="AddCollaboratorGroup()"><i class="fas fa-plus"></i> &nbsp; Add
+                        Group</button>
+                </div>
+                <br>
+                <table class="saved_table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Saved Groups</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th style="width: 9%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Add_Group_table_tbody">
+                        <!-- Firebase data -->
+                        
+                    </tbody>
+                    <tr id="loading_rows_tr_group" class="loading_rows">
+                        <td colspan="2"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
                     </tr>
                 </table>
             </div>
@@ -193,11 +292,15 @@
 
                     if (user) {
                         UserObject = user;
+                        if (!UserObject.emailVerified) {
+                            location.href = url + "/signin";
+                        }
                         $("#owner_name").html(UserObject.displayName);
                         $("#owner_email").html(UserObject.email);
                         $('#userimage').find('img').attr('src', UserObject.photoURL);
-                        $('#username').text(UserObject.displayName);
+                        $('#username').text((UserObject.displayName ? UserObject.displayName : UserObject.email.split("@")[0]));
                         getAccessedUsers();
+                        getGroupsDDL();
 
                     } else {
                         location.href = url + "/signin";
@@ -216,8 +319,112 @@
             }
         });
 
+        function AddCollaboratorGroup() {
+            $("#group_add_message").hide();
+            if ($("#group-name").val()) {
+                if (confirm("Are you sure you want to add group?")) {
+                    var tbl_groups = db.collection('tbl_groups').where("UserID", "==", localStorage.getItem("userid"));
+                    tbl_groups.where("name", "==", $("#group-name").val()).get().then(function (documentsResponse) {
+                        if (documentsResponse.docs.length > 0) {
+                            $("#group_add_message").html("Group with same name already exist");
+                            $("#group_add_message").show();
+                        } else {
+                            var gname = $("#group-name").val();
+                            db.collection('tbl_groups').add({ name: gname, UserID: localStorage.getItem("userid") }).then(function () {
+                                db.collection('tbl_audit_log').add({
+                                    content: `User Group Added <b>${gname}</b>`,
+                                    now: (new Date()).getTime(),
+                                    party: '',
+                                    date: '',
+                                    amount: '',
+                                   refId: localStorage.getItem("userid"),
+                                    user: localStorage.getItem("user"),
+                                    collection: 'tbl_groups'
+                                });
+                                $("#group-name").val("");
+                                getGroups();
+                            });
+                        }
+                    });
+
+                }
+            } else {
+                $("#group_add_message").html("Please enter group name");
+                $("#group_add_message").show();
+            }
+        }
+
+        function getGroups() {
+            var viewOnly = false;
+            // Add_Group_table_tbody
+            //             loading_rows_tr_group
+            $("#loading_rows_tr_group").show();
+            db.collection('tbl_groups').where('UserID', '==', localStorage.getItem("userid")).get()
+                .then(querySnapshot => {
+                    var tbody = document.getElementById('Add_Group_table_tbody');
+                    tbody.innerHTML = '';
+                    $("#loading_rows_tr_group").hide();
+                    querySnapshot.forEach(val => {
+                        var data = val.data();
+                        data.id = val.id;
+                        var tr = document.createElement('tr');
+                        var td1 = document.createElement('td');
+                        var td2 = document.createElement('td');
+                        td1.innerHTML = data.name;
+                        td2.innerHTML = `<button class="settings_delete_button"  title="Delete">
+        <i class="far fa-trash-alt"></i></button>`;
+
+                        td2.setAttribute("onclick", `DeleteGroup(${JSON.stringify(data)})`);
+                        tr.innerHTML += td1.outerHTML + td2.outerHTML;
+                        tbody.appendChild(tr);
+                    })
+                })
+        }
+
+
+        function getGroupsDDL() {
+            db.collection('tbl_groups').where('UserID', '==', localStorage.getItem("userid")).get()
+                .then(querySnapshot => {
+                   $("#ddlGroup").html("");
+                   $("#ddlGroup").append('<option value="" selected="" disabled="" hidden="">--Select--</option>');
+                    querySnapshot.forEach(val => {
+                        var data = val.data();
+                        data.id=val.id;
+                        if(localStorage.getItem("access")=="Group Admin"){
+                            $("#gadmin").remove();
+                            if(data.id==localStorage.getItem("groupid")){
+                                $("#ddlGroup").append('<option value="'+data.id+'">'+data.name+'</option>');
+                            }
+                        }
+                        else{
+                            
+                        $("#ddlGroup").append('<option value="'+data.id+'">'+data.name+'</option>');
+                        }
+                    })
+                });
+        }
+
+
+        function DeleteGroup(data){
+            if(confirm("Are you sure you want to delete the group?")){
+                db.collection('tbl_groups').doc(data.id).delete().then(function(){
+                    db.collection('tbl_audit_log').add({
+                                    content: `User Group Delete <b>${data.name}</b>`,
+                                    now: (new Date()).getTime(),
+                                    party: '',
+                                    date: '',
+                                    amount: '',
+                                    refId: localStorage.getItem("userid"),
+                                    user: localStorage.getItem("user"),
+                                    collection: 'tbl_groups'
+                                });
+                                getGroups();
+                });
+            }
+        }
 
         function AddUserToGiveAccess() {
+            if($("#ddlGroup").val()){
             var email = document.getElementById('other-email').value;
             var password = document.getElementById('other-pwd').value;
             var type = document.getElementById('other-type').value;
@@ -231,6 +438,9 @@
             } else {
                 AddUserAccess(email, password, type);
             }
+        }else{
+            alert("Please select Group");
+        }
         }
         //npm install --save react-native-swipe-list-view
         async function AddUserAccess(email, password, type) {
@@ -244,7 +454,7 @@
                 .then(function (res) {
                     var user = res.user;
                     db.collection('tbl_linked_account_access').doc(res.user.uid).set({
-                        user: name, email: email,owner_email:UserObject.email, password: password, type: type, UserID: UserObject.uid
+                        user: name,GroupID: $("#ddlGroup").val() ,group:$("#ddlGroup>option:selected").text(),email: email,islocked:false, owner_email: UserObject.email, password: password, type: type, UserID: localStorage.getItem("userid")
                     })
                         .then(function () {
 
@@ -254,7 +464,7 @@
                                 party: '',
                                 date: '',
                                 amount: '',
-                                refId: UserObject.uid,
+                               refId: localStorage.getItem("userid"),
                                 user: localStorage.getItem("user"),
                                 collection: 'tbl_linked_account_access'
                             });
@@ -281,7 +491,11 @@
         function getAccessedUsers() {
             var viewOnly = false;
             $("#loading_rows_tr").show();
-            db.collection('tbl_linked_account_access').where('UserID', '==', UserObject.uid).get()
+           var query = db.collection('tbl_linked_account_access').where('UserID', '==', localStorage.getItem("userid"));
+           if(localStorage.getItem("access")=="Group Admin"){
+            query = query.where("GroupID","==",localStorage.getItem("groupid"));
+           }
+           query.get()
                 .then(querySnapshot => {
                     var tbody = document.getElementById('Add_User_table_tbody');
                     tbody.innerHTML = '';
@@ -295,18 +509,25 @@
                         var td3 = document.createElement('td');
                         var td4 = document.createElement('td');
                         var td5 = document.createElement('td');
+                        var td6 = document.createElement('td');
+                        var td7 = document.createElement('td');
 
 
                         td1.innerHTML = data.user;
                         td2.innerHTML = data.email;
+                        td7.innerHTML = data.group?data.group:"";
                         td3.innerHTML = `<input type='password' value=${data.password} readonly >`;
                         td4.innerHTML = `<a class="collaborator_type"> ${data.type} </a>`;
                         td5.innerHTML = `<button class="settings_delete_button"  title="Delete">
-        <i class="far fa-trash-alt"></i></button>`;
+                        <i class="far fa-trash-alt"></i></button>`;
+                        td6.innerHTML = '<button class="settings_delete_button"  title="'+(data.islocked?"User Locked":"User Unlocked")+'">'+
+                        '<i class="fas fa-'+(data.islocked?"unlock":"lock")+'"></i></button>';
 
                         viewOnly ? td5.setAttribute("onclick", `viewAlert();`) :
                             td5.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
-                        tr.innerHTML += td1.outerHTML + td2.outerHTML + td3.outerHTML + td4.outerHTML + td5.outerHTML;
+                            viewOnly ? td6.setAttribute("onclick", `viewAlert();`) :
+                            td6.setAttribute("onclick", `LockUnlockUser(${JSON.stringify(data)})`);
+                        tr.innerHTML += td1.outerHTML + td2.outerHTML+td7.outerHTML + td3.outerHTML + td4.outerHTML +td6.outerHTML+ td5.outerHTML;
                         tbody.appendChild(tr);
                     })
                 })
@@ -314,7 +535,24 @@
         function viewAlert() {
             alert("You've not the permission for this action");
         }
-
+        function LockUnlockUser(data){
+            if(confirm("Are you sure you want to "+(data.islocked?"unlock":"lock")+" the user?")){
+                db.collection('tbl_linked_account_access').doc(data.id).update({islocked:data.islocked?false:true})
+                .then(function () {
+                    db.collection('tbl_audit_log').add({
+                        content: `User  <b>${data.user}</b> is set to <b>${(data.islocked?"unlock":"lock")}</b>`,
+                        now: (new Date()).getTime(),
+                        party: '',
+                        date: '',
+                        amount: '',
+                       refId: localStorage.getItem("userid"),
+                        user: localStorage.getItem("user"),
+                        collection: 'tbl_linked_account_access'
+                    });
+                    getAccessedUsers();
+                });
+            }
+        }
         function RevokeUser(data) {
             if (confirm('Are you sure to delete this record.')) {
                 //data = JSON.parse(data);
@@ -339,7 +577,7 @@
                         party: '',
                         date: '',
                         amount: '',
-                        refId: UserObject.uid,
+                       refId: localStorage.getItem("userid"),
                         user: localStorage.getItem("user"),
                         collection: 'tbl_linked_account_access'
                     });

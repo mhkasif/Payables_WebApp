@@ -87,3 +87,23 @@ function getCustomerSubscriptions() {
         });
 
 }
+
+function sendEmail() {
+    return fetch('/send-verification-email', {
+method: 'post',
+headers: {
+    'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+    email: UserObject.email,uid:UserObject.uid
+}),
+})
+.then((response) => {
+  console.log(response);
+  return response;
+})
+.then((response) => {
+    console.log(response);
+    return response;
+});
+}

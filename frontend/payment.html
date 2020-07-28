@@ -178,7 +178,9 @@
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 UserObject = user;
-
+                if(!UserObject.emailVerified){
+                            location.href = url + "/signin";
+                        }
                 $('#userimage').find('img').attr('src', UserObject.photoURL);
                 $('#username').text(UserObject.displayName);
 

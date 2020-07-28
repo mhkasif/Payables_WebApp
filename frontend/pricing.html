@@ -234,7 +234,9 @@
 
                     if (user) {
                         UserObject = user;
-
+                        if(!UserObject.emailVerified){
+                            location.href = url + "/signin";
+                        }
                     
                 tblUsers = db.collection("tbl_users");
                 tblUsers.where("UserID", "==", UserObject.uid).get().then(function (resp) {
