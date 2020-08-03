@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Payables ~ Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/select2.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">	
+    <!----Sentry error reporting script to report errors to the console NEEDS TO INITALIZE BEFORE EACH SCRIPT --->
+    <script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous">
+    </script>
+    <!----This function initalizes sentry---->
+	<script>
+        Sentry.init({ dsn: 'https://fdbd4fd456cd4b5da56178599e750894@o428671.ingest.sentry.io/5374312' });
+        </script>
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<style>
+    .firebaseui-idp-button {
+        border: double;
+        border-radius: 5px;
+        box-shadow: 1px 1px 13px 3px #ececec;
+    }
+</style>
+
+<body style="display:none;background: #f9f9f9;">
+    <!--<button type="button" onclick="googleSignInClicked()">Google SignIn</button>-->
+
+
+<div  class="container">
+    <div style="border-radius: 7px;
+    box-shadow: 0px 2px 5px 9px #e8e8e833;
+    margin: 3% auto;
+    overflow: hidden;
+    width: fit-content;
+    background: #ffff;
+    border: ridge;
+    display: flex;" class="row">
+   
+    <div class="col" style="padding: 5%;">
+        <div id="google-signin">
+            <a href="#"><img src="img/logo7.png" style="width: 53%;margin: auto 22%;" /></a>
+            <br>
+            <h3 style="text-align: center;
+    font-family: sans-serif;
+    margin-top: 4%;
+    margin-bottom: 6%;
+    font-size: 18px;">Run an organized business today</h3>
+
+<div class="divider_line">
+                <span style="background: #ffff; padding: 2% 3%; color: #cfcccc;">Admin's Login & Register</span>
+              </div>
+        </div>
+
+<div class="divider_line">
+                <span style="background: #ffff; padding: 2% 3%; color: #cfcccc;">Collaborator's Login</span>
+              </div>
+
+            <div>
+                <div style="margin-bottom: 10px; width: 70%;"><span style="font-weight: bold;color: crimson;" id="login_error"></span></div>
+                <div style="margin-bottom: 20px;display:grid;">
+                    <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;">Email:</span> 
+                    <input style="width: 100%;" id="email" type="text" />
+                </div>
+                <div style="margin-bottom: 20px;display:grid;">
+                    <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;"> Password: </span>
+                    <input id="password" style="width: 100%;" type="password" />
+                </div>
+                <button id="siginIndirectly" onclick="signInUsingEmailPassword();"  style="width: 100%; border-radius: 5px; background: #333;">LOGIN</button>            
+                <br>
+                <span>Forgot Password? <span id="resetPassword" onclick="resetPasswordPopup();" style="cursor:pointer;color:blue;">Click here to reset!</span></span>
+            </div>
+    </div>
+      <div class="col" style="background: #eaeaea;border-left: 1px solid #4444;">
+        <a><img src="img/bannerwoman.png" style="width:500px;" /></a>
+      </div>
+    </div>
+</div>
+<div id="resetPasswordPopup" class="modal">
+    <div class="modal-content" 
+style="background: #fff3a4;
+font-weight: 700;
+padding: 1% 1%;
+width: 500px;
+height: 500px;
+box-shadow: 9px 10px 20px 10px #696969;
+margin: 3% auto;
+border: none;
+border-radius: 0;">
+        <span class="modal-close-btn" onclick="closeNotesModal();">&times;</span>
+        <div class="modal-body">
+            <div>
+               <div style="margin-bottom: 20px;display: grid;">
+                    <span>Email:</span> <input id="resetPasswordEmail" style="width: 100%;" placeholder="johndoe@gmail.com"></input>
+                </div>
+            </div>
+            <button style="width: 100%; background: #615e5e; border: none; padding: 4%;" onclick="sendResetPasswordLink();">Send Reset Password Link</button>
+                <br>
+            <br>
+           
+        </div>
+    </div>
+    <style>
+        .message-success {
+            color: #00bb32;
+        }
+
+        .message-error {
+            color: #860404;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .blue-text {
+            color: blue;
+        }
+
+        .modal-body {
+            clear: both;
+            margin-top: 10px;
+            overflow: auto;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 45%;
+            height: 75%;
+        }
+
+        .modal-close-btn {
+    width: 36px;
+    height: 36px;
+    background: #f5e99f;
+    color: #333333;
+    border-radius: 50%;
+    text-align: -webkit-center;
+    transform: scale(1.5);
+        }
+
+        .modal-close-btn:hover,
+        .modal-close-btn:focus {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</div>
+    <style>
+        /**
+* The CSS shown here will not be introduced in the Quickstart guide, but shows
+* how you can use CSS to style your Element's container.
+*/
+        .StripeElement {
+            box-sizing: border-box;
+            height: 40px;
+            padding: 10px 12px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+
+        .StripeElement--webkit-autofill {
+            background-color: #fefde5 !important;
+        }
+    </style>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+    <script>
+        var url = location.origin + location.href.replace(location.origin, '').substr(0, location.href.replace(location.origin, '').lastIndexOf('/'));
+    </script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="js/mFirebase.js"></script>
+    <script src="js/signin.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" rel="stylesheet" type="text/css" />
+    <div id="loader"></div>
+    <input style="display:none;" id="customerid" value="" />
+    <style>
+        .errorClass {
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+function sendResetPasswordLink(){
+    var auth = firebase.auth();
+    auth.sendPasswordResetEmail($("#resetPasswordEmail").val()).then(function(){
+        closeNotesModal();
+        $("#login_error").html("Reset Password Link has been sent to the email.");
+    });
+}
+        function resetPasswordPopup(){
+            $("#resetPasswordPopup").show();
+        }
+        function closeNotesModal(){
+            $("#resetPasswordPopup").hide();
+        }
+        var UserObject;
+        var email;
+        function signInUsingEmailPassword() {
+            $("#password").removeClass("errorClass");
+            $("#email").removeClass("errorClass");
+            email = $("#email").val();
+            var password = $("#password").val();
+            if (email) {
+                if (password) {
+                    firebase
+                        .auth()
+                        .signInWithEmailAndPassword(email, password)
+                        .then(async (res) => {
+                            console.log(res);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            $("#login_error").html(error.message);
+                        });
+
+                } else {
+                    $("#password").addClass("errorClass");
+                }
+            } else {
+                $("#email").addClass("errorClass");
+            }
+        }
+
+        $(document).ready(function () {
+            getFirebaseConfig().then(function () {
+                console.log("came here first");
+                initializeFirebase();
+                getFirebaseConfig().then(function () {
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (user) {
+                            console.log(user);
+                            UserObject = user;
+
+                            db.collection("tbl_linked_account_access")
+                                .doc(UserObject.uid)
+                                .get()
+                                .then((res) => {
+                                    var data = res.data();
+                                    console.log(data, UserObject);
+                                    if (data) {
+                                        if (data.islocked) {
+                                            firebase.auth().signOut().then(function () {
+                                                $("#login_error").html("Your account is locked. Please contact your administrator.");
+                                            }).catch(function (error) {
+                                                // An error happened.
+                                            });
+
+                                        } else {
+                                            if (user.emailVerified) {
+                                                localStorage.setItem("access", data.type);
+                                                localStorage.setItem("user", data.user);
+                                                localStorage.setItem("groupid", data.GroupID);
+                                                localStorage.setItem("group", data.group);
+                                                localStorage.setItem("userid", data.UserID);
+                                                localStorage.setItem("owner_email", data.owner_email);
+                                                localStorage.setItem("current_userid", UserObject.uid);
+                                                localStorage.setItem("islinkedaccount", true);
+                                                db.collection('tbl_audit_log').add({
+                                                    content: `User logged in <b>${data.user}</b>`,
+                                                    now: (new Date()).getTime(),
+                                                    party: '',
+                                                    groupid:localStorage.getItem("groupid"),
+                                                    date: '',
+                                                    amount: '',
+                                                    refId: localStorage.getItem("userid"),
+                                                    user: localStorage.getItem("user"),
+                                                    collection: 'login Activity'
+                                                });
+                                                $("body").show();
+                                                location.href = url + "/index";
+                                            } else {
+                                                $("body").show();
+                                                UserObject.sendEmailVerification().then(function () {
+                                                    $("#login_error").html("We sent you and email for verification.Please verify your email account.");
+                                                });
+
+
+                                            }
+                                        }
+                                    } else {
+                                        if (UserObject.emailVerified) {
+                                            localStorage.setItem("access", "Owner");
+                                            localStorage.setItem("user", UserObject.displayName);
+                                            localStorage.setItem("userid", UserObject.uid);
+                                            localStorage.setItem("groupid", "admin");
+                                            localStorage.setItem("group", "owner");
+                                            localStorage.setItem("current_userid", UserObject.uid);
+                                            localStorage.setItem("owner_email", UserObject.email);
+                                            localStorage.setItem("islinkedaccount", false);
+                                            db.collection('tbl_audit_log').add({
+                                                content: `User logged in <b>${UserObject.displayName}</b>`,
+                                                now: (new Date()).getTime(),
+                                                groupid:localStorage.getItem("groupid"),
+                                                party: '',
+                                                date: '',
+                                                amount: '',
+                                                refId: localStorage.getItem("userid"),
+                                                user: localStorage.getItem("user"),
+                                                collection: 'login Activity'
+                                            });
+                                            tblStripeCustomers = db.collection("tbl_stripecustomers");
+                                            tblStripeCustomers.where("UserID", "==", localStorage.getItem("userid")).where("CustomerEmail", "==", UserObject.email).get().then(function (querySnapshot) {
+                                                if (querySnapshot.docs.length > 0) {
+                                                    console.log(querySnapshot);
+                                                    $("#customerid").val(querySnapshot.docs[0].data().customerid);
+                                                    getCustomerSubscriptions().then(function (response) {
+
+                                                        if (response.length > 0) {
+                                                            if (response[0].status == "active" || response[0].status == "trialing") {
+                                                                location.href = url + "/index";
+                                                            }
+                                                        } else {
+                                                            subscribeTrial();
+                                                        }
+
+                                                    });
+                                                } else {
+                                                    subscribeTrial();
+                                                }
+                                            });
+                                        } else {
+                                            $("body").show();
+                                            UserObject.sendEmailVerification().then(function () {
+                                                $("#login_error").html("We sent you and email for verification.Please verify your email account.");
+                                            });
+                                        }
+                                    }
+                                });
+
+                            //location.href = url + "/index";
+                        } else {
+                            $("body").show();
+                        }
+                    });
+                });
+            });
+        })
+    </script>
+    <script>
+        var ui;
+        $(document).ready(function () {
+            getFirebaseConfig().then(function () {
+                console.log("came here first");
+                getFirebaseConfig().then(function () {
+                    ui = new firebaseui.auth.AuthUI(firebase.auth());
+                    var uiConfig = {
+                        callbacks: {
+                            signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                                console.log(authResult);
+                                return false;
+                            },
+                            uiShown: function () {
+                                document.getElementById('loader').style.display = 'none';
+                            }
+                        },
+                        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+                        signInFlow: 'popup',
+                        //  signInSuccessUrl: url + '/index',
+                        signInOptions: [
+                            firebase.auth.GoogleAuthProvider.PROVIDER_ID//,
+                            //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                            //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+                            //firebase.auth.GithubAuthProvider.PROVIDER_ID,
+                            //firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                            //firebase.auth.PhoneAuthProvider.PROVIDER_ID
+                        ],
+                        // Terms of service url.
+                        tosUrl: '<your-tos-url>',
+                        // Privacy policy url.
+                        privacyPolicyUrl: '<your-privacy-policy-url>'
+                    };
+
+                    ui.start('#google-signin', uiConfig);
+                });
+            });
+        });
+
+
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
