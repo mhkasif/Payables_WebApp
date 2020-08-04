@@ -292,6 +292,36 @@ function filterRecords() {
 }
 
 
+function filterRecordsSigned() {
+    var checked = $('[name=ApprovalFilters]:checked');
+  
+      if (checked.length < 1) {
+        console.log(checked,checked.length);
+         $('.ApprovalFiltersClass').show();
+         $("#all-transactions>li").each(function (i, v) {
+            if ($(v).find("tbody>tr:not([style=\"display: none;\"])").length > 0) {
+                $(v).show();
+            } else {
+                $(v).hide();
+            }
+        });
+         return;
+      }
+      $('.ApprovalFiltersClass').hide();
+      $('[name=ApprovalFilters]:checked').each(function(i, v){
+        $('.'+$(v).val()).show();
+      });
+      $("#all-transactions>li").each(function (i, v) {
+        if ($(v).find("tbody>tr:not([style=\"display: none;\"])").length > 0) {
+            $(v).show();
+        } else {
+            $(v).hide();
+        }
+    });
+  }
+  
+
+
 function filterRecordsChecked() {
     var checked = $('.clearchk');
     if ($('.clearchk').is(":checked")) {

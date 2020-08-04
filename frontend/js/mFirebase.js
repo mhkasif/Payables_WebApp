@@ -322,7 +322,10 @@ function deleteAccount(id) {
         swal("You don't have the permission to delete");
         return;
     }
-    else if(confirm("Are you sure you want to delete the account?")){
+    SwalConfirmBox("Are you sure?","ContinueToDeleteAccount('"+id+"');");
+}
+
+function ContinueToDeleteAccount(id){
     tblAccounts = db.collection("tbl_accounts");
     tblAccountCheques.where("UserID","==",userid).where("account_id", "==", id).get().then(function (querySnapshot) {
         console.log(querySnapshot.docs.length);
@@ -349,7 +352,6 @@ function deleteAccount(id) {
             swal("Account cannot be deleted because it has transactions associated.");
         }
     });
-}
 }
 	
 
@@ -447,7 +449,10 @@ function getTrasactionsAll() {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
                                
-                var OverAllStatus = "Status: "+myRecord.status;
+                var OverAllStatus = "Status: "+myRecord.is_signed;
+                if(myRecord.ApprovedBy){
+                    OverAllStatus = OverAllStatus +" 🠪 Approved By: " +myRecord.ApprovedBy;
+                }
                 if(myRecord.Approver_First_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
                 } 
@@ -459,7 +464,7 @@ function getTrasactionsAll() {
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_Third_Name;
                 } 
                 accountid = myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
+                tblRecordsHtml += '<tr class="'+myRecord.is_signed+' ApprovalFiltersClass" id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td  data-title="'+OverAllStatus+'" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color: #56bea6;opacity: 1;'></i>":myRecord.is_signed=="Denied"?"<i class='fas fa-times-circle' style='font-size: 25px;color: #ff88a4;opacity: 1;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
@@ -650,7 +655,7 @@ function getTrasactionsAllPagination() {
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
                
-                var OverAllStatus = "Status: "+myRecord.status;
+                var OverAllStatus = "Status: "+myRecord.is_signed;
                 if(myRecord.Approver_First_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
                 } 
@@ -662,7 +667,7 @@ function getTrasactionsAllPagination() {
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_Third_Name;
                 }
                 accountid = myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
+                tblRecordsHtml += '<tr  class="'+myRecord.is_signed+' ApprovalFiltersClass" id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td  data-title="'+ OverAllStatus+ '" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color: #56bea6;opacity: 1;'></i>":myRecord.is_signed=="Denied"?"<i class='fas fa-times-circle' style='font-size: 25px;color: #ff88a4;opacity: 1;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
@@ -853,7 +858,7 @@ function getTrasactionsByAccount(id) {
                 else{
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
-                var OverAllStatus = "Status: "+myRecord.status;
+                var OverAllStatus = "Status: "+myRecord.is_signed;
                 if(myRecord.Approver_First_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
                 } 
@@ -865,7 +870,7 @@ function getTrasactionsByAccount(id) {
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_Third_Name;
                 }
                 accountid = myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
+                tblRecordsHtml += '<tr  class="'+myRecord.is_signed+' ApprovalFiltersClass" id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td  data-title="'+OverAllStatus+'" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color: #56bea6;opacity: 1;'></i>":myRecord.is_signed=="Denied"?"<i class='fas fa-times-circle' style='font-size: 25px;color: #ff88a4;opacity: 1;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
@@ -1055,19 +1060,19 @@ function getTrasactionsByAccountPagination(id) {
                 else{
                     withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
                 }
-                var OverAllStatus = "Status: "+myRecord.status;
+                var OverAllStatus = "Status: "+myRecord.is_signed;
                 if(myRecord.Approver_First_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
                 } 
                 if(myRecord.Approver_Second_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_Second_Name;
                 } 
-
+//ApprovalFilters
                 if(myRecord.Approver_Third_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_Third_Name;
                 } 
                 accountid = myRecord.account_id;
-                tblRecordsHtml += '<tr id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
+                tblRecordsHtml += '<tr class="'+myRecord.is_signed+' ApprovalFiltersClass" id=\'' + myRecord.id + '\' data-rcdamt=\'' + myRecord.withdrawal + '\'>' +
                     '                                <td><i class="fa fa-bars"></i></td>' +
                     '                                <td  data-title="'+OverAllStatus+'" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color: #56bea6;opacity: 1;'></i>":myRecord.is_signed=="Denied"?"<i class='fas fa-times-circle' style='font-size: 25px;color: #ff88a4;opacity: 1;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
@@ -1341,52 +1346,52 @@ function deleteTrasaction(id) {
         swal("You don't have permission to delete the transaction.");
         return;
     }
-    if (confirm('Are you sure to delete this entry.')) {
-        tblAccountCheques = db.collection("tbl_account_cheques");
-        tblAccountCheques.doc(id)
-            .delete().then(function (docRef) {
-                db.collection('tbl_audit_log').add({
-                    content: `Transaction ${id} delete</b>`,
-                    now: (new Date()).getTime(),
-                    party: '',
-                    date: '',
-                    amount: '',
-                    groupid:localStorage.getItem("groupid"),
-                    refId: userid,
-                    user: localStorage.getItem("user"),
-                    collection: 'Transactions'
-                });
-                var trid = $("#" + id).parent().attr("id");
-                $("#" + id).remove();
-                var tbody = $("#" + trid).find("tr");
-                console.log(tbody, trid);
+    SwalConfirmBox("Are you sure?","ContinueToDelete('"+id+"');");
+
+}
+function ContinueToDelete(id){
+    tblAccountCheques = db.collection("tbl_account_cheques");
+    tblAccountCheques.doc(id)
+        .delete().then(function (docRef) {
+            db.collection('tbl_audit_log').add({
+                content: `Transaction ${id} delete</b>`,
+                now: (new Date()).getTime(),
+                party: '',
+                date: '',
+                amount: '',
+                groupid:localStorage.getItem("groupid"),
+                refId: userid,
+                user: localStorage.getItem("user"),
+                collection: 'Transactions'
+            });
+            var trid = $("#" + id).parent().attr("id");
+            $("#" + id).remove();
+            var tbody = $("#" + trid).find("tr");
+            console.log(tbody, trid);
+            var totalWithdrawl = 0;
+            $(tbody).each(function (i, v) {
+                totalWithdrawl += Number($(v).find(".balance>span").text());
+            });
+            $("#" + trid).parent().parent().parent().find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
+
+            var totalAmount = Number($("#defaultOpen>input").val());
+            $(".timelinePart.records").each(function (ii, vv) {
+                var tbody = $(vv).find("table>tbody>tr");
                 var totalWithdrawl = 0;
                 $(tbody).each(function (i, v) {
                     totalWithdrawl += Number($(v).find(".balance>span").text());
                 });
-                $("#" + trid).parent().parent().parent().find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
-
-                var totalAmount = Number($("#defaultOpen>input").val());
-                $(".timelinePart.records").each(function (ii, vv) {
-                    var tbody = $(vv).find("table>tbody>tr");
-                    var totalWithdrawl = 0;
-                    $(tbody).each(function (i, v) {
-                        totalWithdrawl += Number($(v).find(".balance>span").text());
-                    });
-                    if (totalAmount < totalWithdrawl) {
-                        $(vv).find(".alert_notification_tag").show();
-                    } else {
-                        $(vv).find(".alert_notification_tag").hide();
-                    }
-                    totalAmount = totalAmount - totalWithdrawl;
-                });
-                console.log("Document successfully deleted!");
-            }).catch(function (error) {
-                console.error("Error removing document: ", error);
+                if (totalAmount < totalWithdrawl) {
+                    $(vv).find(".alert_notification_tag").show();
+                } else {
+                    $(vv).find(".alert_notification_tag").hide();
+                }
+                totalAmount = totalAmount - totalWithdrawl;
             });
-    } else {
-    }
-
+            console.log("Document successfully deleted!");
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
+        });
 }
 
 function updateTrasaction(id) {
@@ -1442,7 +1447,7 @@ function updateTrasaction(id) {
     else{
         withdrawalSpan = "<span " + (myRecord.status === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + myRecord.withdrawal + ")</span>";
     }
-    var OverAllStatus = "Status: "+myRecord.status;
+    var OverAllStatus = "Status: "+myRecord.is_signed;
     if(myRecord.Approver_First_Name){
         OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
     } 
@@ -1509,7 +1514,8 @@ function SetSignedOrDenied(val){
         tblAccountCheques.doc(selected_signUnsign_tid).get().then(function(doc){    
     if(localStorage.getItem("access")=="Approver" || isOwner || isGroupAdmin){    
     tblAccountCheques.doc(selected_signUnsign_tid).update({
-        is_signed:val
+        is_signed:val,
+        ApprovedBy:localStorage.getItem("user")
     }).then(function (docRef) {
         db.collection('tbl_audit_log').add({
             content: `Transaction ${selected_signUnsign_tid} updated as signed</b>`,
@@ -1956,6 +1962,7 @@ function AddNotesToTransaction() {
 //READ : this function reads the notes from the collection "tbl_account_cheques" 
 
 	function load_transaction_notes() {
+       
     $("#transaction_notes_table_tbody").html("");
     $("#loading_rows_tr").show();
     var transaction_id = $("#notes_transaction_id").val();
@@ -1969,7 +1976,7 @@ function AddNotesToTransaction() {
           $("#notes").val(doc.data().notes);
           if(doc.data().attachment){
           $("#attachments").html((doc.data().attachment?doc.data().attachment:""));
-          
+          LoadAttachmentInThumbnail(doc.data().attachment);
           $("#attachmentsdiv").show();  
         }else{
             $("#attachmentsdiv").hide(); 
@@ -1984,7 +1991,14 @@ function AddNotesToTransaction() {
         });
 }
 
-
+function LoadAttachmentInThumbnail(attachmentName){
+    var storageRef = firebase.storage().ref('/transactionAttachments/'+attachmentName);
+    storageRef.getDownloadURL().then(function(url) {
+        var image = document.getElementById('attachment_thumbnail');
+        image.src =url;
+        $("#attachment_thumbnail").show();
+    });
+}
 //WHAT IS THIS?? USELESS CODE ??
 function deleteAttachment() {
     if(confirm("Are you sure you want to Delete these notes?")){
@@ -2022,18 +2036,25 @@ function deleteAttachment() {
     });}
 }
 var added_from_file_input=false;
-$('#transaction_attachment').on("change",function(){
+$('#transaction_attachment').on("change",function(eve){
     var filename = $('#transaction_attachment').val();
     filename = new Date().getTime()+'.'+filename.split('.').pop();
     $("#attachments").html((filename));
     added_from_file_input=true;
-    
+    var image = document.getElementById('attachment_thumbnail');
+    image.src = URL.createObjectURL(eve.target.files[0]);
+    $("#attachment_thumbnail").show();
     $("#attachmentsdiv").show(); 
 });
 
+$("#attachment_thumbnail").on("click",function(ele){
+    var url = $(this).attr("src");
+    window.open(url,'_blank');
 
+});
 //OPEN MODAL : this is the function to open notes modal when clicked
 function open_notes_modal(transaction_id,check_no){
+    $("#attachment_thumbnail").hide();
     $("#check_no").html(check_no);
     $("#notes_transaction_id").val(transaction_id);
     load_transaction_notes();

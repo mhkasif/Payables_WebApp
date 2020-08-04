@@ -503,5 +503,5 @@ transporter.sendMail(mailOptions, function(error, info){
 });
 var server_port = 4242 || process.env.PORT || 80;
 var server_host = 'localhost' || '0.0.0.0';
-app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
-// app.listen(4243, () => console.log(`Node server listening on port ${4243}!`));
+// app.listen(process.env.PORT || 5000, () => console.log(`Node server listening on port ${80}!`));
+app.listen(4243, () => console.log(`Node server listening on port ${4243}!`));

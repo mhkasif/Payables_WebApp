@@ -1,3 +1,4 @@
+var TotalAllowedUsers = 0;
 $(document).ready(function () {
     getFirebaseConfig().then(function(){
     initializeFirebase();
@@ -105,12 +106,27 @@ function getCustomerMembersAllowed() {
     
 }
 
+function confirmAddMembers(){
+    let memcount = document.querySelector('#memberCount').value;
+    Swal.fire({
+        title: '<strong>Confirmation</strong>',
+        icon: 'info',
+        html:
+          'Are you sure you want to add <b>'+memcount+' new members</b>? ',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<span style="width:100%" onclick="addmemberstosubscription();"><i class="fa fa-check"></i> OK!<span>',
+        cancelButtonText:
+          '<i class="fa fa-close"></i> Cancel',
+      });
+}
 
 function addmemberstosubscription() {
     let membercount = document.querySelector('#memberCount').value;
-    if(confirm("Are you sure you want to add "+membercount+" more members?")){
+    
     let customerid = document.querySelector('#customerid').value;
-    let membercount = document.querySelector('#memberCount').value;
     return fetch('/customer-add-team-member', {
         method: 'post',
         headers: {
@@ -125,11 +141,17 @@ function addmemberstosubscription() {
         return response.json();
       })
       .then((response) => {
-        alert(membercount+" more members added to your account!")
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: membercount+' new members added to your subscription.',
+            showConfirmButton: false,
+            timer: 1500
+          });
         return response;
   
       });
-    }
+    
 }
 
 
@@ -229,10 +251,10 @@ function subscribeTrial() {
                                 $('#customerid').val(querySnapshot.docs[0].data().customerid);
                                 $("#billingdetailLink").show();
                                 getCustomerSubscriptions().then(function (response){
-                              
+                            
                                 if(response.length>0){
                                     if(response[0].status=="active" || response[0].status=="trialing"){
-                                        console.log(response[0]);
+                                       
                                         $(".subbtn").addClass("disable-sub-btn");
                                         var plan = '$'+response[0].plan.amount/100+'/'+response[0].plan.interval;
                                         $("#amtpaid").html('$'+response[0].plan.amount/100);

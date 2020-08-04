@@ -81,7 +81,6 @@
         function AddCollaboratorGroup() {
             $("#group_add_message").hide();
             if ($("#group-name").val()) {
-                if (confirm("Are you sure you want to add group?")) {
                     var tbl_groups = db.collection('tbl_groups').where("UserID", "==", localStorage.getItem("userid"));
                     tbl_groups.where("name", "==", $("#group-name").val()).get().then(function (documentsResponse) {
                         if (documentsResponse.docs.length > 0) {
@@ -107,7 +106,7 @@
                         }
                     });
 
-                }
+                
             } else {
                 $("#group_add_message").html("Please enter group name");
                 $("#group_add_message").show();
@@ -232,7 +231,8 @@ getAccessedUsers();
             } else if (email === UserObject.email) {
             } else {
                 if(UserAddedAlready<TotalAllowedUsers){
-                AddUserAccess(email, password, type);
+                    SwalConfirmBox("Are you sure you want to Add User?","AddUserAccess('"+email+"', '"+password+"', '"+type+"');");
+                
             }else{
                 swal("You have reached the limit of total team members. Please subscribe for additional Team Members.");
             }
@@ -328,9 +328,9 @@ getAccessedUsers();
                         <i class="far fa-trash-alt"></i> &nbsp; Delete</button>`;
 
                         viewOnly ? td5.setAttribute("onclick", `viewAlert();`) :
-                            td7.setAttribute("onclick", `RevokeUser(${JSON.stringify(data)})`);
+                            td7.setAttribute("onclick", `ConfirmDeleteUser(${JSON.stringify(data)})`);
                             viewOnly ? td6.setAttribute("onclick", `viewAlert();`) :
-                            td6.setAttribute("onclick", `LockUnlockUser(${JSON.stringify(data)})`);
+                            td6.setAttribute("onclick", `ConfirmLockUnlock(${JSON.stringify(data)})`);
                         tr.innerHTML += td1.outerHTML + td2.outerHTML + td3.outerHTML + td4.outerHTML +  td5.outerHTML + td6.outerHTML + td7.outerHTML;
                         if(data.group){
                             var tbodyGroup = document.getElementById("tbody_"+data.group);
@@ -349,11 +349,22 @@ getAccessedUsers();
                     });
                 })
         }
+var publicData=null;
+        function ConfirmLockUnlock(data){
+            publicData=data;
+            SwalConfirmBox("Are you sure?","LockUnlockUser();");
+        }
+
+        function ConfirmDeleteUser(data){
+            publicData=data;
+            SwalConfirmBox("Are you sure?","RevokeUser();");
+        }
+
         function viewAlert() {
             swal("You don't have the permission to remove a user");
         }
-        function LockUnlockUser(data){
-            if(confirm("Are you sure you want to "+(data.islocked?"unlock":"lock")+" this user?")){
+        function LockUnlockUser(){
+            var data = publicData;
                 db.collection('tbl_linked_account_access').doc(data.id).update({islocked:data.islocked?false:true})
                 .then(function () {
                     disableUser(data.id,(data.islocked==true?false:true)).then(function(){
@@ -374,7 +385,7 @@ getAccessedUsers();
                         });
                    
                 });
-            }
+            
         }
 
         function disableUser(uid,disabled) {
@@ -398,14 +409,13 @@ getAccessedUsers();
               });
           }
 
-        function RevokeUser(data) {
-            if (confirm('Are you sure to remove the team member ?.')) {
-                //data = JSON.parse(data);
+        function RevokeUser() {
+               var data = publicData;
                 secondaryApp.auth().signInWithEmailAndPassword(data.email, data.password)
                     .then(async (res) => {
                         Revoke(data);
                     });
-            }
+            
         }
         function Revoke(del) {
 

@@ -12,7 +12,7 @@
     <title>Payables ~ Billing & Subscription</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
-
+    
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato|Poppins|Roboto|Roboto+Mono|Rubik|Work+Sans&display=swap"
@@ -20,7 +20,7 @@
     <link href="css/pricing.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.1/dist/sweetalert2.all.min.js"></script>
 	<!----Sentry error reporting script to report errors to the console NEEDS TO INITALIZE BEFORE EACH SCRIPT --->
 	<script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous">
 	</script>
@@ -131,6 +131,7 @@
                     <li> <i class="far fa-envelope-open"></i> &nbsp; Email: <span id="email">-</span></li>
                     <li><i class="fas fa-key"></i> &nbsp; UID: <span id="uid">-</span></li>
                     <li> <i class="fas fa-calculator"></i> &nbsp; Plan: <span id="plan">-</span></li>
+                    <li> <i class="fas fa-calculator"></i> &nbsp; Total Allowed Users: <span id="allowed_users">-</span></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -237,11 +238,11 @@
                    </div>
                   <div style=" font-size: 26px; margin-top: 10px; color: #7f7f7f;">
 
-                    <input type="number" id="memberCount" placeholder="No. of users" value="3" style="font-size: 26px; font-family: lato; font-weight: 600; text-align: center;">
+                    <input type="number" id="memberCount" min="1" onkeyup="changeCounts();" onchange="changeCounts();" placeholder="No. of users" value="3" style="font-size: 26px; font-family: lato; font-weight: 600; text-align: center;">
 <a class="grey"> X $2</a>                        
-<a class="grey">= $6/Month </a>                     
+<a class="grey" id="TotalCostForUsers">= $6/Month </a>                     
                  </div>
-                    <a href="" class="button" onclick="addmemberstosubscription();" style="height: fit-content; margin-top: 4%;">Subscribe to <b>3</b> more users</a>
+                    <a class="button" id="UserSubscribeBtn" onclick="confirmAddMembers();" style="height: fit-content; margin-top: 4%;">Subscribe to <b>3</b> more users</a>
             </div>
     </div>
 
@@ -254,11 +255,25 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-
+<style>
+    .swal2-close{
+        margin-top:1px !important;
+    }
+    .swal2-checkbox{
+        display: none !important;
+    }
+</style>
     <script defer src="js/mFirebase.js"></script>
     <script src="js/pricing.js"></script>
     <script src="script.js"></script>
     <script>
+        function changeCounts(){
+           var mcount = Number($("#memberCount").val()); 
+           var totalCost = mcount*2;
+           $("#TotalCostForUsers").html("= $"+totalCost+"/Month");
+           $("#UserSubscribeBtn").html("Subscribe to <b>"+mcount+"</b> more users");
+
+        }
         var db, UserObject;
         function initializeFirebase1() {
             getFirebaseConfig().then(function () {
@@ -297,7 +312,20 @@
                           
                             if(response.length>0){
                                 if(response[0].status=="active" || response[0].status=="trialing"){
-                                    console.log(response[0]);
+                                    TotalAllowedUsers = 3;
+                                        getCustomerMembersAllowed().then(function(resp){
+                                      
+                                            if(resp.length>0){
+                                                resp.forEach(function(val){
+                                                    if(val.status=="active"){
+                                                        TotalAllowedUsers+=val.quantity;
+                                                    }
+                                                });
+                                            }
+                                            console.log(resp,TotalAllowedUsers);
+                                            $("#allowed_users").html(TotalAllowedUsers);
+
+                                        });
                                     $(".subbtn").addClass("disable-sub-btn");
                                     var plan = '$'+response[0].plan.amount/100+'/'+response[0].plan.interval;
                                     $("#amtpaid").html('$'+response[0].plan.amount/100);

@@ -25,7 +25,16 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato|Poppins|Roboto|Roboto+Mono|Rubik|Work+Sans&display=swap"
         rel="stylesheet" />
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.1/dist/sweetalert2.all.min.js"></script>
+        <script src="js/swalUtility.js"></script>
+        <style>
+            .swal2-close{
+                margin-top:1px !important;
+            }
+            .swal2-checkbox{
+                display: none !important;
+            }
+        </style>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/videostyle.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet">
@@ -312,19 +321,19 @@
                         <b>
                             <a style="color: #ffffff; background: #56bea6; border: 1px solid #56bea6; font-weight: 700; padding: 8px 8px 5px 10px; border-radius: 38px; margin: 1%;"
                                 title="Transactions that are signed and approved for payment">
-                                <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                                <input class="1" name="ApprovalFilters" onchange="filterRecordsSigned()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="Approved">&nbsp; Approved &nbsp; <i class="fas fa-check"></i>
                             </a>
                             <a style="color: #616161; background: #e4e4e4; border: 1px solid #e4e4e4; font-weight: 700; padding: 8px 8px 5px 10px; border-radius: 38px; margin: 1%;"
                                 title="Transactions that are pending and yet to be approved or rejected">
-                                <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                                <input class="1" name="ApprovalFilters" onchange="filterRecordsSigned()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="Pending">&nbsp; Pending &nbsp; <b style="padding-left: 8px; border-left: 2px solid #c1c1c1;">512</b>
                             </a>
                             <a style="color: #ffffff; background: #ff88a4; border: 1px solid #ff88a4; font-weight: 700; padding: 8px 8px 5px 10px; border-radius: 38px; margin: 1%;"
                                 title="Transactions that have been denied.">
-                                <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
+                                <input class="1" name="ApprovalFilters" onchange="filterRecordsSigned()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="Denied">&nbsp; Denied &nbsp; <i class="fas fa-times"></i>
                             </a>
@@ -544,7 +553,7 @@ END OF COMMENT for export table function ----->
     font-weight: 700;
     padding: 1% 1%;
     width: 500px;
-    height: 500px;
+    height: 550px;
     box-shadow: 9px 10px 20px 10px #696969;
     margin: 3% auto;
     border: none;
@@ -558,10 +567,14 @@ END OF COMMENT for export table function ----->
                         <span>More details about transaction:</span> <textarea style="background: #ffffff5c; max-height: 166px; height: 109px; border: 2px solid #ffed71;line-height: 18px; padding: 3%;"  placeholder="add payment notes and attachments such as bank account details, payment invoices, etc;" id="notes" type="textarea" ></textarea>
                     </div>
                     <input type="file" style="border: none; width: 100%; background: #fdfcd0; border: 2px solid #ffeb68;margin-bottom: 20px;" id="transaction_attachment"></input>
+                <br>
+                <div><img id="attachment_thumbnail" src="img/logo7.png" style="display: none; height: 100px; width: 100px;"/></div>
+                <br>
                 </div>
                 <button style="width: 100%; background: #615e5e; border: none; padding: 4%;" onclick="AddNotesToTransaction();">Save transaction Notes</button>
                     <br>
                 <br>
+                
                 <div style="display: none;">
                     <table class="saved_table">
                         <thead>
