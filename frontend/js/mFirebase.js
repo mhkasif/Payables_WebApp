@@ -457,7 +457,7 @@ function getTrasactionsAll() {
                                
                 var OverAllStatus = "Status: "+myRecord.is_signed;
                 if(myRecord.ApprovedBy){
-                    OverAllStatus = OverAllStatus +" 🠪 Approved By: " +myRecord.ApprovedBy;
+                    OverAllStatus = OverAllStatus +" 🠪 Signed By: " +myRecord.ApprovedBy;
                 }
                 if(myRecord.Approver_First_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
@@ -912,7 +912,7 @@ function getTrasactionsByAccount(id) {
                 '                <div class="timeline-content">' +
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
-                '<i class="fas fa-question-circle" data-title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
                 '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
@@ -1114,7 +1114,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                <div class="timeline-content">' +
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
-                '<i class="fas fa-question-circle" data-title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
+                '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
                 '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
