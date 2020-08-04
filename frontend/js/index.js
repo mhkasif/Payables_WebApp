@@ -132,13 +132,11 @@ function openTab(evt, tabName) {
 // Get the element with id="defaultOpen" and click on it
 
 
-function filterbyCollectionDay(value) {
+function filterbyCollectionDay() {
+    var value=[];
     tblUsers.where("UserID", "==", localStorage.getItem("userid")).get().then(function (resp) {
-        tblUsers.doc(resp.docs[0].id).update({
-            collectionDays: value
-        });
-
-    });
+        
+        value = resp.docs[0].data().CollectionDays;
     if (!value) {
         $(".timelinePart.records").find(".Collection_date").hide();
        // $("#add-entry-all").show();
@@ -146,9 +144,10 @@ function filterbyCollectionDay(value) {
     }
     $(".timelinePart.records").find(".Collection_date").hide();
     $(value).each(function (i, v) {
-
-        $(".timelinePart.records." + v).find(".Collection_date").show();
+        $(".timelinePart.records." + v.substring(0,3)).find(".Collection_date").show();
     });
+    });
+    
    // $("#add-entry-all").hide();
    // $(".timelinePart.records").hide();
 }

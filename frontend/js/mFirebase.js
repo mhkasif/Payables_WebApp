@@ -15,6 +15,7 @@ weekday[3] = "Wed";
 weekday[4] = "Thu";
 weekday[5] = "Fri";
 weekday[6] = "Sat";
+
 var liRecords = '<tr>' +
     '                                <td><i class="fa fa-bars"></i></td>' +
     '                                <td>---</td>' +
@@ -46,7 +47,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                                class="fas fa-exclamation-circle"></i>' +
     '                            &nbsp;' +
     '                            Alert : Balance Shortage</a>' +
-    '                        <a class=" Collection_date"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+    '                        <a class="Collection_date"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
     '                    </h3>' +
     '                    <div class="responsive-table">' +
     '                        <table class="nowTable" id="t_draggable1">' +
@@ -395,12 +396,17 @@ function getTrasactionsAll() {
 
 	
     tblAccountCheques = db.collection("tbl_account_cheques").where("UserID", "==", userid);
+    
     if(!isOwner){
         tblAccountCheques =  tblAccountCheques.where("groupid","==",groupid);
     }
     if(isSubmitter){
         tblAccountCheques = tblAccountCheques.where("added_by","==",current_userid)
     }
+    tblAccountCheques.where("is_signed","==","Pending").get().then(function(alldocs){
+        var totalPendings = alldocs.docs.length;
+        $("#pendingTCount").html(totalPendings);
+    });
     tblAccountCheques = tblAccountCheques.limit(20);
 
     allTrasactions = [];
@@ -490,6 +496,7 @@ function getTrasactionsAll() {
             }
             var draggablekey = key.split("/").join("_");
             totalAmount = totalAmount + sumOfAmount;
+            console.log(key,weekday[new Date(key).getDay()]);
             var myLi = '<li ' + (trCount == 0 ? "style=\'display:none;\'" : "") + ' class="timelinePart records ' + weekday[new Date(key).getDay()] + '">' +
                 '                <p class="timeline-date">' + (new Date(key).getDate() + '/' + (new Date(key).getMonth() + 1) + '/' + new Date(key).getFullYear()) + '</p>' +
                 '                <div class="timeline-content">' +
@@ -501,7 +508,7 @@ function getTrasactionsAll() {
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
@@ -588,7 +595,7 @@ function getTrasactionsAll() {
         $(".collectionDays").change();
         filterRecordsChecked();
         filterRecords();
-        filterbyCollectionDay($(".collectionDays").val());
+        filterbyCollectionDay();
     });
 }
 
@@ -703,7 +710,7 @@ function getTrasactionsAllPagination() {
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
@@ -787,7 +794,7 @@ function getTrasactionsAllPagination() {
     tblUsers.where("UserID", "==", userid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
-        filterbyCollectionDay($(".collectionDays").val());
+        filterbyCollectionDay();
         filterRecordsChecked();
         filterRecords();
     });
@@ -807,6 +814,10 @@ function getTrasactionsByAccount(id) {
     if(isSubmitter){
         tblAccountCheques = tblAccountCheques.where("added_by","==",current_userid);
     }
+    tblAccountCheques.where("is_signed","==","Pending").get().then(function(alldocs){
+        var totalPendings = alldocs.docs.length;
+        $("#pendingTCount").html(totalPendings);
+    });
     tblAccountCheques = tblAccountCheques.limit(20);
 
     allTrasactions = [];
@@ -907,7 +918,7 @@ function getTrasactionsByAccount(id) {
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
@@ -994,7 +1005,7 @@ function getTrasactionsByAccount(id) {
         $(".collectionDays").change();
         filterRecordsChecked();
         filterRecords();
-        filterbyCollectionDay($(".collectionDays").val());
+        filterbyCollectionDay();
     });
 }
 
@@ -1109,7 +1120,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
-                '                        <a class=" Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
+                '                        <a class="Collection_date" style="display:none;"><i class="fas fa-rupee-sign"></i> &nbsp; Collection Date</a>' +
                 '                    </h3>' +
                 '                    <div class="responsive-table">' +
                 '                        <table class="nowTable" id="draggable-' + draggablekey + '">' +
@@ -1193,7 +1204,7 @@ function getTrasactionsByAccountPagination(id) {
     tblUsers.where("UserID", "==", userid).get().then(function (resp) {
         $(".collectionDays").val(resp.docs[0].data().collectionDays);
         $(".collectionDays").change();
-        filterbyCollectionDay($(".collectionDays").val());
+        filterbyCollectionDay();
         filterRecordsChecked();
         filterRecords();
     });
