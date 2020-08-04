@@ -451,7 +451,7 @@ function getTrasactionsAll() {
                                
                 var OverAllStatus = "Status: "+myRecord.is_signed;
                 if(myRecord.ApprovedBy){
-                    OverAllStatus = OverAllStatus +" 🠪 Approved By: " +myRecord.ApprovedBy;
+                    OverAllStatus = OverAllStatus +" 🠪 Signed By: " +myRecord.ApprovedBy;
                 }
                 if(myRecord.Approver_First_Name){
                     OverAllStatus = OverAllStatus +" 🠪 "  + myRecord.Approver_First_Name;
