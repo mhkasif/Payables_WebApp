@@ -93,15 +93,17 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="dropbtn" style="display: flex;height: 62px;"><span id="userimage"><img
-                                src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp;
-                        </span><span id="username" style="margin-left: 10px;">Not LoggedIn</span> </a>
+                    <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp"
+                                style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not
+                            LoggedIn</span> &nbsp; <i class="fas fa-angle-down"></i></a>
                     <div class="dropdown-content">
-                        <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
-                        <a href="/collaborators" target="_self">Teams & Permissions</a>
-	                <a onclick="GoToSettings()" target="_self">Settings</a>
+                        <a onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a onclick="GotoCollaborators()" target="_self">Teams & Permissions</a>
+	                    <a onclick="GoToSettings()" target="_self">Settings</a>
                         <a href="http://www.google.com" target="_blank">Helpdesk</a>
-                        <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;"
+                        <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;"
                             onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i
                                 class="fas fa-sign-out-alt"></i></a>
                     </div>
