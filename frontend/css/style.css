@@ -28,7 +28,7 @@ background-color: #fafafa;
     border: 0;
     border-radius: .25em;
     background: initial;
-    background-color: #474645;
+    background-color: #474645 !important;
     color: #fff;
     font-size: 1.0625em;
     letter-spacing: 2px !important;
