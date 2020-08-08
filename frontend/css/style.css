@@ -21,7 +21,7 @@ background-color: #fafafa;
     border-radius: .3125em;
     background: #fff;
     font-family: inherit;
-    font-size: unset;
+    font-size: unset !important;
 }
 
 .swal2-styled.swal2-confirm {
@@ -31,12 +31,12 @@ background-color: #fafafa;
     background-color: #474645;
     color: #fff;
     font-size: 1.0625em;
-    letter-spacing: 2px;
+    letter-spacing: 2px !important;
 }
 
 .swal2-icon.swal2-info {
-    border-color: #dfdfdf;
-    color: #414141;
+    border-color: #dfdfdf  !important;
+    color: #414141 !important;
 }
 
 
