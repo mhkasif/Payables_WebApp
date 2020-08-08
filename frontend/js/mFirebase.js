@@ -2001,6 +2001,10 @@ function AddNotesToTransaction() {
                 user: localStorage.getItem("user"),
                 collection: 'tbl_account_cheques'
             });
+            closeNotesModal();
+            var notes_icon ='<i class="far fa-sticky-note" href="#" onclick="open_notes_modal(\'j7Jf9JNAIW5TIKReF44P\',\'8789\');" title="No notes added. click to add."></i>';
+            $("#transaction_id").find(".far.fa-sticky-note").replaceWith(notes_icon);
+            swal("Notes saved successfully");
         });
     } else {
         alert("please type notes");
