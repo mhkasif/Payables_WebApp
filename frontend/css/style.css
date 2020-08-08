@@ -313,7 +313,8 @@ background: #ffffff;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     margin: 4%;
-    margin-top: 0;    
+    margin-top: -4px;
+    border-radius: 6px;
 }
 
 .dropdown-content a {
