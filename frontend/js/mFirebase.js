@@ -1769,14 +1769,14 @@ function updateTrasactionStatus(evt, id, newValue) {
         $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-unclear").addClass("status-bounced");
     console.log($(evt).parent().parent());
     var withdrawalSpan = "";
-    if ($(evt).parent().parent().find("td:nth-child(6)").find("span").text() == "Buyer") {
+    if ($(evt).parent().parent().find("td:nth-child(7)").find("span").text() == "Buyer") {
 
         withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">" + $(evt).parent().parent().attr("data-rcdamt") + "</span>";
     }
-    if ($(evt).parent().parent().find("td:nth-child(6)").find("span").text() == "Supplier") {
+    if ($(evt).parent().parent().find("td:nth-child(7)").find("span").text() == "Supplier") {
         withdrawalSpan = "<span " + (newValue === "Bounced" ? "style='text-decoration: line-through;'" : "") + ">(" + $(evt).parent().parent().attr("data-rcdamt") + ")</span>";
     }
-    $(evt).parent().parent().find("td:nth-child(9)").html(withdrawalSpan);
+    $(evt).parent().parent().find("td:nth-child(10)").html(withdrawalSpan);
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id).update({
         status: newValue,
