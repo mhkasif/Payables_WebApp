@@ -15,8 +15,8 @@ background-color: #fafafa;
     padding-left: 16px;
     text-transform: none;
     vertical-align: middle;
-    font-weight: 700;
-    width: 100%;
+    font-weight: 700 !important;
+    width: 100% !important;
 }
 
 .firebaseui-idp-button {
@@ -26,14 +26,15 @@ background-color: #fafafa;
     line-height: normal;
     min-height: 40px;
     padding: 8px 16px;
-    text-align: center;
-    width: 100%;
-    border: 2px solid #7a7673;
-    border-radius: 4px;
+    text-align: center !important;
+    width: 100% !important;
+    border: 2px solid #7a7673 !important;
+    border-radius: 4px !important;
+    max-width: 100% !important;
 }
 
 .firebaseui-link {
-    color: #000000;
+    color: #000000 !important;
     font-variant: normal;
     font-weight: 400;
     text-decoration: none;
