@@ -8,6 +8,38 @@ background-color: #fafafa;
 }
 
 
+.firebaseui-idp-text {
+    color: #fff;
+    display: table-cell;
+    font-size: 14px;
+    padding-left: 16px;
+    text-transform: none;
+    vertical-align: middle;
+    font-weight: 700;
+    width: 100%;
+}
+
+.firebaseui-idp-button {
+    direction: ltr;
+    font-weight: 500;
+    height: auto;
+    line-height: normal;
+    min-height: 40px;
+    padding: 8px 16px;
+    text-align: center;
+    width: 100%;
+    border: 2px solid #7a7673;
+    border-radius: 4px;
+}
+
+.firebaseui-link {
+    color: #000000;
+    font-variant: normal;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+
 .swal2-popup {
     display: none;
     position: relative;
