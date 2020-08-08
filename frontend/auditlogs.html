@@ -66,7 +66,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/index">
+                    <a onclick="GotoDashboard();">
                         <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
                     </a>
                 </li>
@@ -231,7 +231,7 @@
         var ViewOnly = false;
         $(document).ready(function () {
             initializeFirebase1();
-            if (localStorage.getItem("access") != "Owner") {
+            if (localStorage.getItem("access") != "Owner" || localStorage.getItem("access")!="Group Admin") {
                 //ViewOnly =true;
                 location.href = url + "/index";
             }
@@ -409,7 +409,15 @@
             }
         }
 
-        
+        function GotoDashboard(){
+            if(localStorage.getItem("access")=="Group Admin"){
+                wal("You dont have permission to access the requested page.");            
+                return;
+            }
+            else{
+                window.open(url+"/index","_self");
+            }
+        }
         function SignOutFirebase() {
             firebase.auth().signOut().then(function () {
                 location.href = url + "/signin";

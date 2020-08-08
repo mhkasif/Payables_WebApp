@@ -1411,6 +1411,16 @@ function updateTrasaction(id) {
         return;
     }
     tblAccountCheques = db.collection("tbl_account_cheques");
+    tblAccountCheques.doc(id).get().then(function(doc){
+     var data = doc.data();
+     if(data.is_signed=="Approved"){
+         if(isSubmitter){
+             swal("You cannot Edit Approved Transaction");
+            return;
+            }
+     }
+     
+    
     tblAccountCheques.doc(id).update({
         account_id: document.getElementById('account-list').value,
         bank: document.getElementById('account-list').options[document.getElementById('account-list').selectedIndex].text,
@@ -1517,6 +1527,7 @@ function updateTrasaction(id) {
     });
     clearTransactionFields();
     refreshAllCalculations();
+});
 }
 
 var selected_signUnsign_tid="";
@@ -1616,7 +1627,20 @@ function sign_approve_transaction(transaction_id,is_signed,ele){
     if(isApprover || isOwner){
         selected_sign_approve_ele=ele;
         selected_signUnsign_tid=transaction_id;
+        if((is_signed=="Approved" || is_signed=="Denied") && isApprover){
+
+        $("#btn_approve").hide();
+        $("#btn_denied").hide();
+        swal("Transaction is already "+is_signed+"! You cannot approve/reject now.");
+        return;
+    }
+    else{
+        $("#btn_approve").show();
+        $("#btn_denied").show();
+        
         $("#transaction-approve_deny_modal").show();
+    }
+    
     }else{
         swal("you don't have permission to approve.");
     }
@@ -1724,6 +1748,15 @@ function updateTrasactionStatus(evt, id, newValue) {
         swal("You don't have the permission to update the entry");
         return;
     }
+    tblAccountCheques = db.collection("tbl_account_cheques");
+    tblAccountCheques.doc(id).get().then(function(doc){
+        var data= doc.data();
+        if(data.is_signed!="Pending" && isSubmitter){
+            swal("You cannot update Approved or Denied Transaction");
+            return;
+        }else{
+
+       
     // console.log(id);
     console.log(newValue);
     if (newValue == "Un Clear")
@@ -1765,7 +1798,8 @@ function updateTrasactionStatus(evt, id, newValue) {
         console.error("Error updating status: ", error);
     });
     // $(evt).toggleClass('disable_flag');
-
+}
+});
 }
 
 
@@ -1779,6 +1813,10 @@ function editRecord(id) {
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id).get().then(function(doc){
         var record = doc.data();
+        if(record.is_signed!="Approved" && isSubmitter){
+            swal("You cannot edit signed transaction");
+            return;
+        }
     document.getElementById('transaction_id').value = id;
     document.getElementById('account-list').value = record.account_id;
     document.getElementById('cheque_no').value = record.cheque_no;

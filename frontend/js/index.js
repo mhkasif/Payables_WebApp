@@ -18,6 +18,7 @@
         }
         var isGroupAdmin = false;
         if (localStorage.getItem("access") == "Group Admin") {
+            window.open(url+"/collaborators","_self");
             isGroupAdmin = true;
         } else {
             isGroupAdmin = false;

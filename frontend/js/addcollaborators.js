@@ -471,3 +471,13 @@ var publicData=null;
               });
             
         }
+
+        function GotoDashboard(){
+            if(localStorage.getItem("access")=="Group Admin"){
+                wal("You dont have permission to access the requested page.");            
+                return;
+            }
+            else{
+                window.open(url+"/index","_self");
+            }
+        }
