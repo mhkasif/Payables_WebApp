@@ -324,7 +324,7 @@ getAccessedUsers();
                         td4.innerHTML = `<a class="collaborator_type"> ${data.type} </a>`;
                         td6.innerHTML = '<button class="settings_delete_button" style="color: #f96f6f; background: none; border: 2px solid #f96f6f; font-weight: 600;"  title="'+(data.islocked?"User Locked":"User Unlocked")+'">'+
                         '<i class="fas fa-'+(data.islocked?"lock":"lock-open")+'"></i> &nbsp; '+(data.islocked==true?"Unlock":"Lock")+'</button>';
-                        td7.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f;border: none;"  title="Delete">
+                        td7.innerHTML = `<button class="settings_delete_button" style="background: #f96f6f;border: 2px solid #f96f6f;"  title="Delete">
                         <i class="far fa-trash-alt"></i> &nbsp; Delete</button>`;
 
                         viewOnly ? td5.setAttribute("onclick", `viewAlert();`) :

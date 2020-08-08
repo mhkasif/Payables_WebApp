@@ -377,8 +377,8 @@
                         var td1 = document.createElement('td');
                         var td2 = document.createElement('td');
                         td1.innerHTML = val;
-                        td2.innerHTML = `<button class="settings_delete_button"  title="Delete">
-        <i class="far fa-trash-alt"></i></button>`;
+                        td2.innerHTML = `<button class="settings_delete_button" style="background: #f76d6d; border: none;"  title="Delete">
+        <i class="far fa-trash-alt"> &nbsp; Delete</i></button>`;
 
                         td2.setAttribute("onclick", `SwalConfirmBox("Are you sure to Delete?","DeleteCollectionDay('` + val + `');")`);
                         tr.innerHTML += td1.outerHTML + td2.outerHTML;
@@ -469,8 +469,8 @@
                         var td1 = document.createElement('td');
                         var td2 = document.createElement('td');
                         td1.innerHTML = val;
-                        td2.innerHTML = `<button class="settings_delete_button"  title="Delete">
-        <i class="far fa-trash-alt"></i></button>`;
+                        td2.innerHTML = `<button class="settings_delete_button" style="background: #f76d6d; border: none;" title="Delete">
+        <i class="far fa-trash-alt"> &nbsp; Delete</i></button>`;
 
                         td2.setAttribute("onclick", `SwalConfirmBox("Are you sure to Delete?","DeleteExpenseType('` + val + `');")`);
                         tr.innerHTML += td1.outerHTML + td2.outerHTML;
@@ -535,8 +535,8 @@
                         var td1 = document.createElement('td');
                         var td2 = document.createElement('td');
                         td1.innerHTML = val;
-                        td2.innerHTML = `<button class="settings_delete_button"  title="Delete">
-        <i class="far fa-trash-alt"></i></button>`;
+                        td2.innerHTML = `<button class="settings_delete_button" style="background: #f76d6d; border: none;" title="Delete">
+        <i class="far fa-trash-alt"> &nbsp; Delete</i></button>`;
 
                         td2.setAttribute("onclick", `SwalConfirmBox("Are you sure to Delete?","DeleteGroup('` + val + `');")`);
                         tr.innerHTML += td1.outerHTML + td2.outerHTML;
