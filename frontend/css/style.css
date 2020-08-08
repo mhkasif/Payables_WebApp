@@ -8,6 +8,38 @@ background-color: #fafafa;
 }
 
 
+.swal2-popup {
+    display: none;
+    position: relative;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    width: 32em;
+    max-width: 100%;
+    padding: 1.25em;
+    border: none;
+    border-radius: .3125em;
+    background: #fff;
+    font-family: inherit;
+    font-size: unset;
+}
+
+.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: .25em;
+    background: initial;
+    background-color: #474645;
+    color: #fff;
+    font-size: 1.0625em;
+    letter-spacing: 2px;
+}
+
+.swal2-icon.swal2-info {
+    border-color: #dfdfdf;
+    color: #414141;
+}
+
+
 /*Had an issue with width so added this media patch, shift when ready*/
 .navbar-header {
     width: 50%;
