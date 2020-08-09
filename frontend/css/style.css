@@ -1090,7 +1090,7 @@ input[type="file" i]::-webkit-file-upload-button {
     font-weight: 700;
     padding: 8px 8px 5px 10px;
     border-radius: 38px;
-    margin: 1%;
+    margin: 1% !important;
 }	
 	
 	.paymentstatus{
@@ -1098,7 +1098,7 @@ input[type="file" i]::-webkit-file-upload-button {
     font-weight: 700;
     padding: 8px 8px 5px 10px;
     border-radius: 5px;
-    margin: 1%;
+    margin: 1% !important;
 }
 
 
@@ -1107,11 +1107,11 @@ input[type="file" i]::-webkit-file-upload-button {
 @media (min-width : 1350px) {
 	
     .signstatus{
-    font-size: 11px;
+    font-size: 13px;
 }	
 	
-	.paymentstatus{
-    font-size: 12px;
+    .paymentstatus{
+    font-size: 13px;
 }	
 	
 	.tab button{
@@ -1120,6 +1120,17 @@ width: 205px;
 
 }
 
+/* for Desktop */
+@media (min-width: 1500px) {
+
+    .signstatus{
+    font-size: 13px;
+}
+    .paymentstatus {
+    font-size: 14px;
+}
+
+}
 
 
 
