@@ -778,7 +778,7 @@ function onSubscriptionSampleDemoComplete({
 
         }).then(function () {
           changeLoadingState(false);
-            window.location.href ="/index"
+          SwalConfirmBoxPaymentSuccess("Payment is successful",GotoDashboard());
             });
 
     });
@@ -827,6 +827,9 @@ function demoChangePrice() {
   }
 }
 
+function GotoDashboard(){
+  window.location.href ="/index";
+}
 // Changes the price selected
 function changePriceSelection(priceId) {
   //document.querySelector('#basic').classList.remove('border-pasha');
