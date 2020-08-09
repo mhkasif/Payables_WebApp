@@ -1,4 +1,11 @@
-    
+    //REDIRECT ALERT : as the website is not optimized for smaller devices so anything below 990 to redirect to desktop_alert.html asking them to download the app or visit on desktop.
+    // for smaller phones and mobile screens
+        const limit_width=990
+        if($( window ).width() < limit_width){
+            window.location='desktop_alert.html'
+        }
+     
+
 // A the time of load define what pages does the account type gets access to.
         var url = location.origin + location.href.replace(location.origin, '').substr(0, location.href.replace(location.origin, '').lastIndexOf('/'));
         var groupid = localStorage.getItem("groupid");
