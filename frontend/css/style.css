@@ -1106,14 +1106,14 @@ input[type="file" i]::-webkit-file-upload-button {
 
 
 /* for Desktop */
-@media (min-width : 1300px) {
+@media (min-width : 1350px) {
 	
     .signstatus{
     font-size: 13px;
 }	
 	
     .paymentstatus{
-    font-size: 13px;
+    font-size: 12px;
 }	
 	
 	.tab button{
@@ -1129,7 +1129,7 @@ width: 205px;
     font-size: 15px;
 }
     .paymentstatus {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 }
