@@ -1094,7 +1094,7 @@ input[type="file" i]::-webkit-file-upload-button {
 }	
 	
 	.paymentstatus{
-    border: 1px solid;
+    border: 1px solid !important;
     font-weight: 700;
     padding: 8px 8px 5px 10px;
     border-radius: 5px;
@@ -1104,7 +1104,7 @@ input[type="file" i]::-webkit-file-upload-button {
 
 
 /* for Desktop */
-@media (min-width : 1500px) {
+@media (min-width : 1350px) {
 	
     .signstatus{
     font-size: 11px;
