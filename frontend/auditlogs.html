@@ -14,13 +14,14 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-<!----Sentry error reporting script to report errors to the console NEEDS TO INITALIZE BEFORE EACH SCRIPT --->
-<script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous">
-</script>
-<!----This function initalizes sentry---->
-	<script>
-        Sentry.init({ dsn: 'https://fdbd4fd456cd4b5da56178599e750894@o428671.ingest.sentry.io/5374312' });
+    <!----Sentry error reporting script to report errors to the console NEEDS TO INITALIZE BEFORE EACH SCRIPT --->
+    <script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js"
+        integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous">
         </script>
+    <!----This function initalizes sentry---->
+    <script>
+        Sentry.init({ dsn: 'https://fdbd4fd456cd4b5da56178599e750894@o428671.ingest.sentry.io/5374312' });
+    </script>
 
 
     <script src="//js.stripe.com/v3/"></script>
@@ -74,26 +75,27 @@
                     <a href="/auditlogs" target="_self">
                         <i class="fas fa-history" style="font-size: 18px;"></i> &nbsp; Audit Logs
                     </a>
-                </li>		    
+                </li>
 
                 <li>
                     <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">
                         Feedback</a>
                 </li>
 
-               <li class="dropdown">
-                    <a class="dropbtn" style="display: flex; height: 62px;"><span id="userimage"><img src="img/Profilepic.webp"
-                                style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 10px;">Not
-                            LoggedIn</span> &nbsp; <i class="fas fa-angle-down" style="line-height: 48px; margin-left: 4px;"></i></a>
+                <li class="dropdown">
+                    <a class="dropbtn" style="display: flex; height: 62px;"><span id="userimage"><img
+                                src="img/Profilepic.webp" style="max-height: 40px; border-radius: 50%;" /> &nbsp;
+                        </span><span id="username" style="margin-left: 10px;">Not
+                            LoggedIn</span> &nbsp; <i class="fas fa-angle-down"
+                            style="line-height: 48px; margin-left: 4px;"></i></a>
                     <div class="dropdown-content">
                         <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
                         <a href="/collaborators" target="_self">Teams & Permissions</a>
-	                <a href="/setting" onclick="GoToSettings();" target="_self">Settings</a>
+                        <a href="/setting" onclick="GoToSettings();" target="_self">Settings</a>
                         <a href="http://www.google.com" target="_blank">Helpdesk</a>
                         <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;
     border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;"
-                            onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i
+    border-bottom-right-radius: 6px;" onclick="SignOutFirebase();"><span id="signout">Logout</span> &nbsp; <i
                                 class="fas fa-sign-out-alt"></i></a>
                     </div>
                 </li>
@@ -110,7 +112,7 @@
     box-shadow: 2px 7px 20px 7px #8a8a8a14;
     border: 2px solid #f3f3f3;">
 
-    <div class="row" style="margin-left: 48px;
+        <div class="row" style="margin-left: 48px;
     padding-bottom: 22px;
     margin-top: 26px;
     border-radius: 4px;
@@ -128,8 +130,9 @@
     font-weight: 700;
     font-size: 16px;">
 
-                <h2 style="text-align:left; margin-top: 0;">Audit Log</h2>
-                <p style="text-align:left;font-weight: 300;">Keep an eye on all the changes within the system, like having a bird's eye view to each change.</p>
+            <h2 style="text-align:left; margin-top: 0;">Audit Log</h2>
+            <p style="text-align:left;font-weight: 300;">Keep an eye on all the changes within the system, like having a
+                bird's eye view to each change.</p>
         </div>
 
         <div class="justify-center" style="margin-top:20px;" id="prices-and-payment">
@@ -156,14 +159,19 @@
                         <th colspan="6" style="text-align: center;">View All Entries</th>
                         </tr> -->
                         <!--End Row-->
-                        <tr class="loading_rows" >
+                        <tr class="loading_rows">
                             <td colspan="6"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
                         </tr>
-	                        <tfoot>
-                            <tr>
-                                <td colspan="6" style="text-align: center;"><span id="backward_page"  style="color:blue;cursor:pointer;" onclick="getAuditLogPagination(true);">Previous</span>&nbsp;<span id="page_number" style="margin-left: 5px;margin-right: 5px;"></span>&nbsp;<span id="forward_page" style="color:blue;cursor:pointer;" onclick="getAuditLogPagination(false);">Next</span></td>
-                            </tr>
-                        </tfoot>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" style="text-align: center;"><span id="backward_page"
+                                    style="color:blue;cursor:pointer;"
+                                    onclick="getAuditLogPagination(true);">Previous</span>&nbsp;<span id="page_number"
+                                    style="margin-left: 5px;margin-right: 5px;"></span>&nbsp;<span id="forward_page"
+                                    style="color:blue;cursor:pointer;"
+                                    onclick="getAuditLogPagination(false);">Next</span></td>
+                        </tr>
+                    </tfoot>
                     </tbody>
                 </table>
             </div>
@@ -215,7 +223,7 @@
 
                     if (user) {
                         UserObject = user;
-                        if(!UserObject.emailVerified){
+                        if (!UserObject.emailVerified) {
                             location.href = url + "/signin";
                         }
                         $("#owner_name").html(UserObject.displayName);
@@ -234,25 +242,28 @@
         var ViewOnly = false;
         $(document).ready(function () {
             initializeFirebase1();
-            if (localStorage.getItem("access") != "Owner" || localStorage.getItem("access")!="Group Admin") {
-                //ViewOnly =true;
-                location.href = url + "/index";
+            if (localStorage.getItem("access") != "Owner") {
+                if (localStorage.getItem("access") != "Group Admin")
+                {
+                    location.href = url + "/index";
+                }
             }
+
         });
         var totalcount = 0;
         var recordsFetched = 0;
         var lastfetchedRecord = null;
         var firstfetchedRecord = null;
         var page_number = 1;
-        var lastfetchedRcd=null;
+        var lastfetchedRcd = null;
         async function getAuditLog() {
             //  var current = await getUserData();
             $("#backward_page").hide();
             var arr = [];
             const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
             var query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid);
-            if(localStorage.getItem("access")=="Group Admin"){
-                query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).where("groupid","==",localStorage.getItem("groupid"));
+            if (localStorage.getItem("access") == "Group Admin") {
+                query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).where("groupid", "==", localStorage.getItem("groupid"));
             }
             await query.get()
                 .then(querySnapshot => {
@@ -264,12 +275,12 @@
             await query.get()
                 .then(querySnapshot => {
                     recordsFetched = querySnapshot.docs.length;
-                        if(totalcount==recordsFetched){
-                            $("#backward_page").hide();
-                            $("#forward_page").hide();
-                         
-                        }
-                        $("#page_number").html(page_number);
+                    if (totalcount == recordsFetched) {
+                        $("#backward_page").hide();
+                        $("#forward_page").hide();
+
+                    }
+                    $("#page_number").html(page_number);
                     lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
                     firstfetchedRecord = querySnapshot.docs[0];
                     lastfetchedRcd = firstfetchedRecord;// querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -279,7 +290,7 @@
                 }).catch(err => {
                     console.log(err);
                 })
-                console.log(totalcount,recordsFetched);
+            console.log(totalcount, recordsFetched);
             var data = arr.slice(0);
             data.sort(function (a, b) {
                 return b.now - a.now;
@@ -318,50 +329,50 @@
                 tbody.appendChild(tr)
             }
         }
-        var lastfetchedRecordcount=0;
+        var lastfetchedRecordcount = 0;
         async function getAuditLogPagination(IsBackward) {
             //  var current = await getUserData();
             var arr = [];
             const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
             var query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid);
-            if(localStorage.getItem("access")=="Group Admin"){
-                query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).where("groupid","==",localStorage.getItem("groupid"));
+            if (localStorage.getItem("access") == "Group Admin") {
+                query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).where("groupid", "==", localStorage.getItem("groupid"));
             }
-            if(IsBackward){
-               // if(lastfetchedRecordcount<50)
-                   
+            if (IsBackward) {
+                // if(lastfetchedRecordcount<50)
+
                 query = query.startAfter(firstfetchedRecord).limit(50);
-           
-            }else{
-                
-                    query = query.startAfter(lastfetchedRecord).limit(50);
+
+            } else {
+
+                query = query.startAfter(lastfetchedRecord).limit(50);
             }
             await query.get()
                 .then(querySnapshot => {
                     $("#backward_page").show();
-                    
-                    if(IsBackward){
+
+                    if (IsBackward) {
                         page_number--;
                         recordsFetched = recordsFetched - querySnapshot.docs.length;
-                    }else{
+                    } else {
                         page_number++;
-                        recordsFetched = recordsFetched + querySnapshot.docs.length;  
+                        recordsFetched = recordsFetched + querySnapshot.docs.length;
                     }
-                    console.log(totalcount,recordsFetched);
-                    if(totalcount<=recordsFetched){
-                        lastfetchedRecordcount= querySnapshot.docs.length;
-                            //$("#backward_page").hide();
-                            $("#forward_page").hide();
-                           
+                    console.log(totalcount, recordsFetched);
+                    if (totalcount <= recordsFetched) {
+                        lastfetchedRecordcount = querySnapshot.docs.length;
+                        //$("#backward_page").hide();
+                        $("#forward_page").hide();
+
                     }
-                   
+
                     $("#page_number").html(page_number);
-                    if(lastfetchedRecordcount==50){
-                    firstfetchedRecord = querySnapshot.docs[0];
-                }
+                    if (lastfetchedRecordcount == 50) {
+                        firstfetchedRecord = querySnapshot.docs[0];
+                    }
                     lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
-                    if(recordsFetched<=50){
+                    if (recordsFetched <= 50) {
                         lastfetchedRecord = lastfetchedRcd;
                         $("#backward_page").hide();
                         $("#forward_page").show();
@@ -412,13 +423,13 @@
             }
         }
 
-        function GotoDashboard(){
-            if(localStorage.getItem("access")=="Group Admin"){
-                wal("You dont have permission to access the requested page.");            
+        function GotoDashboard() {
+            if (localStorage.getItem("access") == "Group Admin") {
+                wal("You dont have permission to access the requested page.");
                 return;
             }
-            else{
-                window.open(url+"/index","_self");
+            else {
+                window.open(url + "/index", "_self");
             }
         }
         function SignOutFirebase() {
@@ -429,7 +440,7 @@
             });
         }
 
-       
+
     </script>
 </body>
 
