@@ -271,8 +271,7 @@
             </div>
 
             <h5 class="message_notify" style="margin-left: 0;"> <a><i class="fas fa-info-circle"></i> &nbsp;
-                    HACK:</a>Shift transactions between payment sources. Total holdings should be used to see how long
-                all the balances stack up against all your transactions until you get cashflow negetive.<b href="#">know
+                    QUICK HACK:</a>Shift transactions between payment sources, to get a better idea when your business will go out of cashflow.<b href="#">know
                     more tips</b>
             </h5>
             <div class="tab" id="tabs-accounts">
@@ -319,19 +318,19 @@
                     <div style="display: grid; width: 34%;">
                         <label><i class="fas fa-signature"></i> &nbsp; Approval Filters ~ Show & Hide</label>
                         <b>
-                            <a style="color: #ffffff; background: #56bea6; border: 1px solid #56bea6; font-weight: 700; padding: 8px 8px 5px 10px; border-radius: 38px; margin: 1%;"
+                            <a class="signstatus" style="color: #ffffff; background: #56bea6;"
                                 title="Transactions that are signed and approved for payment">
                                 <input class="1" name="ApprovalFilters" onchange="filterRecordsSigned()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="Approved">&nbsp; Approved &nbsp; <i class="fas fa-check"></i>
                             </a>
-                            <a style="color: #616161; background: #e4e4e4; border: 1px solid #e4e4e4; font-weight: 700; padding: 8px 8px 5px 10px; border-radius: 38px; margin: 1%;"
+                            <a class="signstatus" style="color: #616161; background: #e4e4e4;"
                                 title="Transactions that are pending and yet to be approved or rejected">
                                 <input class="1" name="ApprovalFilters" onchange="filterRecordsSigned()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="Pending">&nbsp; Pending &nbsp; <b style="padding-left: 8px; border-left: 2px solid #c1c1c1;" id="pendingTCount">0</b>
                             </a>
-                            <a style="color: #ffffff; background: #ff88a4; border: 1px solid #ff88a4; font-weight: 700; padding: 8px 8px 5px 10px; border-radius: 38px; margin: 1%;"
+                            <a class="signstatus" style="color: #ffffff; background: #ff88a4;"
                                 title="Transactions that have been denied.">
                                 <input class="1" name="ApprovalFilters" onchange="filterRecordsSigned()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
@@ -344,25 +343,25 @@
                     <div style="display: grid; width: 44%;">
                         <label><i class="far fa-credit-card"></i> &nbsp; Payment Filters ~ Show & Hide</label>
                         <b>
-                            <a style="color: #19c9a0; background: #ccfff3; border: 1px solid;font-weight: 700;padding: 8px 8px 5px 10px;border-radius: 5px;margin: 1%;"
+                            <a class="paymentstatus" style="color: #19c9a0; background: #ccfff3;"
                                 title="Cheques paid and are now deducted from your account">
                                 <input class="1 clearchk" name="clearPaymentCheckbox" onchange="filterRecords()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     checked value="Cleared"> &nbsp; Cleared &nbsp; <i class="fas fa-check"></i>
                             </a>
-                            <a style="color: #f46083; background: #ffeaef; border: 1px solid;font-weight: 700;padding: 8px 8px 5px 10px;border-radius: 5px;margin: 1%;"
+                            <a class="paymentstatus" style="color: #f46083; background: #ffeaef;"
                                 title="Cheques that is given out but arnt yet cleared from the bank.">
                                 <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="Un Clear"> &nbsp; Un-Clear &nbsp; <i class="fas fa-exclamation-circle"></i>
                             </a>
-                            <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 8px 8px 5px 10px;border-radius: 5px;margin: 1%;"
+                            <a class="paymentstatus" style="color: #fac200; background: #fffae8;"
                                 title="Cheques that are yet to be paid">
                                 <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
                                     value="To Pay">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i>
                             </a>
-                            <a style="color: #616161;background: #e4e4e4; border: 1px solid;font-weight: 700;padding: 8px 8px 5px 10px;border-radius: 5px;margin: 1%;"
+                            <a class="paymentstatus"  style="color: #616161;background: #e4e4e4;"
                                 title="Cheques that have been dishonoured or failed to clear">
                                 <input class="1" name="clearPaymentCheckbox" onchange="filterRecords()"
                                     style="width: 27px; height: 20px; vertical-align: text-bottom;" type="checkbox"
