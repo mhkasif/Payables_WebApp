@@ -8,6 +8,39 @@ background-color: #fafafa;
 }
 
 
+.firebaseui-idp-text {
+    color: #fff;
+    display: table-cell;
+    font-size: 14px;
+    padding-left: 16px;
+    text-transform: none;
+    vertical-align: middle;
+    font-weight: 700 !important;
+    width: 100% !important;
+}
+
+.firebaseui-idp-button {
+    direction: ltr;
+    font-weight: 500;
+    height: auto;
+    line-height: normal;
+    min-height: 40px;
+    padding: 8px 16px;
+    text-align: center !important;
+    width: 100% !important;
+    border: 2px solid #7a7673 !important;
+    border-radius: 4px !important;
+    max-width: 100% !important;
+}
+
+.firebaseui-link {
+    color: #000000 !important;
+    font-variant: normal;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+
 .swal2-popup {
     display: none;
     position: relative;
@@ -280,7 +313,8 @@ background: #ffffff;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     margin: 4%;
-    margin-top: 0;    
+    margin-top: -4px;
+    border-radius: 6px;
 }
 
 .dropdown-content a {
@@ -317,7 +351,6 @@ background: #ffffff;
     overflow: hidden;
     font-family: lato;
     margin-bottom: 2%;
-    box-shadow: 0px 0px 12px #c4c4c46b;
     font-weight: 400;
     padding: 10px;
 }    
@@ -530,6 +563,79 @@ font-family: lato;
      font-family: lato;   
 }
 
+
+/* ----------- Google Pixel ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Google Pixel XL ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: landscape) {
+
+}
+
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) { 
+}
+
 /* for Desktop */
 @media (min-width : 640px) {
   .timeline>li {
@@ -683,6 +789,7 @@ img {
     background: #ffffff;
     border: double;
     border-color: #19c9a0;
+    width: 205px;
 }
 
 /* Change background color of buttons on hover */
@@ -975,3 +1082,57 @@ input[type="file" i]::-webkit-file-upload-button {
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
     border-image: initial;
 }
+
+
+
+    .signstatus{
+    font-weight: 700;
+    padding: 8px 8px 5px 10px;
+    border-radius: 38px;
+    margin: 1% !important;
+    font-size: 10px;    
+}	
+	
+	.paymentstatus{
+    border: 1px solid !important;
+    font-weight: 700;
+    padding: 8px 8px 5px 10px;
+    border-radius: 5px;
+    margin: 1% !important;
+   font-size: 10px;
+}
+
+
+
+/* for Desktop */
+@media (min-width : 1350px) {
+	
+    .signstatus{
+    font-size: 13px;
+}	
+	
+    .paymentstatus{
+    font-size: 12px;
+}	
+	
+	.tab button{
+width: 205px;
+}	
+
+}
+
+/* for Desktop */
+@media (min-width: 1500px) {
+
+    .signstatus{
+    font-size: 15px;
+}
+    .paymentstatus {
+    font-size: 14px;
+}
+
+}
+
+
+
+

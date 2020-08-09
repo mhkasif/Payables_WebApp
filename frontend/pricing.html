@@ -80,14 +80,14 @@
                      Feedback</a>
                 </li>
 
-                <li class="dropdown">
-                    <a class="dropbtn"><span id="userimage"><img src="img/Profilepic.webp"
-                                style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username">Not
-                            LoggedIn</span> &nbsp; <i class="fas fa-angle-down"></i></a>
+               <li class="dropdown">
+                    <a class="dropbtn" style="display: flex; height: 62px;"><span id="userimage"><img src="img/Profilepic.webp"
+                                style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 10px;">Not
+                            LoggedIn</span> &nbsp; <i class="fas fa-angle-down" style="line-height: 48px; margin-left: 4px;"></i></a>
                     <div class="dropdown-content">
-                        <a onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
-                        <a onclick="GotoCollaborators()" target="_self">Teams & Permissions</a>
-	                    <a onclick="GoToSettings()" target="_self">Settings</a>
+                        <a href="/pricing" onclick="GotoPricing();"><span id="signout">Manage Subscription</span></a>
+                        <a href="/collaborators" target="_self">Teams & Permissions</a>
+	                <a href="/setting" onclick="GoToSettings();" target="_self">Settings</a>
                         <a href="http://www.google.com" target="_blank">Helpdesk</a>
                         <a href="#" style="background: #f88da5; color: #fff; font-weight: 700;
     border-bottom-left-radius: 6px;
@@ -96,6 +96,7 @@
                                 class="fas fa-sign-out-alt"></i></a>
                     </div>
                 </li>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
@@ -135,7 +136,7 @@
                     <li> <i class="far fa-envelope-open"></i> &nbsp; Email: <span id="email">-</span></li>
                     <li><i class="fas fa-key"></i> &nbsp; UID: <span id="uid">-</span></li>
                     <li> <i class="fas fa-calculator"></i> &nbsp; Plan: <span id="plan">-</span></li>
-                    <li> <i class="fas fa-calculator"></i> &nbsp; Total Allowed Users: <span id="allowed_users">-</span></li>
+                    <li> <i class="fas fa-users"></i> &nbsp; Alloted Users: <span id="allowed_users">-</span></li>
                 </ul>
             </div>
             <div class="col-md-4">
@@ -158,22 +159,22 @@
     overflow: hidden;
     background: #6495ed url(../img/poweredbystripe.png);
     background-repeat: no-repeat;
-    background-size: 9% 112%;
+    background-size: 17% 133%;
     background-position-x: 98%;
     background-position-y: 60%;
     margin: 2%;
     padding: 23px;
-    background-color: cornflowerblue;
+    background-color: #9dd9db;
     font-weight: 700;
     font-size: 14px;
     border-left: 19px solid #3333;
     border-right: 19px solid #3333;">
 <li style="list-style: none;" id="billingdetailLink">
 <span id="customer-portal" style="cursor: pointer;" onclick="createCustomerPortalSession();"> 
- <a style="color: #005bff; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;">Billing Transactions &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
- <a style="color: #005bff; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;">Upgrade Plan  &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
- <a style="color: #005bff; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;">Manage Cards  &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
- <a style="color: #005bff; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;">Cancel Subscription  &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
+ <a style="color: #4c9d9e;  background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;font-family: fantasy;">Billing Transactions &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
+ <a style="color: #4c9d9e; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;font-family: fantasy;">Upgrade Plan  &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
+ <a style="color: #4c9d9e; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;font-family: fantasy;">Manage Cards  &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
+ <a style="color: #4c9d9e; background: #fffffff2; padding: 10px; border-radius: 6px; margin-right: 2%;font-family: fantasy;">Cancel Subscription  &nbsp; <i class="fas fa-external-link-square-alt"></i></a>
 </span>
 </li>
         </div>

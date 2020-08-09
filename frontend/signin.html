@@ -53,7 +53,7 @@
     font-family: sans-serif;
     margin-top: 4%;
     margin-bottom: 11%;
-    font-size: 18px;">Never run of cash again</h3>
+    font-size: 18px;">Never run out of cash again</h3>
 
         </div>
 
@@ -83,23 +83,22 @@
 </div>
 <div id="resetPasswordPopup" class="modal">
     <div class="modal-content" 
-style="background: #fff3a4;
-font-weight: 700;
-padding: 1% 1%;
-width: 500px;
-height: 500px;
-box-shadow: 9px 10px 20px 10px #696969;
-margin: 3% auto;
-border: none;
-border-radius: 0;">
-        <span class="modal-close-btn" onclick="closeNotesModal();">&times;</span>
+style="padding: 1% 1%;
+    width: 500px;
+    height: 500px;
+    margin: 8% auto;
+    border-radius: 5px;
+    border: 4px solid #f5e99f;">
+        <span class="modal-close-btn" onclick="closeNotesModal();" style="background: none;">&times;</span>
         <div class="modal-body">
             <div>
+	       <h3 style="font-weight: 600;">Forgot Password ?</h3>
+		    <p style="color: #999;">No worries, we just need your registered email address to send you a password reset link.</p>
                <div style="margin-bottom: 20px;display: grid;">
-                    <span>Email:</span> <input id="resetPasswordEmail" style="width: 100%;" placeholder="johndoe@gmail.com"></input>
+                    <input id="resetPasswordEmail" style="width: 100%;" placeholder="Registered email address here"></input>
                 </div>
             </div>
-            <button style="width: 100%; background: #615e5e; border: none; padding: 4%;" onclick="sendResetPasswordLink();">Send Reset Password Link</button>
+            <button style="width: 100%; background: #615e5e; border: none; padding: 4%;padding: 3%;border-radius: 5px;" onclick="sendResetPasswordLink();">Send Reset Password Link</button>
                 <br>
             <br>
            
@@ -410,9 +409,9 @@ function sendResetPasswordLink(){
                             //firebase.auth.PhoneAuthProvider.PROVIDER_ID
                         ],
                         // Terms of service url.
-                        tosUrl: '<your-tos-url>',
+                        tosUrl: 'https://help.tulsisoftware.com/documentation/others/terms-and-conditions',
                         // Privacy policy url.
-                        privacyPolicyUrl: '<your-privacy-policy-url>'
+                        privacyPolicyUrl: 'https://help.tulsisoftware.com/documentation/others/privacy-policy'
                     };
 
                     ui.start('#google-signin', uiConfig);
