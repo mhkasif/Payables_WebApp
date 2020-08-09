@@ -163,15 +163,7 @@ function getAccountsAll() {
             // doc.data() is never undefined for query doc snapshots
             // console.log(doc.id, " => ", doc.data());
             SumOfAllInit_Balance += Number(doc.data().init_balance);
-            if (doc.data().title === 'Cash in Hand') {
-                htmlTabs += '<button class="tablinks" data-accid="' + doc.id + '" onclick="openTab(event, \'' + doc.id + '\')">' +
-                    '<i class="fas fa-university"></i><br>' +
-                    '    <b>' + doc.data().title + '</b>' +
-                    '    <input placeholder="Enter Balance" type="number" ' +
-                    '           onblur="updateAccount(\'' + doc.id + '\', \'' + doc.data().title + '\', this.value)"' +
-                    '           value="' + doc.data().init_balance + '"/>' +
-                    '</button>';
-            } else {
+         
                 htmlTabs += '<button class="tablinks" data-accid="' + doc.id + '" onclick="openTab(event, \'' + doc.id + '\')">' +
                     '<i class="fas fa-university"></i><br>' +
                     '    <b>' + doc.data().title + '</b>' +
@@ -180,7 +172,6 @@ function getAccountsAll() {
                     '           value="' + doc.data().init_balance + '"/>' +
                     '<a style="display: inherit;" onclick="deleteAccount(\'' + doc.id + '\')"> <i class="fas fa-minus-circle"></i> &nbsp; Delete Account</a>' +
                     '</button>';
-            }
             var accTab = '  <div class="tabcontent" id="' + doc.id + '">\n' +
                 '            <div style="display:none;" class="balance_in_account_bar">\n' +
                 '        <input class="balance_input" placeholder="Search data within all transactions" onkeyup="advance_search_recordtab($(this).val(),\'' + doc.id + '\')"            '

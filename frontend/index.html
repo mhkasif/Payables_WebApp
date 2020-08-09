@@ -831,20 +831,6 @@ END OF COMMENT for export table function ----->
                         }).catch(function (error) {
                             console.error("Error adding document: ", error);
                         });
-                        tblAccounts = db.collection("tbl_accounts");
-                        tblAccounts.where("title", "==", 'Cash in Hand').where("UserID", "==", localStorage.getItem("userid")).get().then(function (querySnapshot) {
-                            // console.log(querySnapshot.docs.length);
-
-                            // console.log(querySnapshot.size);
-                            if (querySnapshot.docs.length > 0) {
-                                console.log('Cash in Hand already Exists');
-                            } else {
-                               // console.log('Cash in Hand account is creating...');
-                               // addAccount({ title: "Cash in Hand", init_balance: 0, UserID: localStorage.getItem("userid") });
-                            }
-                        }).catch(function (error) {
-                            console.error("Error adding document: ", error);
-                        });
                         getAccountsAll();
                         $("body").show();
                     } else {
