@@ -790,6 +790,7 @@ img {
     background: #ffffff;
     border: double;
     border-color: #19c9a0;
+    width: 205px;
 }
 
 /* Change background color of buttons on hover */
@@ -1085,19 +1086,11 @@ input[type="file" i]::-webkit-file-upload-button {
 
 
 
-
-
-
-
-/* for Desktop */
-@media (min-width : 1500px) {
-	
     .signstatus{
     font-weight: 700;
     padding: 8px 8px 5px 10px;
     border-radius: 38px;
     margin: 1%;
-    font-size: 11px;
 }	
 	
 	paymentstatus{
@@ -1106,6 +1099,18 @@ input[type="file" i]::-webkit-file-upload-button {
     padding: 8px 8px 5px 10px;
     border-radius: 5px;
     margin: 1%;
+}
+
+
+
+/* for Desktop */
+@media (min-width : 1500px) {
+	
+    .signstatus{
+    font-size: 11px;
+}	
+	
+	paymentstatus{
     font-size: 12px;
 }	
 	
