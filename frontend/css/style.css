@@ -1093,7 +1093,7 @@ input[type="file" i]::-webkit-file-upload-button {
     margin: 1%;
 }	
 	
-	paymentstatus{
+	.paymentstatus{
     border: 1px solid;
     font-weight: 700;
     padding: 8px 8px 5px 10px;
@@ -1110,7 +1110,7 @@ input[type="file" i]::-webkit-file-upload-button {
     font-size: 11px;
 }	
 	
-	paymentstatus{
+	.paymentstatus{
     font-size: 12px;
 }	
 	
