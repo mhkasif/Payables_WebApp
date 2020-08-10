@@ -27,8 +27,6 @@
                 //initialize firebase
                 if (!firebase.apps.length) {
                     firebase.initializeApp(firebaseConfig);
-
-               
                 }
                 secondaryApp = firebase.initializeApp(firebaseConfig, "Secondary");
                 db = firebase.firestore();
@@ -59,7 +57,7 @@
                             }
                             });
                             getGroupsDDL();
-                        
+                 
 
                     } else {
                         location.href = url + "/signin";
@@ -77,6 +75,7 @@
                 location.href = url + "/index";
             }
         });
+
 
 
 //ADD TEAM HEAD (In settings) 
@@ -107,13 +106,13 @@
                             });
                         }
                     });
-
                 
             } else {
                 $("#group_add_message").html("Please enter team title");
                 $("#group_add_message").show();
             }
         }
+
 
 // FETCH (in settings table) ~ it fetches the added team heads into there user collectction
         function getGroups() {
@@ -134,8 +133,7 @@
                         var td2 = document.createElement('td');
                         td1.innerHTML = data.name;
                         td2.innerHTML = `<button class="settings_delete_button"  title="Delete">
-        <i class="far fa-trash-alt"></i></button>`;
-
+                           <i class="far fa-trash-alt"></i></button>`;
                         td2.setAttribute("onclick", `DeleteGroup(${JSON.stringify(data)})`);
                         tr.innerHTML += td1.outerHTML + td2.outerHTML;
                         tbody.appendChild(tr);
@@ -172,7 +170,7 @@ getAccessedUsers();
 //FETCH TABLE FORMAT~ In settings the TEAM section TABLE to fetch entries within it.
         function addGroupDiv(val){
         
-         var GroupDiv ='<div class="group_div" data-groupname="'+val+'" id="group_'+val+'">   <div class="justify-center" style="margin-top:20px;">'+
+         var GroupDiv ='<div class="group_div" data-groupname="'+val+'" id="group_'+val+'"><div class="justify-center" style="margin-top:20px;">'+
            ' <a style="display:flex;"><h4 style="width: 100%; text-align: left; color: #949194; font-weight: 500; font-family: lato;">'+val+'</h4>'+
               '     <h4 style="width: 100%; text-align: right; color: #949194; font-weight: 500; font-family: lato;"><span id="mcount_'+val+'"></span> members</h4></a>'+
               '  <div class="settings_setup_container">'+
@@ -388,11 +386,10 @@ var publicData=null;
                             getAccessedUsers();
 
                         });
-                   
                 });
-            
         }
 
+//
         function disableUser(uid,disabled) {
             
             return fetch('/disable-user-account', {
@@ -414,14 +411,16 @@ var publicData=null;
               });
           }
 
+//
         function RevokeUser() {
                var data = publicData;
                 secondaryApp.auth().signInWithEmailAndPassword(data.email, data.password)
                     .then(async (res) => {
                         Revoke(data);
                     });
-            
         }
+
+// 
         function Revoke(del) {
 
             secondaryApp.auth().currentUser.delete().then(function () {
@@ -472,9 +471,7 @@ var publicData=null;
               .then((response) => {
                   console.log(response.response);
                 return response.response.data;
-          
               });
-            
         }
 
         function GotoDashboard(){
