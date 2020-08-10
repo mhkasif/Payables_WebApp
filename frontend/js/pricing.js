@@ -109,15 +109,15 @@ function getCustomerMembersAllowed() {
 function confirmAddMembers(){
     let memcount = document.querySelector('#memberCount').value;
     Swal.fire({
-        title: '<strong>Confirmation</strong>',
+        title: '<strong>New Member</strong>',
         icon: 'info',
         html:
-          'Are you sure you want to add <b>'+memcount+' new members</b>? ',
+          'Sure you want to add <b>'+memcount+'</b>? ',
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText:
-          '<span style="width:100%" onclick="addmemberstosubscription();"><i class="fa fa-check"></i> OK!<span>',
+          '<span style="width:100%" onclick="addmemberstosubscription();"><i class="fa fa-check"></i>Yes<span>',
         cancelButtonText:
           '<i class="fa fa-close"></i> Cancel',
       });
