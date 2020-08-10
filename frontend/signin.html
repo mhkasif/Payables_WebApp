@@ -67,7 +67,7 @@
               </div>
 
             <div>
-                <div style="margin-bottom: 10px; width: 70%;"><span style="font-weight: bold;color: crimson;" id="login_error"></span></div>
+                <div style="margin-bottom: 10px; background: #fbe6e9; border-radius: 5px; padding: 8px;text-align: center;"><span style="font-weight: bold; color: crimson; font-size: 13px;" id="login_error"></span></div>
                 <div style="margin-bottom: 20px;display:grid;">
                     <span style="text-transform: uppercase;font-size: 13px; color: #6f6f6f;">Email:</span> 
                     <input style="width: 100%;" id="email" type="text" />
@@ -370,7 +370,7 @@ function sendResetPasswordLink(){
                                         } else {
                                             $("body").show();
                                             UserObject.sendEmailVerification().then(function () {
-                                                $("#login_error").html("We sent you and email for verification.Please verify your email account.");
+                                                $("#login_error").html("Verification email sent to your email address");
                                             });
                                         }
                                     }
