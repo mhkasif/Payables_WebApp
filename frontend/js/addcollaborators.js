@@ -4,6 +4,8 @@
 // We are changing this to two as there's already an owner account by default.
 // Any more collaborators will need to be purchased in pricing.html
         var TotalAllowedUsers=2;
+
+// this function fetches firebase configuration code from the root file
         function getFirebaseConfig() {
             return fetch('/firebaseConfig', {
                 method: 'get',
@@ -141,7 +143,7 @@
                 })
         }
 
-
+// This code is for team selection in the add collaborator form in colaborator.html
         function getGroupsDDL() {
             db.collection('tbl_users').where('UserID', '==', localStorage.getItem("userid")).get()
             .then(querySnapshot => {
@@ -200,7 +202,7 @@ getAccessedUsers();
 
 // Removing an added team 
         function DeleteGroup(data){
-            if(confirm("Are you sure you want to delete the group?")){
+            if(confirm("Are you sure you want to delete the team?")){
                 db.collection('tbl_groups').doc(data.id).delete().then(function(){
                     db.collection('tbl_audit_log').add({
                                     content: `Team <b>${data.name}</b> removed from system`,
@@ -244,6 +246,8 @@ getAccessedUsers();
             swal("Please fill all fields to add a team member");
         }
         }
+
+//AUDIT SCRIPT~ Add team member into the system
         //npm install --save react-native-swipe-list-view
         async function AddUserAccess(email, password, type) {
             let name = email.slice(0, email.indexOf('@'));
@@ -291,6 +295,8 @@ getAccessedUsers();
                 });
         }
         var UserAddedAlready = 0;
+
+//FETCH~ GET Addred users from the system in the table view
         function getAccessedUsers() {
             var viewOnly = false;
             $("#loading_rows_tr").show();
@@ -353,6 +359,7 @@ getAccessedUsers();
                 })
         }
 var publicData=null;
+// Confirm ~ 
         function ConfirmLockUnlock(data){
             publicData=data;
             SwalConfirmBox("Block/Unblock Account Access","LockUnlockUser();");
