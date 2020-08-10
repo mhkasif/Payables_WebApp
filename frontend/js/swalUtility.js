@@ -7,7 +7,7 @@ function SwalConfirmBox(Message,SuccessCallBack) {
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText:
-            '<span style="width:100%" onclick="'+SuccessCallBack+'"><i class="fa fa-check"></i> OK!<span>',
+            '<span style="width:100%" onclick="'+SuccessCallBack+'"><i class="fa fa-check"></i>Yes<span>',
         cancelButtonText:
             '<i class="fa fa-close"></i> Cancel',
     });
