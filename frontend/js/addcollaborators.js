@@ -1,7 +1,9 @@
 
         var db, UserObject;
         var fireBaseConfigInfo;
-        var TotalAllowedUsers=3;
+// We are changing this to two as there's already an owner account by default.
+// Any more collaborators will need to be purchased in pricing.html
+        var TotalAllowedUsers=2;
         function getFirebaseConfig() {
             return fetch('/firebaseConfig', {
                 method: 'get',
@@ -77,20 +79,20 @@
         });
 
 
-
+//ADD TEAM HEAD (In settings) 
         function AddCollaboratorGroup() {
             $("#group_add_message").hide();
             if ($("#group-name").val()) {
                     var tbl_groups = db.collection('tbl_groups').where("UserID", "==", localStorage.getItem("userid"));
                     tbl_groups.where("name", "==", $("#group-name").val()).get().then(function (documentsResponse) {
                         if (documentsResponse.docs.length > 0) {
-                            $("#group_add_message").html("Group with same name already exist");
+                            $("#group_add_message").html("Team Head with same name already exist");
                             $("#group_add_message").show();
                         } else {
                             var gname = $("#group-name").val();
                             db.collection('tbl_groups').add({ name: gname, UserID: localStorage.getItem("userid") }).then(function () {
                                 db.collection('tbl_audit_log').add({
-                                    content: `User Group Added <b>${gname}</b>`,
+                                    content: `New Team <b>${gname}</b> added into system`,
                                     now: (new Date()).getTime(),
                                     groupid:localStorage.getItem("groupid"),
                                     party: '',
@@ -108,11 +110,12 @@
 
                 
             } else {
-                $("#group_add_message").html("Please enter group name");
+                $("#group_add_message").html("Please enter team title");
                 $("#group_add_message").show();
             }
         }
 
+// FETCH (in settings table) ~ it fetches the added team heads into there user collectction
         function getGroups() {
             var viewOnly = false;
             // Add_Group_table_tbody
@@ -145,7 +148,7 @@
             db.collection('tbl_users').where('UserID', '==', localStorage.getItem("userid")).get()
             .then(querySnapshot => {
                 $("#ddlGroup").html("");
-                   $("#ddlGroup").append('<option value="" selected="" disabled="" hidden="">--Select--</option>');
+                   $("#ddlGroup").append('<option value="" selected="" disabled="" hidden="">--Select Team--</option>');
                 if(querySnapshot.docs[0].data().GroupsList){
                     querySnapshot.docs[0].data().GroupsList.forEach(val => {
                         if(localStorage.getItem("access")=="Group Admin"){
@@ -166,6 +169,7 @@ getAccessedUsers();
             });
         }
 
+//FETCH TABLE FORMAT~ In settings the TEAM section TABLE to fetch entries within it.
         function addGroupDiv(val){
         
          var GroupDiv ='<div class="group_div" data-groupname="'+val+'" id="group_'+val+'">   <div class="justify-center" style="margin-top:20px;">'+
@@ -196,12 +200,12 @@ getAccessedUsers();
             $("#AllGroups").append(GroupDiv);
                 }
 
-
+// Removing an added team 
         function DeleteGroup(data){
             if(confirm("Are you sure you want to delete the group?")){
                 db.collection('tbl_groups').doc(data.id).delete().then(function(){
                     db.collection('tbl_audit_log').add({
-                                    content: `User Group Delete <b>${data.name}</b>`,
+                                    content: `Team <b>${data.name}</b> removed from system`,
                                     now: (new Date()).getTime(),
                                     party: '',
                                     date: '',
@@ -216,7 +220,8 @@ getAccessedUsers();
             }
         }
 
-
+//IMPORTANT
+// ADD TEAM MEMBER ~ This is the code to add team member for user access. 
         function AddUserToGiveAccess() {
             if($("#ddlGroup").val()){
             var email = document.getElementById('other-email').value;
@@ -234,7 +239,7 @@ getAccessedUsers();
                     SwalConfirmBox("Are you sure you want to Add User?","AddUserAccess('"+email+"', '"+password+"', '"+type+"');");
                 
             }else{
-                swal("You have reached the limit of total team members. Please subscribe for additional Team Members.");
+                swal("You have reached the limit of alloted team members. Subscribe for additional Team Members.");
             }
             }
 	        }else{
@@ -258,7 +263,7 @@ getAccessedUsers();
                         .then(function () {
 
                             db.collection('tbl_audit_log').add({
-                                content: `User Access Added <b>${name}</b> Email <b>${email}</b>`,
+                                content: `Team member <b>${email}</b> was given access`,
                                 now: (new Date()).getTime(),
                                 party: '',
                                 date: '',
@@ -281,10 +286,10 @@ getAccessedUsers();
                     // .catch(function (error) {
                     //     var errorMessage = error.message;
                     // });
-                    console.log("Account linking success", user);
+                    console.log("Success, Added new team member", user);
                 }).catch(function (error) {
                     $("#acc_linking_message").html(error.message);
-                    console.log("Account linking error", error);
+                    console.log("Error, Team member not added into system", error);
                 });
         }
         var UserAddedAlready = 0;
@@ -352,12 +357,12 @@ getAccessedUsers();
 var publicData=null;
         function ConfirmLockUnlock(data){
             publicData=data;
-            SwalConfirmBox("Are you sure?","LockUnlockUser();");
+            SwalConfirmBox("Block/Unblock Account Access","LockUnlockUser();");
         }
 
         function ConfirmDeleteUser(data){
             publicData=data;
-            SwalConfirmBox("Are you sure?","RevokeUser();");
+            SwalConfirmBox("Are you sure you want to remove the user?","RevokeUser();");
         }
 
         function viewAlert() {
@@ -370,7 +375,7 @@ var publicData=null;
                     disableUser(data.id,(data.islocked==true?false:true)).then(function(){
 
                             db.collection('tbl_audit_log').add({
-                                content: `User  <b>${data.user}</b> is set to <b>${(data.islocked?"unlock":"lock")}</b>`,
+                                content: `Member Access <b>${data.user}</b> is set to <b>${(data.islocked?"unlock":"lock")}</b>`,
                                 now: (new Date()).getTime(),
                                 party: '',
                                 date: '',
@@ -422,12 +427,12 @@ var publicData=null;
             secondaryApp.auth().currentUser.delete().then(function () {
                 console.log("Team member deleted from authentication ")
             }).catch(function (error) {
-                console.log("error happens while deleting from authentication", error);
+                console.log("Error, Couldn't delete user from authentication", error);
             });
             db.collection('tbl_linked_account_access').doc(del.id).delete()
                 .then(function () {
                     db.collection('tbl_audit_log').add({
-                        content: `User Access Deleted <b>${del.user}</b> Email <b>${del.email}</b>`,
+                        content: `Member <b>${del.email}</b> was removed from system`,
                         now: (new Date()).getTime(),
                         party: '',
                         date: '',
