@@ -1,27 +1,35 @@
 name: Build and Deploy
-
 on:
   push:
     branches:
-    - master
-    - release/*
+      - master
 
 jobs:
-  firebase-deploy:
-
+   build:
+    name: Build
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: '10.x'
-    - run: npm install
-    - run: npm run build:prod
-    - uses: w9jds/firebase-action@master
-      with:
-        args: deploy --only hosting
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: fiver-1-safeer
-
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build-prod
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist
+deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: GitHub Action for Firebase
+        uses: w9jds/firebase-action@v1.5.0
+        with:
+          args: deploy 
+        env:
+         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+         FIREBASE_PROJECT: fiver-1-safeer
