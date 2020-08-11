@@ -1,3 +1,5 @@
+
+
 name: Build and Deploy
 on:
   push:
@@ -5,7 +7,7 @@ on:
       - master
 
 jobs:
-   build:
+  build:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -20,8 +22,9 @@ jobs:
         with:
           name: dist
           path: dist
-deploy:
+  deploy:
     name: Deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -29,7 +32,12 @@ deploy:
       - name: GitHub Action for Firebase
         uses: w9jds/firebase-action@v1.5.0
         with:
-          args: deploy 
+          name: dist
+          path: dist
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
         env:
-         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-         FIREBASE_PROJECT: fiver-1-safeer
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: fiver-1-safeer
