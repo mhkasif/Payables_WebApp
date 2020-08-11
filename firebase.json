@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "payablesbytulsi",
+    "public": "/",
     "ignore": [
       "firebase.json",
       "**/.*",
