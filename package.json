@@ -10,7 +10,7 @@
     "startVanillajs": "npm run server",
     "start": "npm run server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "reactBuild": "cd ../../client/react && npm run build"
+
   },
   "author": "stripe-demos",
   "license": "ISC",
