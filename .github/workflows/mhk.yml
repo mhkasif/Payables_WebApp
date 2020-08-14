@@ -27,8 +27,7 @@ jobs:
     #installing dependencies
     - name: Installing dependencies
       run: npm install
-    - name: Building react app
-      run: npm run reactBuild
+ 
   
   deploy:
     name: Deploy
