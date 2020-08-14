@@ -9,7 +9,8 @@
     "startReact": "concurrently \"npm run reactClient\" \"npm run server\"",
     "startVanillajs": "npm run server",
     "start": "npm run server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "reactBuild": "cd ../../client/react && npm run build"
   },
   "author": "stripe-demos",
   "license": "ISC",
