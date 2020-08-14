@@ -7,8 +7,6 @@ name: MHK
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,6 +27,8 @@ jobs:
     #installing dependencies
     - name: Installing dependencies
       run: npm install
+    - name: Building react app
+      run: npm run reactBuild
   
   deploy:
     name: Deploy
