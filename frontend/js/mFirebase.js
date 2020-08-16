@@ -1525,7 +1525,7 @@ var selected_signUnsign_tid="";
 function SetSignedOrDenied(val){
         tblAccountCheques = db.collection("tbl_account_cheques");
         tblAccountCheques.doc(selected_signUnsign_tid).get().then(function(doc){    
-    if(localStorage.getItem("access")=="Approver" || isOwner || isGroupAdmin){    
+    if(localStorage.getItem("access")=="Approver" || isOwner || isManager){    
     tblAccountCheques.doc(selected_signUnsign_tid).update({
         is_signed:val,
         ApprovedBy:localStorage.getItem("user")
@@ -1615,7 +1615,7 @@ function SetSignedOrDenied(val){
 }
 var selected_sign_approve_ele;
 function sign_approve_transaction(transaction_id,is_signed,ele){
-    if(isApprover || isOwner || isGroupAdmin){
+    if(isApprover || isOwner || isManager){
         selected_sign_approve_ele=ele;
         selected_signUnsign_tid=transaction_id;
         if((is_signed=="Approved" || is_signed=="Denied") && isApprover){
