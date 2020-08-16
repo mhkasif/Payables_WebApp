@@ -72,7 +72,7 @@
         var ViewOnly = false;
         $(document).ready(function () {
             initializeFirebase1();
-            if (localStorage.getItem("access") != "Owner || Group Admin") {
+            if (localStorage.getItem("access") != "Owner || Manager") {
                 //ViewOnly =true;
                 //location.href = url + "/index";
             }
@@ -151,7 +151,7 @@
                    $("#ddlGroup").append('<option value="" selected="" disabled="" hidden="">--Select Team--</option>');
                 if(querySnapshot.docs[0].data().GroupsList){
                     querySnapshot.docs[0].data().GroupsList.forEach(val => {
-                        if(localStorage.getItem("access")=="Group Admin"){
+                        if(localStorage.getItem("access")=="Manager"){
                             $("#gadmin").remove();
                             if(val==localStorage.getItem("groupid")){
                                 $("#ddlGroup").append('<option value="'+val+'">'+val+'</option>');
@@ -302,7 +302,7 @@ getAccessedUsers();
             $("#loading_rows_tr").show();
             $(".group_div").hide();
            var query = db.collection('tbl_linked_account_access').where('UserID', '==', localStorage.getItem("userid"));
-           if(localStorage.getItem("access")=="Group Admin"){
+           if(localStorage.getItem("access")=="Manager"){
             query = query.where("GroupID","==",localStorage.getItem("groupid"));
            }
            query.get()
@@ -482,7 +482,7 @@ var publicData=null;
         }
 
         function GotoDashboard(){
-            if(localStorage.getItem("access")=="Group Admin"){
+            if(localStorage.getItem("access")=="Manager"){
             }
             else{
                // window.open(url+"/index","_self");
