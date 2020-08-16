@@ -29,7 +29,7 @@ var liRecords = '<tr>' +
     '                                            class="form-control red-text"' +
     '                                            onchange="this.className=\'form-control \' + this.options[this.selectedIndex].className">' +
     '                                        <option class="red-text" value="Un Clear">Un-Clear</option>' +
-    '                                        <option class="orange-text" value="To Pay">To Pay</option>' +
+    '                                        <option class="orange-text" value="Due">Due</option>' +
     '                                        <option class="green-text" value="Cleared">Cleared</option>' +
     '                                        <option class="black-text" value="Bounced">Bounced</option>' +
     '                                    </select>' +
@@ -191,8 +191,8 @@ function getAccountsAll() {
                 + '                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" data-title="Cheques that is still to be paid"><input      '
                 + '                    class="1" name="clearPaymentCheckbox_unused"                                                                '
                 + '                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
-                + '                    value="To Pay"                                                                                                                  '
-                + '                    type="checkbox">&nbsp; To Pay &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
+                + '                    value="Due"                                                                                                                  '
+                + '                    type="checkbox">&nbsp; Due &nbsp; <i class="fas fa-bell"></i></a>                                                                                                      '
                 + '                <a style="color: #fac200; background: #fffae8; border: 1px solid;font-weight: 700;padding: 12px;border-radius: 38px;margin: 1%;" data-title="Cheques that is still to be paid"><input      '
                 + '                    class="1" name="clearPaymentCheckbox_unused"                                                                '
                 + '                    style="width: 27px; height: 20px; vertical-align: text-bottom;"                                                                 '
@@ -475,7 +475,7 @@ function getTrasactionsAll() {
                     '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
                     '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
-                    '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+                    '                                        <option class="orange-text" value="Due" ' + (myRecord.status === "Due" ? "selected" : "") + '>Due</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
@@ -679,7 +679,7 @@ function getTrasactionsAllPagination() {
                     '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
                     '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
-                    '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+                    '                                        <option class="orange-text" value="Due" ' + (myRecord.status === "Due" ? "selected" : "") + '>Due</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
@@ -886,7 +886,7 @@ function getTrasactionsByAccount(id) {
                     '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
                     '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
-                    '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+                    '                                        <option class="orange-text" value="Due" ' + (myRecord.status === "Due" ? "selected" : "") + '>Due</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
@@ -1088,7 +1088,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
                     '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
                     '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
-                    '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+                    '                                        <option class="orange-text" value="Due" ' + (myRecord.status === "Due" ? "selected" : "") + '>Due</option>' +
                     '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
                     '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
                     '                                    </select>' +
@@ -1338,7 +1338,7 @@ $("#status").on("change", function () {
         $("#status").removeClass("status-clear").removeClass("status-topay").removeClass("status-bounce").addClass("status-unclear");
     if ($("#status").val() == "Cleared")
         $("#status").removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounce").addClass("status-clear");
-    if ($("#status").val() == "To Pay")
+    if ($("#status").val() == "Due")
         $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounce").addClass("status-topay");
     if ($("#status").val() == "Bounced")
         $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-topay").addClass("status-bounce");
@@ -1484,7 +1484,7 @@ function updateTrasaction(id) {
         '                                            class="form-control red-text ' + (myRecord.status === "Un Clear" ? "status-unclear" : myRecord.status === "Cleared" ? "status-clear" : myRecord.status === "Bounced" ? "status-bounced" : "status-topay") + '"' +
         '                                            onchange="updateTrasactionStatus(this, \'' + myRecord.id + '\', $(this).val())">' +
         '                                        <option class="red-text" value="Un Clear" ' + (myRecord.status === "Un Clear" ? "selected" : "") + '>Un-Clear</option>' +
-        '                                        <option class="orange-text" value="To Pay" ' + (myRecord.status === "To Pay" ? "selected" : "") + '>To Pay</option>' +
+        '                                        <option class="orange-text" value="Due" ' + (myRecord.status === "Due" ? "selected" : "") + '>Due</option>' +
         '                                        <option class="green-text" value="Cleared" ' + (myRecord.status === "Cleared" ? "selected" : "") + '>Cleared</option>' +
         '                                        <option class="black-text" value="Bounced" ' + (myRecord.status === "Bounced" ? "selected" : "") + '>Bounced</option>' +
         '                                    </select>' +
@@ -1754,7 +1754,7 @@ function updateTrasactionStatus(evt, id, newValue) {
         $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-bounced").addClass("status-unclear");
     if (newValue == "Cleared")
         $(evt).removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounced").addClass("status-clear");
-    if (newValue == "To Pay")
+    if (newValue == "Due")
         $(evt).removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounced").addClass("status-topay");
     if (newValue == "Bounced")
         $(evt).removeClass("status-clear").removeClass("status-topay").removeClass("status-unclear").addClass("status-bounced");
@@ -1820,7 +1820,7 @@ function editRecord(id) {
         $("#status").removeClass("status-clear").removeClass("status-topay").removeClass("status-bounced").addClass("status-unclear");
     if (record.status == "Cleared")
         $("#status").removeClass("status-unclear").removeClass("status-topay").removeClass("status-bounced").addClass("status-clear");
-    if (record.status == "To Pay")
+    if (record.status == "Due")
         $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-bounced").addClass("status-topay");
     if (record.status == "Bounced")
         $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-topay").addClass("status-bounced");
