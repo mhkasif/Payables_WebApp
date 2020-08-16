@@ -74,7 +74,7 @@
             initializeFirebase1();
             if (localStorage.getItem("access") != "Owner || Group Admin") {
                 //ViewOnly =true;
-                location.href = url + "/index";
+                //location.href = url + "/index";
             }
         });
 
