@@ -1615,7 +1615,7 @@ function SetSignedOrDenied(val){
 }
 var selected_sign_approve_ele;
 function sign_approve_transaction(transaction_id,is_signed,ele){
-    if(isApprover || isOwner){
+    if(isApprover || isOwner || isGroupAdmin){
         selected_sign_approve_ele=ele;
         selected_signUnsign_tid=transaction_id;
         if((is_signed=="Approved" || is_signed=="Denied") && isApprover){
