@@ -43,5 +43,3 @@ jobs:
          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
          FIREBASE_PROJECT: fiver-1-safeer
           
-      
-    
