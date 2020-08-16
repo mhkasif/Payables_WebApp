@@ -485,7 +485,7 @@ var publicData=null;
             if(localStorage.getItem("access")=="Group Admin"){
             }
             else{
-                window.open(url+"/index","_self");
+               // window.open(url+"/index","_self");
                 swal("You dont have permission to access the requested page.");            
                 return;
             }
