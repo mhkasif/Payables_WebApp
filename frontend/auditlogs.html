@@ -248,7 +248,7 @@
         $(document).ready(function () {
             initializeFirebase1();
             if (localStorage.getItem("access") != "Owner") {
-                if (localStorage.getItem("access") != "Group Admin")
+                if (localStorage.getItem("access") != "Manager")
                 {
                     location.href = url + "/index";
                 }
@@ -267,7 +267,7 @@
             var arr = [];
             const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
             var query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid);
-            if (localStorage.getItem("access") == "Group Admin") {
+            if (localStorage.getItem("access") == "Manager") {
                 query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).where("groupid", "==", localStorage.getItem("groupid"));
             }
             await query.get()
@@ -341,7 +341,7 @@
             const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
             var query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid);
-            if (localStorage.getItem("access") == "Group Admin") {
+            if (localStorage.getItem("access") == "Manager") {
                 query = db.collection("tbl_audit_log").where("refId", "==", UserObject.uid).where("groupid", "==", localStorage.getItem("groupid"));
             }
             if (IsBackward) {
@@ -432,7 +432,7 @@
 //This code is to redirect if access doesnt include your user type
 //In this case Approvers & Submitters cannot
         function GotoDashboard() {
-            if (localStorage.getItem("access") == "Group Admin") {
+            if (localStorage.getItem("access") == "Manager") {
                 return;
             }
             else {
