@@ -23,12 +23,12 @@
         } else {
             isApprover = false;
         }
-        var isGroupAdmin = false;
-        if (localStorage.getItem("access") == "Group Admin") {
+        var isManager = false;
+        if (localStorage.getItem("access") == "Manager") {
 //Creating issues            window.open(url+"/collaborators","_self");
-            isGroupAdmin = true;
+            isManager = true;
         } else {
-            isGroupAdmin = false;
+            isManager = false;
         }
         var isSubmitter = false;
         if (localStorage.getItem("access") == "Submitter") {
@@ -48,14 +48,14 @@
             }
         }
         function GotoCollaborators() {
-            if (localStorage.getItem("access") == "Owner" || isGroupAdmin) {
+            if (localStorage.getItem("access") == "Owner" || isManager) {
                 window.open(url + "/collaborators", "_self");
             } else {
                 swal("You don't have permission to access requested page.")
             }
         }
         function GoToAuditLogs() {
-            if (localStorage.getItem("access") == "Owner" || isGroupAdmin) {
+            if (localStorage.getItem("access") == "Owner" || isManager) {
                 window.open(url + "/auditlogs", "_self");
             } else {
                 swal("You don't have permission to access requested page.")
