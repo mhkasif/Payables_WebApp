@@ -72,7 +72,7 @@
         var ViewOnly = false;
         $(document).ready(function () {
             initializeFirebase1();
-            if (localStorage.getItem("access") != "Owner") {
+            if (localStorage.getItem("access") != "Owner || Group Admin") {
                 //ViewOnly =true;
                 location.href = url + "/index";
             }
