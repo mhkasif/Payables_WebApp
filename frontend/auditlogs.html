@@ -428,15 +428,19 @@
             }
         }
 
+
+//This code is to redirect if access doesnt include your user type
+//In this case Approvers & Submitters cannot
         function GotoDashboard() {
             if (localStorage.getItem("access") == "Group Admin") {
-                wal("You dont have permission to access the requested page.");
                 return;
             }
             else {
+                swal("You dont have permission to access the requested page.");
                 window.open(url + "/index", "_self");
             }
         }
+//If signed out takes back to signin.html
         function SignOutFirebase() {
             firebase.auth().signOut().then(function () {
                 location.href = url + "/signin";
