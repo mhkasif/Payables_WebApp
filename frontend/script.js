@@ -1,5 +1,6 @@
 let stripe, customer, price, card;
 let apiURL = "";
+//pricing object for frontend
 let priceInfo = {
   basic: {
     amount: '10.00',
@@ -15,6 +16,7 @@ let priceInfo = {
     },
 };
 let GlobalCouponResult;
+//Initializing stripe elements on form
 function stripeElements(publishableKey) {
   stripe = Stripe(publishableKey);
 
@@ -98,6 +100,7 @@ function stripeElements(publishableKey) {
   }
 }
 
+//Error/form authentication
 function displayError(event) {
   changeLoadingStatePrices(false);
   let displayError = document.getElementById('card-element-errors');
@@ -108,6 +111,7 @@ function displayError(event) {
   }
 }
 
+//Creating payment for user on pressing subscribe button
 function createPaymentMethod({ card, isPaymentRetry, invoiceId }) {
   const params = new URLSearchParams(document.location.search.substring(1));
     const customerId = $('#customerid').val();
@@ -149,6 +153,7 @@ function createPaymentMethod({ card, isPaymentRetry, invoiceId }) {
     });
 }
 
+//Go to pricing page
 function goToPaymentPage(priceId) {
   // Show the payment screen
   document.querySelector('#payment-form').classList.remove('hidden');
@@ -234,7 +239,7 @@ function confirmPriceChange() {
 
 
 
-
+//Creating customer on stripe using api
 function createCustomer() {
   let billingEmail = document.querySelector('#email').value;
 
@@ -254,7 +259,7 @@ function createCustomer() {
       return result;
     });
 }
-
+//Get coupon details
 function getDiscountCoupon() {
     let discountCoupon = document.querySelector('#coupon').value;
     $("#error-message-coupon").hide();
@@ -376,6 +381,8 @@ function handlePaymentMethodRequired({
   }
 }
 var fireBaseConfigInfo;
+
+//Getting firebase configurations from api
 function getFirebaseConfig() {
         return fetch('/firebaseConfig', {
           method: 'get',
@@ -394,7 +401,7 @@ function getFirebaseConfig() {
 }
 
 var db, UserObject, tblUsers,tblStripeCustomers;
-
+//Initialize firebase app
 function initializeFirebase1() {
   getFirebaseConfig().then(function(){
     var firebaseConfig = fireBaseConfigInfo;
@@ -441,7 +448,7 @@ function initializeFirebase1() {
   });
 }
 
-
+//On payment success function handler
 function onSubscriptionComplete(result) {
   console.log(result);
   // Payment was successful. Provision access to your service.
@@ -456,6 +463,7 @@ function onSubscriptionComplete(result) {
   // Get the product by using result.subscription.price.product
 }
 
+//Creating subscription on stripe
 function createSubscription({ customerId, paymentMethodId, priceId }) {
   return (
     fetch('/create-subscription', {
@@ -645,6 +653,8 @@ function retrieveCustomerPaymentMethod(paymentMethodId) {
     });
 }
 
+
+//Get stripe configurations from api
 function getConfig() {
   return fetch('/config', {
     method: 'get',

@@ -37,6 +37,12 @@
             isSubmitter = false;
         }
 
+        if(isSubmitter || isApprover){
+            $("#quickHackMessage").hide();
+            $("#tabs-accounts").hide();
+            $("#videolinkDiv").hide();
+            $("#auditLogsLink").hide();
+        }
 //These are the functions to execute html page commands
 
     function GotoPricing() {

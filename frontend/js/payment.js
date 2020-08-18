@@ -2,6 +2,7 @@ $(document).ready(function () {
     initializeFirebase();
 });
 var fireBaseConfigInfo;
+//Get firebase configurations from api
 function getFirebaseConfig() {
         return fetch('/firebaseConfig', {
           method: 'get',
@@ -18,6 +19,8 @@ function getFirebaseConfig() {
       
           });
 }
+
+//Initialize firebase app
 function initializeFirebase() {
     getFirebaseConfig().then(function(){
     var firebaseConfig = fireBaseConfigInfo;
@@ -28,7 +31,7 @@ function initializeFirebase() {
     }
 });
 }
-
+//Firebase user sign out call
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {
         location.href = url + "/signin";
@@ -37,6 +40,7 @@ function SignOutFirebase() {
     });
 }
 
+//Function to get parameter from url
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),

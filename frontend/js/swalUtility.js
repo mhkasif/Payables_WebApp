@@ -1,3 +1,4 @@
+//SWAL Confirmation box
 function SwalConfirmBox(Message,SuccessCallBack) {
     Swal.fire({
         title: '<strong>Confirm</strong>',
@@ -12,6 +13,7 @@ function SwalConfirmBox(Message,SuccessCallBack) {
             '<i class="fa fa-close"></i> Cancel',
     });
 }
+//Swal alert function
 function SwalAlert(message,icon){
     Swal.fire({
     position: 'top-end',
@@ -21,7 +23,7 @@ function SwalAlert(message,icon){
     timer: 1500
   });
 }
-
+//Swal confirmation box to goto dashboard after payment success
 function SwalConfirmBoxPaymentSuccess(Message,SuccessCallBack) {
     Swal.fire({
         title: '<strong>Successfully Subscribed</strong>',

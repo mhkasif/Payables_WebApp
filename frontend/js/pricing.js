@@ -16,6 +16,7 @@ $(document).ready(function () {
 });
 
 var fireBaseConfigInfo;
+//getting firebase app configuration from api
 function getFirebaseConfig() {
         return fetch('/firebaseConfig', {
           method: 'get',
@@ -31,7 +32,7 @@ function getFirebaseConfig() {
       
           });
 }
-
+//Sign out from firebase
 function SignOutFirebase() {
     firebase.auth().signOut().then(function () {
         location.href = url + "/signin";
@@ -40,6 +41,7 @@ function SignOutFirebase() {
     });
 }
 
+//Creating new customer on stripe
 async function createCustomerStart() {
        var customer_email = UserObject.email;
       return fetch('/create-customer', {
@@ -61,7 +63,7 @@ async function createCustomerStart() {
 
   }
 
-
+//Get active subscriptions of user from stripe through api
 function getCustomerSubscriptions() {
     let customerid = document.querySelector('#customerid').value;
     return fetch('/get-cutomer-subscriptions', {
@@ -84,6 +86,8 @@ function getCustomerSubscriptions() {
     
 }
 
+
+//Get number of members allowed to the user / collaborators allowed to be added
 function getCustomerMembersAllowed() {
     let customerid = document.querySelector('#customerid').value;
     return fetch('/get-cutomer-members-allowed', {
@@ -106,6 +110,7 @@ function getCustomerMembersAllowed() {
     
 }
 
+//Subscribing for more members
 function confirmAddMembers(){
     let memcount = document.querySelector('#memberCount').value;
     Swal.fire({
@@ -122,7 +127,7 @@ function confirmAddMembers(){
           '<i class="fa fa-close"></i> Cancel',
       });
 }
-
+//Adding members to subscription in stripe
 function addmemberstosubscription() {
     let membercount = document.querySelector('#memberCount').value;
     
@@ -154,7 +159,7 @@ function addmemberstosubscription() {
     
 }
 
-
+//Stripe customer portal session call
 function createCustomerPortalSession() {
     let customerid = document.querySelector('#customerid').value;
 
@@ -182,6 +187,7 @@ function createCustomerPortalSession() {
         });
 }
 
+//Subscribe for trial - new customers only
 function subscribeTrial() {
     console.log(UserObject.email);
     let customerid = document.querySelector('#customerid').value;

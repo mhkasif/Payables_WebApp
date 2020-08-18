@@ -23,6 +23,7 @@
                 });
         }
         var secondaryApp;
+        //Initializes firebase app 
         function initializeFirebase1() {
             getFirebaseConfig().then(function () {
                 var firebaseConfig = fireBaseConfigInfo;
@@ -362,17 +363,27 @@ var publicData=null;
 // Confirm ~ 
         function ConfirmLockUnlock(data){
             publicData=data;
+            if(data.id==UserObject.uid){
+                swal("You cannot Lock/unlock self user");
+                return;
+            }
             SwalConfirmBox("Block/Unblock Account Access","LockUnlockUser();");
         }
 
         function ConfirmDeleteUser(data){
             publicData=data;
+            if(data.id==UserObject.uid){
+                swal("You cannot Delete self user");
+                return;
+            }
             SwalConfirmBox("Are you sure you want to remove the user?","RevokeUser();");
         }
 
         function viewAlert() {
             swal("You don't have the permission to remove a user");
         }
+
+        //Lock unlock user in db when confirmed by user
         function LockUnlockUser(){
             var data = publicData;
                 db.collection('tbl_linked_account_access').doc(data.id).update({islocked:data.islocked?false:true})
@@ -418,7 +429,7 @@ var publicData=null;
               });
           }
 
-//
+//Initialize and sign in on secondary app to revoke access
         function RevokeUser() {
                var data = publicData;
                 secondaryApp.auth().signInWithEmailAndPassword(data.email, data.password)
@@ -427,7 +438,7 @@ var publicData=null;
                     });
         }
 
-// 
+//Revoke access final function 
         function Revoke(del) {
 
             secondaryApp.auth().currentUser.delete().then(function () {
@@ -452,6 +463,8 @@ var publicData=null;
                 })
                 .catch(err => swal(err.message));
         }
+
+        //Signout firebase user call
         function SignOutFirebase() {
             firebase.auth().signOut().then(function () {
                 location.href = url + "/signin";
@@ -460,7 +473,7 @@ var publicData=null;
             });
         }
 
-
+//Get the count of allowed collaborators for user subscription
         function getCustomerMembersAllowed() {
             let customerid = document.querySelector('#customerid').value;
             return fetch('/get-cutomer-members-allowed', {

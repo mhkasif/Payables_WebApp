@@ -1,3 +1,4 @@
+//Subscribing trial package on first login
 function subscribeTrial() {
     createCustomerStart().then(async function (resp) {
         console.log(resp);
@@ -46,6 +47,7 @@ function subscribeTrial() {
 
 }
 
+//Create customer on stripe using api
 async function createCustomerStart() {
     var customer_email = UserObject.email;
     return fetch('/create-customer', {
@@ -66,7 +68,7 @@ async function createCustomerStart() {
         });
 
 }
-
+//Getting subscriptions of user
 function getCustomerSubscriptions() {
     let customerid = document.querySelector('#customerid').value;
     return fetch('/get-cutomer-subscriptions', {
@@ -88,6 +90,7 @@ function getCustomerSubscriptions() {
 
 }
 
+//Test function for sending email
 function sendEmail() {
     return fetch('/send-verification-email', {
 method: 'post',

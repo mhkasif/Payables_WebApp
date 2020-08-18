@@ -103,7 +103,7 @@ function getCustomerSubscriptions() {
 }
 
 
-
+//Get firebase configurations from API
 function getFirebaseConfig() {
     return fetch('/firebaseConfig', {
         method: 'get',
@@ -119,6 +119,8 @@ function getFirebaseConfig() {
 
         });
 }
+
+//Initialize Firebase App
 function initializeFirebase() {
     getFirebaseConfig().then(function () {
         var firebaseConfig = fireBaseConfigInfo;
@@ -130,6 +132,7 @@ function initializeFirebase() {
     });
 }
 
+//Add New Account Function
 function addAccountActual() {
 
     if (!isOwner) {
@@ -220,6 +223,7 @@ function getAccountsAll() {
     });
 }
 
+//READ ~ Get Account object from Database by title
 function getAccountByName(title) {
     tblAccounts = db.collection("tbl_accounts");
 
@@ -301,7 +305,7 @@ function updateAccount(id, title, init_balance) {
         $(tbody).each(function (i, v) {
             totalWithdrawl += Number($(v).find(".balance>span").text());
         });
-        if (totalAmount < totalWithdrawl) {
+        if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
             $(vv).find(".alert_notification_tag").show();
         } else {
             $(vv).find(".alert_notification_tag").hide();
@@ -309,6 +313,8 @@ function updateAccount(id, title, init_balance) {
         totalAmount = totalAmount - totalWithdrawl;
     });
 }
+
+//WRITE: Delete Bank Account by ID (Confirmation)
 function deleteAccount(id) {
     if (!isOwner) {
         swal("You don't have the permission to delete");
@@ -317,6 +323,7 @@ function deleteAccount(id) {
     SwalConfirmBox("Are you sure?","ContinueToDeleteAccount('"+id+"');");
 }
 
+//WRITE: Delete Account from Database after user confirmation
 function ContinueToDeleteAccount(id){
     tblAccounts = db.collection("tbl_accounts");
     tblAccountCheques.where("UserID","==",userid).where("account_id", "==", id).get().then(function (querySnapshot) {
@@ -346,7 +353,7 @@ function ContinueToDeleteAccount(id){
     });
 }
 	
-
+//Group by dataset on basis of property
 var groupBy = function (xs, key) {
     return xs.reduce(function (rv, x) {
         (rv[x[key]] = rv[x[key]] || []).push(x);
@@ -358,6 +365,7 @@ var allTrasactions = [];
 var groupedRecords = {};
 var tblRecordsHtml = '';
 
+//Sort Dataset on the bases of key and order
 function sortByKey(array, key, isAsc) {
     if (isAsc) {
         return array.sort(function (a, b) {
@@ -373,6 +381,7 @@ function sortByKey(array, key, isAsc) {
 
 }
 
+//READ: Get transactions Overall on the basis of conditions
 function GetTransactionGeneral(account_id) {
     if (account_id) {
         getTrasactionsByAccount(account_id);
@@ -382,6 +391,7 @@ function GetTransactionGeneral(account_id) {
     lastfetchedRecord = null;
 }
 
+//Get All transactions on initial load
 function getTrasactionsAll() {
     clearTransactionFields();
 
@@ -495,7 +505,7 @@ function getTrasactionsAll() {
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="far fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
                 '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
-                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") + '"> <i' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
@@ -567,7 +577,7 @@ function getTrasactionsAll() {
                             totalWithdrawl += Number($(v).find(".balance>span").text());
                         });
                         $(vv).find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
-                        if (totalAmount < totalWithdrawl) {
+                        if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
                             $(vv).find(".alert_notification_tag").show();
                         } else {
                             $(vv).find(".alert_notification_tag").hide();
@@ -697,7 +707,7 @@ function getTrasactionsAllPagination() {
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="far fa-question-circle" data-title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
                 '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
-                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") + '"> <i' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
@@ -768,7 +778,7 @@ function getTrasactionsAllPagination() {
                             totalWithdrawl += Number($(v).find(".balance>span").text());
                         });
                         $(vv).find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
-                        if (totalAmount < totalWithdrawl) {
+                        if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
                             $(vv).find(".alert_notification_tag").show();
                         } else {
                             $(vv).find(".alert_notification_tag").hide();
@@ -905,7 +915,7 @@ function getTrasactionsByAccount(id) {
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
                 '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
-                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") + '"> <i' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
@@ -977,7 +987,7 @@ function getTrasactionsByAccount(id) {
                             totalWithdrawl += Number($(v).find(".balance>span").text());
                         });
                         $(vv).find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
-                        if (totalAmount < totalWithdrawl) {
+                        if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
                             $(vv).find(".alert_notification_tag").show();
                         } else {
                             $(vv).find(".alert_notification_tag").hide();
@@ -1107,7 +1117,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
                 '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
-                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0) ? "block;" : "none;") + '"> <i' +
+                '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
                 '                            Alert : Balance Shortage</a>' +
@@ -1178,7 +1188,7 @@ function getTrasactionsByAccountPagination(id) {
                             totalWithdrawl += Number($(v).find(".balance>span").text());
                         });
                         $(vv).find("a.totalBalance").html("Balance Left: " + totalWithdrawl + "");
-                        if (totalAmount < totalWithdrawl) {
+                        if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
                             $(vv).find(".alert_notification_tag").show();
                         } else {
                             $(vv).find(".alert_notification_tag").hide();
@@ -1231,7 +1241,7 @@ function refreshAllCalculations() {
             '' + totalAmount + ' &nbsp; ' +
             '<i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i>';
         $(vv).find("a.totalBalance").html(balanceElement);
-        if (totalAmount < 0) {
+        if (totalAmount < 0 && (!isSubmitter && !isApprover)) {
             $(vv).find(".alert_notification_tag").show();
         } else {
             $(vv).find(".alert_notification_tag").hide();
@@ -1240,6 +1250,7 @@ function refreshAllCalculations() {
 
 }
 
+//Insert or update transaction on the basis of condition
 function addupdatetransaction(isUpdate) {
     if (isApprover) {
         swal("You don't have the permission to update entry");
@@ -1281,6 +1292,7 @@ function addupdatetransaction(isUpdate) {
     }
 }
 
+//Add transaction to the database
 function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence, payee, status, withdrawal*/) {
     if (isApprover) {
         swal("You don't have permission to add a new transaction");
@@ -1333,6 +1345,8 @@ function addTrasaction(/*account_id, bank, cheque_no, flag, mode, order_sequence
             console.error("Error adding document: ", error);
         });
 }
+
+//Change status of transaction on the changing dropdown
 $("#status").on("change", function () {
     if ($("#status").val() == "Un Clear")
         $("#status").removeClass("status-clear").removeClass("status-topay").removeClass("status-bounce").addClass("status-unclear");
@@ -1343,6 +1357,8 @@ $("#status").on("change", function () {
     if ($("#status").val() == "Bounced")
         $("#status").removeClass("status-clear").removeClass("status-unclear").removeClass("status-topay").addClass("status-bounce");
 });
+
+//Confirmation from user on pressing delete button on transaction row
 function deleteTrasaction(id) {
     if (isApprover) {
         swal("You don't have permission to delete the transaction.");
@@ -1351,6 +1367,8 @@ function deleteTrasaction(id) {
     SwalConfirmBox("Are you sure?","ContinueToDelete('"+id+"');");
 
 }
+
+//Delete transaction from database when delete operation confirmed by user
 function ContinueToDelete(id){
     tblAccountCheques = db.collection("tbl_account_cheques");
     tblAccountCheques.doc(id)
@@ -1383,7 +1401,7 @@ function ContinueToDelete(id){
                 $(tbody).each(function (i, v) {
                     totalWithdrawl += Number($(v).find(".balance>span").text());
                 });
-                if (totalAmount < totalWithdrawl) {
+                if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
                     $(vv).find(".alert_notification_tag").show();
                 } else {
                     $(vv).find(".alert_notification_tag").hide();
@@ -1396,6 +1414,7 @@ function ContinueToDelete(id){
         });
 }
 
+//Update transaction in database 
 function updateTrasaction(id) {
     if (isApprover) {
         swal("You don't have permission to update the entry.");
@@ -1509,7 +1528,7 @@ function updateTrasaction(id) {
         $(tbody).each(function (i, v) {
             totalWithdrawl += Number($(v).find(".balance>span").text());
         });
-        if (totalAmount < totalWithdrawl) {
+        if (totalAmount < totalWithdrawl && (!isSubmitter && !isApprover)) {
             $(vv).find(".alert_notification_tag").show();
         } else {
             $(vv).find(".alert_notification_tag").hide();
@@ -1521,6 +1540,7 @@ function updateTrasaction(id) {
 });
 }
 
+//Approve or deny transaction in database
 var selected_signUnsign_tid="";
 function SetSignedOrDenied(val){
         tblAccountCheques = db.collection("tbl_account_cheques");
@@ -1613,9 +1633,11 @@ function SetSignedOrDenied(val){
 }
 });
 }
+
+//Show Approve/Deny popup on pressing status button
 var selected_sign_approve_ele;
 function sign_approve_transaction(transaction_id,is_signed,ele){
-    if(isApprover || isOwner || isManager){
+    if(isApprover || isOwner || isManager || localStorage.getItem("access").indexOf("Approver")>-1){
         selected_sign_approve_ele=ele;
         selected_signUnsign_tid=transaction_id;
         if((is_signed=="Approved" || is_signed=="Denied") && isApprover){
@@ -1829,6 +1851,8 @@ function editRecord(id) {
     $('#add-transaction').hide();
 });
 }
+
+//Populate transaction fields on pressing update button
 function editRecordAccount(id) {
     var record = allTrasactions.find(x => x.id === id);
     document.getElementById('transaction_id').value = id;
@@ -1844,6 +1868,8 @@ function editRecordAccount(id) {
     $('#add-transaction').hide();
 
 }
+
+//Clear transactions fields on pressing clear button
 function clearTransactionFields() {
     document.getElementById('transaction_id').value = '';
     document.getElementById('account-list').value = '';
@@ -1860,6 +1886,7 @@ function clearTransactionFields() {
 
 }
 
+//trigger pagination on scroll down
 function LoadMore() {
 
     if ($("body").find(".tablinks.active").attr("id") == "defaultOpen") {
@@ -2035,6 +2062,7 @@ function AddNotesToTransaction() {
         });
 }
 
+//Load transaction 
 function LoadAttachmentInThumbnail(attachmentName){
     var storageRef = firebase.storage().ref('/transactionAttachments/'+attachmentName);
     storageRef.getDownloadURL().then(function(url) {
@@ -2080,6 +2108,8 @@ function deleteAttachment() {
     });}
 }
 var added_from_file_input=false;
+
+//Capture on change event of file uplaod/ Transaction notes
 $('#transaction_attachment').on("change",function(eve){
     var filename = $('#transaction_attachment').val();
     filename = new Date().getTime()+'.'+filename.split('.').pop();
@@ -2091,6 +2121,7 @@ $('#transaction_attachment').on("change",function(eve){
     $("#attachmentsdiv").show(); 
 });
 
+//View attachment on new page
 $("#attachment_thumbnail").on("click",function(ele){
     var url = $(this).attr("src");
     window.open(url,'_blank');
