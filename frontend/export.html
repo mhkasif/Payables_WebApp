@@ -35,6 +35,14 @@
 </script>    
 </head>
 
+ <style>
+.tab-content>.tab-pane {
+    display: none;
+    overflow: hidden;
+    width: 95%;
+}
+ </style>
+
 <body>
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
@@ -122,9 +130,8 @@
     font-weight: 700;
     font-size: 16px;">
 
-            <h2 style="text-align:left; margin-top: 0;">Audit Log</h2>
-            <p style="text-align:left;font-weight: 300;">Keep an eye on all the changes within the system, like having a
-                bird's eye view to each change.</p>
+            <h2 style="text-align:left; margin-top: 0;">Export Transactions</h2>
+            <p style="text-align:left;font-weight: 300;">Export transactions in desired formats and templates to import into different accounting softwares.</p>
         </div>
 
 
@@ -143,9 +150,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="statement-and-report-head">
-						<h1>Statement And Report</h1>
-					</div>
 					<!-- Statement Content -->
 					<div class="statement-and-report-content">
 					  <ul class="nav nav-tabs">
@@ -163,7 +167,6 @@
 										<div class="col-md-4">
 											<div class="statement-selection">
 												<p>Transaction Type</p>
-												<span><i class="fa fa-angle-down"></i></span>
 												<select name="" id=""> 
 													<option>All Transaction</option>
 													<option>Purchases</option>
@@ -177,7 +180,6 @@
 										<div class="col-md-4">
 											<div class="statement-selection">
 												<p>Data Range</p>
-												<span><i class="fa fa-angle-down"></i></span>
 												<select name="" id="">
 													<option>Yesterday</option>
 													<option>Last 3 days</option>
@@ -190,7 +192,6 @@
 										<div class="col-md-4">
 											<div class="statement-selection">
 												<p>All Currencies</p>
-												<span><i class="fa fa-angle-down"></i></span>
 												<select name="" id="">
 													<option>All Currencies</option>
 													<option>BTC</option>
@@ -208,7 +209,6 @@
 										<div class="col-md-4">
 											<div class="statement-selection">
 												<p>Format</p>
-												<span><i class="fa fa-angle-down"></i></span>
 												<select name="" id="">
 													<option>CSV</option>
 													<option>PDF</option>
@@ -219,12 +219,12 @@
 											</div>
 										</div>
 										<div class="col-md-4">
-											<div class="statement-selection">
+											<div type="button" class="statement-selection">
 												<a class="dark">Custom Report Fields</a>
 											</div>
 										</div>
 										<div class="col-md-4">
-											<div class="statement-selection">
+											<div type="button" class="statement-selection">
 												<a id="csv_btn" class="blue">Generate Report</a>
 											</div>
 										</div>
