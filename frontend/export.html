@@ -41,7 +41,7 @@
     overflow: hidden;
     width: 95%;
 }	 
-	 .select{
+select{
 width: 100%;
     border-radius: 5px;
 }	 
@@ -188,18 +188,11 @@ width: 100%;
 										</div>
 										<div class="col-md-4">
 											<div class="statement-selection">
-												<p>All Currencies</p>
+												<p>Transaction type</p>
 												<select name="" id="">
-													<option>All Currencies</option>
-													<option>BTC</option>
-													<option>ETH</option>
-													<option>DONUT</option>
-													<option>XRP</option>
-													<option>XLM</option>
-													<option>DASH</option>
-													<option>EOS</option>
-													<option>IOTA</option>
-													<option>TRX</option> 
+													<option>Buyer Additions</option>
+													<option>Supplier Deductions</option>
+													<option>Company Expenses</option>
 												</select>
 											</div>
 										</div>
@@ -208,21 +201,22 @@ width: 100%;
 												<p>Format</p>
 												<select name="" id="">
 													<option>CSV</option>
-													<option>PDF</option>
 													<option>JSON</option>
 													<option>XLS</option>
-													<option>DOC</option> 
+													<option>Quickbooks</option> 
+													<option>Xero</option> 
+													<option>Sage</option> 
 												</select>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div type="button" class="statement-selection">
-												<a class="dark">Custom Report Fields</a>
+												<button class="dark">Custom Report Fields</button>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div type="button" class="statement-selection">
-												<a id="csv_btn" class="blue">Generate Report</a>
+												<button id="csv_btn" class="blue">Generate Report</button>
 											</div>
 										</div>
 									</div>
@@ -246,13 +240,29 @@ width: 100%;
 					</tr>
 					</thead>
 				<tbody>                         
-					<tr class='clickable-row  btc' data-href=''>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>				
+					<tr>
+						<td>13-Jan-2019</td>
+						<td>Buyer Addition</td>
+						<td style="font-weight:700;">Gordon Ramsey</td>
+						<td>Accounts Recieveable</td>
+						<td>9000</td>
+						<td><span class="status paid">Pending Export</span></td>				
+					</tr>
+					<tr>
+						<td>13-Jan-2019</td>
+						<td>Buyer Addition</td>
+						<td style="font-weight:700;">Gordon Ramsey</td>
+						<td>Accounts Recieveable</td>
+						<td>9000</td>
+						<td><span class="status paid">Pending Export</span></td>				
+					</tr>					
+                                        <tr>
+						<td>13-Jan-2019</td>
+						<td>Buyer Addition</td>
+						<td style="font-weight:700;">Gordon Ramsey</td>
+						<td>Accounts Recieveable</td>
+						<td>9000</td>
+						<td><span class="status paid">Pending Export</span></td>				
 					</tr>
 				</tbody>
 				</table>
