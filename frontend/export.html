@@ -40,7 +40,11 @@
     display: none;
     overflow: hidden;
     width: 95%;
-}
+}	 
+	 .select{
+width: 100%;
+    border-radius: 5px;
+}	 
  </style>
 
 <body>
@@ -145,21 +149,14 @@
 
 
 
-	<!-- Statement-and Report Area Start -->
+	<!-- Statement-export Area Start -->
 	<div class="statement-and-report-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<!-- Statement Content -->
 					<div class="statement-and-report-content">
-					  <ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#home">Statements</a></li>
-						<li><a data-toggle="tab" href="#menu1">Sales Insights</a></li>
-						<li><a data-toggle="tab" href="#menu2">Financial Summary</a></li>
-					  </ul>
 
-					  <div class="tab-content">
-						<div id="home" class="tab-pane fade in active show">
 							<div class="statement-and-report-statement-content">
 								<div class="statement-and-report-selection-area">
 									<p>Here you can customize detailed report as per your need, over your blockchain network</p>
@@ -230,10 +227,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="activity-report-head">
-									<h2>Activity Report <span>(Upto 12 Report)</span></h2>
-									<a href="#">Refresh</a>
-								</div>
 								<div class="report-table-area">
 						
 						<table  id="search_table" class="table text-center">
@@ -241,10 +234,10 @@
 					<thead>
 					   <tr>
 						<th>Date</th>
-						<th>Order ID</th>
+						<th>Type</th>
+						<th>Party</th>
+						<th>Account Head</th>
 						<th>Amount</th>
-						<th>Customer Address</th>
-						<th>Currency</th>
 						<th>Status</th>
 					
 						</tr>
@@ -261,323 +254,17 @@
 						<td><img src="images/car.png" alt="" /></td>
 						<td><span class="status paid">Paid</span></td>				
 					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car2.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>					
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/f3.png" alt="" /></td>
-						<td><span class="status resent">Dispute</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status refunded">Refunded</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						 <td><img src="images/f2.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>				
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status resent">Dispute</span></td>					
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/f4.png" alt="" /></td>
-						<td><span class="status resent">Dispute</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car2.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-				
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>				
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-				
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status resent">Dispute</span></td>
-			
-					</tr>
-
-					<tr class='clickable-row  btc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  ltc' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  xrp' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  xrp' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  xrp' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  xrp' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  bch' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  bch' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/f3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  bch' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/f4.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  eth' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-					
-					</tr>
-
-					<tr class='clickable-row  eth' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car3.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-				
-					</tr>
-
-					<tr class='clickable-row  eth' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-				
-					</tr>
-
-					<tr class='clickable-row  eth' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-					<tr class='clickable-row  donut' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-						
-					</tr>
-
-
-					<tr class='clickable-row  donut' data-href='url://'>
-						<td>13-Jan-2019, 00:04:09</td>
-						<td>a94..39f2</td>
-						<td style="font-weight:700;">$1230.43</td>
-						<td>a94...1aba6a8bf50f1c11c</td>
-						<td><img src="images/car.png" alt="" /></td>
-						<td><span class="status paid">Paid</span></td>
-			
-					</tr>
 				</tbody>
 				</table>
 								</div>
 							</div>
 						</div>
-						<div id="menu1" class="tab-pane fade">
-							<div id="error_message">
-								<div id="error_img">
-									<img src="images/errorE1.png" alt="">
-								</div>
-								<h4>Sorry, not able to retrieve data</h4>
-								<p>It seems there's an error or you may not have the permission to view it. Contact Support</p>
-							</div>
-						</div>
-						<div id="menu2" class="tab-pane fade">
-							<div id="error_message">
-								<div id="error_img">
-									<img src="images/errorE1.png" alt="">
-								</div>
-								<h4>Sorry, not able to retrieve data</h4>
-								<p>It seems there's an error or you may not have the permission to view it. Contact Support</p>
-							</div>
-						</div>
-					  </div>
-					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Statement-and Report Area End -->
+	<!-- Statement export Area End -->
 
 
 
