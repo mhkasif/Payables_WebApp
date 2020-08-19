@@ -159,24 +159,22 @@ p {
 
 							<div class="statement-and-report-statement-content">
 								<div class="statement-and-report-selection-area">
-									<p>Here you can customize detailed report as per your need, over your blockchain network</p>
 									<div class="row">
 										<div class="col-md-4">
 											<div class="statement-selection">
-												<p>Transaction Type</p>
+												<p>From Date</p>
 												<select name="" id=""> 
-													<option>All Transaction</option>
-													<option>Purchases</option>
-													<option>Transfers</option>
-													<option>Pre-Approved Payments</option>
-													<option>Refunds</option>
-													<option>Disputed</option> 
+													<option>Yesterday</option>
+													<option>Last 3 days</option>
+													<option>Last 7 days</option>
+													<option>Last month</option>
+													<option>Last 6 months</option> 
 												</select>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="statement-selection">
-												<p>Data Range</p>
+												<p>To Date</p>
 												<select name="" id="">
 													<option>Yesterday</option>
 													<option>Last 3 days</option>
@@ -198,7 +196,7 @@ p {
 										</div>
 										<div class="col-md-4">
 											<div class="statement-selection">
-												<p>Format</p>
+												<p>Template</p>
 												<select name="" id="">
 													<option>CSV</option>
 													<option>JSON</option>
@@ -210,7 +208,17 @@ p {
 											</div>
 										</div>
 										<div class="col-md-4">
-												<button  style="margin-top: 26px; width: 100%;">Custom Report Fields</button>
+											<div class="statement-selection">
+												<p>Format</p>
+												<select name="" id="">
+													<option>CSV</option>
+													<option>JSON</option>
+													<option>XLS</option>
+													<option>Quickbooks</option> 
+													<option>Xero</option> 
+													<option>Sage</option> 
+												</select>
+											</div>
 										</div>
 										<div class="col-md-4">
 												<button id="csv_btn" class="blue" style="margin-top: 26px; width: 100%;">Generate Report</button>
