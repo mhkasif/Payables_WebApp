@@ -176,12 +176,11 @@ p {
 											<!-- Chart design taken from Samsung health app -->
 										</div>
 										<div class="col" style="border-radius: 5px; border: 1px solid #a5a5a533; padding: 2%; box-shadow: 1px 1px 9px 2px #e6e6e6;margin-bottom: 20px;">
-										<div style="width: 100%;font-weight: 600;font-size: 19px;border-bottom: 1px solid #3333; padding-bottom: 1%;margin-bottom: 2%;">Company Spending (monthly)</div>
+										<div style="width: 100%;font-weight: 600;font-size: 19px;border-bottom: 1px solid #3333; padding-bottom: 1%;margin-bottom: 2%;">Cashflow</div>
 											<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 											<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-											<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
 											<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-											<div id="chartdiv"></div>
+											<div id="chartdiv2"></div>
 											<!-- Chart design taken from Samsung health app -->
 										</div>
 									</div>
@@ -192,7 +191,7 @@ p {
 											<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 											<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
 											<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-											<div id="chartdiv"></div>
+											<div id="chartdiv3"></div>
 											<!-- Chart design taken from Samsung health app -->
 										</div>
 										<div class="col" style="border-radius: 5px; border: 1px solid #a5a5a533; padding: 2%; box-shadow: 1px 1px 9px 2px #e6e6e6;margin-bottom: 20px;">
@@ -473,7 +472,167 @@ var label = chart.plotContainer.createChild(am4core.Label);
 label.text = "Pan chart to change date";
 label.x = 90;
 label.y = 50;
-</script>	
+</script>
+	
+	
+	
+<script>
+/**
+ * ---------------------------------------
+ * This demo was created using amCharts 4.
+ * 
+ * For more information visit:
+ * https://www.amcharts.com/
+ * 
+ * Documentation is available at:
+ * https://www.amcharts.com/docs/v4/
+ * ---------------------------------------
+ */
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("chartdiv2", am4charts.XYChart);
+
+// Add data
+chart.data = generatechartData();
+function generatechartData() {
+  var chartData = [];
+  var firstDate = new Date();
+  firstDate.setDate( firstDate.getDate() - 150 );
+  var visits = -40;
+  var b = 0.6;
+  for ( var i = 0; i < 150; i++ ) {
+    // we create date objects here. In your data, you can have date strings
+    // and then set format of your dates using chart.dataDateFormat property,
+    // however when possible, use date objects, as this will speed up chart rendering.
+    var newDate = new Date( firstDate );
+    newDate.setDate( newDate.getDate() + i );
+    if(i > 80){
+        b = 0.4;
+    }
+    visits += Math.round((Math.random()<b?1:-1)*Math.random()*10);
+
+    chartData.push( {
+      date: newDate,
+      visits: visits
+    } );
+  }
+  return chartData;
+}
+
+// Create axes
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+dateAxis.startLocation = 0.5;
+dateAxis.endLocation = 0.5;
+
+// Create value axis
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+// Create series
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.valueY = "visits";
+series.dataFields.dateX = "date";
+series.strokeWidth = 3;
+series.tooltipText = "{valueY.value}";
+series.fillOpacity = 0.1;
+
+// Create a range to change stroke for values below 0
+var range = valueAxis.createSeriesRange(series);
+range.value = 0;
+range.endValue = -1000;
+range.contents.stroke = chart.colors.getIndex(4);
+range.contents.fill = range.contents.stroke;
+range.contents.strokeOpacity = 0.7;
+range.contents.fillOpacity = 0.1;
+
+// Add cursor
+chart.cursor = new am4charts.XYCursor();
+chart.cursor.xAxis = dateAxis;
+chart.scrollbarX = new am4core.Scrollbar();
+
+series.tooltip.getFillFromObject = false;
+series.tooltip.adapter.add("x", (x, target)=>{
+    if(series.tooltip.tooltipDataItem.valueY < 0){
+        series.tooltip.background.fill = chart.colors.getIndex(4);
+    }
+    else{
+        series.tooltip.background.fill = chart.colors.getIndex(0);
+    }
+    return x;
+})
+	</script>	
+	
+	
+<script>
+/**
+ * ---------------------------------------
+ * This demo was created using amCharts 4.
+ * 
+ * For more information visit:
+ * https://www.amcharts.com/
+ * 
+ * Documentation is available at:
+ * https://www.amcharts.com/docs/v4/
+ * ---------------------------------------
+ */
+
+// Themes begin
+am4core.useTheme(am4themes_material);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv3", am4charts.PieChart3D);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.legend = new am4charts.Legend();
+
+chart.data = [
+  {
+    country: "Lithuania",
+    litres: 501.9
+  },
+  {
+    country: "Czech Republic",
+    litres: 301.9
+  },
+  {
+    country: "Ireland",
+    litres: 201.1
+  },
+  {
+    country: "Germany",
+    litres: 165.8
+  },
+  {
+    country: "Australia",
+    litres: 139.9
+  },
+  {
+    country: "Austria",
+    litres: 128.3
+  },
+  {
+    country: "UK",
+    litres: 99
+  },
+  {
+    country: "Belgium",
+    litres: 60
+  },
+  {
+    country: "The Netherlands",
+    litres: 50
+  }
+];
+
+var series = chart.series.push(new am4charts.PieSeries3D());
+series.dataFields.value = "litres";
+series.dataFields.category = "country";
+	</script>	
+	
 
 </body>
 
