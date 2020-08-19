@@ -1,1 +1,783 @@
 
+<!DOCTYPE HTML>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<!-- Meta Data -->
+	<meta charset="UTF-8">
+	<meta name="author" content="Export">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Title -->
+	<title>Statements</title>
+	<!-- Favicon / Title Icon -->
+	<link rel="shortcut icon" type="image/x-icon" href="images/icon.png" />
+	
+	<!-- Stylesheets -->
+	<!-- Bootstrap css -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="all" />
+	<!-- Font Awesome css -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" />
+	<!-- Normalize css -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" media="all" />
+	<!-- Main Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/responsive.css" media="all" />
+	
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet"> 
+	
+</head>
+<style>
+	.full_screen_overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: white;
+	z-index: 9999999;
+}
+#error_message h4 {
+	color: #FF6386;
+}
+#error_message {
+	text-align: center;
+	padding: 45px;
+}
+#error_message h4 {
+	padding: 7px 0;
+}
+#search_table td img {
+	width: 77px;
+}
+	#csv_btn{
+		cursor: pointer;
+	}
+	
+</style>
+<body>
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/one?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+	
+	<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+		<!--PreLoader-->
+    <div class="spinner"></div> 
+	<div class="full_screen_overlay"></div>		
+	
+	<!--Header Area Start-->
+	<div class="header-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="logo">
+						<img src="images/mainlogo.png" alt="" /> 
+						<p>Pro</p> 
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="menu">
+						<ul id="nav">
+							<li><a id="notification" href=""><img id="icon-head-bell" src="images/ibel.png" alt="" /></a>
+		
+								
+							</li>
+							<li><a href="settings_screen(merchant).html"><img id="icon-head-setting" src="images/iset.png" alt="" /></a></li>
+							<li><a class="full-user" href=""><img src="images/responsive.png" alt="" id="user" /> Alex Stephano<i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-hide" id="main-dropdown">
+									<li><a href="">Suggest a Feature</a></li>
+									<li><a href="">Sign Out</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+								<!-- Notification Area -->
+<div class="notification-area">
+		<div class="notification-head">
+			<div class="row">
+				<div class="col-lg-6 right_border">
+					<a href="#" class=" active tablinks" onclick="openCity(event,'notifacation_tabs')" ><i class="fa fa-bullhorn" aria-hidden="true"></i>&nbsp;Notifications</a>
+				</div>
+				<div class="col-lg-6"><a href="#"  onclick="openCity(event,'inbox_tabs')" class=" tablinks align_right"><i class="fa fa-comment" aria-hidden="true"></i> &nbsp;Inbox</a>
+			</div>	</div>
+		</div>
+					<div class="tabs-content" id="notifacation_tabs">
+									<div class="scroll-box">
+										<ul class="message">
+											<a href="#"><li><img src="images/refund.png" class="img"/>
+											<p>Refund Received from <b style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;">SammyShoes</b></p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/chat.png" class="img"/>
+											<p>Seller replied to case <b style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;">#DN223</b></p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/shipping.png" class="img"/>
+											<p>Seller added shipping details</p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/payment.png" class="img"/>
+											<p>Payment Sucessful to <b style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;">Jake</b></p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/keyjen.png" class="img"/>
+											<p> Dapp Login Authorization Needed</p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/sucess.png" class="img"/>
+											<p>Exchange Order Sucessful</p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/caution.png" class="img"/>
+											<p>Caution <b style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;"> Suspicious Activity</b></p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/payment.png" class="img"/>
+											<p>Your payment to <b  style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;">0x...4332</b> was confirmed</p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/refund.png" class="img"/>
+											<p>Payment Received from <b style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;">0x...3392</b>	</p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/star.png" class="img"/>
+											<p>Know more about blockchain</p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/payment.png" class="img"/>
+											<p>Payment Sucessful to <b style="font-weight: 600;font-size: 16px;color: #000000;letter-spacing: 0px;">Molly</b></p>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;margin-top: -2px;">9 hours ago</span>
+											</li></a>
+										</ul>
+									</div>
+								</div>
+				<div class="tabs-content" id="inbox_tabs">
+									<div class="scroll-box">
+										<ul class="message">
+											<a href="#"><li><img src="images/shades.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Jayden</p>
+											<h8 style="color:#5a5a5a;">Here you go i have refunded you 😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">2 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/poop.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Ethan</p>
+											<h8 style="color:#5a5a5a;">Bro, Could you check it again! Thanks!...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">5 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/stareyes.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;" >Addidas &nbsp;<i style="color: #ffffff;background: #3a74d1;padding: 2px 11px 2px 11px;font-size: 12px;border-radius: 22px;">Merchant</i></p>
+											<h8 style="color:#5a5a5a;">Would you want to check this event...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/beautiful.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Molly</p>
+											<h8 style="color:#5a5a5a;">Thank You for buying from us 😊...</h8><br>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">1 day ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/bigeyes.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Olive</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/freeze.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Freezy</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/brains.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Mr.Brains</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/love.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Pets.com &nbsp;<i style="color: #ffffff;background: #3a74d1;padding: 2px 11px 2px 11px;font-size: 12px;border-radius: 22px;">Merchant</i></p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/party.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Martin</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/glasses.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Bill</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/bigeyes.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Bobby</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+											<a href="#"><li><img src="images/shades.png" class="img"/>
+											<p style="font-weight: 700;margin-bottom: -2px;margin-top: -10px;">Christy</p>
+											<h8 style="color:#5a5a5a;">Kindly check i have refunded you😊...</h8>
+											<span class="date" style="font-size: 12px;float: left;color: #22222291;">9 hours ago</span>
+											</li></a>
+										</ul>
+									</div>
+								</div>
+							
+		<div class="icon-notification" style="padding: 1px;
+    position: relative;
+    border-top: solid 1px #dad4d4; margin-left: 10px;">
+					<i class="fa fa-volume-up" aria-hidden="true"></i>					
+<i class="fa fa-cog" aria-hidden="true"></i>
+		</div>		
+
+				</div>
+	<!--Notification End-->
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Header Area End-->
+	
+	<!-- Canvas Menu Area Start -->
+	<div class="canvas-menu">
+		<a href="#" id="close-canvas"> 
+		</a>
+		<img src="images/mainlogo.png" alt="" />
+		<ul>
+			<li><a href=""><img src="images/responsive.png" alt="" /> Alex Stephano</a></li>
+			<li><a href="">Summary</a></li>
+			<li><a href="">Resolution Center</a></li>
+			<li><a href="">Account settings</a></li>
+			<li><a href="">Help</a></li>
+			<li><a href="">Suggest a Feature</a></li>
+			<li><a href="">Sign Out</a></li>
+		</ul>
+	</div>
+	<!-- Canvas Menu Area End -->
+	
+	
+	<!-- SubMenu Area Start -->
+	<div class="submenu-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="submenu">
+						<ul>
+							<li><a href="personal dash/main dashboard.html">Summary</a></li>
+							<li><a href="all transactions (personal acc).html">Activity</a></li>
+					        <li><a href="Resolution Center (personal account).html">Resolution Center</a></li>
+					        <li><a href="donut exchange screen/Exchange Screen.html">Exchange</a></li>
+					        <li><a href="">Help</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- SubMenu Area End -->
+	
+	
+		<!--Back Area Start-->
+	<div class="back-button-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="all transactions (personal acc).html" style="top: -5px;left: 0px;"><i class="fa fa-angle-left"></i> Back to Transactions</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Back Area End-->
+
+	
+	
+	<!-- Statement-and Report Area Start -->
+	<div class="statement-and-report-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="statement-and-report-head">
+						<h1>Statement And Report</h1>
+					</div>
+					<!-- Statement Content -->
+					<div class="statement-and-report-content">
+					  <ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#home">Statements</a></li>
+						<li><a data-toggle="tab" href="#menu1">Sales Insights</a></li>
+						<li><a data-toggle="tab" href="#menu2">Financial Summary</a></li>
+					  </ul>
+
+					  <div class="tab-content">
+						<div id="home" class="tab-pane fade in active show">
+							<div class="statement-and-report-statement-content">
+								<div class="statement-and-report-selection-area">
+									<p>Here you can customize detailed report as per your need, over your blockchain network</p>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="statement-selection">
+												<p>Transaction Type</p>
+												<span><i class="fa fa-angle-down"></i></span>
+												<select name="" id=""> 
+													<option>All Transaction</option>
+													<option>Purchases</option>
+													<option>Transfers</option>
+													<option>Pre-Approved Payments</option>
+													<option>Refunds</option>
+													<option>Disputed</option> 
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="statement-selection">
+												<p>Data Range</p>
+												<span><i class="fa fa-angle-down"></i></span>
+												<select name="" id="">
+													<option>Yesterday</option>
+													<option>Last 3 days</option>
+													<option>Last 7 days</option>
+													<option>Last month</option>
+													<option>Last 6 months</option> 
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="statement-selection">
+												<p>All Currencies</p>
+												<span><i class="fa fa-angle-down"></i></span>
+												<select name="" id="">
+													<option>All Currencies</option>
+													<option>BTC</option>
+													<option>ETH</option>
+													<option>DONUT</option>
+													<option>XRP</option>
+													<option>XLM</option>
+													<option>DASH</option>
+													<option>EOS</option>
+													<option>IOTA</option>
+													<option>TRX</option> 
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="statement-selection">
+												<p>Format</p>
+												<span><i class="fa fa-angle-down"></i></span>
+												<select name="" id="">
+													<option>CSV</option>
+													<option>PDF</option>
+													<option>JSON</option>
+													<option>XLS</option>
+													<option>DOC</option> 
+												</select>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="statement-selection">
+												<a class="dark">Custom Report Fields</a>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="statement-selection">
+												<a id="csv_btn" class="blue">Generate Report</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="activity-report-head">
+									<h2>Activity Report <span>(Upto 12 Report)</span></h2>
+									<a href="#">Refresh</a>
+								</div>
+								<div class="report-table-area">
+						
+						<table  id="search_table" class="table text-center">
+				
+					<thead>
+					   <tr>
+						<th>Date</th>
+						<th>Order ID</th>
+						<th>Amount</th>
+						<th>Customer Address</th>
+						<th>Currency</th>
+						<th>Status</th>
+					
+						</tr>
+					<tr id="no_result">
+						<td colspan="7">No Results</td>
+					</tr>
+					</thead>
+				<tbody>                         
+					<tr class='clickable-row  btc' data-href=''>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>				
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car2.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>					
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/f3.png" alt="" /></td>
+						<td><span class="status resent">Dispute</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status refunded">Refunded</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						 <td><img src="images/f2.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>				
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status resent">Dispute</span></td>					
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/f4.png" alt="" /></td>
+						<td><span class="status resent">Dispute</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car2.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+				
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>				
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+				
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status resent">Dispute</span></td>
+			
+					</tr>
+
+					<tr class='clickable-row  btc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  ltc' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  xrp' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  xrp' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  xrp' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  xrp' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  bch' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  bch' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/f3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  bch' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/f4.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  eth' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+					
+					</tr>
+
+					<tr class='clickable-row  eth' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car3.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+				
+					</tr>
+
+					<tr class='clickable-row  eth' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+				
+					</tr>
+
+					<tr class='clickable-row  eth' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+					<tr class='clickable-row  donut' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+						
+					</tr>
+
+
+					<tr class='clickable-row  donut' data-href='url://'>
+						<td>13-Jan-2019, 00:04:09</td>
+						<td>a94..39f2</td>
+						<td style="font-weight:700;">$1230.43</td>
+						<td>a94...1aba6a8bf50f1c11c</td>
+						<td><img src="images/car.png" alt="" /></td>
+						<td><span class="status paid">Paid</span></td>
+			
+					</tr>
+				</tbody>
+				</table>
+								</div>
+							</div>
+						</div>
+						<div id="menu1" class="tab-pane fade">
+							<div id="error_message">
+								<div id="error_img">
+									<img src="images/errorE1.png" alt="">
+								</div>
+								<h4>Sorry, not able to retrieve data</h4>
+								<p>It seems there's an error or you may not have the permission to view it. Contact Support</p>
+							</div>
+						</div>
+						<div id="menu2" class="tab-pane fade">
+							<div id="error_message">
+								<div id="error_img">
+									<img src="images/errorE1.png" alt="">
+								</div>
+								<h4>Sorry, not able to retrieve data</h4>
+								<p>It seems there's an error or you may not have the permission to view it. Contact Support</p>
+							</div>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Statement-and Report Area End -->
+	
+	
+	<!--Footer Area Start-->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="footer-logo">
+						<img src="images/logo.png" alt="" />
+						<p>Donut Pvt Ltd, All Right Reserved</p>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="foter-menu">
+						<ul>
+							<li><a href="">Contact Us </a></li>
+							<li><a href="">Security</a></li>
+							<li><a href="">Terms & Conditions</a></li>
+							<li><a href="">Privacy Policy</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Footer Area End-->
+	
+	
+	<!-- Javascript Files -->
+	<!-- jQuery JS -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<!-- Bootstrap JS -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/csv_download_index.js"></script>
+	<!-- Modernizr JS -->
+	<script type="text/javascript" src="js/modernizr.js"></script>
+	<!-- Main JS -->
+	<script type="text/javascript" src="js/scripts.js"></script>
+
+	
+	<!-- Ends JS Files -->
+	
+	
+</body>
+</html>
