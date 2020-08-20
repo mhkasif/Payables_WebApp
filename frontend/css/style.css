@@ -936,8 +936,10 @@ select {
     word-wrap: normal;
     background: #fff;
     padding: 9px;
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     color: #595959;
+    font-weight: 500;
+    font-size: 17px;
 }
 
 option {
