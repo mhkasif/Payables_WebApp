@@ -54,7 +54,7 @@ p {
 <body>
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-        style="padding: 0 15px;background-color: #343434; z-index: 1;">
+        style="padding: 0;background-color: #343434; z-index: 1;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
@@ -74,21 +74,6 @@ p {
                 <!--            <li><a href="#">Link</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a onclick="GotoDashboard();">
-                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="/auditlogs" target="_self">
-                        <i class="fas fa-history" style="font-size: 18px;"></i> &nbsp; Audit Logs
-                    </a>
-                </li>
-
-                <li>
-                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">
-                        Feedback</a>
-                </li>
 
                 <li class="dropdown">
                     <a class="dropbtn" style="display: flex; height: 62px;"><span id="userimage"><img
@@ -109,6 +94,26 @@ p {
                 </li>
 
             </ul>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a onclick="GotoDashboard();">
+                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="/auditlogs" target="_self">
+                        <i class="fas fa-history" style="font-size: 18px;"></i> &nbsp; Audit Logs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank">
+                        Feedback</a>
+                </li>
+
+            </ul>
+
+
         </div><!-- /.navbar-collapse -->
     </nav>
 
