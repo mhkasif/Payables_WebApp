@@ -169,7 +169,7 @@ function getAccountsAll() {
          
                 htmlTabs += '<button class="tablinks" data-accid="' + doc.id + '" onclick="openTab(event, \'' + doc.id + '\')">' +
                     '<i class="fas fa-university"></i><br>' +
-                    '    <b>' + doc.data().title + '</b>' +
+                    '    <b>' + doc.data().title + '</b><br>' +
                     '    <input placeholder="Enter Balance" type="number" ' +
                     '           onblur="updateAccount(\'' + doc.id + '\', \'' + doc.data().title + '\', this.value)"' +
                     '           value="' + doc.data().init_balance + '"/>' +
