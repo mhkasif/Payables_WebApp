@@ -12,8 +12,8 @@ require('dotenv').config({ path: __dirname + '/exp.env' });
 if (
   !process.env.STRIPE_SECRET_KEY ||
   !process.env.STRIPE_PUBLISHABLE_KEY ||
-  !process.env.BASIC ||
-  !process.env.PREMIUM ||
+  !process.env.MONTHLY ||
+  !process.env.YEARLY ||
   !process.env.STATIC_DIR
 ) {
   console.log(
@@ -28,16 +28,16 @@ if (
     ? ''
     : console.log('Add STRIPE_PUBLISHABLE_KEY to your .env file.');
 
-  process.env.BASIC
+  process.env.MONTHLY
     ? ''
     : console.log(
-      'Add BASIC priceID to your .env file. See repo readme for setup instructions.'
+      'Add MONTHLY priceID to your .env file. See repo readme for setup instructions.'
     );
 
   process.env.STRIPE_SECRET_KEY
     ? ''
     : console.log(
-      'Add PREMIUM priceID to your .env file. See repo readme for setup instructions.'
+      'Add YEARLY priceID to your .env file. See repo readme for setup instructions.'
     );
 
   process.env.STATIC_DIR
@@ -120,7 +120,7 @@ app.get('/config', async (req, res) => {
 
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-    packages: [process.env.BASIC, process.env.PREMIUM, process.env.GOLD],
+    packages: [process.env.MONTHLY, process.env.YEARLY],
   });
 });
 
