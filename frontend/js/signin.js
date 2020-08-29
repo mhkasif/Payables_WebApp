@@ -16,7 +16,7 @@ function subscribeTrial() {
             },
             body: JSON.stringify({
                 customerid: resp.customer.id,
-                priceid: 'basic'
+                priceid: 'monthly'
             }),
         })
             .then((response) => {
