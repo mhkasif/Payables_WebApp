@@ -199,7 +199,7 @@ function subscribeTrial() {
             },
             body: JSON.stringify({
                 customerid: customerid,
-                priceid: 'basic'
+                priceid: 'monthly'
             }),
         })
             .then((response) => {
@@ -241,7 +241,7 @@ function subscribeTrial() {
                     },
                     body: JSON.stringify({
                         customerid: resp.customer.id,
-                        priceid: 'basic'
+                        priceid: 'monthly'
                     }),
                 })
                     .then((response) => {
