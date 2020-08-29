@@ -174,7 +174,7 @@
                             <input style="display:none;" id="priceid" value="" />
                             <input style="display:none;" id="customerid" value="" />
                             <button style="font-size: 18px; margin-top: 2%; background: #f4b319; border: 1px solid #fdc131;" class="w-full bg-pasha hover:bg-white hover:shadow-outline hover:text-pasha hover:border hover:border-black focus:shadow-outline text-white focus:bg-white focus:text-pasha font-light py-2 px-4 rounded-md"
-                                    id="submit-premium"
+                                    id="submit-yearly"
                                     type="submit">
                                     <span class="hidden" id="loadingbtn">Subscribing...</span>
                                     <span class="" id="button-text">Subscribe</span>
@@ -214,7 +214,7 @@
 
                 $('#name').val(UserObject.displayName);
                 $('#email').val(UserObject.email);
-                var priceID = (getUrlParameter('package') == "1" ? "basic" : "premium");
+                var priceID = (getUrlParameter('package') == "1" ? "monthly" : "yearly");
                 $('#email').val(UserObject.email);
                 $('#priceid').val(priceID);
                 goToPaymentPage(priceID);           
