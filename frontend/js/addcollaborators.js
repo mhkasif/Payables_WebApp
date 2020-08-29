@@ -3,7 +3,7 @@
         var fireBaseConfigInfo;
 // We are changing this to two as there's already an owner account by default.
 // Any more collaborators will need to be purchased in pricing.html
-        var TotalAllowedUsers=2;
+        var TotalAllowedUsers=6;
 
 // this function fetches firebase configuration code from the root file
         function getFirebaseConfig() {
