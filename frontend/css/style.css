@@ -952,19 +952,23 @@ option {
 
 
 .red-text {
-  color: #f67693;
+    color: #da385d;
+    background: #ffe6ec;
 }
 
 .green-text {
-  color: #23a788;
+    color: #36a78c;
+    background: #e3fff8;
 }
 
 .orange-text {
-  color: orange
+    color: #e8a324;
+    background: #fff7ea; 
 }
 
 .black-text {
-  color: black
+  color: black;
+  background: #eaeaea;
 }
 
 select:focus {
