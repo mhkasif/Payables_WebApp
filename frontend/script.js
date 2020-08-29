@@ -2,15 +2,15 @@ let stripe, customer, price, card;
 let apiURL = "";
 //pricing object for frontend
 let priceInfo = {
-  basic: {
+  monthly: {
     amount: '10.00',
-    name: 'Basic',
+    name: 'Monthly',
     interval: 'monthly',
     currency: 'USD',
   },
-  premium: {
+  yearly: {
     amount: '99.00',
-    name: 'Premium',
+    name: 'Yearly',
     interval: 'yearly',
     currency: 'USD',
     },
@@ -807,8 +807,8 @@ function onSubscriptionSampleDemoComplete({
 }
 
 function demoChangePrice() {
-  document.querySelector('#basic').classList.remove('border-pasha');
-  document.querySelector('#premium').classList.remove('border-pasha');
+  document.querySelector('#monthly').classList.remove('border-pasha');
+  document.querySelector('#yearly').classList.remove('border-pasha');
   document.querySelector('#price-change-form').classList.add('hidden');
 
   // Grab the priceId from the URL
@@ -828,12 +828,12 @@ function demoChangePrice() {
   for (let i = 0; i < elements.length; i++) {
     elements[0].childNodes[3].innerText = 'Current';
   }
-  if (priceId === 'premium') {
-    document.getElementById('submit-premium').disabled = true;
-    document.getElementById('submit-basic').disabled = false;
+  if (priceId === 'yearly') {
+    document.getElementById('submit-yearly').disabled = true;
+    document.getElementById('submit-monthly').disabled = false;
   } else {
-    document.getElementById('submit-premium').disabled = false;
-    document.getElementById('submit-basic').disabled = true;
+    document.getElementById('submit-yearly').disabled = false;
+    document.getElementById('submit-monthly').disabled = true;
   }
 }
 
@@ -842,8 +842,8 @@ function GotoDashboard(){
 }
 // Changes the price selected
 function changePriceSelection(priceId) {
-  //document.querySelector('#basic').classList.remove('border-pasha');
-  //document.querySelector('#premium').classList.remove('border-pasha');
+  //document.querySelector('#monthly').classList.remove('border-pasha');
+  //document.querySelector('#yearly').classList.remove('border-pasha');
   //document
   //  .querySelector('#' + priceId.toLowerCase())
   //  .classList.add('border-pasha');
@@ -869,8 +869,8 @@ function changeLoadingStatePrices(isLoading) {
     document.querySelector('#button-text').classList.add('hidden');
     document.querySelector('#loadingbtn').classList.remove('hidden');
 
-    document.querySelector('#submit-basic').classList.add('invisible');
-    document.querySelector('#submit-premium').classList.add('invisible');
+    document.querySelector('#submit-monthly').classList.add('invisible');
+    document.querySelector('#submit-yearly').classList.add('invisible');
     if (document.getElementById('confirm-price-change-cancel')) {
       document
         .getElementById('confirm-price-change-cancel')
@@ -880,8 +880,8 @@ function changeLoadingStatePrices(isLoading) {
     document.querySelector('#button-text').classList.remove('hidden');
     document.querySelector('#loadingbtn').classList.add('hidden');
 
-    document.querySelector('#submit-basic').classList.remove('invisible');
-    document.querySelector('#submit-premium').classList.remove('invisible');
+    document.querySelector('#submit-monthly').classList.remove('invisible');
+    document.querySelector('#submit-yearly').classList.remove('invisible');
     if (document.getElementById('confirm-price-change-cancel')) {
       document
         .getElementById('confirm-price-change-cancel')
