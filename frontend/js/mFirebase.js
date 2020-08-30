@@ -492,7 +492,7 @@ function getTrasactionsAll() {
                     '                                </td>' +
                     '                                <td class="balance">' + withdrawalSpan + '</td>' +
                     '                                <td><i class="far fa-sticky-note" href="#" '+(myRecord.notes?"":"style=\'opacity:0.2;\'")+' onclick="open_notes_modal(\''+myRecord.id+'\',\''+myRecord.cheque_no+'\');" title="'+(myRecord.notes?myRecord.notes:"No notes added. click to add.")+'"></i></td>' +
-                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a> &nbsp;<a href="#" style="color:#f46083;" <i class="fas fa-chevron-down"></i></a></td>' +
+                    '                                <td><a href="#" onclick="editRecord(\'' + myRecord.id + '\')"> <i class="fa fa-pen"></i></a> &nbsp;<a href="#" style="color:#f46083;" onclick="deleteTrasaction(\'' + myRecord.id + '\')"> <i class="fa fa-trash"></i></a> &nbsp;<a href="#" style="color:#f46083;"> <i class="fas fa-chevron-down"></i></a></td>' +
                     '                            </tr>';
             }
             var draggablekey = key.split("/").join("_");
