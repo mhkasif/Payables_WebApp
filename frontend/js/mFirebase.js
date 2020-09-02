@@ -477,7 +477,7 @@ function getTrasactionsAll() {
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
-                    '                                <td><span>' + myRecord.payee + '</span></td>' +
+                    '                                <td><span class="party_details_tag">' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
                     '                                <td>' +
@@ -681,7 +681,7 @@ function getTrasactionsAllPagination() {
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
-                    '                                <td><span>' + myRecord.payee + '</span></td>' +
+                    '                                <td><span  class="party_details_tag">' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
                     '                                <td>' +
@@ -888,7 +888,7 @@ function getTrasactionsByAccount(id) {
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
-                    '                                <td><span>' + myRecord.payee + '</span></td>' +
+                    '                                <td><span  class="party_details_tag">' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
                     '                                <td>' +
@@ -1090,7 +1090,7 @@ function getTrasactionsByAccountPagination(id) {
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
                     '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
-                    '                                <td><span>' + myRecord.payee + '</span></td>' +
+                    '                                <td><span  class="party_details_tag">' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
                     '                                <td>' +
@@ -1495,7 +1495,7 @@ function updateTrasaction(id) {
         '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag-' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
         '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
         '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
-        '                                <td><span>' + myRecord.payee + '</span></td>' +
+        '                                <td><span  class="party_details_tag">' + myRecord.payee + '</span></td>' +
         '                                <td><span>' + myRecord.mode + '</span></td>' +
         '                                <td><span>' + myRecord.bank + '</span></td>' +
         '                                <td>' +
