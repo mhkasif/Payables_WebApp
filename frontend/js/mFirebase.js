@@ -57,7 +57,7 @@ var liTemplate = '<li class="timelinePart">' +
     '                                <th>Sign</th>' +
     '                                <th></th>' +
     '                                <th>Submitter</th>' +
-    '                                <th>Invoice</th>' +
+    '                                <th>Invoice no.</th>' +
     '                                <th>Party Name</th>' +
     '                                <th>Transaction Type</th>' +
     '                                <th>Bank</th>' +
@@ -519,7 +519,7 @@ function getTrasactionsAll() {
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Submitter</th>' +
-                '                                <th>Invoice</th>' +
+                '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
@@ -721,7 +721,7 @@ function getTrasactionsAllPagination() {
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Submitter</th>' +
-                '                                <th>Invoice</th>' +
+                '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Bank</th>' +
@@ -929,7 +929,7 @@ function getTrasactionsByAccount(id) {
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Submitter</th>' +
-                '                                <th>Invoice</th>' +
+                '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
@@ -1131,7 +1131,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                                <th>Sign</th>' +
                 '                                <th></th>' +
                 '                                <th>Submitter</th>' +
-                '                                <th>Invoice</th>' +
+                '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
                 '                                <th>Payment Source</th>' +
