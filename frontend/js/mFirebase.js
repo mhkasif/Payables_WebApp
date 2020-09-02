@@ -54,9 +54,9 @@ var liTemplate = '<li class="timelinePart">' +
     '                            <thead>' +
     '                            <tr class="ui-state-default">' +
     '                                <th></th>' +
-    '                                <th>Sign</th>' +
+    '                                <th  style="width: 1px;">Sign</th>' +
     '                                <th></th>' +
-    '                                <th>Submitter</th>' +
+    '                                <th style="width: 1px;">Submitter</th>' +
     '                                <th>Invoice no.</th>' +
     '                                <th>Party Name</th>' +
     '                                <th>Transaction Type</th>' +
@@ -516,9 +516,9 @@ function getTrasactionsAll() {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sign</th>' +
+                '                                <th  style="width: 1px;">Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Submitter</th>' +
+                '                                <th  style="width: 1px;">Submitter</th>' +
                 '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
@@ -718,9 +718,9 @@ function getTrasactionsAllPagination() {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sign</th>' +
+                '                                <th  style="width: 1px;">Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Submitter</th>' +
+                '                                <th  style="width: 1px;">Submitter</th>' +
                 '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
@@ -926,9 +926,9 @@ function getTrasactionsByAccount(id) {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sign</th>' +
+                '                                <th  style="width: 1px;">Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Submitter</th>' +
+                '                                <th  style="width: 1px;">Submitter</th>' +
                 '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
@@ -1128,9 +1128,9 @@ function getTrasactionsByAccountPagination(id) {
                 '                            <thead>' +
                 '                            <tr class="ui-state-default">' +
                 '                                <th></th>' +
-                '                                <th>Sign</th>' +
+                '                                <th  style="width: 1px;">Sign</th>' +
                 '                                <th></th>' +
-                '                                <th>Submitter</th>' +
+                '                                <th  style="width: 1px;">Submitter</th>' +
                 '                                <th>Invoice no.</th>' +
                 '                                <th>Party Name</th>' +
                 '                                <th>Transaction Type</th>' +
