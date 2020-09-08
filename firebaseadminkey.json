@@ -1,6 +1,3 @@
-#this is wrong to add private keys in the repository, find a better way aroung it such as firebas config key.
-
-
 {
   "type": "service_account",
   "project_id": "fiver-1-safeer",
