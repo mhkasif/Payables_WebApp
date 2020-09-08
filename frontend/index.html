@@ -526,6 +526,46 @@ END OF COMMENT for export table function ----->
     <script src="js/index.js"></script>
     <script src="js/select2.js"></script>
     <script src="js/videoscript.js"></script>
+
+
+<!---ADD NEW CUSTOMER MODAL--->
+    <div id="newcustomer-modal" class="modal">
+        <div class="modal-content" 
+    style="background: #fff3a4;
+    font-weight: 700;
+    padding: 1% 1%;
+    width: 500px;
+    height: 614px;
+    box-shadow: 9px 10px 20px 10px #696969;
+    margin: 3% auto;
+    border: none;
+    border-radius: 0;">
+            <span class="modal-close-btn" onclick="closeNotesModal();">&times;</span>
+            <div class="modal-body">
+                <div>
+                    <h3 style="font-family: poppins-regular;">New Customer</h3>
+                    <br/>
+
+                <br>
+                <div style="display: flex;">
+                    <img id="attachment_thumbnail" src="img/Placeholder.png" style=" width: 115px; display: inline; border-radius: 3px; border: 2px solid rgb(243, 219, 67);"/>
+                    <input type="text" style="width: 105px;background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id=""></input>                
+                    <input type="text" style="width: 105px; background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id=""></input>                
+                    <input type="text" style="width: 105px; background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id=""></input>                
+                    <input type="text" style="width: 105px;  background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id=""></input>                
+                    <input type="text" style="width: 105px; background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id=""></input>                
+                    <input type="text" style="width: 105px; background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id=""></input>                
+                </div>
+                <br>
+                </div>
+                <button style="width: 100%; background: #615e5e; border: none; padding: 4%;" onclick="AddNotesToTransaction();">Add Customer</button>
+                    <br>
+                <br>
+            </div>
+        </div>
+    </div>
+<!---ADD NEW CUSTOMER MODAL--->
+
     <div id="transaction-notes-modal" class="modal">
         <div class="modal-content" 
     style="background: #fff3a4;
