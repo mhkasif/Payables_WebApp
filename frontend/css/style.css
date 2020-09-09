@@ -835,11 +835,13 @@ img {
 }
 
 .navbar-default .navbar-nav>li>a {
-    color: #fff;
+    color: #dedede;
     line-height: 3;
     border-right: 1px solid #474747;
     font-size: 16px;
-    background: #343434;  
+    background: #343434;
+    font-family: fantasy;
+    font-weight: 600;
 }
 
 .navbar-default .navbar-nav>li>a:hover {
