@@ -1,6 +1,6 @@
 let stripe, customer, price, card;
 let apiURL = "";
-//pricing object for frontend
+//pricing object for public
 let priceInfo = {
   monthly: {
     amount: '10.00',
