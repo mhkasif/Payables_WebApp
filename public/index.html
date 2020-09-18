@@ -247,7 +247,7 @@
             style="padding: 2% 2% 2% 2%; border-bottom: 1px solid #e9e9e9; background: linear-gradient(176deg, #f9f9f9, transparent);">
             <div style="display: inline-flex; width:100%; margin-top: 1%;">
                 <h3 style="width: 100%;margin: 0;line-height: 2;font-weight: 600;font-family: lato;color: #999;">
-                    Payment Accounts
+			Payment Accounts  <a onclick="openAddPartyModal();">Add customer</a>
                     <p style="
     font-size: 13px;
     font-weight: 100;
@@ -551,7 +551,7 @@ END OF COMMENT for export table function ----->
     margin: 3% auto;
     border: none;
     border-radius: 0;">
-            <span class="modal-close-btn" onclick="closeNotesModal();">&times;</span>
+            <span class="modal-close-btn" onclick="closeAddPartyModal();">&times;</span>
             <div class="modal-body">
                 <div>
                     <h3 style="font-family: poppins-regular;">New Customer</h3>
@@ -802,6 +802,15 @@ END OF COMMENT for export table function ----->
 
         function openNotesModal() {
             $("#transaction-notes-modal").show();
+        }
+
+
+        function closeAddPartyModal() {
+            $("#newcustomer-modal").hide();
+        }
+
+        function openAddPartyModal() {
+            $("#newcustomer-modal").show();
         }
        
         $(document).ready(function () {
