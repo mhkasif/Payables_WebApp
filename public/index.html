@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scalaye=1" name="viewport">
     <meta charset="UTF-8">
-
 <!----Sentry error reporting script to report errors to the console NEEDS TO INITALIZE BEFORE EACH SCRIPT --->
 <script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous">
 </script>
@@ -247,7 +246,7 @@
             style="padding: 2% 2% 2% 2%; border-bottom: 1px solid #e9e9e9; background: linear-gradient(176deg, #f9f9f9, transparent);">
             <div style="display: inline-flex; width:100%; margin-top: 1%;">
                 <h3 style="width: 100%;margin: 0;line-height: 2;font-weight: 600;font-family: lato;color: #999;">
-			Payment Accounts  <a onclick="openAddPartyModal();">Add customer</a>
+			Payment Accounts  <a onclick="openAddPartyModal();">Add customer</a> <a onclick="openAddPartyModal();">Customer ledger</a>
                     <p style="
     font-size: 13px;
     font-weight: 100;
@@ -583,6 +582,97 @@ END OF COMMENT for export table function ----->
         </div>
     </div>
 <!---ADD NEW CUSTOMER MODAL--->
+
+
+
+<!---Customer ledger MODAL--->
+    <div id="newcustomer-modal" class="modal">
+        <div class="modal-content" 
+    style="background: #fbfbfb;
+    font-weight: 700;
+    padding: 1% 1%;
+    width: 500px;
+    height: 100%;
+    box-shadow: 9px 10px 20px 10px #696969;
+    margin: 3% auto;
+    border: none;
+    border-radius: 0;">
+            <span class="modal-close-btn" onclick="closeAddPartyModal();">&times;</span>
+            <div class="modal-body">
+                <div>
+                    <h3 style="font-family: poppins-regular;">Party Ledger</h3>
+                    <br/>
+
+                <br>
+                <div display: grid;>
+			<a>Party Name :<b>John Doe</b></a>
+			<a>Party Name :<b>John Doe</b></a>
+			<a>Party Name :<b>John Doe</b></a>
+			<a>Party Name :<b>John Doe</b></a>
+			<a>Party Name :<b>John Doe</b></a>
+			<a>Party Name :<b>John Doe</b></a>
+                </div>
+                <br>
+
+
+                <table id="" class="table_default partyLedgerPopUpTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th><i class="fas fa-arrow-up"></i> &nbsp; <b style="color: #999;">Paid to party</b>&nbsp;DEBIT</th>
+                            <th><i class="fas fa-arrow-down"></i> &nbsp; <b style="color: #999;">Recieved from party</b>&nbsp;CREDIT</b></th>
+                        </tr>
+                    </thead>
+                    <tbody id=" ">
+                        <!-- FIREBAE DATA WILL COME HERE -->
+                            <tr>			
+                            <td>#454</td>
+			    <td>14/05/20</td>
+			    <td>Money Recieved</td>
+			    <td>7000</td>
+			    <td></td>
+                            </tr>
+                            <tr>			
+                            <td>#454</td>
+			    <td>14/05/20</td>
+			    <td>Money Recieved</td>
+			    <td>7000</td>
+			    <td></td>
+                            </tr>
+                            <tr>			
+                            <td>#454</td>
+			    <td>14/05/20</td>
+			    <td>Money Paid</td>
+			    <td></td>
+			    <td>8500</td>
+                            </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr id='' class="loading_rows">
+                            <td colspan="5"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
+                        </tr>
+                        <tr>
+                            <th colspan="3" style="text-align: right; padding-right: 18px;">Grand Total</th>
+                            <th id=''>-----</th>
+                            <th id=''>------</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+                </div>
+                <button style="width: 100%; background: #615e5e; border: none; padding: 4%;" onclick="AddNotesToTransaction();">Add Customer</button>
+                    <br>
+                <br>
+            </div>
+        </div>
+    </div>
+<!---Customer ledger MODAL--->
+
+
+
 
     <div id="transaction-notes-modal" class="modal">
         <div class="modal-content" 
