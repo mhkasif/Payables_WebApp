@@ -246,7 +246,7 @@
             style="padding: 2% 2% 2% 2%; border-bottom: 1px solid #e9e9e9; background: linear-gradient(176deg, #f9f9f9, transparent);">
             <div style="display: inline-flex; width:100%; margin-top: 1%;">
                 <h3 style="width: 100%;margin: 0;line-height: 2;font-weight: 600;font-family: lato;color: #999;">
-			Payment Accounts  <a onclick="openAddPartyModal();">Add customer</a> <a onclick="openAddPartyModal();">Customer ledger</a>
+			Payment Accounts  <a onclick="openAddPartyModal();">Add customer</a> <a onclick="openPartyLedgerModal();">Customer ledger</a>
                     <p style="
     font-size: 13px;
     font-weight: 100;
@@ -586,7 +586,7 @@ END OF COMMENT for export table function ----->
 
 
 <!---Customer ledger MODAL--->
-    <div id="newcustomer-modal" class="modal">
+    <div id="customerledger-modal" class="modal">
         <div class="modal-content" 
     style="background: #fbfbfb;
     font-weight: 700;
@@ -597,7 +597,7 @@ END OF COMMENT for export table function ----->
     margin: 3% auto;
     border: none;
     border-radius: 0;">
-            <span class="modal-close-btn" onclick="closeAddPartyModal();">&times;</span>
+            <span class="modal-close-btn" onclick="closePartyLedgerModal();">&times;</span>
             <div class="modal-body">
                 <div>
                     <h3 style="font-family: poppins-regular;">Party Ledger</h3>
@@ -909,6 +909,14 @@ END OF COMMENT for export table function ----->
         function openAddPartyModal() {
             $("#newcustomer-modal").show();
         }
+
+        function closePartyLedgerModal() {
+            $("#customerledger-modal").hide();
+        }
+
+        function openPartyLedgerModal() {
+            $("#customerledger-modal").show();
+        }	    
        
         $(document).ready(function () {
 	            setTimeout(function () {
