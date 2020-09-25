@@ -532,8 +532,9 @@ input{
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
+    border: 1px solid #fff;
+    border-bottom: 2px solid #ced4da;
+    border-radius: 0 !important;
 }
 
 .tablinks a{
@@ -936,16 +937,17 @@ img {
 }
 
 .form-control {
-  display: block;
-  width: 100%;
-  font-size: inherit;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+    display: block;
+    width: 100%;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #fff;
+    border-bottom: 2px solid #ced4da;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 select {
