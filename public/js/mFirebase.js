@@ -4,6 +4,7 @@ var tblAccounts/* = db.collection("tbl_accounts")*/;
 var tblAccountCheques/* = db.collection("tbl_account_cheques")*/;
 var tblUsers, tbl_transaction_notes;
 var lastfetchedRecord;
+var tblPartyLedgers;/* = db.collection("tbl_party_ledgers")*/
 
 //Local storage function to have weekdays 
 var current_userid = localStorage.getItem("current_userid");
@@ -147,6 +148,116 @@ function addAccountActual() {
     addAccount({ title: document.getElementById('account_title').value, UserID: userid, init_balance: 0 });
     document.getElementById('account_title').value = '';
 
+}
+
+function fetchUsers() {
+    tblPartyLedgers = db.collection("tbl_party_ledgers");
+    var newOption;
+    var newOption1;
+    tblPartyLedgers.get().then(function (querySnapshot) {
+        var docs = querySnapshot.docs;
+        querySnapshot.forEach((doc) => {
+            console.log(doc.id, 'doc.id');
+            doc.data().id = doc.id;
+            var obj = doc.data();
+            obj.id = doc.id;
+            newOption = new Option(obj.customer_party_name, obj.customer_party_name, false, false);
+            newOption1 = new Option(obj.customer_party_name, obj.customer_party_name, false, false);
+            // Append it to the select
+            $("#customer_partyName").append(newOption).trigger('change');
+            $("#payee").append(newOption1).trigger('change');
+        });
+    });
+}
+
+function fetchTransactionDetial(partyName) {
+    $('.partyLedgerPopUpTable tbody').html('');
+    tblAccountCheques = db.collection("tbl_account_cheques").where("UserID", "==", userid);
+    
+	    tblAccountCheques.where("payee", "==", partyName).get().then(function (querySnapshot) {
+        console.log(querySnapshot,"Here it came");
+
+        querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            doc.data().id = doc.id;
+            var obj = doc.data();
+            obj.id = doc.id;
+            let tr = `<tr>			
+                        <td></td>
+                        <td>${obj.cheque_no}</td>
+                        <td>${obj.date}</td>
+                        <td>${obj.mode}</td>
+                        <td></td>
+                        <td>${obj.withdrawal}</td>
+                      </tr>`
+            $('.partyLedgerPopUpTable tbody').append(tr);
+        });
+    });
+}
+
+function fetchPartyLedger(partyName) {
+    $('#customerledger-modal .suplier_details_box .party-ledger-information').html('');
+    tblPartyLedgers = db.collection("tbl_party_ledgers");
+
+    tblPartyLedgers.where("customer_party_name", "==", partyName).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
+            doc.data().id = doc.id;
+            var obj = doc.data();
+            obj.id = doc.id;
+            var html = `
+            <div class="div-row"><b>Party Name :</b><u>${obj.customer_party_name}</u></div>
+                         <div class="div-row"><b>Phone number :</b><u>${obj.customer_phone_number}</u></div>
+          <b>Other Custom Details :----</b>
+                         <div class="div-row"><b>Company :</b><u>${obj.customer_company_name}</u></div>
+                         <div class="div-row"><b>Agent:</b><u>${obj.customer_agent}</u></div>
+                         <div class="div-row"><b>Address:</b><u>${obj.customer_address}</u></div>
+                         <div class="div-row"><b>Reference Number:</b><u>${obj.customer_reference_number}</u></div>
+                         <div class="div-row"><b>Email:</b><u>${obj.customer_email}</u>
+                     </div>`
+            $('#customerledger-modal .suplier_details_box .party-ledger-information').append(html);
+        });
+    });
+}
+
+function addNewCustomer() {
+    var partyName = document.getElementById('customer_partyName').value;
+    var phoneNumber = document.getElementById('customer_phoneNumber').value;
+    var companyName = document.getElementById('customer_companyName').value;
+    var address = document.getElementById('customer_address').value;
+    var agent = document.getElementById('customer_agent').value;
+    var referenceNumber = document.getElementById('customer_referenceNumber').value;
+    var email = document.getElementById('customer_email').value;
+    tblPartyLedgers = db.collection("tbl_party_ledgers");
+    tblPartyLedgers.add({
+        customer_party_name: partyName,
+        customer_phone_number: phoneNumber,
+        customer_company_name: companyName,
+        customer_address: address,
+        customer_agent: agent,
+        customer_reference_number: referenceNumber,
+        customer_email: email
+    }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        var newOption = new Option(partyName, partyName, true, true);
+        $("#payee").append(newOption).trigger('change');
+        closeAddPartyModal();
+        resetCustomerFormFields();
+    })
+    .catch(function (error) {
+        console.error("Error adding document: ", error);
+    });
+}
+
+function resetCustomerFormFields() {
+    document.getElementById('customer_partyName').value = "";
+    document.getElementById('customer_phoneNumber').value = "";
+    document.getElementById('customer_companyName').value = "";
+    document.getElementById('customer_address').value = "";
+    document.getElementById('customer_agent').value = "";
+    document.getElementById('customer_referenceNumber').value = "";
+    document.getElementById('customer_email').value = "";
 }
 
 
@@ -476,7 +587,7 @@ function getTrasactionsAll() {
                     '                                <td  data-title="'+OverAllStatus+'" onclick="sign_approve_transaction(\''+myRecord.id+'\',\''+myRecord.is_signed+'\',this);">'+(myRecord.is_signed=="Approved"?"<i class='fa fa-check-circle' style='font-size:25px;color: #56bea6;opacity: 1;'></i>":myRecord.is_signed=="Denied"?"<i class='fas fa-times-circle' style='font-size: 25px;color: #ff88a4;opacity: 1;'></i>":"---")+'</td>' +
                     '                                <td class="active_flag flag ' + (myRecord.flag ? "" : "disable_flag") + '" id="flag_' + myRecord.id + '" onclick="updateTrasactionFlag(this, \'' + myRecord.id + '\', ' + myRecord.flag + ');">🚩</td>' +
                     '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
-                    '                                <td>' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
+                    '                                <td class="invoice_cheque_number">' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span class="party_details_tag">' + myRecord.payee + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
@@ -2025,10 +2136,9 @@ function AddNotesToTransaction() {
             swal("Notes saved successfully");
         });
     } else {
-        alert("please type notes");
+       addNewCustomer()
     }
 }
-
 
 //READ : this function reads the notes from the collection "tbl_account_cheques" 
 

@@ -430,8 +430,15 @@
                                     <td><input id="transaction_date" class="mandatory-field" placeholder="DD/MM/YYYY"
                                             type="date"></td>
                                     <td><input id="cheque_no" placeholder="Invoice your paying for" type="text"></td>
-                                    <td><input id="payee" placeholder="Name of Buyer or Supplier"
-                                            class="mandatory-field" type="text"></td>
+                                    <td>
+                                        <!-- <input id="payee" placeholder="Name of Buyer or Supplier"
+                                            class="mandatory-field" type="text"> -->
+                                            <!-- <div class="partyName-form-group"> -->
+                                                <select id="payee" class="addNewTransaction_party mandatory-field"> 
+                                                    <option></option>
+                                                </select>
+                                            <!-- </div>  -->
+                                    </td>
                                     <td>
                                         <select class="form-control" id="mode" name="">
                                              <optgroup label="Company Operations">
@@ -558,20 +565,25 @@ END OF COMMENT for export table function ----->
 
                 <br>
                 <div display: grid;>
-		    <label>Party Name :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
-		    <label>Phone number :</label>
-                    <input type="number" placeholder="phone number" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
+		    <div class="partyName-form-group">
+                <label>Party Name :  
+                <select class="customer_partyName" id="customer_partyName"> 
+                    <option></option>
+                </select>
+            </label>   
+            </div> 
+            <label>Phone number :</label>
+                    <input type="number" placeholder="phone number" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_phoneNumber"></input>                
 		    <label>Company name (optional) :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
+                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_companyName"></input>                
 		    <label>Address (optional) :</label>
-                    <input type="text" placeholder="where are they from" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
+                    <input type="text" placeholder="where are they from" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_address"></input>                
 		    <label>Agent (optional) :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
+                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_agent"></input>                
 		    <label>Reference no (optional) :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
+                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_referenceNumber"></input>                
 		    <label>Email (optional) :</label>
-                    <input type="text" placeholder="add email" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id=""></input>                
+                    <input type="text" placeholder="add email" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_email"></input>                
                 </div>
                 <br>
                 </div>
@@ -614,7 +626,7 @@ END OF COMMENT for export table function ----->
                     <!-- <ul class="suplier_details"> -->
                     <!-- FIREBAE DATA WILL COME HERE -->
                     <!-- </ul> -->
-                            <div style="display: grid;margin-left: 5%;">
+                            <div class="party-ledger-information" style="display: grid;margin-left: 5%;">
 			       <div class="div-row"><b>Party Name :</b><u>John Doe</u></div>
                                 <div class="div-row"><b>Phone number :</b><u>9876543210</u></div>
 				 <b>Other Custom Details :----</b>
@@ -653,7 +665,7 @@ END OF COMMENT for export table function ----->
                     </thead>
                     <tbody id=" ">
                         <!-- FIREBAE DATA WILL COME HERE -->
-                            <tr>			
+                            <!-- <tr>			
                             <td></td>
                             <td>#454</td>
 			    <td>14/05/20</td>
@@ -684,7 +696,7 @@ END OF COMMENT for export table function ----->
 			    <td>Buyer Addition</td>
 			    <td></td>
 			    <td>8500</td>
-                            </tr>
+                            </tr> -->
                     </tbody>
                     <tfoot>
                         <tr id='' class="loading_rows">
@@ -965,6 +977,39 @@ END OF COMMENT for export table function ----->
             }, 5000);
 	            $("body").hide();
             $(".collectiondayselect").select2();
+            $(".customer_partyName").select2({
+                placeholder: 'Select an option'
+            }).on('select2:open', () => {
+                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty" style="padding: 6px;height: 20px;display: inline-table;">Add Party</a>');
+            });
+            $("#payee").select2({
+                placeholder: "Name of Buyer or Supplier"
+            }).on('select2:open', () => {
+                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty-transaction" style="padding: 6px;height: 20px;display: inline-table;">Add Party</a>');
+            });
+
+            $(document).on('click', '.select2-add-newParty', function() {
+               var addedText = $(".customer_partyName").data("select2").dropdown.$search.val();
+               var newOption = new Option(addedText, addedText, true, true);
+                $("#customer_partyName").append(newOption).trigger('change').select2("close");
+            }); 
+
+            $(document).on('click', '.select2-add-newParty-transaction', function() {
+                $('#payee').select2("close");
+                openAddPartyModal();
+            })
+
+            $(document).on('click', '.party_details_tag', function() {  
+                var invoiceHTML = $(this).parents('.ApprovalFiltersClass').find('.invoice_cheque_number');
+                var invoice_cheque_number = invoiceHTML[0].innerText.split('#')[1]
+                console.log(invoice_cheque_number);
+                console.log($(this));
+                var partyName = $(this)[0].innerText;
+                fetchPartyLedger(partyName);
+                fetchTransactionDetial(partyName);
+                openPartyLedgerModal();
+            });
+       
             getFirebaseConfig().then(function () {
                 firebase.auth().onAuthStateChanged(function (user) {
                     if (user) {
@@ -1014,7 +1059,9 @@ END OF COMMENT for export table function ----->
                             console.error("Error adding document: ", error);
                         });
                         getAccountsAll();
+                        fetchUsers();
                         $("body").show();
+                        
                     } else {
                         location.href = url + "/signin";
                     }
