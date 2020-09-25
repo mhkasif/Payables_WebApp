@@ -700,7 +700,14 @@ font-family: lato;
 }
 
 .responsive-table {
-  overflow: auto;
+    overflow: auto;
+    background: #fff;
+    padding: 4px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    border-radius: 6px;
+    border: 2px solid #d8d8d8;
+    box-shadow: 7px 6px #f1f1f1;
 }
 
 table {
