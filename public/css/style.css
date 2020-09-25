@@ -673,8 +673,8 @@ font-family: lato;
     float: left;
     border-left: 2px #202020 solid;
     padding-left: 28px;
-    border-left:double;
-    border-color: #e3e3e3;	  
+    border-left: double;
+    border-color: #efefef;	  
   }
 
   .timeline-content:before {
@@ -705,9 +705,9 @@ font-family: lato;
     padding: 4px;
     margin-bottom: 5px;
     margin-right: 20px;
-    border-radius: 6px;
+    border-radius: 5px;
     border: 2px solid #d8d8d8;
-    box-shadow: 7px 6px #f1f1f1;
+    box-shadow: 7px 6px #f7f7f7;
 }
 
 table {
@@ -720,8 +720,8 @@ table {
 
 table th {    
     background: #ffffff;
-    color: #7d7d7d;
-    border: none;
+    color: #a7a7a7;
+    border: 1px solid #fff;
     padding: 8px;
     font-weight: 100;
 }
@@ -752,8 +752,9 @@ font-family: monospace;
 th,
 tr,
 td {
+    border-bottom: 1px solid #f3f3f3 !important;
     text-align: center;
-    border-bottom: 1px solid #dfdfdf;
+    border: 1px solid #ffffff;
     padding: 4px;
     background: #ffffff;
 }
