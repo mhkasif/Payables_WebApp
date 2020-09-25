@@ -560,17 +560,15 @@ END OF COMMENT for export table function ----->
             <span class="modal-close-btn"  style="background: #efefef;" onclick="closeAddPartyModal();">&times;</span>
             <div class="modal-body">
                 <div>
-                    <h3 style="font-family: poppins-regular;">New Customer</h3>
+                    <h3 class="add-customer-name" style="font-family: poppins-regular;">New Customer</h3>
+                    <h3 class="edit-customer-name" style="font-family: poppins-regular;display: none;">Edit Customer</h3>
                     <br/>
 
                 <br>
                 <div display: grid;>
-		    <div class="partyName-form-group">
-                <label>Party Name :  
-                <select class="customer_partyName" id="customer_partyName"> 
-                    <option></option>
-                </select>
-            </label>   
+		   
+            <label>Party Name: </label>
+            <input type="text" placeholder="party name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_partyName"></input>
             </div> 
             <label>Phone number :</label>
                     <input type="number" placeholder="phone number" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_phoneNumber"></input>                
@@ -584,10 +582,20 @@ END OF COMMENT for export table function ----->
                     <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_referenceNumber"></input>                
 		    <label>Email (optional) :</label>
                     <input type="text" placeholder="add email" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_email"></input>                
+            <label>Image: </label>
+                <div style="display: flex; justify-content: space-between;">
+                    <input type="file" style="width: 305px; height: 104px; background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id="customer_image"></input>                
+                    <img id="customer_image_thumbnail" src="img/Placeholder.png" style="height: 105px; width: 115px; display: inline; border-radius: 3px; border: 2px solid rgb(243, 219, 67);"/>
+                </div>
                 </div>
                 <br>
                 </div>
-                <button style="width: 100%; background: #615e5e; border: none; padding: 4%;" onclick="AddNotesToTransaction();">Add Customer</button>
+                <button style="width: 100%; background: #615e5e; border: none; padding: 4%;    position: absolute;
+                bottom: 20px;
+                width: 96%;" class="add-customer-details-btn" onclick="AddNotesToTransaction();">Add Customer</button>
+                <button style="width: 100%; background: #615e5e; border: none; padding: 4%;    position: absolute;
+                bottom: 20px;
+                width: 96%; display: none;" class="edit-customer-details-btn" onclick="UpdateCustomer();">Update Customer</button>
                     <br>
                 <br>
             </div>
@@ -641,7 +649,7 @@ END OF COMMENT for export table function ----->
 
             <div class="col-md-4">
                 <div style="display: grid;">
-                        <button type="button" href="#" id="Edit-Profile" style="background: #e6f5f2;color: #438645;font-weight: 600;padding: 5px; padding-right: 32px;"> <i class="fas fa-pen"></i> &nbsp; Edit profile</button>
+                        <button type="button" href="#" onclick="editPartyLedgerModal()" id="Edit-Profile" style="background: #e6f5f2;color: #438645;font-weight: 600;padding: 5px; padding-right: 32px;"> <i class="fas fa-pen"></i> &nbsp; Edit profile</button>
                         <br>
                         <div  class="credit_time">
                         <h5><b>Balance : 5570 Cr</b></h5>
@@ -815,6 +823,7 @@ END OF COMMENT for export table function ----->
                 clear: both;
                 margin-top: 10px;
                 overflow: auto;
+                height: 560px;;
             }
 
             /* Modal Content/Box */
@@ -952,6 +961,7 @@ END OF COMMENT for export table function ----->
 
         function closeAddPartyModal() {
             $("#newcustomer-modal").hide();
+            resetCustomerFormFields();
         }
 
         function openAddPartyModal() {
@@ -966,6 +976,17 @@ END OF COMMENT for export table function ----->
             $("#customerledger-modal").show();
         }	    
        
+        function editPartyLedgerModal() {
+            var partyID = $('.party-ledger-information .div-row:first u')[0].innerText;
+            editPartyLedger(partyID);
+            $('#newcustomer-modal .edit-customer-name').css("display", "block");
+            $('#newcustomer-modal .add-customer-name').css("display", "none");
+            $('#newcustomer-modal .edit-customer-details-btn').css("display", "block");
+            $('#newcustomer-modal .add-customer-details-btn').css("display", "none");
+            $("#newcustomer-modal").show();
+            closePartyLedgerModal();
+        }
+
         $(document).ready(function () {
 	            setTimeout(function () {
                 $('#clearchk').prop("checked", true).trigger("change");
@@ -975,7 +996,8 @@ END OF COMMENT for export table function ----->
                 field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
                     '-' + date.getDate().toString().padStart(2, 0);
             }, 5000);
-	            $("body").hide();
+                $("body").hide();
+                var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
             $(".collectiondayselect").select2();
             $(".customer_partyName").select2({
                 placeholder: 'Select an option'
@@ -996,17 +1018,20 @@ END OF COMMENT for export table function ----->
 
             $(document).on('click', '.select2-add-newParty-transaction', function() {
                 $('#payee').select2("close");
+                $('#newcustomer-modal .edit-customer-name').css("display", "none");
+                $('#newcustomer-modal .add-customer-name').css("display", "block");
+                $('#newcustomer-modal .edit-customer-details-btn').css("display", "none");
+                $('#newcustomer-modal .add-customer-details-btn').css("display", "block");
                 openAddPartyModal();
             })
 
             $(document).on('click', '.party_details_tag', function() {  
-                var invoiceHTML = $(this).parents('.ApprovalFiltersClass').find('.invoice_cheque_number');
-                var invoice_cheque_number = invoiceHTML[0].innerText.split('#')[1]
-                console.log(invoice_cheque_number);
-                console.log($(this));
-                var partyName = $(this)[0].innerText;
-                fetchPartyLedger(partyName);
-                fetchTransactionDetial(partyName);
+                var payeeId = this.classList[1]
+                // var invoiceHTML = $(this).parents('.ApprovalFiltersClass').find('.invoice_cheque_number');
+                // var invoice_cheque_number = invoiceHTML[0].innerText.split('#')[1]
+                // var partyName = $(this)[0].innerText;
+                fetchPartyLedger(payeeId);
+                fetchTransactionDetial(payeeId);
                 openPartyLedgerModal();
             });
        
@@ -1017,6 +1042,7 @@ END OF COMMENT for export table function ----->
                         if (!UserObject.emailVerified) {
                             location.href = url + "/signin";
                         }
+                        console.log(UserObject, 'UserObject.photoURL')
                         $('#userimage').find('img').attr('src', (UserObject.photoURL ? UserObject.photoURL : 'img/Profilepic.webp'));
                         $('#username').text((UserObject.displayName ? UserObject.displayName : UserObject.email.split('@')[0]));
 
