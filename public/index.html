@@ -558,25 +558,25 @@ END OF COMMENT for export table function ----->
     margin: 3% auto;
     border: none;
     border-radius: 0;">
-            <span class="modal-close-btn"  style="background: #efefef;" onclick="closeAddPartyModal();">&times;</span>
+          <div>
+               <h3 class="add-customer-name" style="font-family: poppins-regular;">New Party</h3>
+               <h3 class="edit-customer-name" style="font-family: poppins-regular;display: none;">Edit Party</h3>
+               <span class="modal-close-btn"  style="background: #efefef;" onclick="closeAddPartyModal();">&times;</span>
+	  </div>
             <div class="modal-body">
                 <div>
-                    <h3 class="add-customer-name" style="font-family: poppins-regular;">New Party</h3>
-                    <h3 class="edit-customer-name" style="font-family: poppins-regular;display: none;">Edit Party</h3>
-                    <br/>
-
-                <br>
                 <div display: grid;>
-		   
-            <label>Party Name: </label>
-            <input type="text" placeholder="party name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_partyName"></input>
-            </div> 
-            <label>Phone number :</label>
+
                     <label>Image: </label>
 		    <div style="display: flex; justify-content: space-between;background: linear-gradient(45deg, #cccccc, transparent);">
 		        <input type="file" style="width: 305px;height: 104px;background: #3330;border: none;padding-top: 36px;" id="customer_image"></input>                
 			<img id="customer_image_thumbnail" src="img/Placeholder.png" style="height: 105px; width: 115px; display: inline; border-radius: 3px; border: 2px solid rgb(243, 219, 67);"/>
 		    </div>
+		   
+            <label>Party Name: </label>
+            <input type="text" placeholder="party name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_partyName"></input>
+            </div> 
+            <label>Phone number :</label>
                     <input type="number" placeholder="phone number" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_phoneNumber"></input>                
 		    <label>Company name (optional) :</label>
                     <input type="text" placeholder="company name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_companyName"></input>                
