@@ -558,7 +558,7 @@ END OF COMMENT for export table function ----->
     margin: 3% auto;
     border: none;
     border-radius: 0;">
-          <div>
+          <div style="display: flex;">
                <h3 class="add-customer-name" style="font-family: poppins-regular;">New Party</h3>
                <h3 class="edit-customer-name" style="font-family: poppins-regular;display: none;">Edit Party</h3>
                <span class="modal-close-btn"  style="background: #efefef;" onclick="closeAddPartyModal();">&times;</span>
@@ -619,20 +619,19 @@ END OF COMMENT for export table function ----->
     margin: 3% auto;
     border: none;
     border-radius: 6px;">
+          <div style="display: flex;">
+               <h3 style="font-family: poppins-regular;">Party Ledger</h3>
             <span class="modal-close-btn"  style="background: #efefef;" onclick="closePartyLedgerModal();">&times;</span>
+	  </div>
             <div class="modal-body">
                 <div>
-                    <h3 style="font-family: poppins-regular;">Party Ledger</h3>
-                    <br/>
-
-                <br>
             <div class="row">
             <div class="col-md-8">
                 <div class="suplier_details_box" style="display: flex;">
-                    <a class="ledger_avatar_initial avatar_user_account_profile" style="line-height: 150px;font-family: inherit;border: 2px solid #333;"><img src="img/Profilepic.png" id="" style="width: 150px;
+                    <a class="ledger_avatar_initial avatar_user_account_profile"><img src="img/Profilepic.png" id="" style="width: 150px;
     height: 150px;
     background: #333;
-    border-radius: 90px;"></a>
+    border: 1px solid #cecdcd;"></a>
                     <!-- <ul class="suplier_details"> -->
                     <!-- FIREBAE DATA WILL COME HERE -->
                     <!-- </ul> -->
@@ -835,18 +834,20 @@ END OF COMMENT for export table function ----->
                 border: 1px solid #888;
                 width: 45%;
                 height: 75%;
+                border-radius: 2;
             }
 
             .modal-close-btn {
-	    font-size: 20px;
-	    padding: 5px;
-	    right: 15px;
-	    width: 32px;
-	    height: 33px;
-	    box-shadow: none;
-	    margin: 0%;
-	    float: right;
-	    position: absolute;
+    font-size: 26px;
+    padding: 5px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    box-shadow: none;
+    margin: 0%;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
             }
 
             .modal-close-btn:hover,
@@ -927,15 +928,16 @@ END OF COMMENT for export table function ----->
             }
 
             .modal-close-btn {
-	    font-size: 20px;
-	    padding: 5px;
-	    right: 15px;
-	    width: 32px;
-	    height: 33px;
-	    box-shadow: none;
-	    margin: 0%;
-	    float: right;
-	    position: absolute;
+    font-size: 26px;
+    padding: 5px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    box-shadow: none;
+    margin: 0%;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
             }
 
             .modal-close-btn:hover,
