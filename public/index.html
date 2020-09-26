@@ -117,6 +117,14 @@
             text-align: center;
         }
 
+	.select2-container--default .select2-selection--single {
+	    background-color: #fff;
+	    border: 1px solid #fff;
+	    border-bottom: 2px solid #d5dadf;
+	    border-radius: 0;
+	    height: 34px;
+	}	    
+
     </style>
 <script type="text/javascript">
   window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
@@ -1005,12 +1013,12 @@ END OF COMMENT for export table function ----->
             $(".customer_partyName").select2({
                 placeholder: 'Select an option'
             }).on('select2:open', () => {
-                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty" style="padding: 6px;height: 20px;display: inline-table;">Add Party</a>');
+                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty" style="padding: 10px;height: 20px;display: inline-table;width: 100%;background: #343434;color: #fff;">Add Party</a>');
             });
             $("#payee").select2({
                 placeholder: "Select Buyer or Supplier"
             }).on('select2:open', () => {
-                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty-transaction" style="padding: 6px;height: 20px;display: inline-table;">Add Party</a>');
+                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty-transaction" style="padding: 10px;height: 20px;display: inline-table;width: 100%;background: #343434;color: #fff;">Add Party</a>');
             });
 
             $(document).on('click', '.select2-add-newParty', function() {
