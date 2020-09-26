@@ -234,10 +234,11 @@ function fetchTransactionDetial(payeeID) {
             obj.id = doc.id;
             let tr = `<tr>			
                         <td></td>
+                        <td>${obj.status}</td>
                         <td>${obj.cheque_no}</td>
                         <td>${obj.date}</td>
                         <td>${obj.mode}</td>
-                        <td></td>
+                        <td>${obj.withdrawal}</td>
                         <td>${obj.withdrawal}</td>
                       </tr>`
             $('.partyLedgerPopUpTable tbody').append(tr);
