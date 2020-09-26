@@ -233,7 +233,7 @@ function fetchTransactionDetial(payeeID) {
             var obj = doc.data();
             obj.id = doc.id;
             let tr = `<tr>			
-                        <td></td>
+                        <td>${obj.is_signed}</td>
                         <td>${obj.status}</td>
                         <td>${obj.cheque_no}</td>
                         <td>${obj.date}</td>
