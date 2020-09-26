@@ -246,7 +246,8 @@
             style="padding: 2% 2% 2% 2%; border-bottom: 1px solid #e9e9e9; background: linear-gradient(176deg, #f9f9f9, transparent);">
             <div style="display: inline-flex; width:100%; margin-top: 1%;">
                 <h3 style="width: 100%;margin: 0;line-height: 2;font-weight: 600;font-family: lato;color: #999;">
-			Payment Accounts  <a onclick="openAddPartyModal();">Add customer</a> <a onclick="openPartyLedgerModal();">Customer ledger</a>
+			Payment Accounts  
+                       <!---- <a onclick="openAddPartyModal();">Add customer</a> <a onclick="openPartyLedgerModal();">Customer ledger</a> ---->
                     <p style="
     font-size: 13px;
     font-weight: 100;
@@ -560,8 +561,8 @@ END OF COMMENT for export table function ----->
             <span class="modal-close-btn"  style="background: #efefef;" onclick="closeAddPartyModal();">&times;</span>
             <div class="modal-body">
                 <div>
-                    <h3 class="add-customer-name" style="font-family: poppins-regular;">New Customer</h3>
-                    <h3 class="edit-customer-name" style="font-family: poppins-regular;display: none;">Edit Customer</h3>
+                    <h3 class="add-customer-name" style="font-family: poppins-regular;">New Party</h3>
+                    <h3 class="edit-customer-name" style="font-family: poppins-regular;display: none;">Edit Party</h3>
                     <br/>
 
                 <br>
@@ -571,22 +572,22 @@ END OF COMMENT for export table function ----->
             <input type="text" placeholder="party name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_partyName"></input>
             </div> 
             <label>Phone number :</label>
+                    <label>Image: </label>
+		    <div style="display: flex; justify-content: space-between;background: linear-gradient(45deg, #cccccc, transparent);">
+		        <input type="file" style="width: 305px;height: 104px;background: #3330;border: none;padding-top: 36px;" id="customer_image"></input>                
+			<img id="customer_image_thumbnail" src="img/Placeholder.png" style="height: 105px; width: 115px; display: inline; border-radius: 3px; border: 2px solid rgb(243, 219, 67);"/>
+		    </div>
                     <input type="number" placeholder="phone number" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_phoneNumber"></input>                
 		    <label>Company name (optional) :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_companyName"></input>                
+                    <input type="text" placeholder="company name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_companyName"></input>                
 		    <label>Address (optional) :</label>
                     <input type="text" placeholder="where are they from" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_address"></input>                
 		    <label>Agent (optional) :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_agent"></input>                
+                    <input type="text" placeholder="associated agent" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_agent"></input>                
 		    <label>Reference no (optional) :</label>
-                    <input type="text" placeholder="add name" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_referenceNumber"></input>                
+                    <input type="text" placeholder="add refrence bills" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_referenceNumber"></input>                
 		    <label>Email (optional) :</label>
                     <input type="text" placeholder="add email" style="width: 100%;border: 1px dotted #d0c78a;padding-top: 36px; height: 39px; border-radius: 5px; padding: 0; padding-left: 9px; margin-bottom: 8px;" id="customer_email"></input>                
-            <label>Image: </label>
-                <div style="display: flex; justify-content: space-between;">
-                    <input type="file" style="width: 305px; height: 104px; background: #efefef; border: 2px dashed #615e5e; padding-top: 36px;" id="customer_image"></input>                
-                    <img id="customer_image_thumbnail" src="img/Placeholder.png" style="height: 105px; width: 115px; display: inline; border-radius: 3px; border: 2px solid rgb(243, 219, 67);"/>
-                </div>
                 </div>
                 <br>
                 </div>
@@ -627,7 +628,7 @@ END OF COMMENT for export table function ----->
             <div class="row">
             <div class="col-md-8">
                 <div class="suplier_details_box" style="display: flex;">
-                    <a class="ledger_avatar_initial avatar_user_account_profile" style="line-height: 150px;font-family: inherit;"><img src="img/logodark.png" id="" style="width: 150px;
+                    <a class="ledger_avatar_initial avatar_user_account_profile" style="line-height: 150px;font-family: inherit;border: 2px solid #333;"><img src="img/Profilepic.png" id="" style="width: 150px;
     height: 150px;
     background: #333;
     border-radius: 90px;"></a>
@@ -637,7 +638,7 @@ END OF COMMENT for export table function ----->
                             <div class="party-ledger-information" style="display: grid;margin-left: 5%;">
 			       <div class="div-row"><b>Party Name :</b><u>John Doe</u></div>
                                 <div class="div-row"><b>Phone number :</b><u>9876543210</u></div>
-				 <b>Other Custom Details :----</b>
+				 <b style="color: #00000073;font-weight: 200;text-transform: uppercase;">Other Custom Details :----</b>
                                 <div class="div-row"><b>Company :</b><u>--------</u></div>
                                 <div class="div-row"><b>Agent:</b><u>---------</u></div>
                                 <div class="div-row"><b>------:</b><u>-------</u></div>
@@ -672,6 +673,9 @@ END OF COMMENT for export table function ----->
                         </tr>
                     </thead>
                     <tbody id=" ">
+                        <tr id='' class="loading_rows">
+                            <td colspan="6"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
+                        </tr>
                         <!-- FIREBAE DATA WILL COME HERE -->
                             <!-- <tr>			
                             <td></td>
@@ -707,9 +711,6 @@ END OF COMMENT for export table function ----->
                             </tr> -->
                     </tbody>
                     <tfoot>
-                        <tr id='' class="loading_rows">
-                            <td colspan="6"><img src="img/loader.svg" /> &nbsp; Loading table results...</td>
-                        </tr>
                         <tr>
                             <th colspan="4" style="text-align: right; padding-right: 18px;">Grand Total</th>
                             <th id=''>-----</th>
@@ -1005,7 +1006,7 @@ END OF COMMENT for export table function ----->
                     $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty" style="padding: 6px;height: 20px;display: inline-table;">Add Party</a>');
             });
             $("#payee").select2({
-                placeholder: "Name of Buyer or Supplier"
+                placeholder: "Select Buyer or Supplier"
             }).on('select2:open', () => {
                     $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty-transaction" style="padding: 6px;height: 20px;display: inline-table;">Add Party</a>');
             });
