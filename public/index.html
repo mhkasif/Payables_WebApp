@@ -179,7 +179,7 @@
 
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-        style="padding: 0 15px;background-color: #343434; z-index: 1;">
+        style="padding: 0 15px;background-color: #272005; z-index: 1;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
@@ -408,7 +408,7 @@
 
         <ul class="timeline" id="all-transactions">
             <li class="timelinePart" id="add-entry-all">
-                <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #343434);
+                <p class="timeline-date" style="background: linear-gradient(157deg, #393939, #272005);
     color: #fff;
     border-top-left-radius: 34px;
     border-bottom-left-radius: 30px;
@@ -1009,12 +1009,12 @@ END OF COMMENT for export table function ----->
             $(".customer_partyName").select2({
                 placeholder: 'Select an option'
             }).on('select2:open', () => {
-                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty" style="padding: 10px;height: 20px;display: inline-table;width: 100%;background: #343434;color: #fff;">Add Party</a>');
+                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty" style="padding: 10px;height: 20px;display: inline-table;width: 100%;background: #272005;color: #fff;">Add Party</a>');
             });
             $("#payee").select2({
                 placeholder: "Select Buyer or Supplier"
             }).on('select2:open', () => {
-                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty-transaction" style="padding: 10px;height: 20px;display: inline-table;width: 100%;background: #343434;color: #fff;">Add Party</a>');
+                    $(".select2-results:not(:has(a))").append('<a href="javascript:void(0);" class="select2-add-newParty-transaction" style="padding: 10px;height: 20px;display: inline-table;width: 100%;background: #272005;color: #fff;">Add Party</a>');
             });
 
             $(document).on('click', '.select2-add-newParty', function() {
