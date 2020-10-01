@@ -228,10 +228,16 @@
                     <thead>
                         <tr>
                             <th>Team name</th>
+                            <th>Allocate budget</th>
+                            <th>From timeline</th>
+                            <th>To timeline</th>
                             <th style="width: 9%;">Action</th>
                         </tr>
                         <tr>
                             <th><input type="text" id="group-name" placeholder="Enter team head"></th>
+                            <th><input type="number" id="" placeholder="Allocate budget"></th>
+                            <th><input type="date" id="" placeholder="From timeline"></th>
+                            <th><input type="date" id="" placeholder="To timeline"></th>
                             <th><button onclick="SwalConfirmBox('Are you sure to add?','AddCollaboratorGroup();')"><i class="fas fa-plus"></i> &nbsp; Add
                                     Team</button></th>
                         </tr>
@@ -241,7 +247,7 @@
 
                     </tbody>
                     <tr id="loading_rows_tr_group" class="loading_rows">
-                        <td colspan="2"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
+                        <td colspan="5"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
                     </tr>
                 </table>
             </div>
