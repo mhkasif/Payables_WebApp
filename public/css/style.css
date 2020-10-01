@@ -88,7 +88,7 @@ color: #adadad;
 
 /*Had an issue with width so added this media patch, shift when ready*/
 .navbar-header {
-    width: 50%;
+
 }
 
 .navbar-brand{
