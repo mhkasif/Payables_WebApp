@@ -697,7 +697,7 @@ function getTrasactionsAll() {
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
-                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #343434;line-height: 4;font-size: 16px;width: 23px;text-align: center;border-radius: 6px;"></i> </a>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #cac9c9;line-height: 2;font-size: 14px;width: 23px;text-align: center;border-radius: 6px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
@@ -899,7 +899,7 @@ function getTrasactionsAllPagination() {
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="fas fa-question-circle" data-title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
-                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #cac9c9;line-height: 2;font-size: 14px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
@@ -1107,7 +1107,7 @@ function getTrasactionsByAccount(id) {
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
-                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #cac9c9;line-height: 2;font-size: 14px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
@@ -1309,7 +1309,7 @@ function getTrasactionsByAccountPagination(id) {
                 '                    <h3 style="font-weight: 300;">' + weekday[new Date(key).getDay()] +
                 '                      <span id="remainingfromtotal" style="display:none;">' + totalAmount + '</span> &nbsp;<a class="totalBalance" style="float:right;color: #737373;">' +
                 '<i class="fas fa-question-circle" title="This is the balance that is after deduction and to be carry forward to the next payment day"></i> &nbsp; <u>Balance carry forward :</u>' +
-                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i> </a>' +
+                '                            ' + (totalAmount) + ' &nbsp; <i class="fas fa-level-down-alt" style="position: absolute;color: #cac9c9;line-height: 2;font-size: 14px;"></i> </a>' +
                 '                        <a class="alert_notification_tag"  style="display:' + ((totalAmount < 0 && (!isSubmitter && !isApprover)) ? "block;" : "none;") + '"> <i' +
                 '                                class="fas fa-exclamation-circle"></i>' +
                 '                            &nbsp;' +
@@ -1432,7 +1432,7 @@ function refreshAllCalculations() {
         var balanceElement = '<i class="fas fa-question-circle" data-title="This is the balance that is after deduction and to be carry forward to the next payment day">' +
             '</i> &nbsp; <u>Balance carry forward :</u>' +
             '' + totalAmount + ' &nbsp; ' +
-            '<i class="fas fa-level-down-alt" style="position: absolute;color: #9999; line-height: 2; font-size: 16px;"></i>';
+            '<i class="fas fa-level-down-alt" style="position: absolute;color: #cac9c9;line-height: 2;font-size: 14px;"></i>';
         $(vv).find("a.totalBalance").html(balanceElement);
         if (totalAmount < 0 && (!isSubmitter && !isApprover)) {
             $(vv).find(".alert_notification_tag").show();
