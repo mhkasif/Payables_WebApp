@@ -188,11 +188,15 @@
                 <table class="saved_table">
                     <thead>
                         <tr>
-                            <th>Type</th>
+                            <th>Expense Name</th>
+                            <th>Maximum spend per transaction</th>
+                            <th>Budget per month</th>
                             <th style="width: 9%;">Action</th>
                         </tr>
                         <tr>
                             <th><input type="text" id="expense_type" placeholder="Enter Expense category"></th>
+                            <th><input type="number" id="" placeholder="Spending per month"></th>
+                            <th><input type="text" id="" placeholder="Spending per month"></th>
                             <th><button onclick="SwalConfirmBox('Are you sure to add?','AddExpenseType();')"><i class="fas fa-plus"></i> &nbsp; Add Expense
                                     Category</button></th>
                         </tr>
@@ -202,10 +206,10 @@
 
                     </tbody>
                     <tr id="loading_rows_tr" class="loading_rows">
-                        <td colspan="2"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
+                        <td colspan="4"><i class="fas fa-spinner"></i> &nbsp; Loading table results...</td>
                     </tr>
                     <tr id="nodata_rows_tr" style="display: none;" class="loading_rows">
-                        <td colspan="2"> &nbsp; No record found</td>
+                        <td colspan="4"> &nbsp; No expense types added</td>
                     </tr>
                 </table>
             </div>
