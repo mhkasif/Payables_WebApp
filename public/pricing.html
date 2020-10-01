@@ -59,9 +59,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"><img src="img/logodark.png" style="padding: 0px;margin-top: -10px;padding-top: 12px;width: 22%;" />
-             <input style="width: 50%;height: 40px;border-radius: 4px;color: #fff;margin-left: 3%;font-size: 15px; background: #4a4a4a;border: 2px solid #656565;" class="balance_input" onkeyup="advance_search_record($(this).val())"
-              placeholder="Search customers & transactions" type="text" />
+            <a class="navbar-brand" href="index"><img src="img/logodark.png" style="width: 172px;" />
+             <form style="display:flex;
+		    height: 41px;
+		    border-radius: 4px;
+		    color: #fff;
+		    margin-left: 3%;
+		    font-size: 15px;
+		    background: #4a4a4a00;
+		    border: 2px solid #585858;
+		    margin-top: 4px;">
+              <span class="searchIcon_11e88" style="padding-left: 5%;padding: 11px;"><svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><path d="M9.383 10.347a5.796 5.796 0 1 1 .965-.964L15 14.036l-.964.964-4.653-4.653zm-3.588-.12a4.432 4.432 0 1 0 0-8.863 4.432 4.432 0 0 0 0 8.863z" fill="#BBB" fill-rule="evenodd"></path></svg></span>           
+              <input style="width: 84%;height: 40px;border-radius: 4px;color: #fff;margin-left: 3%;font-size: 15px;background: #4a4a4a00;border: none;" class="balance_input" onkeyup="advance_search_record($(this).val())"
+              placeholder="Search user ledgers" type="text" />
+             </form>
             </a>
         </div>
 
@@ -72,23 +83,34 @@
                 <!--            <li><a href="#">Link</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
+
                 <li>
-                    <a href="index">
-                        <i class="fas fa-arrow-left"></i> &nbsp; Back to Dashboard
+                    <a href="/index" target="_self">
+                         Transactions
                     </a>
                 </li>
+
+                <li>
+                    <a href="/analytics" target="_self">
+                         Analytics
+                    </a>
+                </li>
+                
                 <li>
                     <a href="/auditlogs" target="_self">
-                        <i class="fas fa-history" style="font-size: 18px;"></i> &nbsp; Audit Logs
+                        Audit Logs
                     </a>
                 </li>
-
                 <li>
-                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" >
-                     Feedback</a>
+                    <a href="/export" target="_self">
+                         Export
+                    </a>
                 </li>
-
-               <li class="dropdown">
+                <li>
+                    <a href="mailto:tulsihelpdesk@gmail.com" target="_blank" style="display: flex;border: 1px solid #888686;padding: 6px 13px;margin: 8px;line-height: 2;border-radius: 4px;opacity: 0.9;"><img src="img/lifesaver.png"/> &nbsp;
+                        Need Help ?</a>
+                </li>               <li class="dropdown">
                     <a class="dropbtn" style="display: flex; height: 62px;"><span id="userimage"><img src="img/Profilepic.webp"
                                 style="max-height: 40px; border-radius: 50%;" /> &nbsp; </span><span id="username" style="margin-left: 10px;">Not
                             LoggedIn</span> &nbsp; <i class="fas fa-angle-down" style="line-height: 48px; margin-left: 4px;"></i></a>
