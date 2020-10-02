@@ -176,6 +176,7 @@ getAccessedUsers();
          var GroupDiv ='<div class="group_div" data-groupname="'+val+'" id="group_'+val+'"><div class="justify-center" style="margin-top:20px;">'+
            ' <a style="display:flex;"><h4 style="width: 100%; text-align: left; color: #949194; font-weight: 500; font-family: lato;">'+val+'</h4>'+
               '     <h4 style="width: 100%; text-align: right; color: #949194; font-weight: 500; font-family: lato;"><span id="mcount_'+val+'"></span> members</h4></a>'+
+              '     <h4 style="width: 100%; text-align: right; color: #949194; font-weight: 500; font-family: lato;"><span id="mcount_'+val+'"></span> alloted stats</h4></a>'+
               '  <div class="settings_setup_container">'+
                  '   <div><span style="font-weight: bold; color: crimson;" id=""></span></div>'+
                  '   <br>'+
