@@ -12,6 +12,16 @@ color: #adadad;
 }
 
 
+.team-stats-container{
+    width: 100%;
+    border-radius: 7px;
+    padding: 1% 2%;
+    box-shadow: 5px 4px #f0f0f0;
+    font-size: 14px;
+    background: #ffffff;
+    border: 1px solid #3333;
+}
+
 .team-stats {
 display: grid;
     grid-gap: 16px;
