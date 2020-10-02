@@ -18,6 +18,19 @@ color: #adadad;
 }
 
 
+.div-row b {
+
+}
+
+
+.div-row u {
+    font-weight: 500;
+    margin-left: 7px;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+
 .progress {
     display: -webkit-box;
     display: -ms-flexbox;
