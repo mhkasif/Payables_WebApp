@@ -12,14 +12,34 @@ color: #adadad;
 }
 
 
-.team-stats h4 {
+.team-stats {
+display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
 }
 
-.team-stats h6 {
+.team-stats-section {
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: -webkit-center;
+    filter: grayscale(1);
+    color: #808080;
+    border-radius: 7px;
+    padding: 2% 5%;
+    box-shadow: 5px 4px #f0f0f0;
+    font-size: 14px;
+    background: #ffffff;
+    border: 1px solid #3333;
+    width: 94%;
+    margin-bottom: 6%;
 }
 
-.team-stats p{
+.team-stats-section h4{
+    font-weight: 700;
+    font-size: 21px;
 }
+
 
 .party_details_tag{
     background: #f3f3f3;
