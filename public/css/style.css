@@ -12,6 +12,34 @@ color: #adadad;
 }
 
 
+.progress {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 0.3rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+}
+
+.progress-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    background-color: #19c9a0;
+    transition: width .6s ease;
+}
+
 
 .group_div{
     display: block;
