@@ -199,20 +199,23 @@
                         <td>                    
                         <select id='other-type'
                         style="padding: 3px;border-radius: 3px;height: 34px;">
-                        <option value="" selected disabled hidden>--Select--</option>
+                        <option value="" selected disabled hidden>--Select Role--</option>
+                      <optgroup label="Universal Roles --- ">
                         <option>Submitter</option>
                         <option>Approver</option>
-                      <optgroup label="Approval Levels ">
+                        <option id="gadmin">Manager</option>
+                      </optgroup>
+                      <optgroup label="Approval Stages --- ">
                         <option>Approver - First</option>
                         <option>Approver - Second</option>
                         <option>Approver - Third</option>
                       </optgroup>
-                        <option id="gadmin">Manager</option>
                         </select>
                         </td>
                         <td><select id='ddlGroup'>
                         <option value="" selected disabled hidden>--Select--</option>
-                        </select></td>
+                        </select>
+                        </td>
                         <td colspan="2"><button style="width: 100%;background: #5f5c5c;" onclick="AddUserToGiveAccess()"><i class="fas fa-plus"></i> &nbsp; Add Collaborator</button></td>                     
                     </tr>
                     <tr>
