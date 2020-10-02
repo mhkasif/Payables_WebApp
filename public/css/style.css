@@ -12,14 +12,42 @@ color: #adadad;
 }
 
 
+
+.group_div{
+    display: block;
+    margin-top: 21px;
+    background: #fff;
+    padding: 2%;
+    border-radius: 6px;
+    box-shadow: 2px 7px 14px 7px #dadada14;
+    border: 2px solid #f3f3f3;
+    padding-top: 0;
+}
+
+.all_team_container{
+
+}
+
+.each_team_table_container{
+    margin-top: 21px;
+    background: #fff;
+    padding: 2%;
+    border-radius: 6px;
+    box-shadow: 2px 7px 20px 7px #8a8a8a14;
+    border: 2px solid #f3f3f3;
+    padding-top: 0;
+}
+
+
+
 .team-stats-container{
     width: 100%;
-    border-radius: 7px;
+    border-radius: 5px;
     padding: 1% 2%;
-    box-shadow: 5px 4px #f0f0f0;
     font-size: 14px;
-    background: #ffffff;
-    border: 1px solid #3333;
+    background: #fcfcfc;
+    border: 1px solid #aba9a933;
+    margin-top: 1%;
 }
 
 .team-stats {
@@ -35,7 +63,7 @@ display: grid;
     text-align: -webkit-center;
     filter: grayscale(1);
     color: #808080;
-    border-radius: 7px;
+    border-radius: 5px;
     padding: 2% 5%;
     box-shadow: 5px 4px #f0f0f0;
     font-size: 14px;
