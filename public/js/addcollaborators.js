@@ -176,7 +176,7 @@ getAccessedUsers();
          var GroupDiv ='<div class="group_div" data-groupname="'+val+'" id="group_'+val+'"><div class="justify-center" style="margin-top:20px;">'+
            ' <a style="display:flex;"><h4 style="width: 100%; text-align: left; color: #949194; font-weight: 500; font-family: lato;">'+val+'</h4>'+
               '     <h4 style="width: 100%; text-align: right; color: #949194; font-weight: 500; font-family: lato;"><span id="mcount_'+val+'"></span> members</h4></a>'+
-              '     <div style="width: 100%;"> <div class="team-stats"><h6>Total Budget<h4>150758</h4></h6> <h6>Pending Budget<h4>80215</h4></h6> <h6>Spent Budget<h4>70543</h4></h6> <h6>Time period<h4>01/01/2020 - 01/01/2021</h4></h6></div>  <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 1%;"><span class="sr-only">70% Complete</span></div></div></div></a>'+
+              '     <div style="width: 100%;"> <div class="team-stats"><div class="team-stats-section">Total Budget<h4>150758</h4></div> <div class="team-stats-section">Pending Budget<h4>80215</h4></div> <div class="team-stats-section">Spent Budget<h4>70543</h4></div> <div class="team-stats-section">Time period<h4>01/01/2020 - 01/01/2021</h4></div></div>  <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 1%;"><span class="sr-only">70% Complete</span></div></div></div></a>'+
               '  <div class="settings_setup_container">'+
                  '   <div><span style="font-weight: bold; color: crimson;" id=""></span></div>'+
                  '   <br>'+
