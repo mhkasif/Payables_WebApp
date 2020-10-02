@@ -43,7 +43,7 @@ color: #adadad;
 
 
 .group_div{
-    display: block;
+    display: block !important;
     margin-top: 21px;
     background: #fff;
     padding: 2%;
