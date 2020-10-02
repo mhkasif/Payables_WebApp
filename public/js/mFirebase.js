@@ -257,12 +257,12 @@ function fetchPartyLedger(payeeID) {
             var obj = doc.data();
             obj.id = doc.id;
             $('.ledger_avatar_initial.avatar_user_account_profile img').attr('src', obj.customer_photo);
-            var html = `<div style="display: grid;">
+            var html = `<div style="display: inline-block;">
                      <div class="div-row" style="display:none;"><b>Party ID :</b><u>${obj.id}</u></div>
                      <div class="div-row"><b>Party Name :</b><u>${obj.customer_party_name}</u></div>
                      <div class="div-row"><b>Phone number :</b><u>${obj.customer_phone_number}</u></div>
                  </div>
-                <div style="display: grid;">
+                <div style="display: inline-block;margin-left: 22px;">
                      <div class="div-row"><b>Company :</b><u>${obj.customer_company_name}</u></div>
                      <div class="div-row"><b>Agent:</b><u>${obj.customer_agent}</u></div>
                      <div class="div-row"><b>Address:</b><u>${obj.customer_address}</u></div>
