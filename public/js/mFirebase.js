@@ -257,17 +257,18 @@ function fetchPartyLedger(payeeID) {
             var obj = doc.data();
             obj.id = doc.id;
             $('.ledger_avatar_initial.avatar_user_account_profile img').attr('src', obj.customer_photo);
-            var html = `
-            <div class="div-row" style="display:none;"><b>Party ID :</b><u>${obj.id}</u></div>
-            <div class="div-row"><b>Party Name :</b><u>${obj.customer_party_name}</u></div>
-                         <div class="div-row"><b>Phone number :</b><u>${obj.customer_phone_number}</u></div>
-          <b>Other Custom Details :----</b>
-                         <div class="div-row"><b>Company :</b><u>${obj.customer_company_name}</u></div>
-                         <div class="div-row"><b>Agent:</b><u>${obj.customer_agent}</u></div>
-                         <div class="div-row"><b>Address:</b><u>${obj.customer_address}</u></div>
-                         <div class="div-row"><b>Reference Number:</b><u>${obj.customer_reference_number}</u></div>
-                         <div class="div-row"><b>Email:</b><u>${obj.customer_email}</u>
-                     </div>`
+            var html = `<div style="display: grid;">
+                     <div class="div-row" style="display:none;"><b>Party ID :</b><u>${obj.id}</u></div>
+                     <div class="div-row"><b>Party Name :</b><u>${obj.customer_party_name}</u></div>
+                     <div class="div-row"><b>Phone number :</b><u>${obj.customer_phone_number}</u></div>
+                 </div>
+                <div style="display: grid;">
+                     <div class="div-row"><b>Company :</b><u>${obj.customer_company_name}</u></div>
+                     <div class="div-row"><b>Agent:</b><u>${obj.customer_agent}</u></div>
+                     <div class="div-row"><b>Address:</b><u>${obj.customer_address}</u></div>
+                     <div class="div-row"><b>Reference Number:</b><u>${obj.customer_reference_number}</u></div>
+                     <div class="div-row"><b>Email:</b><u>${obj.customer_email}</u></div>
+                 </div>`
             $('#customerledger-modal .suplier_details_box .party-ledger-information').append(html);
         });
     });
