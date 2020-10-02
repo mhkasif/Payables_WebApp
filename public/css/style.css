@@ -12,6 +12,12 @@ color: #adadad;
 }
 
 
+.div-row {
+    height: 30px;
+    padding: 4px;
+}
+
+
 .progress {
     display: -webkit-box;
     display: -ms-flexbox;
