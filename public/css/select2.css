@@ -6,6 +6,7 @@
     vertical-align: middle
 }
 
+
     .select2-container .select2-selection--single {
         box-sizing: border-box;
         cursor: pointer;
@@ -400,8 +401,9 @@
 }
 
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
-    background-color: #5897fb;
-    color: white
+    background-color: #fefefe;
+    color: #272005;
+    text-decoration: underline;
 }
 
 .select2-container--default .select2-results__group {
