@@ -1626,6 +1626,8 @@ function updateTrasaction(id) {
      }
      
     
+    //  payee: $("#payee option:selected").text(),
+    //     payeeID: document.getElementById('payee').value,
     tblAccountCheques.doc(id).update({
         account_id: document.getElementById('account-list').value,
         bank: document.getElementById('account-list').options[document.getElementById('account-list').selectedIndex].text,
@@ -1635,7 +1637,8 @@ function updateTrasaction(id) {
         UserID: userid,
         mode: document.getElementById('mode').value,
         order_sequence: 0,
-        payee: document.getElementById('payee').value,
+        payee: $("#payee option:selected").text(),
+        payeeID: document.getElementById('payee').value,
         status: document.getElementById('status').value,
         withdrawal: document.getElementById('withdrawal').value
     }).then(function (docRef) {
@@ -1661,7 +1664,8 @@ function updateTrasaction(id) {
         flag: false,
         mode: document.getElementById('mode').value,
         order_sequence: 0,
-        payee: document.getElementById('payee').value,
+        payeeID: document.getElementById('payee').value,
+        payee: $("#payee option:selected").text(),
         status: document.getElementById('status').value,
         withdrawal: document.getElementById('withdrawal').value
     };
@@ -2026,11 +2030,16 @@ function editRecord(id) {
             return;
         }
     document.getElementById('transaction_id').value = id;
+    console.log(record.account_id);
     document.getElementById('account-list').value = record.account_id;
     document.getElementById('cheque_no').value = record.cheque_no;
     document.getElementById('transaction_date').value = record.date;
     document.getElementById('mode').value = record.mode;
-    document.getElementById('payee').value = record.payee;
+    console.log(record.payeeID);
+    console.log(document.getElementById('payee'));
+    
+    document.querySelector('.select2-selection__placeholder').innerHTML = record.payee;
+    document.getElementById('payee').value = record.payeeID;
     document.getElementById('status').value = record.status;
     document.getElementById('withdrawal').value = record.withdrawal;
     if (record.status == "Un Clear")
