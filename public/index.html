@@ -189,7 +189,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index"><img src="img/logodark.png" style="width: 172px;" />
+            <a class="navbar-brand"><img onclick="location.assign('index')" src="img/logodark.png" style="width: 172px;" />
              <form style="display:flex;
 		    height: 41px;
 		    border-radius: 4px;
@@ -200,8 +200,9 @@
 		    border: 2px solid #585858;
 		    margin-top: 4px;">
               <span class="searchIcon_11e88" style="padding-left: 5%;padding: 11px;"><svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><path d="M9.383 10.347a5.796 5.796 0 1 1 .965-.964L15 14.036l-.964.964-4.653-4.653zm-3.588-.12a4.432 4.432 0 1 0 0-8.863 4.432 4.432 0 0 0 0 8.863z" fill="#BBB" fill-rule="evenodd"></path></svg></span>           
-              <input style="width: 84%;height: 40px;border-radius: 4px;color: #fff;margin-left: 3%;font-size: 15px;background: #4a4a4a00;border: none;" class="balance_input" onkeyup="advance_search_record($(this).val())"
+              <input list="partyNames" style="width: 84%;height: 40px;border-radius: 4px;color: #fff;margin-left: 3%;font-size: 15px;background: #4a4a4a00;border: none;" class="balance_input" onkeyup="advance_search_record($(this).val())"
               placeholder="Search user ledgers" type="text" />
+              <datalist id="partyNames"></datalist>
              </form>
             </a>
         </div>
@@ -232,7 +233,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/export" target="_self">
+                    <a href="/export.html" target="_self">
                          Export
                     </a>
                 </li>
@@ -725,7 +726,7 @@ END OF COMMENT for export table function ----->
                         <button type="button" href="#" onclick="editPartyLedgerModal()" id="Edit-Profile" style="background: #e6f5f2;color: #438645;font-weight: 600;padding: 5px;padding-right: 32px;width: fit-content;justify-self: right;"> <i class="fas fa-pen"></i> &nbsp; Edit profile</button>
                         <br>
                         <div  class="credit_time">
-                        <h5 style="line-height: 2;background: #fff3;text-align: center;font-size: 18px;padding: 3px;border-radius: 5px;font-weight: 300;text-align: right; padding-right: 10px;"><b>Balance : 5570 Cr</b></h5>
+                        <h5 style="line-height: 2;background: #fff3;text-align: center;font-size: 18px;padding: 3px;border-radius: 5px;font-weight: 300;text-align: right; padding-right: 10px;"><b id="partyBalance">Balance : 5570 Cr</b></h5>
                         </div>
                 </div>
             </div>
@@ -786,8 +787,8 @@ END OF COMMENT for export table function ----->
                     <tfoot>
                         <tr>
                             <th colspan="5" style="text-align: right; padding-right: 18px;">Grand Total</th>
-                            <th id=''>-----</th>
-                            <th id=''>------</th>
+                            <th id='partyDebit'>-----</th>
+                            <th id='partyCredit'>------</th>
                         </tr>
                     </tfoot>
                 </table>

@@ -1291,6 +1291,14 @@ width: 205px;
 
 }
 
-
+.todayBtn{
+    width: 60px;
+    background: #0095ff;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: -15px;
+}
 
 

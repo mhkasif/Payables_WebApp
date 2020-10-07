@@ -189,19 +189,19 @@ p {
 										<div class="col-md-4">
 											<div class="statement-selection">
 											     <p>From Date</p>
-                                                                                             <input type="date" style="width: 100%;height: 39px;font-size: 18px;" />
+                                                                                             <input id="fromDate" type="date" style="width: 100%;height: 39px;font-size: 18px;" />
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="statement-selection">
 										            <p>To Date</p>
-                                                                                            <input type="date" style="width: 100%;height: 39px;font-size: 18px;"/>
+                                                                                            <input id="toDate" type="date" style="width: 100%;height: 39px;font-size: 18px;"/>
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="statement-selection">
 												<p>Transaction type</p>
-												<select name="" id="">
+												<select name="" id="transactionType">
                                                                                                         <optgroup label="Accounts Payable & Recieveable --- ">
 													<option>Buyer Additions</option>
 													<option>Supplier Deductions</option>
@@ -247,13 +247,13 @@ p {
 											</div>
 										</div>
 										<div class="col-md-4">
-												<button id="csv_btn" class="blue" style="margin-top: 26px; width: 100%;">Generate Report</button>
+												<button id="csv_btn" onclick="generateReport()" class="blue" style="margin-top: 26px; width: 100%;">Generate Report</button>
 										</div>
 									</div>
 								</div>
 								<div class="report-table-area">
 						
-						<table  id="search_table" class="table text-center" style="margin-top: 3%;">
+						<table  id="search_table" class="exportTable table text-center" style="margin-top: 3%;">
 				
 					<thead>
 					   <tr>
@@ -354,7 +354,7 @@ p {
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
 
     <script defer src="js/mFirebase.js"></script>
-
+    <script src="js/export.js"></script>
 </body>
 
 </html>
