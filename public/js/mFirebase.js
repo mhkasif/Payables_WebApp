@@ -671,6 +671,7 @@ function getTrasactionsAll() {
                     '                                <td data-title="'+(myRecord.submitter?myRecord.submitter+"-"+myRecord.group:"")+'"><a class="submitter_initial">'+(myRecord.submitter?myRecord.submitter.substring(0,1):"-")+'</a></td>' +
                     '                                <td class="invoice_cheque_number">' + (myRecord.cheque_no ? "#" : "") + '<span>' + myRecord.cheque_no + '</span></td>' +
                     '                                <td><span class="party_details_tag '+myRecord.payeeID+'">' + myRecord.payee + '</span></td>' +
+//Party_details_tag_ID is creating  a few issues, cus party is getting saved based on UID --- SEE TO IT
                     '                                <td style="display:none;"><span class="party_details_tag_ID">' + myRecord.payeeID + '</span></td>' +
                     '                                <td><span>' + myRecord.mode + '</span></td>' +
                     '                                <td><span>' + myRecord.bank + '</span></td>' +
