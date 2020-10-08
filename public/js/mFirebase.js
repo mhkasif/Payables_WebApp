@@ -715,6 +715,8 @@ function GetTransactionGeneral(account_id) {
 
 //Get All transactions on initial load
 function getTrasactionsAll() {
+  let startDate,endDate;
+  const oneDay = 24 * 60 * 60 * 1000;
   clearTransactionFields();
 
   tblAccountCheques = db
@@ -1002,7 +1004,13 @@ function getTrasactionsAll() {
         "                </div>" +
         "            </li>";
       $("#all-transactions").append(myLi);
+      if(!startDate)
+        startDate = new Date(key);
+      endDate = new Date(key);
       if (totalAmount < sumOfAmount) {
+        endDate.setDate(endDate.getDate()-2);
+        let cashFlowDays = Math.round(Math.abs((endDate - startDate) / oneDay));
+        document.querySelector('#cashFlowDays').innerHTML = cashFlowDays;
         $("alert_notification_" + accountid).show();
       } else {
         $("alert_notification_" + accountid).hide();
@@ -1391,7 +1399,8 @@ function getTrasactionsAllPagination() {
 //READ : All transactions under the 'All Bank/Payment Sources' TAB , to show transactions from all sources.
 
 function getTrasactionsByAccount(id) {
-  console.log(id);
+  let startDate,endDate;
+  const oneDay = 24 * 60 * 60 * 1000;
   clearTransactionFields();
   tblAccountCheques = db
     .collection("tbl_account_cheques")
@@ -1593,12 +1602,16 @@ function getTrasactionsByAccount(id) {
       }
       var draggablekey = key.split("/").join("_");
       totalAmount = totalAmount + sumOfAmount;
+      let todayBtn = "";
+      if(new Date(key).getDate() === new Date().getDate()){
+        todayBtn = "<div class='todayBtn'>Today</div>";
+      }
       var myLi =
         "<li " +
         (trCount == 0 ? "style='display:none;'" : "") +
         ' class="timelinePart records ' +
         weekday[new Date(key).getDay()] +
-        '">' +
+        '">' + todayBtn+
         '                <p class="timeline-date">' +
         (new Date(key).getDate() +
           "/" +
@@ -1667,7 +1680,13 @@ function getTrasactionsByAccount(id) {
         "                </div>" +
         "            </li>";
       $("#all-transactions").append(myLi);
+      if(!startDate)
+      startDate = new Date(key);
+      endDate = new Date(key);
       if (totalAmount < sumOfAmount) {
+        endDate.setDate(endDate.getDate()-2);
+        let cashFlowDays = Math.round(Math.abs((endDate - startDate) / oneDay));
+        document.querySelector('#cashFlowDays').innerHTML = cashFlowDays;
         $("alert_notification_" + accountid).show();
       } else {
         $("alert_notification_" + accountid).hide();

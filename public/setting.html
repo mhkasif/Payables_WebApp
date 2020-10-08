@@ -218,8 +218,8 @@
                         </tr>
                         <tr>
                             <th><input type="text" id="expense_type" placeholder="Enter Expense category"></th>
-                            <th><input type="number" id="" placeholder="Spending per month"></th>
-                            <th><input type="text" id="" placeholder="Spending per month"></th>
+                            <th><input type="number" id="expense_max" placeholder="Spending per month"></th>
+                            <th><input type="text" id="expense_budget_month" placeholder="Spending per month"></th>
                             <th><button onclick="SwalConfirmBox('Are you sure to add?','AddExpenseType();')"><i class="fas fa-plus"></i> &nbsp; Add Expense
                                     Category</button></th>
                         </tr>
@@ -512,6 +512,13 @@
                                     refId: UserObject.uid,
                                     user: localStorage.getItem("user"),
                                     collection: 'tbl_expense_type'
+                                }).then(function(){
+                                    let obj = {
+                                        type: $("#expense_type").val(),
+                                        budjetPerMonth:  $("#expense_budget_month").val(),
+                                        maxPerTransactio: $("#expense_max").val()
+                                    }
+                                    db.collection("tbl_expenses").add(obj);
                                 });
                                 $("#expense_type").val("");
                                 getUserExpenseTypes();
