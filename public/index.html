@@ -292,7 +292,7 @@
             <h5 class="message_notify" id="quickHackMessage" style="margin-left: 0;"> <a><i class="fas fa-info-circle"></i> &nbsp;
 		    Cashflow : <b>8</b> days only </a>Keeping an eye on all bank accounts to get an exact idea when your business will go out of operating cashflow. &nbsp; <b href="#">know more tips</b>
             </h5>
-            <div class="tab" id="tabs-accounts">
+            <div class="tab" style="float: right;" id="tabs-accounts">
                 <button class="tablinks" data-accid="defaultOpen" id="defaultOpen" onclick="openTab(event, 'All')"
                     style="background: repeating-linear-gradient(379deg, #fff7da, #ffffff 155px); border-color: #ffcb1a;">
                     <i class="fas fa-university" style="background: #ffd54a;"></i><br><b style="color: #f9c724;">Total
@@ -313,6 +313,14 @@
             </div>
         </div>
     </div>
+    <div style="width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 50px;"><button id="hideBanksBtn" onclick="hideBanks()" style="background: #0095ff;
+    padding: 4px 17px;
+    border-radius: 8px;
+    border-color: transparent;
+">Hide&nbsp;<b>&#9650;</b></button></div>
     <div class="tabcontent" id="All">
         <ul class="timeline balance_in_account_bar">
             <li class="timelinePart">

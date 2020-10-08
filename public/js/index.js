@@ -615,3 +615,23 @@ function specificBalanceInputField(id, value, e) {
     });
   }
 }
+
+let tab = document.querySelector('#tabs-accounts');
+tab.style.transition = "all 300ms";
+document.querySelector('#tabs-accounts');
+function hideBanks(){
+  let hideBankBtn = document.querySelector('#hideBanksBtn');
+  let tab = document.querySelector('#tabs-accounts');
+  tab.style.overflow = "hidden";
+  tab.style.height = "0";
+  hideBankBtn.setAttribute("onclick","showBanks()");
+  hideBankBtn.innerHTML = "Show&nbsp;<b>&#9660;</b>";
+}
+function showBanks(){
+  let hideBankBtn = document.querySelector('#hideBanksBtn');
+  let tab = document.querySelector('#tabs-accounts');
+  tab.style.overflow = "visible";
+  tab.style.height = `auto`;
+  hideBankBtn.setAttribute("onclick","hideBanks()");
+  hideBankBtn.innerHTML = "Hide&nbsp;<b>&#9650;</b>";
+}
