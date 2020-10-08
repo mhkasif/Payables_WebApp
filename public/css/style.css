@@ -1,8 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39&display=swap');
-
-
-
 body{
 background-color: #fbfbfb;
 }
@@ -824,10 +820,8 @@ zoom: 86%;
    opacity: 0.6;
   }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
 * {
- font-family: lato !important;
+ font-family: lato;
 }
 
 .responsive-table {
