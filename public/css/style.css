@@ -7,8 +7,14 @@ background-color: #fbfbfb;
 color: #adadad;
 }
 
-
-
+stripe_console_button{
+ color: #846c15;
+ background: #fffffff2;
+ padding: 10px;
+ border-radius: 6px;
+ margin-right: 2%;
+ font-family: lato;
+}
 
 
 .modal-close-btn {
