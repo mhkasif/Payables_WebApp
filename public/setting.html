@@ -262,9 +262,9 @@
                         </tr>
                         <tr>
                             <th><input type="text" id="group-name" placeholder="Enter team head"></th>
-                            <th><input type="number" id="" placeholder="Allocate budget"></th>
-                            <th><input type="date" id="" placeholder="From timeline"></th>
-                            <th><input type="date" id="" placeholder="To timeline"></th>
+                            <th><input type="number" id="group-budget" placeholder="Allocate budget"></th>
+                            <th><input type="date" id="group-fromdate" placeholder="From timeline"></th>
+                            <th><input type="date" id="group-todate" placeholder="To timeline"></th>
                             <th><button onclick="SwalConfirmBox('Are you sure to add?','AddCollaboratorGroup();')"><i class="fas fa-plus"></i> &nbsp; Add
                                     Team</button></th>
                         </tr>
@@ -576,6 +576,7 @@
                             user: localStorage.getItem("user"),
                             collection: 'tbl_expense_type'
                         });
+                        
                         getUserExpenseTypes();
                         SwalAlert("Expense type Deleted","success");
 
@@ -642,8 +643,38 @@
                                     refId: UserObject.uid,
                                     user: localStorage.getItem("user"),
                                     collection: 'Groups'
+                                }).then(function(){                                    
+                                    var gname = $("#group-name").val();
+                                    var gbudget = $("#group-budget").val();
+                                    var gfromDate = $("#group-fromdate").val();
+                                    var gtoDate = $("#group-todate").val();
+                                    let obj = {
+                                        name: gname,
+                                        UserID: localStorage.getItem("userid"),
+                                        budget: gbudget,
+                                        fromDate: gfromDate,
+                                        toDate: gtoDate,
+                                        spentBudget: 0,
+                                        pendingBudget: 0
+                                    };
+                                    console.log(obj);
+                                    db.collection("tbl_groups")
+                                        .add(obj)
+                                        .then(function () {
+                                        db.collection("tbl_audit_log").add({
+                                            content: `New Team <b>${gname}</b> added into system`,
+                                            now: new Date().getTime(),
+                                            groupid: localStorage.getItem("groupid"),
+                                            party: "",
+                                            date: "",
+                                            amount: "",
+                                            refId: localStorage.getItem("userid"),
+                                            user: localStorage.getItem("user"),
+                                            collection: "tbl_groups",
+                                        });
+                                        });
                                 });
-                                $("#group-name").val("");
+                                // $("#group-name").val("");
                                 getGroups();
 
                             });
@@ -671,8 +702,12 @@
                             amount: '',
                             refId: UserObject.uid,
                             user: localStorage.getItem("user"),
-                            collection: 'tbl_expense_type'
+                            collection: 'tbl_expense_type,tbl_groups'
                         });
+                        db.collection("tbl_groups").where("UserID", "==", localStorage.getItem("userid")).where("name","==",data).get().then(function(querySnapshot){
+                            var document = querySnapshot.docs[0].id;
+                            db.collection("tbl_groups").doc(document).delete();
+                        })
                         getGroups();
                         SwalAlert("Group Deleted","success");
                     });
