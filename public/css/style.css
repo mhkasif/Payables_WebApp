@@ -8,6 +8,44 @@ color: #adadad;
 }
 
 
+
+
+
+.modal-close-btn {
+    font-size: 25px;
+    padding: 5px;
+    right: 13px;
+    width: 45px;
+    height: 45px;
+    box-shadow: none;
+    margin: 5px;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    z-index: 3;
+    background: #3a3a3a1a;	
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 45%;
+    height: 75%;
+    border-radius: 12px;
+    font-weight: 700;
+    padding: 1% 1%;
+    width: 500px;
+    height: 614px;
+    box-shadow: 9px 10px 20px 10px #696969;
+    margin: 3% auto;
+    border: none;
+    border-radius: 0;
+}
+
+
+
 .div-row {
     height: 30px;
     padding: 4px;
