@@ -751,11 +751,26 @@ font-family: lato;
 }
 
 
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1400px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+
+}
+
 /* ----------- Non-Retina Screens ----------- */
 @media screen 
   and (min-device-width: 1200px) 
   and (max-device-width: 1600px) 
   and (-webkit-min-device-pixel-ratio: 1) { 
+html {
+zoom: 86%;
+}
+.timeline>li a {
+    zoom: 112%;
+}
 }
 
 /* ----------- Retina Screens ----------- */
