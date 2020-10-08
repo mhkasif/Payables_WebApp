@@ -4,13 +4,13 @@
 }
 
 
-stripe_console_button{
- color: #846c15;
- background: #fffffff2;
- padding: 10px;
- border-radius: 6px;
- margin-right: 2%;
- font-family: lato;
+.stripe_console_button{
+    padding: 12px;
+    background: #fff;
+    color: #866d10;
+    border-radius: 12px;
+    margin-right: 2%;
+    font-family: lato;
 }
 
 .columns {
