@@ -515,12 +515,15 @@
                                 }).then(function(){
                                     let obj = {
                                         type: $("#expense_type").val(),
-                                        budjetPerMonth:  $("#expense_budget_month").val(),
-                                        maxPerTransactio: $("#expense_max").val()
+                                        monthlyBudget:  $("#expense_budget_month").val(),
+                                        maxPerTransaction: $("#expense_max").val(),
+                                        UserID: localStorage.getItem("userid")
                                     }
-                                    db.collection("tbl_expenses").add(obj);
+                                    db.collection("tbl_users").doc(document.id).collection("expenses").add(obj).then(function(){
+                                        $("#expense_type").val("");
+                                    })
                                 });
-                                $("#expense_type").val("");
+                                
                                 getUserExpenseTypes();
 
                             });
@@ -582,6 +585,11 @@
                             refId: UserObject.uid,
                             user: localStorage.getItem("user"),
                             collection: 'tbl_expense_type'
+                        }).then(function(){
+                            db.collection("tbl_users").doc(document.id).collection("expenses").where("type",'==',data).get().then(function(query){
+                                var doc = query.docs[0];
+                                db.collection("tbl_users").doc(document.id).collection("expenses").doc(doc.id).delete();
+                            })
                         });
                         
                         getUserExpenseTypes();
