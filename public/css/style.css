@@ -1,8 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39&display=swap');
-
-
-
 body{
 background-color: #fbfbfb;
 }
@@ -10,6 +6,50 @@ background-color: #fbfbfb;
 .statement-selection p{
 color: #adadad;
 }
+
+stripe_console_button{
+ color: #846c15;
+ background: #fffffff2;
+ padding: 10px;
+ border-radius: 6px;
+ margin-right: 2%;
+ font-family: lato;
+}
+
+
+.modal-close-btn {
+    font-size: 25px;
+    padding: 5px;
+    right: 13px;
+    width: 45px;
+    height: 45px;
+    box-shadow: none;
+    margin: 5px;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    z-index: 3;
+    background: #3a3a3a1a;	
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 45%;
+    height: 75%;
+    border-radius: 12px;
+    font-weight: 700;
+    padding: 1% 1%;
+    width: 500px;
+    height: 614px;
+    box-shadow: 9px 10px 20px 10px #696969;
+    margin: 3% auto;
+    border: none;
+    border-radius: 0;
+}
+
 
 
 .div-row {
@@ -751,11 +791,26 @@ font-family: lato;
 }
 
 
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1400px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+
+}
+
 /* ----------- Non-Retina Screens ----------- */
 @media screen 
   and (min-device-width: 1200px) 
   and (max-device-width: 1600px) 
   and (-webkit-min-device-pixel-ratio: 1) { 
+html {
+zoom: 86%;
+}
+.timeline>li a {
+    zoom: 112%;
+}
 }
 
 /* ----------- Retina Screens ----------- */
@@ -809,10 +864,8 @@ font-family: lato;
    opacity: 0.6;
   }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
 * {
-  font-family: 'Open Sans', sans-serif;
+ font-family: lato;
 }
 
 .responsive-table {
@@ -965,7 +1018,7 @@ img {
     border-right: 1px solid #474747;
     font-size: 16px;
     background: #272005;
-    font-family: fantasy;
+    font-family: lato;
     font-weight: 600;
 }
 

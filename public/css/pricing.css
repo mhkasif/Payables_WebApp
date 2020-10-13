@@ -3,6 +3,16 @@
   font-family: lato;  
 }
 
+
+.stripe_console_button{
+    padding: 12px;
+    background: #fff;
+    color: #866d10;
+    border-radius: 12px;
+    margin-right: 2%;
+    font-family: lato;
+}
+
 .columns {
     float: left;
     width: 33.3%;

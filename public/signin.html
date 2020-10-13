@@ -316,7 +316,7 @@ function sendResetPasswordLink(){
                                                     collection: 'login Activity'
                                                 });
                                                 $("body").show();
-                                                location.href = url + "/index";
+                                                location.href = url + "/index.html";
                                             } else {
                                                 $("body").show();
                                                 UserObject.sendEmailVerification().then(function () {
@@ -356,7 +356,7 @@ function sendResetPasswordLink(){
 
                                                         if (response.length > 0) {
                                                             if (response[0].status == "active" || response[0].status == "trialing") {
-                                                                location.href = url + "/index";
+                                                                location.href = url + "/index.html";
                                                             }
                                                         } else {
                                                             subscribeTrial();

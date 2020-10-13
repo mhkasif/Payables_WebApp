@@ -91,6 +91,16 @@ app.get('/auditlogs', function (req, res) {
   res.render(path);
 });
 
+app.get('/analytics', function (req, res) {
+  const path = __dirname + '/' + process.env.STATIC_DIR + '/analytics.html';
+  res.render(path);
+});
+
+app.get('/export', function (req, res) {
+  const path = __dirname + '/' + process.env.STATIC_DIR + '/export.html';
+  res.render(path);
+});
+
 app.get('/pricing', function (req, res) {
   const path = __dirname + '/' + process.env.STATIC_DIR + '/pricing.html';
   res.render(path);
