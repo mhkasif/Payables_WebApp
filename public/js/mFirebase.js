@@ -6,6 +6,8 @@ var tblUsers, tbl_transaction_notes;
 var lastfetchedRecord;
 var tblPartyLedgers; /* = db.collection("tbl_party_ledgers")*/
 var partyNameIds = [];
+var EXPENSES = []; //ALl Expenses here
+var ALLTRANSACTIONS = []; //All transactions here
 
 //Local storage function to have weekdays
 var current_userid = localStorage.getItem("current_userid");
@@ -164,9 +166,9 @@ function fetchUsers() {
       var obj = doc.data();
       obj.id = doc.id;
       let party = {
-          name: obj.customer_party_name,
-          id: obj.id
-      }
+        name: obj.customer_party_name,
+        id: obj.id,
+      };
       partyNameIds.push(party);
       newOption = new Option(obj.customer_party_name, obj.id, false, false);
       newOption1 = new Option(obj.customer_party_name, obj.id, false, false);
@@ -244,7 +246,8 @@ function UpdateCustomer() {
 }
 
 function fetchTransactionDetial(payeeID) {
-    let debit = 0,credit = 0;
+  let debit = 0,
+    credit = 0;
   $(".partyLedgerPopUpTable tbody").html("");
   tblAccountCheques = db
     .collection("tbl_account_cheques")
@@ -262,7 +265,7 @@ function fetchTransactionDetial(payeeID) {
         doc.data().id = doc.id;
         var obj = doc.data();
         obj.id = doc.id;
-        
+
         if (obj.mode === "Buyer") {
           let tr = `<tr>			
                             <td>${obj.is_signed}</td>
@@ -273,8 +276,8 @@ function fetchTransactionDetial(payeeID) {
                             <td>${obj.withdrawal}</td>
                             <td></td>
                         </tr>`;
-                        $(".partyLedgerPopUpTable tbody").append(tr);
-                        debit+=Number(obj.withdrawal);
+          $(".partyLedgerPopUpTable tbody").append(tr);
+          debit += Number(obj.withdrawal);
         } else if (obj.mode === "Supplier") {
           let tr = `<tr>	    		
                 <td>${obj.is_signed}</td>
@@ -285,10 +288,10 @@ function fetchTransactionDetial(payeeID) {
                 <td></td>
                 <td>${obj.withdrawal}</td>
             </tr>`;
-            $(".partyLedgerPopUpTable tbody").append(tr);
-            credit+=Number(obj.withdrawal);
-        }else{
-            let tr = `<tr>	    		
+          $(".partyLedgerPopUpTable tbody").append(tr);
+          credit += Number(obj.withdrawal);
+        } else {
+          let tr = `<tr>	    		
                 <td>${obj.is_signed}</td>
                 <td>${obj.status}</td>
                 <td>${obj.cheque_no}</td>
@@ -297,14 +300,15 @@ function fetchTransactionDetial(payeeID) {
                 <td></td>
                 <td></td>
             </tr>`;
-            $(".partyLedgerPopUpTable tbody").append(tr);
+          $(".partyLedgerPopUpTable tbody").append(tr);
         }
-        document.querySelector('#partyCredit').innerHTML = credit;
-        document.querySelector('#partyDebit').innerHTML = debit;
-        document.querySelector('#partyBalance').innerHTML = `Balance : ${credit - debit} Cr`;
+        document.querySelector("#partyCredit").innerHTML = credit;
+        document.querySelector("#partyDebit").innerHTML = debit;
+        document.querySelector("#partyBalance").innerHTML = `Balance : ${
+          credit - debit
+        } Cr`;
         // partyBalance
         // Balance : 5570 Cr
-        
       });
     });
 }
@@ -705,6 +709,7 @@ function sortByKey(array, key, isAsc) {
 
 //READ: Get transactions Overall on the basis of conditions
 function GetTransactionGeneral(account_id) {
+  getExpensesList();
   if (account_id) {
     getTrasactionsByAccount(account_id);
   } else {
@@ -715,7 +720,7 @@ function GetTransactionGeneral(account_id) {
 
 //Get All transactions on initial load
 function getTrasactionsAll() {
-  let startDate,endDate;
+  let startDate, endDate;
   const oneDay = 24 * 60 * 60 * 1000;
   clearTransactionFields();
 
@@ -749,7 +754,7 @@ function getTrasactionsAll() {
 
   tblAccountCheques.get().then(function (querySnapshot) {
     console.log(querySnapshot, "Here it came");
-
+    ALLTRANSACTIONS = [];
     querySnapshot.forEach(function (doc) {
       // doc.data() is never undefined for query doc snapshots
       // console.log(doc.id, " => ", doc.data());
@@ -757,6 +762,7 @@ function getTrasactionsAll() {
       var obj = doc.data();
       obj.id = doc.id;
       allTrasactions.push(obj);
+      ALLTRANSACTIONS.push(obj);
     });
     console.log(allTrasactions);
     lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -927,7 +933,7 @@ function getTrasactionsAll() {
       totalAmount = totalAmount + sumOfAmount;
       console.log(key, weekday[new Date(key).getDay()]);
       let todayBtn = "";
-      if(new Date(key).getDate() === new Date().getDate()){
+      if (new Date(key).getDate() === new Date().getDate()) {
         todayBtn = "<div class='todayBtn'>Today</div>";
       }
       var myLi =
@@ -935,7 +941,8 @@ function getTrasactionsAll() {
         (trCount == 0 ? "style='display:none;'" : "") +
         ' class="timelinePart records ' +
         weekday[new Date(key).getDay()] +
-        '">' +todayBtn+
+        '">' +
+        todayBtn +
         '                <p class="timeline-date">' +
         (new Date(key).getDate() +
           "/" +
@@ -1004,13 +1011,12 @@ function getTrasactionsAll() {
         "                </div>" +
         "            </li>";
       $("#all-transactions").append(myLi);
-      if(!startDate)
-        startDate = new Date(key);
+      if (!startDate) startDate = new Date(key);
       endDate = new Date(key);
       if (totalAmount < sumOfAmount) {
-        endDate.setDate(endDate.getDate()-2);
+        endDate.setDate(endDate.getDate() - 2);
         let cashFlowDays = Math.round(Math.abs((endDate - startDate) / oneDay));
-        document.querySelector('#cashFlowDays').innerHTML = cashFlowDays;
+        document.querySelector("#cashFlowDays").innerHTML = cashFlowDays;
         $("alert_notification_" + accountid).show();
       } else {
         $("alert_notification_" + accountid).hide();
@@ -1399,7 +1405,7 @@ function getTrasactionsAllPagination() {
 //READ : All transactions under the 'All Bank/Payment Sources' TAB , to show transactions from all sources.
 
 function getTrasactionsByAccount(id) {
-  let startDate,endDate;
+  let startDate, endDate;
   const oneDay = 24 * 60 * 60 * 1000;
   clearTransactionFields();
   tblAccountCheques = db
@@ -1430,7 +1436,7 @@ function getTrasactionsByAccount(id) {
   groupedRecords = {};
   tblRecordsHtml = "";
   $("#all-transactions li:not([id=add-entry-all])").remove();
-
+  ALLTRANSACTIONS = [];
   tblAccountCheques.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
       // doc.data() is never undefined for query doc snapshots
@@ -1439,6 +1445,7 @@ function getTrasactionsByAccount(id) {
       var obj = doc.data();
       obj.id = doc.id;
       allTrasactions.push(obj);
+      ALLTRANSACTIONS.push(obj);
     });
     console.log(allTrasactions);
     lastfetchedRecord = querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -1603,7 +1610,7 @@ function getTrasactionsByAccount(id) {
       var draggablekey = key.split("/").join("_");
       totalAmount = totalAmount + sumOfAmount;
       let todayBtn = "";
-      if(new Date(key).getDate() === new Date().getDate()){
+      if (new Date(key).getDate() === new Date().getDate()) {
         todayBtn = "<div class='todayBtn'>Today</div>";
       }
       var myLi =
@@ -1611,7 +1618,8 @@ function getTrasactionsByAccount(id) {
         (trCount == 0 ? "style='display:none;'" : "") +
         ' class="timelinePart records ' +
         weekday[new Date(key).getDay()] +
-        '">' + todayBtn+
+        '">' +
+        todayBtn +
         '                <p class="timeline-date">' +
         (new Date(key).getDate() +
           "/" +
@@ -1680,13 +1688,12 @@ function getTrasactionsByAccount(id) {
         "                </div>" +
         "            </li>";
       $("#all-transactions").append(myLi);
-      if(!startDate)
-      startDate = new Date(key);
+      if (!startDate) startDate = new Date(key);
       endDate = new Date(key);
       if (totalAmount < sumOfAmount) {
-        endDate.setDate(endDate.getDate()-2);
+        endDate.setDate(endDate.getDate() - 2);
         let cashFlowDays = Math.round(Math.abs((endDate - startDate) / oneDay));
-        document.querySelector('#cashFlowDays').innerHTML = cashFlowDays;
+        document.querySelector("#cashFlowDays").innerHTML = cashFlowDays;
         $("alert_notification_" + accountid).show();
       } else {
         $("alert_notification_" + accountid).hide();
@@ -2120,6 +2127,10 @@ function refreshAllCalculations() {
 function addupdatetransaction(isUpdate) {
   if (isApprover) {
     swal("You don't have the permission to update entry");
+    return;
+  }
+  if(!checkExpense()){
+    swal("Expense Limit Reached");
     return;
   }
   var errorCount = 0;
@@ -3324,4 +3335,80 @@ function downloadattachment(fname) {
     console.log(url);
     window.open(url, "_blank");
   });
+}
+
+//Get Expenses From Firestore
+async function getExpensesList() {
+  EXPENSES = [];
+  await db
+    .collection("tbl_users")
+    .where("UserID", "==", localStorage.getItem("userid"))
+    .get()
+    .then(async function (querySnapshot) {
+      var dq = querySnapshot.docs[0];
+      await db
+        .collection("tbl_users")
+        .doc(dq.id)
+        .collection("expenses")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach((item) => {
+            let obj = item.data();
+            obj.id = item.id;
+            console.log(obj);
+            EXPENSES.push(obj);
+          });
+        });
+
+      let list = document.querySelector("#companyExpensesList");
+      list.innerHTML = "";
+      EXPENSES.forEach((item) => {
+        let op = `<option class="red-text" value="${item.type}">${item.type}</option>`;
+        list.innerHTML += op;
+      });
+      // db.collection("tbl_users").doc(document.id).collection("expenses").doc("bPNt69jcVUzsY2PMoYci").delete();
+    });
+}
+
+function checkExpense() {
+  let tranType = document.querySelector("#mode").value;
+  let amount = Number(document.querySelector("#withdrawal").value);
+  let withdrawed = 0, expenseBudget =0,expenseMax =0;
+  let date = new Date(document.querySelector('#transaction_date').value);
+    let flag = false;
+
+  ALLTRANSACTIONS.forEach((item) => {
+    if(item.mode === tranType && checkMonthEquals(item.date, date)){
+        withdrawed+=Number(item.withdrawal);
+        date = item.date;
+    }
+  });
+  for(let i = 0;i<EXPENSES.length;i++){
+      if(EXPENSES[i].type === tranType){
+        expenseBudget = Number(EXPENSES[i].monthlyBudget);
+        expenseMax = Number(EXPENSES[i].maxPerTransaction);
+        flag = true;
+        break;
+      }
+  }
+  if(!flag)
+    return true;
+  if(amount<=expenseMax && expenseBudget>= (withdrawed+amount)){
+      return true
+  } else{
+    return false;   
+  }
+}
+
+
+function checkMonthEquals(date1, date2) {
+  date1 = new Date(date1);
+  date2 = new Date(date2);
+
+  if (
+    date1.getFullYear() == date2.getFullYear() &&
+    date1.getMonth() == date2.getMonth()
+  ) {
+    return true;
+  } else return false;
 }
