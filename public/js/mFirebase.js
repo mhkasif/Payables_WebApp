@@ -1011,10 +1011,11 @@ function getTrasactionsAll() {
         "                </div>" +
         "            </li>";
       $("#all-transactions").append(myLi);
-      if (!startDate) startDate = new Date(key);
-      endDate = new Date(key);
-      if (totalAmount < sumOfAmount) {
-        endDate.setDate(endDate.getDate() - 2);
+      startDate = new Date();
+        endDate = new Date(key);
+      document.querySelector("#cashFlowDays").innerHTML = "---";
+      if (Math.sign(totalAmount)==-1 && endDate>=startDate) {
+        endDate.setDate(endDate.getDate());
         let cashFlowDays = Math.round(Math.abs((endDate - startDate) / oneDay));
         document.querySelector("#cashFlowDays").innerHTML = cashFlowDays;
         $("alert_notification_" + accountid).show();
@@ -1688,10 +1689,11 @@ function getTrasactionsByAccount(id) {
         "                </div>" +
         "            </li>";
       $("#all-transactions").append(myLi);
-      if (!startDate) startDate = new Date(key);
-      endDate = new Date(key);
-      if (totalAmount < sumOfAmount) {
-        endDate.setDate(endDate.getDate() - 2);
+      startDate = new Date();
+        endDate = new Date(key);
+      document.querySelector("#cashFlowDays").innerHTML = "---";
+      if (Math.sign(totalAmount)==-1 && endDate>=startDate) {
+        endDate.setDate(endDate.getDate());
         let cashFlowDays = Math.round(Math.abs((endDate - startDate) / oneDay));
         document.querySelector("#cashFlowDays").innerHTML = cashFlowDays;
         $("alert_notification_" + accountid).show();
